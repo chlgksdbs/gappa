@@ -1,0 +1,33 @@
+.main {
+  background-color: #80CEBE;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo{
+  margin-bottom: 2vh;
+  width: 130px;
+  height: auto;
+}
+
+.gappa{
+  margin-top: 5vh;
+  margin-bottom: 25vh;
+  margin-left: 2vw;
+  width: 80%;
+}
+
+.btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-left: 0.5vw;
+}
+
+.btn img{
+  width: 100%;
+}
