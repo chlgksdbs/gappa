@@ -26,14 +26,6 @@ SSAFY 2학기 특화프로젝트
 - **ORM** : JPA
 - **인프라** : AWS EC2
 
-### E-R Diagram
-
-추후 삽입 예정
-
-### ClassDiagram
-
-추후 삽입 예정
-
 ### 🔑Commit Convention
 | 커밋 유형 | 의미 |
 | --- | --- |
@@ -50,6 +42,13 @@ SSAFY 2학기 특화프로젝트
 | !HOTFIX | 급하게 치명적인 버그를 고쳐야 하는 경우 |
 | Modify | 코드 단순 수정 |
 
+### E-R Diagram
+
+추후 삽입 예정
+
+### ClassDiagram
+
+추후 삽입 예정
 
 ## 프로젝트 기획
 
