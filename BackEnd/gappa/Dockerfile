@@ -1,4 +1,4 @@
-// 첫 이미지에 /app/target 폴더에 빌드된 jar파일 생성
+# 첫 이미지에 /app/target 폴더에 빌드된 jar파일 생성
 From gradle:2.7.16-openjdk-11 AS build
 WORKDIR /app
 COPY build.gradle ./
