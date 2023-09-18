@@ -7,9 +7,9 @@ const AccountDetail = () => {
   const money = 2500;
 
   const transactions = [
-    { 형태: "입금", 얼마: 11000, 잔액: 11123 },
-    { 형태: "입금", 얼마: 5000, 잔액: 16123 },
-    { 형태: "출금", 얼마: 3000, 잔액: 13123 }
+    { 형태: "입금", 얼마: 11000, 잔액: 11123, description: "월급", time: "2023-09-18 10:00" },
+    { 형태: "입금", 얼마: 5000, 잔액: 16123, description: "용돈", time: "2023-09-19 14:30" },
+    { 형태: "출금", 얼마: 3000, 잔액: 13123, description: "식비", time: "2023-09-20 12:15" }
   ];
 
   const [filter, setFilter] = useState("전체");
@@ -43,6 +43,8 @@ const AccountDetail = () => {
           <div key={index} className={style.transactionBox}>
             <p className={style.transactionType}>형태: {transaction.형태}</p>
             <p className={style.transactionAmount + (transaction.형태 === '출금' ? ' ' + style.negative : '')}>얼마: {transaction.얼마}원</p>
+            <p>{transaction.description}</p>
+            <p>시간: {transaction.time}</p>
             <p>잔액: {transaction.잔액}원</p>
           </div>
         ))}
