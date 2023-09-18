@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useState, useRef } from 'react';
 import style from './SignupPage.module.css';
 import DaumPostcode from 'react-daum-postcode';
 import Modal from 'react-modal';
@@ -7,6 +7,10 @@ const SignupForm = () => {
   const [openPostcode, setOpenPostcode] = useState(false);
   const [address, setAddress] = useState("");
   const [addressNumber, setAddressNumber] = useState("");
+  const [phone, setPhone] = useState("");
+
+
+  const phoneRef = useRef();
   const handle = {
     // 버튼 클릭 이벤트
     clickButton: () => {
@@ -24,6 +28,48 @@ const SignupForm = () => {
       setOpenPostcode(false);
     },
   }
+  // 휴대폰 번호 자동 하이폰 생성
+  const autoHypenPhone = (e) => {
+    const value = phoneRef.current.value.replace(/\D+/g, "");
+    const phoneLength = 11;
+
+    let result;
+    result = "";
+
+    for (let i = 0; i < value.length && i < phoneLength; i++) {
+      switch (i) {
+        case 3:
+          result += "-";
+          break;
+        case 7:
+          result += "-";
+          break;
+        default:
+          break;
+      }
+
+      result += value[i];
+    }
+
+    phoneRef.current.value = result;
+    setPhone(e.target.value);
+    console.log(phone);
+  };
+
+  // 전화번호 입력 칸
+  const phoneIsValid = () => {
+    return (
+      <input
+        type="tel"
+        name="user-phone"
+        ref={phoneRef}
+        placeholder=""
+        onChange={autoHypenPhone}
+        className={style.forminput}
+      />
+    );
+  };
+
   return (
     <div className={style.form}>
       <div className={style.idform}>
@@ -39,7 +85,7 @@ const SignupForm = () => {
       <div className={style.phoneform}>
         <span>휴대폰 번호</span>
         <br />
-        <input type="text" className={style.forminput} />
+        {phoneIsValid()}
         <input type="button" value="인증번호 발송" className={style.formbtn} />
       </div>
       <div>
@@ -69,11 +115,11 @@ const SignupForm = () => {
       </div>
       <>
         <span>비밀번호</span>
-        <input type="text" className={style.input} />
+        <input type="password" className={style.input} />
       </>
       <>
         <span>비밀번호 확인</span>
-        <input type="text" className={style.input} />
+        <input type="password" className={style.input} />
       </>
     </div>
   );
