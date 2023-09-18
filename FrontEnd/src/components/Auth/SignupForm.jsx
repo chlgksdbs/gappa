@@ -8,7 +8,7 @@ const SignupForm = () => {
         <span>아이디</span>
         <br />
         <input type="text" />
-        <input type="button" value="중복확인" className={style.btn}/>
+        <input type="button" value="중복확인"/>
       </div>
       <>
         <span>이름</span>
