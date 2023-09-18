@@ -9,7 +9,8 @@ const SignupForm = () => {
   const [addressNumber, setAddressNumber] = useState("");
   const [phone, setPhone] = useState("");
 
-
+  // const [password,setPassword] = useState("");
+  // const [passwordCheck,setPasswordCheck] = useState("");
   const phoneRef = useRef();
   const handle = {
     // 버튼 클릭 이벤트
@@ -74,13 +75,22 @@ const SignupForm = () => {
     <div className={style.form}>
       <div className={style.idform}>
         <span>아이디</span>
+
         <br />
-        <input type="text" className={style.forminput} />
+        <input type="text" className={style.forminput} name="ID" />
         <input type="button" value="중복확인" className={style.formbtn} />
       </div>
       <>
         <span>이름</span>
         <input type="text" className={style.input} />
+      </>
+      <>
+        <span>비밀번호</span>
+        <input type="password" className={style.input} name="password"/>
+      </>
+      <>
+        <span>비밀번호 확인</span>
+        <input type="password" className={style.input}  name="passwordcheck"/>
       </>
       <div className={style.phoneform}>
         <span>휴대폰 번호</span>
@@ -88,7 +98,7 @@ const SignupForm = () => {
         {phoneIsValid()}
         <input type="button" value="인증번호 발송" className={style.formbtn} />
       </div>
-      <div>
+      <div className={style.adresstop}>
         <span>주소</span>
         <div className={style.idform}>
           <input type="text" value={address} className={style.input} readOnly />
@@ -113,14 +123,6 @@ const SignupForm = () => {
           <input type="text" className={style.input} />
         </div>
       </div>
-      <>
-        <span>비밀번호</span>
-        <input type="password" className={style.input} />
-      </>
-      <>
-        <span>비밀번호 확인</span>
-        <input type="password" className={style.input} />
-      </>
     </div>
   );
 }

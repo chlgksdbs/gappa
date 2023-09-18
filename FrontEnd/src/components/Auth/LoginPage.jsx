@@ -29,7 +29,7 @@ const LoginPage = () => {
           </div>
         </div>
         <div className={style.noid}>
-          <span onClick={() => { navigate("/signup") }}>아이디가 없으신가요?</span>
+          <span onClick={() => { navigate("/agreement") }}>아이디가 없으신가요?</span>
         </div>
       </div>
       <button className={style.btn}>로그인</button>

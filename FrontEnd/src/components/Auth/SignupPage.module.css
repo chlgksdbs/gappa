@@ -5,7 +5,7 @@
 }
 
 .ex{
-  width: 80%;
+  width: 90%;
   margin-bottom: 2vh;
 }
 
@@ -19,7 +19,7 @@
 .form{
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 90%;
   font-size: 13px;
 }
 
@@ -27,6 +27,9 @@
   margin-top: 2vh;
 }
 
+.adresstop{
+  margin-top: 2vh;
+}
 .input{
   border-width: 0 0 1px;
   border-color: lightgray;

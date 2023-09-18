@@ -11,7 +11,7 @@ const LandingPage = () => {
       <img src="./images/gappa.png" alt="" className={style.gappa}/>
       <div className={style.btn}>
       <img src="./images/login.png" alt="" onClick={()=>{navigate('/login')}}/>
-      <img src="./images/signup.png" alt="" onClick={()=>{navigate('/signup')}}/>
+      <img src="./images/signup.png" alt="" onClick={()=>{navigate('/agreement')}}/>
       </div>
     </div>
   );

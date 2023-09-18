@@ -11,6 +11,7 @@ import FriendsPage from './components/Friends/FriendsPage';
 import ProfilePage from './components/Profile/ProfilePage';
 import LoginPage from './components/Auth/LoginPage';
 import SignupPage from './components/Auth/SignupPage';
+import AgreementPage from './components/Auth/AgreementPage';
 
 function App() {
   // vw, vh를 보이는 화면의 %로 계산하는 식
@@ -34,6 +35,7 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<LoginPage />}/>
             <Route path="/signup" element={<SignupPage />}/>
+            <Route path="/agreement" element={<AgreementPage />}/>
           </>
           :
           <>
