@@ -1,0 +1,164 @@
+.main {
+  /* background-color: #80CEBE; */
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  align-items: center;
+  width: 100%;
+}
+
+.header img{
+  margin-left: 20px;
+}
+
+.title {
+  text-align: center;
+  width: 100%;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.profile {
+  display: grid;
+  grid-template-columns: 1fr 2.5fr;
+  width: 85%;
+  margin: 20px 0px 20px 0px;
+}
+
+.profileImg {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  border-radius: 50%;
+}
+
+.profileImg img {
+  border-radius: 50%;
+  width: 120px;
+}
+
+.name {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 20px 0px 15px 15px;
+}
+
+.phone {
+  margin: 15px 0px 20px 15px;
+}
+
+.modBtn {
+  width: 85%;
+  height: 45px;
+  font-size: 20px;
+  border: 0px;
+  background-color: rgba(217, 217, 217, 0.35);
+}
+
+.reliabilityTotalGauge {
+  width: 85%;
+  background-color: rgba(217, 217, 217, 0.35);
+  height: 20px;
+  margin: 20px 0px 20px 0px;
+  position: relative;
+  border-radius: 10px;
+}
+
+.reliabilityGauge {
+  background-color: #80CEBE;
+  height: 100%;
+  position: relative;
+  border-radius: 10px;
+}
+
+.gaugeContent {
+  position: absolute; /* 게이지 바 내부 요소를 절대 위치로 설정 */
+  top: 0;
+  left: 0;
+  width: 100%; /* 가로 좌표 값을 100%로 설정 */
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.triangle {
+  position: absolute;
+  top: -25px;
+  left: 100%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 20px solid #80CEBE; /* 원하는 아이콘 모양으로 스타일링 가능 */
+}
+
+.reliabilityNumber {
+  position: absolute; /* 숫자를 절대 위치로 설정 */
+  top: -50px; /* 원하는 위치로 조절 (세모 아이콘 위에 위치하도록 조절) */
+  left: 100%; /* 가운데 정렬 */
+  transform: translateX(-50%); /* 가운데 정렬을 위한 transform 사용 */
+  color: #80CEBE; /* 숫자 색상 설정 */
+  font-weight: bold; /* 굵은 글꼴 설정 */
+}
+
+.borrowList {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  width: 90%;
+  font-size: 20px;
+}
+
+.borrowList img {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  width: 20px;
+  margin: auto;
+}
+
+.lendList {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  width: 90%;
+  font-size: 20px;
+}
+
+.lendList img {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  width: 20px;
+  margin: auto;
+}
+
+.changeAccount {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  width: 90%;
+  font-size: 20px;
+}
+
+.changeAccount img {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  width: 20px;
+  margin: auto;
+}
+
+.line {
+  width: 90%;
+  text-align: center;
+  border-bottom: 1px solid #aaa;
+  line-height: 0.1em;
+  margin: 10px 0 10px;
+}
