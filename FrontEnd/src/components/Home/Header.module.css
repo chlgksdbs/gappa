@@ -1,0 +1,16 @@
+.header {
+  height: 7vh;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 8fr 1fr;
+  align-items: flex-end;
+  margin-bottom: 2vh;
+}
+.menuicon {
+  margin-left: 20px;
+  grid:1;
+}
+.noticon {
+  margin-right: 20px;
+  grid:3;
+}
