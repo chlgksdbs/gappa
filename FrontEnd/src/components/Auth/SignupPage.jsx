@@ -6,6 +6,9 @@ const SignupPage = () => {
   return (
     <div className={style.signuppage}>
       <div>
+        
+      </div>
+      <div>
         <img src="" alt="" />
       </div>
       <div className={style.ex}>

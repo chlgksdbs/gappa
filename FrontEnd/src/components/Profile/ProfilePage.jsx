@@ -9,12 +9,12 @@ const ProfilePage = () => {
   return (
     <div className={style.main}>
       <div className={style.header}>
-        <img src="./images/BackBtn.png"/>
+        <img src="./images/BackBtn.png" alt=""/>
         <p className={style.title}>마이페이지</p>
       </div>
       <div className={style.profile}>
         <div className={style.profileImg}>
-          <img src="./images/DonghyunKoo.png"/>
+          <img src="./images/DonghyunKoo.png" alt=""/>
         </div>
         <div>
           <p className={style.name}>김동현</p>
