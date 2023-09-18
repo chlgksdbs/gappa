@@ -1,0 +1,30 @@
+.signuppage{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+
+.form{
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+input{
+  border-width: 0 0 1px;
+  border-color: lightgray;
+  width: 10;
+
+}
+
+input:focus{
+  outline: none;
+}
+
+.btn{
+  
+}
