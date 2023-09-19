@@ -9,6 +9,7 @@ import LendPage from './components/Loan/Lend/LendPage';
 import HistoryPage from './components/Loan/History/HistoryPage';
 import FriendsPage from './components/Friends/FriendsPage';
 import ProfilePage from './components/Profile/ProfilePage';
+import ProfileEditPage from './components/Profile/ProfileEditPage';
 
 function App() {
   // vw, vh를 보이는 화면의 %로 계산하는 식
@@ -38,6 +39,7 @@ function App() {
             <Route path="/history" element={<HistoryPage />}/>
             <Route path="/friends" element={<FriendsPage />}/>
             <Route path="/profile" element={<ProfilePage />}/>
+            <Route path="/profile/edit" element={<ProfileEditPage />}/>
           </>
         })
       </Routes>
