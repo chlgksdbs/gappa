@@ -25,14 +25,40 @@ const FriendsPage = () => {
   };
 
   const [searchTerm, setSearchTerm] = useState('');
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [selectedFriendIndices, setSelectedFriendIndices] = useState([]);
 
   // 검색어 입력 핸들러
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
+
+  // 편집 버튼 토글 핸들러
+  const toggleEditMode = () => {
+    setIsEditMode(!isEditMode);
+    setSelectedFriendIndices([]);
+  };
+
+  const handleFriendClick = (index) => {
+    if (isEditMode) {
+      if (selectedFriendIndices.includes(index)) {
+        setSelectedFriendIndices(selectedFriendIndices.filter((i) => i !== index));
+      } else {
+        setSelectedFriendIndices([...selectedFriendIndices, index]);
+      }
+    }
+  };
   
+  const handleCheckboxClick = (event, index) => {
+    event.stopPropagation();
+    if (selectedFriendIndices.includes(index)) {
+      setSelectedFriendIndices(selectedFriendIndices.filter((i) => i !== index));
+    } else {
+      setSelectedFriendIndices([...selectedFriendIndices, index]);
+    }
+  };
+
   const filteredFriends = phoneBook.filter((friend) => {
-    // const formattedPhoneNumber = formatPhoneNumber(friend.phoneNum);
     const nameMatch = friend.name.toLowerCase().includes(searchTerm.toLowerCase());
     const phoneMatch = friend.phoneNum.includes(searchTerm);
 
@@ -48,22 +74,39 @@ const FriendsPage = () => {
         <div className={style.search}>
           <input type="text" placeholder="친구 검색" value={searchTerm} onChange={handleSearch} />
         </div>
-        <div className={style.editBtn}>
-          편집
+        <div className={style.editBtn} onClick={toggleEditMode}>
+          {isEditMode ? '취소' : '편집'}
         </div>
+
         <div className={style.friendsList}>
           {filteredFriends.map((friend, index) => (
-          <div key={index} className={style.friendItem}>
-            <img src={friend.img} alt={friend.name} className={style.friendImage} />  
-            <div className={style.friendText}>{friend.name}</div>
-            <div className={style.friendText}>{formatPhoneNumber(friend.phoneNum)}</div>
-          </div>
+            <div
+              key={index}
+              className={`${style.friendItem} ${selectedFriendIndices.includes(index) ? style.selectedFriend : ''}`}
+              onClick={() => handleFriendClick(index)}
+            >
+              
+              <img src={friend.img} alt={friend.name} className={style.friendImage} />  
+              <div className={style.friendText}>{friend.name}</div>
+              <div className={style.friendText}>{formatPhoneNumber(friend.phoneNum)}</div>
+              {isEditMode && (
+                <input
+                  type="checkbox"
+                  className={style.checkbox}
+                  checked={selectedFriendIndices.includes(index)}
+                  onClick={(event) => handleCheckboxClick(event, index)}
+                />
+              )}
+            </div>
           ))}
         </div>
 
         <div className={style.editBtn}>
-          
-          <img src="./images/addFriend.png" alt="" />  
+          {isEditMode ? (
+            <div className={style.deleteBtn}>삭제</div>
+          ) : (
+            <img src="./images/addFriend.png" alt="" />
+          )}
         </div>
       </div>
       <Footer />
