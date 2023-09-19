@@ -1,0 +1,44 @@
+
+pipeline {
+    agent any
+
+     tools {nodejs "node"}
+     environment {
+        DOCKER = 'sudo docker'
+        TIME_ZONE = 'Asia/Seoul'
+    }
+
+
+stages {
+    stage('prepare') {
+        steps {
+            dir('FrontEnd'){
+                sh 'npm install'
+            }
+        }
+    }
+    stage('build') {
+        steps {
+            dir('FrontEnd'){
+                sh 'npm run build'
+                sh '''
+                echo 'Dockerimage build'
+                docker build -t docker-react:0.0.1 .
+                '''
+            }
+        }
+    }
+    stage('Deploy') {
+        steps {
+            dir('FrontEnd'){
+                sh '''
+                echo 'Deploy'
+                docker stop GappaFront || true
+                docker rm GappaFront || true
+                docker run -d -p 3000:3000 -v /etc/localtime:/etc/localtime:ro -e TZ=Asia/Seoul --name GappaFront docker-react:0.0.1
+                '''
+            }
+        }
+    }
+}
+}
