@@ -33,8 +33,8 @@ stages {
             dir('FrontEnd'){
                 sh '''
                 echo 'Deploy'
-                docker stop GappaFront || true
-                docker rm GappaFront || true
+                docker stop GappaFront
+                docker rm GappaFront
                 docker run -d -p 3000:3000 -v /etc/localtime:/etc/localtime:ro -e TZ=Asia/Seoul --name GappaFront docker-react:0.0.1
                 '''
             }
