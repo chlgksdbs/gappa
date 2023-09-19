@@ -1,0 +1,70 @@
+.body {
+  height: 100vh;
+  justify-content: flex-start;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-size: 24px;
+}
+
+.friendsBox {
+  height: 70%;
+  width: 90%;
+}
+
+.editBtn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 90%;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 8px;
+  margin-bottom: 3vh;
+}
+
+.search input[type="text"] {
+  border: none;
+  flex: 1;
+  padding: 4px;
+  outline: none;
+}
+
+
+.friendsList {
+  justify-content: flex-start;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  height: 80%;
+  margin-bottom: 3vh;
+  overflow-y: auto;
+}
+
+.friendItem {
+  justify-content: flex-start;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  height: 10%;
+  margin-bottom: 3px;
+}
+
+.friendImage {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.friendText {
+  font-size: 20px;
+  margin-right: 20px;
+}
