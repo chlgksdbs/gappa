@@ -4,6 +4,9 @@ spring:
     url: jdbc:mysql://j9B206.p.ssafy.io:2231/gappa?serverTimezone=UTC&characterEncoding=UTF-8
     username: gappa
     password: bqefip4o407wwgdn6-c4sc-zzhpf11-vvla
+  redis:
+    host: j9b206.p.ssafy.io
+    port: 9707
 
   jpa:
     database: mysql
@@ -15,3 +18,11 @@ spring:
       hibernate:
         format_sql: true
         default_batch_fetch_size: 1000
+
+# sms
+accessKey: fM7dsWwkyM4SRx3dihNM
+secretKey: lklJtbeKB4fR7WcNrbZb7gL4LpqFp27b2msw5RzF
+serviceId: ncp:sms:kr:312413481836:gappa
+
+# system number
+systemPhoneNumber: 01073877808
