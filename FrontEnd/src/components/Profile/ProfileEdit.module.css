@@ -1,0 +1,76 @@
+.main {
+  /* background-color: #80CEBE; */
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  align-items: center;
+  width: 100%;
+}
+
+.header img{
+  margin-left: 20px;
+}
+
+.title {
+  text-align: center;
+  width: 100%;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.profileImg {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  border-radius: 50%;
+}
+
+.profileImg img {
+  border-radius: 50%;
+  width: 120px;
+}
+
+.profileEdit {
+  /* display: block; */
+  width: 90%;
+}
+
+.input{
+  border-width: 0;
+  font-size: 17px;
+  font-weight: bold;
+  width: 88%;
+}
+
+.line {
+  width: 90%;
+  text-align: center;
+  border-bottom: 1px solid #aaa;
+  line-height: 0.1em;
+  margin-top: 10px;
+  /* margin: 10px 0 10px; */
+}
+
+.editConfirm {
+  width: 70%;
+  height: 9%;
+  margin-top: 70px;
+  background-color: #80CEBE;
+  border: 0;
+  border-radius: 15px;
+  color: white;
+  font-size: 32px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.editConfirm:hover {
+  transform: scale(1.05);
+  /* 다른 원하는 스타일 변경도 여기에 추가 가능 */
+}
