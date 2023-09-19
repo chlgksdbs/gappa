@@ -1,14 +1,18 @@
 import React from 'react';
 import style from './Profile.module.css';
 import { useNavigate } from 'react-router-dom';
+import HeaderSub from '../Common/HeaderSub';
 
 const ProfilePage = () => {
   const navigate = useNavigate();
 
+  
   let reliability = 62; // 신뢰도
   let borrowCnt = 2; // 대출 건수
   let lendCnt = 3; // 대금 건수
   let myProfile = true; // 내가 맞는지
+  
+  let title = myProfile ? "내 프로필" : "프로필";
 
   let overdueCnt = 7; // 연체 횟수
   let repaymentsCnt = 7; // 상환 횟수
@@ -18,10 +22,13 @@ const ProfilePage = () => {
   
   return (
     <div className={style.main}>
-      <div className={style.header}>
+      {/* <div className={style.header}>
         <img src="./images/BackBtn.png" alt="" />
-        <p className={style.title}>내 프로필</p>
-      </div>
+        <p className={style.title}>
+          {myProfile ? ("내 프로필") : ("프로필")}
+          </p>
+      </div> */}
+      <HeaderSub title={title}/>
       <div className={style.profile}>
         <div className={style.profileImg}>
           <img src="./images/DonghyunKoo.png" alt="" />
@@ -54,7 +61,7 @@ const ProfilePage = () => {
             <img src="./images/NextBtn.png" alt="" />
           </div>
           <div className={style.line} />
-          <div className={style.changeAccount}>
+          <div className={style.changeAccount} onClick={() => { navigate("/profile/accountedit") }}>
             <p>대표 계좌 변경</p>
             <img src="./images/NextBtn.png" alt="" />
           </div>
