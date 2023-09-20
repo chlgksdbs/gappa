@@ -1,0 +1,27 @@
+.header{
+  display: grid;
+  grid-template-columns: 20% 60% 20%;
+  margin-bottom: 3vw;
+  width: 90%;
+}
+
+.back{
+  grid:1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.middle{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  grid:2;
+}
+
+.right{
+  grid:3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
