@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import style from './FriendsPage.module.css';
-import Header from '../Home/Header';
-import Footer from '../Home/Footer';
+import Header from '../Common/Header';
+import Footer from '../Common/Footer';
 
 const FriendsPage = () => {
   const phoneBook = [

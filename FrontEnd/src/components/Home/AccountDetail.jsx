@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import style from './AccountDetail.module.css';
-import Footer from './Footer';
+import Footer from '../Common/Footer';
 
 const AccountDetail = () => {
   const myAccount = "카카오 3333-033-757-283";
