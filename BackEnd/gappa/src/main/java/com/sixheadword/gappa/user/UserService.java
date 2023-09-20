@@ -20,8 +20,8 @@ public class UserService {
     private static final int EXPIRATION_TIME = 300000; // 문자인증만료시간(5분)
 
     // 휴대폰 인증번호 메세지 전송
-    public ResponseEntity<?> sendVerificationCode(Map<String, String> request){
-        Map<String, String> resultMap = new HashMap<>();
+    public ResponseEntity<?> sendVerificationCode(Map<String, String> request) {
+        Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
         String phoneNumber = request.get("phoneNumber");
         Random rand = new Random();
@@ -40,5 +40,20 @@ public class UserService {
         return new ResponseEntity<>(resultMap, status);
     }
 
-
+    // 휴대폰 인증번호 확인
+    public ResponseEntity<?> checkVerificationCode(Map<String, String> request) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+        String phoneNumber = request.get("phoneNumber");
+        String code = request.get("code");
+        boolean verified = code.equals(redisUtil.getData(phoneNumber));
+        if (verified) {
+            resultMap.put("message", "인증완료");
+            status = HttpStatus.ACCEPTED;
+        } else {
+            resultMap.put("message", "인증실패");
+            status = HttpStatus.BAD_REQUEST;
+        }
+        return new ResponseEntity<>(resultMap, status);
+    }
 }

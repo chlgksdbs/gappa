@@ -19,5 +19,8 @@ public class UserController {
         return userService.sendVerificationCode(request);
     }
 
-
+    @PostMapping("/phone/check")
+    public ResponseEntity<?> checkVerificationCode(@RequestBody Map<String, String> request){
+        return userService.checkVerificationCode(request);
+    }
 }
