@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import style from './AccountDetail.module.css';
-import Footer from './Footer';
+import Footer from '../Common/Footer';
+import HeaderSub from '../Common/HeaderSub';
 
 const AccountDetail = () => {
   const myAccount = "카카오 3333-033-757-283";
@@ -20,10 +21,7 @@ const AccountDetail = () => {
 
   return (
     <div className={style.body}>
-      <div className={style.header}>
-        <img src="./images/BackBtn.png" alt=''/>
-        <p className={style.title}>내 계좌</p>
-      </div>
+      <HeaderSub title={"내 계좌"} />
 
       <div className={style.info}>
         <p className={style.title}>{myAccount}</p>
