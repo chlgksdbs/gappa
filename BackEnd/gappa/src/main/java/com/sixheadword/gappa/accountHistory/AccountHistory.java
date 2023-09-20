@@ -1,5 +1,6 @@
 package com.sixheadword.gappa.accountHistory;
 
+import com.sixheadword.gappa.account.Account;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -16,6 +17,11 @@ public class AccountHistory {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "account_history_seq", unique = true, nullable = false)
     private Long accountHistorySeq;
+
+    // account: 계좌 정보
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_seq")
+    private Account account;
 
     // oldBalance: 거래 전 잔액
     @Column(name = "old_balance", nullable = false)

@@ -1,5 +1,6 @@
 package com.sixheadword.gappa.loanHistory;
 
+import com.sixheadword.gappa.loan.Loan;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -16,6 +17,11 @@ public class LoanHistory {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "loan_history_seq", unique = true, nullable = false)
     private Long loanHistorySeq;
+
+    // loan: 대출 정보
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "loan_seq")
+    private Loan loan;
     
     // type: 타입
     @Column(length = 20, nullable = false)
