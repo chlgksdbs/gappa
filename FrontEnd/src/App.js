@@ -23,6 +23,9 @@ import MainAccountEditPage from './components/Profile/MainAccountEditPage';
 import NoticePage from './components/Sidebar/NoticePage';
 import QnAPage from './components/Sidebar/QnAPage';
 import CustomerServicePage from './components/Sidebar/CustomerServicePage';
+import HistoryBorrowPage from './components/Loan/History/HistoryBorrowPage';
+import HistoryLendPage from './components/Loan/History/HistoryLendPage';
+import HistoryDetailPage from './components/Loan/History/HistoryDetailPage';
 
 
 function App() {
@@ -68,6 +71,9 @@ function App() {
             <Route path="/borrow" element={<BorrowPage />}/>
             <Route path="/lend" element={<LendPage />}/>
             <Route path="/history" element={<HistoryPage />}/>
+            <Route path="/historyborrow" element={<HistoryBorrowPage />}/>
+            <Route path="/historylend" element={<HistoryLendPage />}/>
+            <Route path="/historydetail" element={<HistoryDetailPage />}/>
             <Route path="/friends" element={<FriendsPage />}/>
             <Route path="/profile" element={<ProfilePage />}/>
             <Route path="/account" element={<AccountDetail />}/>
