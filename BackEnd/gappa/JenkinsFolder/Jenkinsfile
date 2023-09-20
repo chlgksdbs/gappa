@@ -6,29 +6,29 @@ pipeline {
         IMAGE_NAME = "gappa"
     }
     stages {
-        stage('Git Clone') {
-            steps {
-                git branch: 'develop-be', credentialsId: 'gappa_token',
-                        url: 'https://lab.ssafy.com/s09-fintech-finance-sub2/S09P22B206.git'
-            }
-            post {
-                success {
-                    sh 'echo "Successfully Cloned Repository"'
-                }
-                failure {
-                    sh 'echo "Fail Cloned Repository"'
-                }
-            }
-        }
+//        stage('Git Clone') {
+//            steps {
+//                git branch: 'develop-be', credentialsId: 'gappa_token',
+//                        url: 'https://lab.ssafy.com/s09-fintech-finance-sub2/S09P22B206.git'
+//            }
+//            post {
+//                success {
+//                    sh 'echo "Successfully Cloned Repository"'
+//                }
+//                failure {
+//                    sh 'echo "Fail Cloned Repository"'
+//                }
+//            }
+//        }
 
         stage('Build') {
             steps {
                 dir('BackEnd/gappa') {
                     sh 'chmod +x gradlew'
                     sh './gradlew clean build'
-                    // 디버깅
-                    sh 'ls -al ./build'
-                    sh './gradlew build --stacktrace'
+//                    // 디버깅
+//                    sh 'ls -al ./build'
+//                    sh './gradlew build --stacktrace'
                 }
             }
             post {
