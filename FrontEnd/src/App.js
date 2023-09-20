@@ -36,7 +36,7 @@ function App() {
     setScreenSize();
   }, [])
 
-  const is_autication = true
+  const is_autication = false;
 
   return (
     <div className="App">
