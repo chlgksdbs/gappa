@@ -67,7 +67,7 @@ const FriendsPage = () => {
 
   return (
     <div className={style.body}>
-      <Header />
+      <Header title={"친구 목록"}/>
 
       <div className={style.friendsBox}>
 

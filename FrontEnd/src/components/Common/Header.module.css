@@ -3,8 +3,9 @@
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 8fr 1fr;
-  align-items: flex-end;
+  align-items: center;
   margin-bottom: 2vh;
+  margin-top: 1vh;
 }
 .menuicon {
   margin-left: 20px;
@@ -13,4 +14,11 @@
 .noticon {
   margin-right: 20px;
   grid:3;
+}
+
+.title {
+  text-align: center;
+  width: 100%;
+  font-size: 22px;
+  font-weight: bold;
 }
