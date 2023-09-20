@@ -12,7 +12,7 @@ const Headers = (props) => {
       <h1>{props.title}</h1>
       </div>
       <div className={style.right}>
-        <img src={props.right} alt="" />
+        <h2>{props.right}</h2>
       </div>
     </div>
   );
