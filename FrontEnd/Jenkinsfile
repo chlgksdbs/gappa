@@ -3,9 +3,11 @@ pipeline {
     agent any
 
      tools {nodejs "node"}
+
      environment {
         DOCKER = 'sudo docker'
         TIME_ZONE = 'Asia/Seoul'
+        TAG = "docker-react:${env.BUILD_ID}"
     }
 
 
@@ -22,23 +24,29 @@ stages {
             dir('FrontEnd'){
                 sh 'npm run build'
                 sh '''
-                echo 'Dockerimage build'
-                docker build -t docker-react:0.0.1 .
+                echo 'Docker image build'
+                docker build --no-cache -t $TAG .
                 '''
             }
         }
     }
     stage('Deploy') {
-        steps {
-            dir('FrontEnd'){
-                sh '''
-                echo 'Deploy'
-                docker stop GappaFront
-                docker rm GappaFront
-                docker run -d -p 3000:3000 -v /etc/localtime:/etc/localtime:ro -e TZ=Asia/Seoul --name GappaFront docker-react:0.0.1
-                '''
+            steps {
+                dir('FrontEnd'){
+                    script {
+                        try {
+                            sh 'docker stop GappaFront'
+                            sh 'docker rm GappaFront'
+                        } catch (Exception e) {
+                            echo "Failed to stop or remove Docker container, proceeding anyway"
+                        }
+                    }
+                    sh '''
+                    echo 'Deploy'
+                    docker run -d -p 3000:3000 -v /etc/localtime:/etc/localtime:ro -e TZ=Asia/Seoul --name GappaFront $TAG
+                    '''
+                }
             }
         }
-    }
 }
 }
