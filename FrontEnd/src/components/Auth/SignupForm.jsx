@@ -195,8 +195,8 @@ const SignupForm = () => {
         <span>휴대폰 번호</span>
         <br />
         {phoneIsValid()}
-        <input type="button" value="인증번호 발송" className={style.formbtn} />
-      </div>
+        <input type="button" value="인증번호 발송" className={style.formbtn} />  
+       </div>
       <div className={style.adresstop}>
         <span>주소</span>
         <div className={style.idform}>
