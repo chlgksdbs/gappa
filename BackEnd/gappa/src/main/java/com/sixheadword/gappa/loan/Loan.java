@@ -1,9 +1,13 @@
 package com.sixheadword.gappa.loan;
 
+import com.sixheadword.gappa.loanHistory.LoanHistory;
+import com.sixheadword.gappa.user.User;
 import lombok.Getter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 // Loan: 대출 테이블
 @Getter
@@ -17,9 +21,19 @@ public class Loan {
     @Column(name = "loan_seq", unique = true, nullable = false)
     private Long loanSeq;
 
+    // loanHistories: 대출 내역 정보
+    @OneToMany(mappedBy = "loan", cascade = CascadeType.ALL)
+    private List<LoanHistory> loanHistories = new ArrayList<>();
+
     // fromUser: 돈을 보낸 사용자 일련번호
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "from_user")
+    private User fromUser;
     
     // toUser: 돈을 받는 사용자 일련번호
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "to_user")
+    private User toUser;
 
     // principal: 대출원금
     @Column(nullable = false)

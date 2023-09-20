@@ -1,5 +1,6 @@
 package com.sixheadword.gappa.webAlarm;
 
+import com.sixheadword.gappa.user.User;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -16,6 +17,11 @@ public class WebAlarm {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "web_alarm_seq", unique = true, nullable = false)
     private Long webAlarmSeq;
+
+    // user: 사용자 정보
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_seq")
+    private User user;
 
     // regDate: 발신일시
     @Column(name = "reg_date", nullable = false)

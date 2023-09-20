@@ -1,5 +1,6 @@
 package com.sixheadword.gappa.friendList;
 
+import com.sixheadword.gappa.user.User;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -18,8 +19,14 @@ public class FriendList {
     private Long friendListSeq;
 
     // fromUser: 요청을 보낸 사용자 일련번호
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "from_user")
+    private User fromUser;
 
     // toUser: 요청을 받는 사용자 일련번호
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "to_user")
+    private User toUser;
 
     // createDate: 생성일시
     @Column(name = "create_date", nullable = false)

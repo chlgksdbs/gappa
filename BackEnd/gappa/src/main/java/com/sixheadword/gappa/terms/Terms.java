@@ -1,8 +1,11 @@
 package com.sixheadword.gappa.terms;
 
+import com.sixheadword.gappa.termsHistory.domain.TermsHistory;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 // Terms: 약관 테이블
 @Getter
@@ -15,6 +18,10 @@ public class Terms {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "terms_seq", unique = true, nullable = false)
     private Long termsSeq;
+
+    // termsHistories: 약관 동의이력
+    @OneToMany(mappedBy = "terms", cascade = CascadeType.ALL)
+    private List<TermsHistory> termsHistories = new ArrayList<>();
     
     // termsName: 약관명
     @Column(name = "terms_name", length = 30, nullable = false)
