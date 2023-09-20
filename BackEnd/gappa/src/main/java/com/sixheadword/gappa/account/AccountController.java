@@ -15,11 +15,6 @@ public class AccountController {
 
     private final AccountService accountService;
 
-    @PutMapping("/test")
-    public ResponseEntity<?> test(){
-        return ResponseEntity.status(HttpStatus.OK).build();
-    }
-
     // API 1. 대표 계좌 설정
     @PostMapping("/primary")
     public ResponseEntity<?> setPrimaryAccount(@RequestBody SetPrimaryReqeustDto setPrimaryReqeustDto){
@@ -53,13 +48,13 @@ public class AccountController {
     }
 
     // API 4. 전체 계좌 조회
-//    @GetMapping("/{userSeq}")
-//    public ResponseEntity<?> showAllAccount(){
-//        try{
-//            return ResponseEntity.ok(accountService.getAllAcount(userSeq));
-//        }catch (IllegalArgumentException e){
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("전체 계좌 조회 실패");
-//        }
-//    }
+    @GetMapping("/{userSeq}")
+    public ResponseEntity<?> showAllAccount(@PathVariable("userSeq") Long userSeq){
+        try{
+            return ResponseEntity.ok(accountService.getAllAcount(userSeq));
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("전체 계좌 조회 실패");
+        }
+    }
 
 }

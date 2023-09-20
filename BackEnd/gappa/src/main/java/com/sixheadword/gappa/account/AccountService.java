@@ -57,21 +57,20 @@ public class AccountService {
     }
 
     // 전체 계좌 조회
-//    public List<GetAccountResponseDto> getAllAcount(Long userSeq){
-//        List<Account> accounts = accountRepository.findById(userSeq).orElse(null);
-//
-//        List<GetAccountResponseDto> getAccountResponseDtos = new ArrayList<>();
-//        for(Account account : accounts){
-//            GetAccountResponseDto getAccountResponseDto = GetAccountResponseDto.builder()
-//                    .account_seq(account.getAccountSeq())
-//                    .account_number(account.getAccountNumber())
-//                    .bank(account.getBank())
-//                    .balance(account.getBalance())
-//                    .build();
-//            getAccountResponseDtos.add(getAccountResponseDto);
-//        }
-//
-//        return
-//    }
+    public List<GetAccountResponseDto> getAllAcount(Long userSeq){
+        List<Account> accounts = accountRepository.findAllAccounts(userSeq);
+
+        List<GetAccountResponseDto> getAccountResponseDtos = new ArrayList<>();
+        for(Account account : accounts){
+            GetAccountResponseDto getAccountResponseDto = GetAccountResponseDto.builder()
+                    .account_seq(account.getAccountSeq())
+                    .account_number(account.getAccountNumber())
+                    .bank(account.getBank())
+                    .balance(account.getBalance())
+                    .build();
+            getAccountResponseDtos.add(getAccountResponseDto);
+        }
+        return getAccountResponseDtos;
+    }
 
 }
