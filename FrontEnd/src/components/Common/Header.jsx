@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import style from './Header.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const Header = ( props ) => {
+  const navigate = useNavigate();
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
@@ -30,9 +33,9 @@ const Header = ( props ) => {
         </div>
         <div className={style.sideName}>{myName} 님</div>
         <div className={style.sideEmail}>{myEmail}</div>
-        <div className={style.menus}>공지사항</div>
-        <div className={style.menus}>고객센터</div>
-        <div className={style.menus}>자주묻는 질문</div>
+        <div className={style.menus} onClick={() => { navigate("/notice") }} >공지사항</div>
+        <div className={style.menus} onClick={() => { navigate("/customerservice") }} >고객센터</div>
+        <div className={style.menus} onClick={() => { navigate("/qna") }} >자주묻는 질문</div>
         <div className={style.menus}>로그아웃</div>
       </div>
         {isSidebarOpen && (
