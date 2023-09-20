@@ -50,7 +50,7 @@ function App() {
             <Route path="/profile/accountedit" element={<MainAccountEditPage />}/>
             <Route path="/notice" element={<NoticePage />}/>
             <Route path="/qna" element={<QnAPage />}/>
-            <Route path="/customersevice" element={<CustomerServicePage />}/>
+            <Route path="/customerservice" element={<CustomerServicePage />}/>
           </>
         })
       </Routes>

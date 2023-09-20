@@ -7,11 +7,13 @@
   margin-bottom: 2vh;
   margin-top: 1vh;
 }
-.menuicon {
+
+.menuIcon {
   margin-left: 20px;
   grid:1;
 }
-.noticon {
+
+.notIcon {
   margin-right: 20px;
   grid:3;
 }
@@ -21,4 +23,56 @@
   width: 100%;
   font-size: 22px;
   font-weight: bold;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -70vw;
+  width: 60vw;
+  height: 100%;
+  background-color: rgb(234, 233, 233);
+  color: black;
+  padding: 20px;
+  z-index: 1000;
+  transition: left 0.3s ease-in-out;
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  pointer-events: auto;
+  transition: left 0.5s ease-in-out;
+}
+
+.overlay:hover {
+  cursor: pointer;
+}
+
+.sidebarLogo img {
+  max-width: 100px;
+  height: auto; /* 이미지 높이 자동 조절 */
+}
+
+.sideName {
+  margin-top: 1vh;
+}
+
+.sideEmail {
+  font-size: 16px;
+  margin-bottom: 3vh;
+}
+
+.menus {
+  color: rgb(57, 57, 57);
+  margin-bottom: 3vh;
 }
