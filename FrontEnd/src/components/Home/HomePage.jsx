@@ -2,8 +2,8 @@ import React from 'react';
 import style from './HomePage.module.css';
 
 import HomeAccount from './HomeAccount';
-import Header from './Header';
-import Footer from './Footer';
+import Header from '../Common/Header';
+import Footer from '../Common/Footer';
 
 const HomePage = () => {
   return (

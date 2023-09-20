@@ -17,6 +17,13 @@ import MasterBankBookPage from './components/Auth/MasterBankBookPage';
 import PinPassword from './components/Auth/PinPassword';
 import PinPasswordConfirm from './components/Auth/PinPasswordConfirm';
 import PinPasswordCheckPage from './components/Auth/PinPasswordCheckPage';
+import AccountDetail from './components/Home/AccountDetail';
+import ProfileEditPage from './components/Profile/ProfileEditPage';
+import MainAccountEditPage from './components/Profile/MainAccountEditPage';
+import NoticePage from './components/Sidebar/NoticePage';
+import QnAPage from './components/Sidebar/QnAPage';
+import CustomerServicePage from './components/Sidebar/CustomerServicePage';
+
 
 function App() {
   // vw, vh를 보이는 화면의 %로 계산하는 식
@@ -49,12 +56,26 @@ function App() {
           </>
           :
           <>
+
             <Route path="/" element={<HomePage />} />
             <Route path="/borrow" element={<BorrowPage />} />
             <Route path="/lend" element={<LendPage />} />
             <Route path="/history" element={<HistoryPage />} />
             <Route path="/friends" element={<FriendsPage />} />
             <Route path="/profile" element={<ProfilePage />} />
+
+            <Route path="/" element={<HomePage />}/>
+            <Route path="/borrow" element={<BorrowPage />}/>
+            <Route path="/lend" element={<LendPage />}/>
+            <Route path="/history" element={<HistoryPage />}/>
+            <Route path="/friends" element={<FriendsPage />}/>
+            <Route path="/profile" element={<ProfilePage />}/>
+            <Route path="/account" element={<AccountDetail />}/>
+            <Route path="/profile/edit" element={<ProfileEditPage />}/>
+            <Route path="/profile/accountedit" element={<MainAccountEditPage />}/>
+            <Route path="/notice" element={<NoticePage />}/>
+            <Route path="/qna" element={<QnAPage />}/>
+            <Route path="/customerservice" element={<CustomerServicePage />}/>
           </>
         })
       </Routes>
