@@ -13,8 +13,8 @@ class SmsUtilTest {
 
     @Autowired SmsUtil smsUtil;
 
-    @Test
-    public void 문자전송테스트() throws Exception {
+//    @Test
+//    public void 문자전송테스트() throws Exception {
 //        smsUtil.sendSMS("01024126237", "하이요");
-    }
+//    }
 }
