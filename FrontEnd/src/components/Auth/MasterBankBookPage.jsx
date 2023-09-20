@@ -13,7 +13,7 @@ const MasterBankBookPage = () => {
         <span>서버상태에 따라 최대 한 시간이 걸릴 수 있습니다.</span>
       </div>
       <div>
-        
+        {/* 여기다가 redux 사용해서 통장 데이터 가져오기 */}
       </div>
     </div>
   );

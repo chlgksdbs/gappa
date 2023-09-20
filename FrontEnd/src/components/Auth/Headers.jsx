@@ -9,10 +9,10 @@ const Headers = (props) => {
         <img src="images/BackBtn.png" alt="" onClick={()=>{navigate(-1)}}/>
       </div>
       <div className={style.middle}>
-      <h1>{props.title}</h1>
+      <h2>{props.title}</h2>
       </div>
       <div className={style.right}>
-        <h2>{props.right}</h2>
+        <h3>{props.right}</h3>
       </div>
     </div>
   );

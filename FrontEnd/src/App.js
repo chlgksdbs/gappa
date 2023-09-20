@@ -14,6 +14,9 @@ import SignupPage from './components/Auth/SignupPage';
 import AgreementPage from './components/Auth/AgreementPage';
 import BankBookPage from './components/Auth/BankBookPage';
 import MasterBankBookPage from './components/Auth/MasterBankBookPage';
+import PinPassword from './components/Auth/PinPassword';
+import PinPasswordConfirm from './components/Auth/PinPasswordConfirm';
+import PinPasswordCheckPage from './components/Auth/PinPasswordCheckPage';
 
 function App() {
   // vw, vh를 보이는 화면의 %로 계산하는 식
@@ -40,6 +43,9 @@ function App() {
             <Route path="/agreement" element={<AgreementPage />}/>
             <Route path="/bankbook" element={<BankBookPage/>}/>
             <Route path="/masterbankbook" element={<MasterBankBookPage/>}/>
+            <Route path="/pinpassword" element={<PinPassword/>}/>
+            <Route path="/pinpasswordconfirm" element={<PinPasswordConfirm/>}/>
+            <Route path="/pinpasswordcheck" element={<PinPasswordCheckPage/>}/>
           </>
           :
           <>

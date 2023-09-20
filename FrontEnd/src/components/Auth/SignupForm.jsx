@@ -2,7 +2,7 @@ import { React, useState, useRef } from 'react';
 import style from './SignupPage.module.css';
 import DaumPostcode from 'react-daum-postcode';
 import Modal from 'react-modal';
-
+import { useDispatch } from 'react-redux';
 const SignupForm = () => {
 
   //초기값 세팅
@@ -12,7 +12,8 @@ const SignupForm = () => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
-
+  // 정보 확인
+  const dispatch = useDispatch();
   //오류 메세지
   const [idMessage, setIdMessage] = useState("");
   const [passwordMessage, setPasswordMessage] = useState("");
