@@ -5,13 +5,15 @@ import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
-
+import { Provider } from "react-redux";
+import store from "./store/index";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  // 라우터 사용을 위한 BrowerRouter
-  <BrowserRouter>
-  <App />
-  </BrowserRouter>
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>
 );
 
 // If you want your app to work offline and load faster, you can change

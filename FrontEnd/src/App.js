@@ -9,6 +9,14 @@ import LendPage from './components/Loan/Lend/LendPage';
 import HistoryPage from './components/Loan/History/HistoryPage';
 import FriendsPage from './components/Friends/FriendsPage';
 import ProfilePage from './components/Profile/ProfilePage';
+import LoginPage from './components/Auth/LoginPage';
+import SignupPage from './components/Auth/SignupPage';
+import AgreementPage from './components/Auth/AgreementPage';
+import BankBookPage from './components/Auth/BankBookPage';
+import MasterBankBookPage from './components/Auth/MasterBankBookPage';
+import PinPassword from './components/Auth/PinPassword';
+import PinPasswordConfirm from './components/Auth/PinPasswordConfirm';
+import PinPasswordCheckPage from './components/Auth/PinPasswordCheckPage';
 import AccountDetail from './components/Home/AccountDetail';
 import ProfileEditPage from './components/Profile/ProfileEditPage';
 import MainAccountEditPage from './components/Profile/MainAccountEditPage';
@@ -23,22 +31,39 @@ function App() {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty("--vh", `${vh}px`);
   }
-  
   // useEffect로 실행될 때마다 작동 되게
   useEffect(() => {
     setScreenSize();
   }, [])
 
-  const is_autication = false
+  const is_autication = true
 
   return (
     <div className="App">
       <Routes> {/*라우터 작동 정리*/}
         ({is_autication
           ?
-          <Route path="/" element={<LandingPage />}/>
+          <>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/login" element={<LoginPage />}/>
+            <Route path="/signup" element={<SignupPage />}/>
+            <Route path="/agreement" element={<AgreementPage />}/>
+            <Route path="/bankbook" element={<BankBookPage/>}/>
+            <Route path="/masterbankbook" element={<MasterBankBookPage/>}/>
+            <Route path="/pinpassword" element={<PinPassword/>}/>
+            <Route path="/pinpasswordconfirm" element={<PinPasswordConfirm/>}/>
+            <Route path="/pinpasswordcheck" element={<PinPasswordCheckPage/>}/>
+          </>
           :
           <>
+
+            <Route path="/" element={<HomePage />} />
+            <Route path="/borrow" element={<BorrowPage />} />
+            <Route path="/lend" element={<LendPage />} />
+            <Route path="/history" element={<HistoryPage />} />
+            <Route path="/friends" element={<FriendsPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+
             <Route path="/" element={<HomePage />}/>
             <Route path="/borrow" element={<BorrowPage />}/>
             <Route path="/lend" element={<LendPage />}/>
