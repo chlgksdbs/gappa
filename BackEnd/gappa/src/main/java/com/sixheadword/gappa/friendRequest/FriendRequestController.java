@@ -25,4 +25,9 @@ public class FriendRequestController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    // API 2. 친구 신청 응답
+    public ResponseEntity<?> friendResponse(@RequestBody Map<String, String> request) {
+        Long member_id = 1L; // 이 부분은 한윤이가 service 만들면 완성
+        return friendRequestService.friendResponse(member_id, request);
+    }
 }

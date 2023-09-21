@@ -14,4 +14,8 @@ public class FriendRequestRepository {
     public void save(FriendRequest friendRequest) {
         em.persist(friendRequest);
     }
+
+    public FriendRequest findById(Long id){
+        return em.find(FriendRequest.class, id);
+    }
 }
