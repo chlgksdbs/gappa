@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class SetPrimaryReqeustDto {
 
-    private Long userSeq;
     private Long accountSeq;
 
 }

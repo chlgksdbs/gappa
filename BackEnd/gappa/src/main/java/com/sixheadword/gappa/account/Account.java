@@ -44,4 +44,9 @@ public class Account {
     // primary: 대표계좌
     @Column(name = "rep_account", nullable = false)
     private boolean repAccount;
+
+    // 대표 계좌 변경
+    public void modifyPrimary(boolean newRepAccount){
+        this.repAccount = newRepAccount;
+    }
 }

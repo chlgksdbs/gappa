@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,9 +18,9 @@ public class AccountController {
 
     // API 1. 대표 계좌 설정
     @PostMapping("/primary")
-    public ResponseEntity<?> setPrimaryAccount(@RequestBody SetPrimaryReqeustDto setPrimaryReqeustDto){
+    public ResponseEntity<?> setPrimaryAccount(@RequestBody SetPrimaryReqeustDto setPrimaryReqeustDto, Authentication authentication){
         try{
-            accountService.setPrimaryAccount(setPrimaryReqeustDto);
+            accountService.setPrimaryAccount(setPrimaryReqeustDto, authentication);
             return ResponseEntity.status(HttpStatus.OK).build();
         }catch (IllegalArgumentException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("대표 계좌 설정 실패");
@@ -28,9 +29,9 @@ public class AccountController {
 
     // API 2. 대표 계좌 변경
     @PutMapping("/primary")
-    public ResponseEntity<?> changePrimaryAccount(@RequestBody SetPrimaryReqeustDto setPrimaryReqeustDto){
+    public ResponseEntity<?> changePrimaryAccount(@RequestBody SetPrimaryReqeustDto setPrimaryReqeustDto, Authentication authentication){
         try{
-            accountService.changePrimaryAccount(setPrimaryReqeustDto);
+            accountService.changePrimaryAccount(setPrimaryReqeustDto, authentication);
             return ResponseEntity.status(HttpStatus.OK).build();
         }catch (IllegalArgumentException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("전체 계좌 조회 실패");
