@@ -11,9 +11,9 @@ public class JwtUtil {
     // token valid time : 14 days
     private final long TOKEN_VALID_TIME = 14 * 24 * 60 * 60 * 1000L;
 
-    public String createJwt(String userName, String secretKey) {
+    public String createJwt(String userSeq, String secretKey) {
         Claims claims = Jwts.claims();
-        claims.put("userName", userName);
+        claims.put("userSeq", userSeq);
 
         return Jwts.builder()
                 .setClaims(claims)
@@ -32,11 +32,11 @@ public class JwtUtil {
                 .before(new Date());
     }
 
-    public String getUserName(String token, String secretKey) {
+    public String getUserSeq(String token, String secretKey) {
         return Jwts.parser()
                 .setSigningKey(secretKey)
                 .parseClaimsJws(token)
                 .getBody()
-                .get("userName", String.class);
+                .get("userSeq", String.class);
     }
 }
