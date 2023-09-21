@@ -13,15 +13,37 @@ code {
 }
 
 @font-face {
-  font-family: 'TheJamsil5Bold';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
-  font-weight: 400;
+  font-family: 'TheJamsil1Thin';
+  src: url(./fonts/The_Jamsil_TTF/The\ Jamsil\ 1\ Thin.ttf);
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'GmarketSansMedium';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
-  font-weight: 500;
+  font-family: 'TheJamsil2Light';
+  src: url(./fonts/The_Jamsil_TTF/The\ Jamsil\ 2\ Light.ttf);
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'TheJamsil3Regular';
+  src: url(./fonts/The_Jamsil_TTF/The\ Jamsil\ 3\ Regular.ttf);
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'TheJamsil4Medium';
+  src: url(./fonts/The_Jamsil_TTF/The\ Jamsil\ 4\ Medium.ttf);
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'TheJamsil5Bold';
+  src: url(./fonts/The_Jamsil_TTF/The\ Jamsil\ 5\ Bold.ttf);
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'TheJamsil6ExtraBold';
+  src: url(./fonts/The_Jamsil_TTF/The\ Jamsil\ 6\ ExtraBold.ttf);
   font-style: normal;
 }

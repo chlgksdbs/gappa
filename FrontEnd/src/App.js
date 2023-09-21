@@ -6,7 +6,6 @@ import LandingPage from './components/Auth/LandingPage';
 import HomePage from './components/Home/HomePage';
 import BorrowPage from './components/Loan/Borrow/BorrowPage';
 import LendPage from './components/Loan/Lend/LendPage';
-import HistoryPage from './components/Loan/History/HistoryPage';
 import FriendsPage from './components/Friends/FriendsPage';
 import ProfilePage from './components/Profile/ProfilePage';
 import LoginPage from './components/Auth/LoginPage';
@@ -23,6 +22,10 @@ import MainAccountEditPage from './components/Profile/MainAccountEditPage';
 import NoticePage from './components/Sidebar/NoticePage';
 import QnAPage from './components/Sidebar/QnAPage';
 import CustomerServicePage from './components/Sidebar/CustomerServicePage';
+import HistoryBorrowPage from './components/Loan/History/HistoryBorrowPage';
+import HistoryLendPage from './components/Loan/History/HistoryLendPage';
+import HistoryDetailPage from './components/Loan/History/HistoryDetailPage';
+import FriendsAddPage from './components/Friends/FriendsAddPage';
 
 
 function App() {
@@ -36,7 +39,7 @@ function App() {
     setScreenSize();
   }, [])
 
-  const is_autication = true
+  const is_autication = false;
 
   return (
     <div className="App">
@@ -56,19 +59,14 @@ function App() {
           </>
           :
           <>
-
-            <Route path="/" element={<HomePage />} />
-            <Route path="/borrow" element={<BorrowPage />} />
-            <Route path="/lend" element={<LendPage />} />
-            <Route path="/history" element={<HistoryPage />} />
-            <Route path="/friends" element={<FriendsPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
-
             <Route path="/" element={<HomePage />}/>
             <Route path="/borrow" element={<BorrowPage />}/>
             <Route path="/lend" element={<LendPage />}/>
-            <Route path="/history" element={<HistoryPage />}/>
+            <Route path="/historyborrow" element={<HistoryBorrowPage />}/>
+            <Route path="/historylend" element={<HistoryLendPage />}/>
+            <Route path="/historydetail" element={<HistoryDetailPage />}/>
             <Route path="/friends" element={<FriendsPage />}/>
+            <Route path="/friends/add" element={<FriendsAddPage />}/>
             <Route path="/profile" element={<ProfilePage />}/>
             <Route path="/account" element={<AccountDetail />}/>
             <Route path="/profile/edit" element={<ProfileEditPage />}/>

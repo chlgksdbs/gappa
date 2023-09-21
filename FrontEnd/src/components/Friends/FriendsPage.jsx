@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import style from './FriendsPage.module.css';
 import Header from '../Common/Header';
 import Footer from '../Common/Footer';
 
 const FriendsPage = () => {
+  const navigate = useNavigate();
+
   const phoneBook = [
     {img:'/images/DonghyunKoo.png', name:'김동현', phoneNum:'01079797979'},
     {img:'/images/DonghyunKoo.png', name:'김동익', phoneNum:'01089536705'},
@@ -94,8 +97,8 @@ const FriendsPage = () => {
                   type="checkbox"
                   className={style.checkbox}
                   checked={selectedFriendIndices.includes(index)}
-                  onClick={(event) => handleCheckboxClick(event, index)}
-                />
+                  onChange={(event) => handleCheckboxClick(event, index)}
+                />              
               )}
             </div>
           ))}
@@ -105,7 +108,7 @@ const FriendsPage = () => {
           {isEditMode ? (
             <div className={style.deleteBtn}>삭제</div>
           ) : (
-            <img src="./images/addFriend.png" alt="" />
+            <img src="./images/addFriend.png" alt="" onClick={() => { navigate("/friends/add") }}/>
           )}
         </div>
       </div>
