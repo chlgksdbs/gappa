@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import HeaderSub from '../../Common/HeaderSub';
 import style from './HistoryBorrow.module.css';
-import Footer from '../../Home/Footer';
+import Footer from '../../Common/Footer';
 
 const HistoryBorrowPage = () => {  
   const [borrows] = useState([
