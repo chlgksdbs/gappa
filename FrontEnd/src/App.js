@@ -6,7 +6,6 @@ import LandingPage from './components/Auth/LandingPage';
 import HomePage from './components/Home/HomePage';
 import BorrowPage from './components/Loan/Borrow/BorrowPage';
 import LendPage from './components/Loan/Lend/LendPage';
-import HistoryPage from './components/Loan/History/HistoryPage';
 import FriendsPage from './components/Friends/FriendsPage';
 import ProfilePage from './components/Profile/ProfilePage';
 import LoginPage from './components/Auth/LoginPage';
@@ -70,7 +69,6 @@ function App() {
             <Route path="/" element={<HomePage />}/>
             <Route path="/borrow" element={<BorrowPage />}/>
             <Route path="/lend" element={<LendPage />}/>
-            <Route path="/history" element={<HistoryPage />}/>
             <Route path="/historyborrow" element={<HistoryBorrowPage />}/>
             <Route path="/historylend" element={<HistoryLendPage />}/>
             <Route path="/historydetail" element={<HistoryDetailPage />}/>

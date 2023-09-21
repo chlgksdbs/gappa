@@ -7,6 +7,7 @@ const HistoryDetailPage = () => {
   const today = new Date();
   const startdate = "2023-01-01";
   const enddate = "2023-02-01";
+  const finishdate = "";
   const imgURL = '/images/DonghyunKoo.png';
   const myname = "김동현";
   const username = "김용범";
@@ -54,6 +55,10 @@ const HistoryDetailPage = () => {
           <div className={style.div2}>
             <span>상환 예정일</span>
             <span>{enddate}</span>
+          </div>
+          <div className={style.div2}>
+            <span>상환 완료일</span>
+            <span>{finishdate}</span>
           </div>
         </div>
         <div className={style.line} />

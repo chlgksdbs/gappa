@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import HeaderSub from '../../Common/HeaderSub';
 import style from './HistoryBorrow.module.css';
 import Footer from '../../Common/Footer';
 
-const HistoryBorrowPage = () => {  
+const HistoryBorrowPage = () => {
+  const navigate = useNavigate();
+
   const [borrows] = useState([
     { id: 1, name: '김동익', img: '/images/DonghyunKoo.png',
     balance: 200000, startdate: '2023-01-01', enddate: '2023-02-01', isStatus: 'C'},
@@ -40,6 +43,11 @@ const HistoryBorrowPage = () => {
     }
   });
 
+  const goToHistoryDetail = () => {
+    navigate("/historydetail");
+    // 이때 lend.id 값을 백으로 넘겨주고 받는 행위가 일어나야함
+  };
+
   return (
     <div className={style.main}>
       <HeaderSub title={"대출 이력"}/>
@@ -55,7 +63,7 @@ const HistoryBorrowPage = () => {
       <p className={style.totalCnt}>총 {filteredBorrows.length} 건</p>
       <div className={style.borrowDiv}>
         {filteredBorrows.map((borrow) => (
-          <div className={style.columnDiv} key={borrow.id}>
+          <div className={style.columnDiv} key={borrow.id} onClick={() => goToHistoryDetail()}>
             <div>
               <p className={style.columnDate}>{borrow.startdate} ~ {borrow.enddate}</p>
               <div className={style.columnDiv2}>
