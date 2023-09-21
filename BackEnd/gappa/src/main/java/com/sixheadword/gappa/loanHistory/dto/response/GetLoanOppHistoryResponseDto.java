@@ -5,9 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-@AllArgsConstructor
-@RequiredArgsConstructor
-@Builder
-@Data
-public class GetLoanOppHistoryResponseDto {
-}
+//@AllArgsConstructor
+//@RequiredArgsConstructor
+//@Builder
+//@Data
+//public class GetLoanOppHistoryResponseDto {
+//}

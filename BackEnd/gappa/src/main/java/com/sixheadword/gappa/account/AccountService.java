@@ -75,7 +75,7 @@ public class AccountService {
 
     // 전체 계좌 조회
     public List<GetAccountResponseDto> getAllAcount(Long userSeq){
-        List<Account> accounts = accountRepository.findByUserSeq(userSeq);
+        List<Account> accounts = accountRepository.findByUser(userSeq);
 
         if(accounts.size() != 0){
             List<GetAccountResponseDto> getAccountResponseDtos = new ArrayList<>();
@@ -92,6 +92,7 @@ public class AccountService {
         }else{
             throw new IllegalArgumentException("계좌를 찾을 수 없습니다");
         }
+
     }
 
 }
