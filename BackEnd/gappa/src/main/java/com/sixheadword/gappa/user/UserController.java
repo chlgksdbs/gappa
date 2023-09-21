@@ -31,12 +31,16 @@ public class UserController {
 
     // API 4. 회원탈퇴
 
-    // API 5. 아이디 찾기
-
-    // API 6. 신용점수 조회
+    // API 5. 신용점수 조회
     @GetMapping("/credit")
     public ResponseEntity<?> getUserCreditScore(Authentication authentication) {
         return userService.getUserCreditScore(Long.parseLong(authentication.getName()));
+    }
+
+    // API 6. 아이디 중복확인
+    @PostMapping("/checkid")
+    public ResponseEntity<?> checkIdDuplication(@RequestBody Map<String, String> request) {
+        return userService.checkIdDuplication(request);
     }
 
     @PostMapping("/phone/send")

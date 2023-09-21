@@ -92,6 +92,33 @@ public class UserService {
         return new ResponseEntity<>(resultMap, status);
     }
 
+    // 아이디 중복확인
+    public ResponseEntity<?> checkIdDuplication(Map<String, String> request) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+
+        String loginId = request.get("loginId");
+
+        try {
+            String existLoginId = userRepository.selectUserLoginId(loginId);
+
+            if (existLoginId != null) {
+                resultMap.put("code", false);
+                resultMap.put("message", "이미 해당 아이디가 존재합니다.");
+            } else {
+                resultMap.put("code", true);
+                resultMap.put("message", "아이디 중복확인 성공");
+            }
+            status = HttpStatus.OK;
+        } catch (Exception e) {
+            resultMap.put("message", "아이디 중복확인 에러");
+            resultMap.put("error", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
+    }
+
     // 휴대폰 인증번호 메세지 전송
     public ResponseEntity<?> sendVerificationCode(Map<String, String> request) {
         Map<String, Object> resultMap = new HashMap<>();
