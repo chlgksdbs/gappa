@@ -3,10 +3,8 @@ package com.sixheadword.gappa.friendRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -19,15 +17,20 @@ public class FriendRequestController {
 
     // API 1. 친구 신청
     @PostMapping("/friends")
-    public ResponseEntity<?> friendRequest(@RequestBody Map<String, String> request){
-        Long member_id = 1L; // 이 부분은 한윤이가 service 만들면 완성
-        friendRequestService.friendRequest(member_id, request);
-        return ResponseEntity.status(HttpStatus.OK).build();
+    public ResponseEntity<?> friendRequest(@RequestBody Map<String, String> request, Authentication authentication){
+        return friendRequestService.friendRequest(Long.parseLong(authentication.getName()), request);
     }
 
     // API 2. 친구 신청 응답
-    public ResponseEntity<?> friendResponse(@RequestBody Map<String, String> request) {
-        Long member_id = 1L; // 이 부분은 한윤이가 service 만들면 완성
-        return friendRequestService.friendResponse(member_id, request);
+    @PostMapping("/friends/response")
+    public ResponseEntity<?> friendResponse(@RequestBody Map<String, String> request, Authentication authentication) {
+        return friendRequestService.friendResponse(Long.parseLong(authentication.getName()), request);
     }
+
+    // API 3. 친구 신청 목록 조회
+    @GetMapping("/friends/request")
+    public ResponseEntity<?> friendRequestList(Authentication authentication) {
+        return friendRequestService.friendRequestList(Long.parseLong(authentication.getName()));
+    }
+
 }
