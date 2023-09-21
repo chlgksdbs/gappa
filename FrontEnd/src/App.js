@@ -58,14 +58,6 @@ function App() {
           </>
           :
           <>
-
-            <Route path="/" element={<HomePage />} />
-            <Route path="/borrow" element={<BorrowPage />} />
-            <Route path="/lend" element={<LendPage />} />
-            <Route path="/history" element={<HistoryPage />} />
-            <Route path="/friends" element={<FriendsPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
-
             <Route path="/" element={<HomePage />}/>
             <Route path="/borrow" element={<BorrowPage />}/>
             <Route path="/lend" element={<LendPage />}/>
