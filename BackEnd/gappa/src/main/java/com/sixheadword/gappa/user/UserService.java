@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,7 +37,7 @@ public class UserService {
 
         try {
             User user = userRepository.findByLoginIdAndLoginPassword(request.get("loginId"), request.get("loginPassword"));
-            resultMap.put("token", jwtUtil.createJwt(user.getName(), JwtSecretKey));
+            resultMap.put("token", jwtUtil.createJwt(Long.toString(user.getUserSeq()), JwtSecretKey));
             resultMap.put("message", "로그인 완료");
             status = HttpStatus.OK;
         } catch (Exception e) {
@@ -46,6 +47,25 @@ public class UserService {
         }
         // 인증과정 생략
         return new ResponseEntity<>(resultMap, status);
+    }
+
+    // 회원가입
+    public ResponseEntity<?> setUserInfo(Map<String, String> request) {
+        Map<String, String> resultMap = new HashMap<>();
+        HttpStatus httpStatus = null;
+
+        try {
+            User user = new User(request.get("loginId"), request.get("loginPassword"), request.get("phone"), request.get("name"), request.get("address"), request.get("pinPassword"));
+            userRepository.save(user);
+            resultMap.put("message", "회원가입 성공");
+            httpStatus = HttpStatus.OK;
+        } catch (Exception e) {
+            resultMap.put("message", "회원가입 실패");
+            resultMap.put("error", e.getMessage());
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(resultMap, httpStatus);
     }
 
     // 신용점수 조회
