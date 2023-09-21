@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,10 +58,9 @@ public class UserService {
         String phone = request.get("phone");
         String name = request.get("name");
         String address = request.get("address");
-        String pinPassword = request.get("pinPassword");
 
         try {
-            User user = new User(loginId, loginPassword, phone, name, address, pinPassword);
+            User user = new User(loginId, loginPassword, phone, name, address);
             userRepository.save(user);
             resultMap.put("message", "회원가입 성공");
             httpStatus = HttpStatus.OK;

@@ -112,13 +112,12 @@ public class User {
     private LocalDateTime expiredAt;
 
     @Builder
-    public User(String loginId, String loginPassword, String phone, String name, String address, String pinPassword) {
+    public User(String loginId, String loginPassword, String phone, String name, String address) {
         this.loginId = loginId;
         this.loginPassword = loginPassword;
         this.phone = phone;
         this.name = name;
         this.address = address;
-        this.pinPassword = pinPassword;
         this.state = true;
         this.creditScore = 0;
     }
