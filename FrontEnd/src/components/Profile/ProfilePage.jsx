@@ -8,8 +8,8 @@ const ProfilePage = () => {
 
   
   let reliability = 62; // 신뢰도
-  let borrowCnt = 2; // 대출 건수
-  let lendCnt = 3; // 대금 건수
+  let borrowCnt = 4; // 대출 건수
+  let lendCnt = 4; // 대금 건수
   let myProfile = true; // 내가 맞는지
   
   let title = myProfile ? "내 프로필" : "프로필";
@@ -51,12 +51,12 @@ const ProfilePage = () => {
       {myProfile ? (
         <>
           <button className={style.modBtn} onClick={() => { navigate("/profile/edit") }}>프로필 수정</button>
-          <div className={style.borrowList}>
+          <div className={style.borrowList} onClick={() => { navigate("/historyborrow") }}>
             <p>대출 이력 {borrowCnt}건</p>
             <img src="./images/NextBtn.png" alt="" />
           </div>
           <div className={style.line} />
-          <div className={style.lendList}>
+          <div className={style.lendList} onClick={() => { navigate("/historylend") }}>
             <p>대금 이력 {lendCnt}건</p>
             <img src="./images/NextBtn.png" alt="" />
           </div>
