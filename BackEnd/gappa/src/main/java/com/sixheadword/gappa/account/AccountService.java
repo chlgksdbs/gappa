@@ -4,6 +4,7 @@ import com.sixheadword.gappa.account.dto.request.SetPrimaryReqeustDto;
 import com.sixheadword.gappa.account.dto.response.GetAccountResponseDto;
 import com.sixheadword.gappa.account.repository.AccountRepository;
 import com.sixheadword.gappa.user.User;
+import com.sixheadword.gappa.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -24,13 +25,16 @@ public class AccountService {
 
     // 대표 계좌 설정
     public void setPrimaryAccount(SetPrimaryReqeustDto setPrimaryReqeustDto, Authentication authentication){
-        Long userSeq = Long.parseLong(authentication.getName());
+//        Long userSeq = Long.parseLong(authentication.getName());
         Long accountSeq = setPrimaryReqeustDto.getAccountSeq();
 
-
-
-        accountRepository.setPrimaryAccount(userSeq, accountSeq);
-
+        Account account = accountRepository.findById(accountSeq).orElse(null);
+        if(account != null){
+            account.modifyPrimary(true);
+            accountRepository.save(account);
+        }else {
+            throw new IllegalArgumentException("계좌를 찾을 수 없습니다.");
+        }
     }
 
     // 대표 계좌 변경
@@ -41,41 +45,53 @@ public class AccountService {
         // 현재 대표 계좌 해제
         accountRepository.unsetPrimaryAccount(userSeq, accountSeq);
         // 대표 계좌 설정
-        accountRepository.setPrimaryAccount(userSeq, accountSeq);
+        Account account = accountRepository.findById(accountSeq).orElse(null);
+        if(account != null){
+            account.modifyPrimary(true);
+            accountRepository.save(account);
+        }else {
+            throw new IllegalArgumentException("계좌를 찾을 수 없습니다.");
+        }
     }
 
     // 대표 계좌 조회
     public GetAccountResponseDto getPrimaryAccount(Long userSeq){
-        Account account = accountRepository.findPrimaryByUserSeq(userSeq);
+        Account account = accountRepository.findById(userSeq).orElse(null);
 
-        if(account==null) throw new IllegalArgumentException("계좌를 찾을 수 없습니다");
-
-        GetAccountResponseDto result = GetAccountResponseDto.builder()
-                .account_seq(account.getAccountSeq())
-                .account_number(account.getAccountNumber())
-                .bank(account.getBank())
-                .balance(account.getBalance())
-                .build();
-
-        return result;
-
-    }
-
-    // 전체 계좌 조회
-    public List<GetAccountResponseDto> getAllAcount(Long userSeq){
-        List<Account> accounts = accountRepository.findAllAccounts(userSeq);
-
-        List<GetAccountResponseDto> getAccountResponseDtos = new ArrayList<>();
-        for(Account account : accounts){
-            GetAccountResponseDto getAccountResponseDto = GetAccountResponseDto.builder()
+        if(account != null){
+            GetAccountResponseDto result = GetAccountResponseDto.builder()
                     .account_seq(account.getAccountSeq())
                     .account_number(account.getAccountNumber())
                     .bank(account.getBank())
                     .balance(account.getBalance())
                     .build();
-            getAccountResponseDtos.add(getAccountResponseDto);
+
+            return result;
+        }else{
+            throw new IllegalArgumentException("계좌를 찾을 수 없습니다");
+
         }
-        return getAccountResponseDtos;
+    }
+
+    // 전체 계좌 조회
+    public List<GetAccountResponseDto> getAllAcount(Long userSeq){
+        List<Account> accounts = accountRepository.findByUserSeq(userSeq);
+
+        if(accounts.size() != 0){
+            List<GetAccountResponseDto> getAccountResponseDtos = new ArrayList<>();
+            for(Account account : accounts){
+                GetAccountResponseDto getAccountResponseDto = GetAccountResponseDto.builder()
+                        .account_seq(account.getAccountSeq())
+                        .account_number(account.getAccountNumber())
+                        .bank(account.getBank())
+                        .balance(account.getBalance())
+                        .build();
+                getAccountResponseDtos.add(getAccountResponseDto);
+            }
+            return getAccountResponseDtos;
+        }else{
+            throw new IllegalArgumentException("계좌를 찾을 수 없습니다");
+        }
     }
 
 }
