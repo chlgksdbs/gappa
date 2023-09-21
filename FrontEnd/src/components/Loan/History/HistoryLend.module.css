@@ -1,0 +1,59 @@
+.main {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.totalCnt {
+  margin-left: auto;
+  margin-bottom: 0;
+  margin-right: 10px;
+}
+
+.lendDiv {
+  width: 100%;
+  background-color: rgba(205, 205, 205, 0.2);
+  margin-top: 20px;
+}
+
+.columnDiv {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  border: 1px solid #aaa;
+  padding: 15px 15px 0px 15px;
+}
+
+.columnDate {
+  font-size: 13px;
+  margin: 0 0 0 7px;
+}
+
+.columnDiv2 {
+  display: flex;
+}
+
+.columnImg {
+  width: 80px;
+  border-radius: 40px;
+  margin: 10px 20px 10px 5px;
+}
+
+.columnName {
+  font-size: 20px;
+  margin-bottom: 0;
+}
+
+.lendStatus {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+}
+
+.line {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid #aaa;
+  line-height: 0.1em;
+  margin: 10px 0 10px;
+}
