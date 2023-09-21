@@ -35,4 +35,11 @@ public class FriendRequest {
     // state: 상태
     @Column(length = 1, nullable = false)
     private char state;
+
+    public FriendRequest(User fromUser, User toUser) {
+        this.fromUser = fromUser;
+        this.toUser = toUser;
+        this.requestDate = LocalDateTime.now();
+        this.state = 'W';
+    }
 }
