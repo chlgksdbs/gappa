@@ -31,4 +31,11 @@ public class FriendList {
     // createDate: 생성일시
     @Column(name = "create_date", nullable = false)
     private LocalDateTime createDate;
+
+    public FriendList(Long friendListSeq, User fromUser, User toUser, LocalDateTime createDate) {
+        this.friendListSeq = friendListSeq;
+        this.fromUser = fromUser;
+        this.toUser = toUser;
+        this.createDate = createDate;
+    }
 }
