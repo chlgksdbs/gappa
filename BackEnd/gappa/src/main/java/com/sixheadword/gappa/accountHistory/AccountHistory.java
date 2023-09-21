@@ -14,7 +14,7 @@ public class AccountHistory {
 
     // accountHistorySeq: 계좌 거래내역 일련번호
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "account_history_seq", unique = true, nullable = false)
     private Long accountHistorySeq;
 
