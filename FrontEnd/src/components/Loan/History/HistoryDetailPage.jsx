@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './HistoryDetail.module.css';
 import HeaderSub from '../../Common/HeaderSub';
-import Footer from '../../Home/Footer';
+import Footer from '../../Common/Footer';
 
 const HistoryDetailPage = () => {
   const today = new Date();
