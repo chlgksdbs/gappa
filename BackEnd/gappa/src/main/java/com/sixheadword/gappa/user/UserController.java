@@ -22,6 +22,10 @@ public class UserController {
     }
 
     // API 2. 회원가입
+    @PostMapping("/signup")
+    public ResponseEntity<?> signup(@RequestBody Map<String, String> request) {
+        return userService.setUserInfo(request);
+    }
 
     // API 3. 회원정보 수정
 

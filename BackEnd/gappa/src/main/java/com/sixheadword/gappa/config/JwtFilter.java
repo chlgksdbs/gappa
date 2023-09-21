@@ -49,13 +49,13 @@ public class JwtFilter extends OncePerRequestFilter {
             return;
         }
 
-        // Jwt에서 UserName 꺼내기
-        String userName = jwtUtil.getUserName(token, JwtSecretKey);
-        log.info("userName: {}", userName);
+        // Jwt에서 UserSeq 꺼내기
+        String userSeq = jwtUtil.getUserSeq(token, JwtSecretKey);
+        log.info("userSeq: {}", userSeq);
         
         // 권한 부여
         UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(userName, null, List.of(new SimpleGrantedAuthority("USER")));
+                new UsernamePasswordAuthenticationToken(userSeq, null, List.of(new SimpleGrantedAuthority("USER")));
 
         // Detail 넣기
         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

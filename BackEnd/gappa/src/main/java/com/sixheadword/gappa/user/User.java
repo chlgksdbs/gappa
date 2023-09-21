@@ -7,7 +7,9 @@ import com.sixheadword.gappa.loan.Loan;
 import com.sixheadword.gappa.messageAlarm.MessageAlarm;
 import com.sixheadword.gappa.termsHistory.domain.TermsHistory;
 import com.sixheadword.gappa.webAlarm.WebAlarm;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -17,6 +19,7 @@ import java.util.List;
 // User: 사용자 테이블
 @Getter
 @Entity
+@NoArgsConstructor
 @Table(name = "USER")
 public class User {
 
@@ -65,7 +68,7 @@ public class User {
     private List<TermsHistory> termsHistories = new ArrayList<>();
 
     // loginId: 아이디
-    @Column(name = "login_id", length = 45, nullable = false)
+    @Column(name = "login_id", length = 45, nullable = false, unique = true)
     private String loginId;
 
     // loginPassword: 비밀번호
@@ -73,7 +76,7 @@ public class User {
     private String loginPassword;
 
     // phone: 휴대폰 번호
-    @Column(length = 11, nullable = false)
+    @Column(length = 11, nullable = false, unique = true)
     private String phone;
 
     // name: 이름
@@ -108,4 +111,15 @@ public class User {
     @Column(name = "expired_at")
     private LocalDateTime expiredAt;
 
+    @Builder
+    public User(String loginId, String loginPassword, String phone, String name, String address, String pinPassword) {
+        this.loginId = loginId;
+        this.loginPassword = loginPassword;
+        this.phone = phone;
+        this.name = name;
+        this.address = address;
+        this.pinPassword = pinPassword;
+        this.state = true;
+        this.creditScore = 0;
+    }
 }
