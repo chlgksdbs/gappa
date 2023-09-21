@@ -14,7 +14,7 @@ public class FriendRequest {
 
     // friendRequestSeq: 친구 신청 일련번호
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "friend_request_seq", unique = true, nullable = false)
     private Long friendRequestSeq;
 

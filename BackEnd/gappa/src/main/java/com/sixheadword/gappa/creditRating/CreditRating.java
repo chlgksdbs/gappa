@@ -12,7 +12,7 @@ public class CreditRating {
 
     // creditRatingSeq: 신용등급 일련번호
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "credit_rating_seq", unique = true, nullable = false)
     private Long creditRatingSeq;
 

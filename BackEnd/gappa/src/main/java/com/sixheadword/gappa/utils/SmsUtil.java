@@ -1,4 +1,4 @@
-package com.sixheadword.gappa.util;
+package com.sixheadword.gappa.utils;
 
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
