@@ -94,8 +94,8 @@ const FriendsPage = () => {
                   type="checkbox"
                   className={style.checkbox}
                   checked={selectedFriendIndices.includes(index)}
-                  onClick={(event) => handleCheckboxClick(event, index)}
-                />
+                  onChange={(event) => handleCheckboxClick(event, index)}
+                />              
               )}
             </div>
           ))}
