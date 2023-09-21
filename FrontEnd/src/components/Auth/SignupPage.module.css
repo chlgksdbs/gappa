@@ -23,6 +23,7 @@
   flex-direction: column;
   width: 90%;
   font-size: 13px;
+  height: 60vh;
 }
 
 .form span{
