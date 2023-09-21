@@ -74,15 +74,13 @@ public class UserService {
     }
 
     // 신용점수 조회
-    public ResponseEntity<?> getUserCreditScore(String loginId) {
+    public ResponseEntity<?> getUserCreditScore(Long userSeq) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
 
         try {
-            /*
-            ** 신용점수 조회 로직 구현 필요
-             */
-            resultMap.put("login_id", loginId);
+            int creditScore = userRepository.selectUserCreditScore(userSeq);
+            resultMap.put("credit_score", creditScore);
             resultMap.put("message", "신용점수 조회 성공");
             status = HttpStatus.OK;
         } catch (Exception e) {

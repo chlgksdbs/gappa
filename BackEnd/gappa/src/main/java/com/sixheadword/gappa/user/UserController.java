@@ -34,9 +34,9 @@ public class UserController {
     // API 5. 아이디 찾기
 
     // API 6. 신용점수 조회
-    @GetMapping("/credit/{loginId}")
-    public ResponseEntity<?> getUserCreditScore(@PathVariable String loginId, Authentication authentication) {
-        return userService.getUserCreditScore(loginId + " " + authentication.getName());
+    @GetMapping("/credit")
+    public ResponseEntity<?> getUserCreditScore(Authentication authentication) {
+        return userService.getUserCreditScore(Long.parseLong(authentication.getName()));
     }
 
     @PostMapping("/phone/send")
