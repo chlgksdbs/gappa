@@ -17,7 +17,7 @@ public class Loan {
 
     // loanSeq: 대출 일련번호
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "loan_seq", unique = true, nullable = false)
     private Long loanSeq;
 

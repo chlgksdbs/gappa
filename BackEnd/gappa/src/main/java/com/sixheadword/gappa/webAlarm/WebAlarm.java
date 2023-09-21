@@ -14,7 +14,7 @@ public class WebAlarm {
 
     // webAlarmSeq : 웹/앱 알림 일련번호
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "web_alarm_seq", unique = true, nullable = false)
     private Long webAlarmSeq;
 
