@@ -46,6 +46,10 @@ public class Loan {
     // loanOtherReason: 사유
     @Column(name = "loan_other_reason", length = 100)
     private String loanOtherReason;
+
+    // startDate: 실행일자
+    @Column(name = "start_date", nullable = false)
+    private LocalDateTime startDate;
     
     // redemptionDate: 희망 상환일자
     @Column(name = "redemption_date", nullable = false)
