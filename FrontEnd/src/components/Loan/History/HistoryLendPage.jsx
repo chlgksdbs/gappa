@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import style from './HistoryLend.module.css';
 import HeaderSub from '../../Common/HeaderSub';
-import Footer from '../../Home/Footer';
+import Footer from '../../Common/Footer';
 
 const HistoryLendPage = () => {
   const navigate = useNavigate();
