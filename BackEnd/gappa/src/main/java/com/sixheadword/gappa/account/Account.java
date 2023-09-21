@@ -16,7 +16,7 @@ public class Account {
 
     // accountSeq: 계좌 일련번호
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "account_seq", unique = true, nullable = false)
     private Long accountSeq;
 

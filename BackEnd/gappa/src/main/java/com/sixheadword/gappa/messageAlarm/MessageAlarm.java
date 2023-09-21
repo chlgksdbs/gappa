@@ -14,7 +14,7 @@ public class MessageAlarm {
 
     // messageAlarmSeq: 문자 알림 일련번호
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "message_alarm_seq", unique = true, nullable = false)
     private Long messageAlarmSeq;
 

@@ -14,7 +14,7 @@ public class FriendList {
 
     // friendListSeq: 친구 목록 일련번호
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "friend_list_seq", unique = true, nullable = false)
     private Long friendListSeq;
 

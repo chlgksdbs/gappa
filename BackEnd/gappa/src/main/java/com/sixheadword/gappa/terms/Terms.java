@@ -15,7 +15,7 @@ public class Terms {
 
     // termsSeq: 약관 일련번호
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "terms_seq", unique = true, nullable = false)
     private Long termsSeq;
 
