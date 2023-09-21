@@ -14,7 +14,7 @@ public class LoanHistory {
 
     // loanHistorySeq: 대출 내역 일련번호
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "loan_history_seq", unique = true, nullable = false)
     private Long loanHistorySeq;
 

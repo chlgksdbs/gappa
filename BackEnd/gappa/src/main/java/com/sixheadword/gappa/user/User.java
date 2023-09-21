@@ -22,7 +22,7 @@ public class User {
 
     // userSeq: 사용자 일련번호
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_seq", unique = true, nullable = false)
     private Long userSeq;
 
