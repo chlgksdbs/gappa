@@ -10,6 +10,7 @@ import com.sixheadword.gappa.webAlarm.WebAlarm;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // User: 사용자 테이블
-@Getter
+@Getter @Setter
 @Entity
 @NoArgsConstructor
 @Table(name = "USER")
@@ -88,7 +89,7 @@ public class User {
     private String address;
     
     // pinPassword: 간편 비밀번호
-    @Column(name = "pin_password", nullable = false)
+    @Column(name = "pin_password")
     private String pinPassword;
     
     // state: 사용자 활성 상태
@@ -111,7 +112,6 @@ public class User {
     @Column(name = "expired_at")
     private LocalDateTime expiredAt;
 
-    @Builder
     public User(String loginId, String loginPassword, String phone, String name, String address) {
         this.loginId = loginId;
         this.loginPassword = loginPassword;

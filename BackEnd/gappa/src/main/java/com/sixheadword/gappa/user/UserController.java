@@ -30,6 +30,10 @@ public class UserController {
     // API 3. 회원정보 수정
 
     // API 4. 회원탈퇴
+    @DeleteMapping
+    public ResponseEntity<?> deleteUserInfo(Authentication authentication) {
+        return userService.deleteUserInfo(Long.parseLong(authentication.getName()));
+    }
 
     // API 5. 신용점수 조회
     @GetMapping("/credit")
