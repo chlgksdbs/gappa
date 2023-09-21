@@ -68,7 +68,7 @@ public class User {
     private List<TermsHistory> termsHistories = new ArrayList<>();
 
     // loginId: 아이디
-    @Column(name = "login_id", length = 45, nullable = false)
+    @Column(name = "login_id", length = 45, nullable = false, unique = true)
     private String loginId;
 
     // loginPassword: 비밀번호
@@ -76,7 +76,7 @@ public class User {
     private String loginPassword;
 
     // phone: 휴대폰 번호
-    @Column(length = 11, nullable = false)
+    @Column(length = 11, nullable = false, unique = true)
     private String phone;
 
     // name: 이름

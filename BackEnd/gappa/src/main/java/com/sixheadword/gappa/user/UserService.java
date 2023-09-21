@@ -54,8 +54,15 @@ public class UserService {
         Map<String, String> resultMap = new HashMap<>();
         HttpStatus httpStatus = null;
 
+        String loginId = request.get("loginId");
+        String loginPassword = request.get("loginPassword");
+        String phone = request.get("phone");
+        String name = request.get("name");
+        String address = request.get("address");
+        String pinPassword = request.get("pinPassword");
+
         try {
-            User user = new User(request.get("loginId"), request.get("loginPassword"), request.get("phone"), request.get("name"), request.get("address"), request.get("pinPassword"));
+            User user = new User(loginId, loginPassword, phone, name, address, pinPassword);
             userRepository.save(user);
             resultMap.put("message", "회원가입 성공");
             httpStatus = HttpStatus.OK;
