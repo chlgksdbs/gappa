@@ -3,11 +3,14 @@ package com.sixheadword.gappa.account;
 import com.sixheadword.gappa.account.dto.request.SetPrimaryReqeustDto;
 import com.sixheadword.gappa.account.dto.response.GetAccountResponseDto;
 import com.sixheadword.gappa.account.repository.AccountRepository;
+import com.sixheadword.gappa.user.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,17 +23,19 @@ public class AccountService {
     private AccountRepository accountRepository;
 
     // 대표 계좌 설정
-    public void setPrimaryAccount(SetPrimaryReqeustDto setPrimaryReqeustDto){
-        Long userSeq = setPrimaryReqeustDto.getUserSeq();
+    public void setPrimaryAccount(SetPrimaryReqeustDto setPrimaryReqeustDto, Authentication authentication){
+        Long userSeq = Long.parseLong(authentication.getName());
         Long accountSeq = setPrimaryReqeustDto.getAccountSeq();
+
+
 
         accountRepository.setPrimaryAccount(userSeq, accountSeq);
 
     }
 
     // 대표 계좌 변경
-    public void changePrimaryAccount(SetPrimaryReqeustDto setPrimaryReqeustDto){
-        Long userSeq = setPrimaryReqeustDto.getUserSeq();
+    public void changePrimaryAccount(SetPrimaryReqeustDto setPrimaryReqeustDto, Authentication authentication){
+        Long userSeq = Long.parseLong(authentication.getName());
         Long accountSeq = setPrimaryReqeustDto.getAccountSeq();
 
         // 현재 대표 계좌 해제
