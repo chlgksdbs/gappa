@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -27,11 +28,22 @@ public class FriendRequestRepository {
                 .getResultList();
     }
 
-    public FriendRequest findByUserSeqs(Long member_id, Long user_seq){
+    public Optional<FriendRequest> findByUserSeqs(Long member_id, Long user_seq){
         return em.createQuery("select R from FriendRequest R where (R.toUser.id = :member_id and R.fromUser.id = :user_seq) or (R.toUser.id = :user_seq and R.fromUser.id = :member_id) and R.state = 'A'", FriendRequest.class)
                 .setParameter("member_id", member_id)
                 .setParameter("user_seq", user_seq)
-                .getSingleResult();
+                .getResultStream()
+                .findFirst();
     }
+
+    public boolean existsByUserSeqs(Long member_id, Long user_seq){
+        Long count = em.createQuery("select count(R) from FriendRequest R where R.toUser.id = :user_seq and R.fromUser.id = :member_id and R.state = 'W'", Long.class)
+                .setParameter("member_id", member_id)
+                .setParameter("user_seq", user_seq)
+                .getSingleResult();
+
+        return count > 0;
+    }
+
 
 }
