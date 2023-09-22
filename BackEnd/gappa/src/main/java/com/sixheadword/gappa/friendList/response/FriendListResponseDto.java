@@ -14,4 +14,5 @@ public class FriendListResponseDto {
     private Long user_seq;
     private String user_name;
     private String profile_img;
+    private String phone;
 }
