@@ -81,6 +81,12 @@ public class UserController {
         return userService.updateUserPw(request);
     }
 
+    // API 12. 알림 조회
+    @GetMapping("/alarm")
+    public ResponseEntity<?> selectUserAlarm(Authentication authentication) {
+        return userService.selectUserAlarm(Long.parseLong(authentication.getName()));
+    }
+
     @PostMapping("/phone/send")
     public ResponseEntity<?> sendVerificationCode(@RequestBody Map<String, String> request){
         return userService.sendVerificationCode(request);

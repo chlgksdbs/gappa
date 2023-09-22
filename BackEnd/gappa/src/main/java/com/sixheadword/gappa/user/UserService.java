@@ -3,6 +3,9 @@ package com.sixheadword.gappa.user;
 import com.sixheadword.gappa.utils.JwtUtil;
 import com.sixheadword.gappa.utils.RedisUtil;
 import com.sixheadword.gappa.utils.SmsUtil;
+import com.sixheadword.gappa.webAlarm.WebAlarm;
+import com.sixheadword.gappa.webAlarm.WebAlarmRepository;
+import com.sixheadword.gappa.webAlarm.dto.response.WebAlarmResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -14,9 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -30,6 +31,7 @@ public class UserService {
     private final RedisUtil redisUtil;
     private final BCryptPasswordEncoder encoder;
     private final UserRepository userRepository;
+    private final WebAlarmRepository webAlarmRepository;
     private final EntityManager em;
 
     private static final Long EXPIRATION_TIME = 5 * 60 * 1000L; // 문자인증만료시간(5분)
@@ -292,6 +294,39 @@ public class UserService {
             resultMap.put("message", "비밀번호 재설정 중 에러 발생");
             resultMap.put("error", e.getMessage());
             status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    // 알림 조회
+    public ResponseEntity<?> selectUserAlarm(Long userSeq) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+
+        try {
+            List<WebAlarmResponseDto> webAlarmResponseDtos = new ArrayList<>();
+            List<WebAlarm> webAlarms = webAlarmRepository.findAllByUserSeq(userSeq);
+
+            webAlarms.forEach(webAlarm -> {
+                WebAlarmResponseDto webAlarmResponseDto = WebAlarmResponseDto.builder()
+                        .regDate(webAlarm.getRegDate())
+                        .isRead(webAlarm.isRead())
+                        .readDate(webAlarm.getReadDate())
+                        .alarmCategory(webAlarm.getAlarmCategory())
+                        .alarmContent(webAlarm.getAlarmContent())
+                        .build();
+
+                webAlarmResponseDtos.add(webAlarmResponseDto);
+            });
+
+            resultMap.put("data", webAlarmResponseDtos);
+            resultMap.put("message", "알림 조회 성공");
+            status = HttpStatus.OK;
+        } catch (Exception e) {
+            resultMap.put("message", "알림 조회 중 에러가 발생했습니다.");
+            resultMap.put("error", e.getMessage());
+            status = HttpStatus.BAD_REQUEST;
         }
 
         return new ResponseEntity<>(resultMap, status);
