@@ -90,7 +90,7 @@ public class FriendRequestService {
             for (FriendRequest r : requests) {
                 FriendRequestListResponseDto friendRequestListResponseDto = FriendRequestListResponseDto.builder()
                         .request_seq(r.getFriendRequestSeq())
-                        .to_user_name(r.getToUser().getName())
+                        .to_user_name(r.getFromUser().getName())
                         .request_date(r.getRequestDate())
                         .profile_img(r.getToUser().getProfileImg())
                         .build();

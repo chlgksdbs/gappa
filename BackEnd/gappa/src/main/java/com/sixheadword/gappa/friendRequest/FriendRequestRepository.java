@@ -21,7 +21,7 @@ public class FriendRequestRepository {
     }
 
     public List<FriendRequest> findRequestsById(Long id){
-        return em.createQuery("select R from FriendRequest R where R.fromUser.id = :member_id and R.state = 'W'", FriendRequest.class)
+        return em.createQuery("select R from FriendRequest R where R.toUser.id = :member_id and R.state = 'W' order by R.requestDate Desc", FriendRequest.class)
                 .setParameter("member_id", id)
                 .getResultList();
     }
