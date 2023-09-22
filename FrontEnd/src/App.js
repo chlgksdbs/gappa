@@ -29,6 +29,7 @@ import FriendsAddPage from './components/Friends/FriendsAddPage';
 import FriendsReqPage from './components/Friends/FriendsReqPage';
 import LendRefusePage from './components/Loan/Lend/LendRefusePage';
 import LendCheckPage from './components/Loan/Lend/LendCheckPage';
+import LendSendPage from './components/Loan/Lend/LendSendPage';
 
 
 function App() {
@@ -67,6 +68,7 @@ function App() {
             <Route path="/lend" element={<LendPage />}/>
             <Route path="/lend/refuse" element={<LendRefusePage />}/>
             <Route path="/lend/check" element={<LendCheckPage />}/>
+            <Route path="/lend/send" element={<LendSendPage />}/>
             <Route path="/historyborrow" element={<HistoryBorrowPage />}/>
             <Route path="/historylend" element={<HistoryLendPage />}/>
             <Route path="/historydetail" element={<HistoryDetailPage />}/>
