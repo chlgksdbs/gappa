@@ -3,6 +3,8 @@
   grid-template-columns: 20% 60% 20%;
   margin-bottom: 3vw;
   width: 90%;
+  /* position: relative;
+  bottom: 100px; */
 }
 
 .back{
