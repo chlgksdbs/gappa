@@ -5,6 +5,8 @@ import style from './FriendsAddPage.module.css';
 const FriendsAdd = () => {
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [isResultOpen, setIsResultOpen] = useState(false);
+  const isResult = true;
 
   // 이름 입력 핸들러
   const handleNameChange = (event) => {
@@ -18,7 +20,11 @@ const FriendsAdd = () => {
 
   // 검색 버튼 클릭 핸들러
   const handleSearch = () => {
-    
+    setIsResultOpen(!isResultOpen);
+  };
+
+  const toggleSearch = () => {
+    setIsResultOpen(!isResultOpen);
   };
 
   return (
@@ -36,6 +42,33 @@ const FriendsAdd = () => {
       <div className={style.inputBtn}>
         <button onClick={handleSearch}>검색</button>
       </div>
+      {isResultOpen && (
+        isResult ? (
+        <div className={style.resultBox}>
+          <div className={style.infoBox}>
+            <div className={style.infoImgBox}>
+              <img src="/images/GappaMascot.png" alt="개굴" />
+            </div>
+            <div className={style.infoUserBox}>
+              <div className={style.infoName}>개구리</div>
+              <div className={style.infoNumber}>010-1234-5678</div>
+            </div>
+          </div>
+          <div className={style.resultBtnBox}>
+            <div className={style.resultBtn}>
+              <button>친구신청</button>
+            </div>
+          </div>
+        </div>
+        ) : (
+          <div className={style.resultBox}>
+            등록 되지 않은 유저 입니다
+          </div>
+        )
+      )}
+      {isResultOpen && (
+        <div className={style.overlay} onClick={toggleSearch}></div>
+      )}
     </div>
   );
 };
