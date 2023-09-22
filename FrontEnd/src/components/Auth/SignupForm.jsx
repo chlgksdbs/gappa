@@ -4,7 +4,7 @@ import DaumPostcode from 'react-daum-postcode';
 import Modal from 'react-modal';
 import { useDispatch } from 'react-redux';
 import { authActions } from '../../store/authslice';
-import { authAxios } from '../api/cuustomaxios';
+import { authAxios } from '../api/customAxios';
 const SignupForm = (props) => {
 
   //초기값 세팅
