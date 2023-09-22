@@ -68,7 +68,7 @@ public class UserService {
         String address = request.get("address");
 
         try {
-            User user = new User(loginId, loginPassword, phone, name, address);
+            User user = new User(loginId, encoder.encode(loginPassword), phone, name, address);
             userRepository.save(user);
             resultMap.put("message", "회원가입 성공");
             httpStatus = HttpStatus.OK;
