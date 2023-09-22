@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import Headers from './Headers';
 import style from './BankBookPage.module.css';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch} from 'react-redux';
+import { authActions } from '../../store/authslice';
+
 const BankBookPage = () => {
   const title = "대표 계좌 선택";
-
-  function Book({ banknumber, bankname, money, index, clickedItems, onClick }) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  function Book({ account_Number, bankname, balance, index, clickedItems, onClick }) {
     // 클릭 상태에 따라 스타일을 동적으로 설정
     const itemStyle = {
       backgroundColor: clickedItems[index] ? 'lightblue' : 'white',
@@ -17,7 +22,7 @@ const BankBookPage = () => {
             <img src="images/Ssafy.png" alt="" />
           </div>
           <div>
-            <span>{banknumber}</span>
+            <span>{account_Number}</span>
             <br />
             <br />
             <span className={style.bankcolor}>{bankname}</span>
@@ -25,7 +30,7 @@ const BankBookPage = () => {
           <div>
             <br />
             <br />
-            <span>{money} 원</span>
+            <span>{balance} 원</span>
           </div>
         </div>
         <hr />
@@ -37,36 +42,37 @@ const BankBookPage = () => {
 
   const bankBookData = [
     {
-      banknumber: 12345678900123,
-      bankname: "싸피 은행",
-      money: "1,110,000",
+      account_Number: 12345678900123,
+      bank: "싸피 은행",
+      balance: "1,110,000",
     },
     {
-      banknumber: 12345678900123,
-      bankname: "싸피 은행",
-      money: "1,110,000"
+      account_Number: 12345678900123,
+      bank: "싸피 은행",
+      balance: "1,110,000"
     },
     {
-      banknumber: 12345678900123,
-      bankname: "싸피 은행",
-      money: "1,110,000"
+      account_Number: 12345678900123,
+      bank: "싸피 은행",
+      balance: "1,110,000"
     },
     {
-      banknumber: 12345678900123,
-      bankname: "싸피 은행",
-      money: "1,110,000"
+      account_Number: 12345678900123,
+      bank: "싸피 은행",
+      balance: "1,110,000"
     },
     {
-      banknumber: 12345678900123,
-      bankname: "싸피 은행",
-      money: "1,110,000"
+      account_Number: 12345678900123,
+      bank: "싸피 은행",
+      balance: "1,110,000"
     },
     {
-      banknumber: 12345678900123,
-      bankname: "싸피 은행",
-      money: "1,110,000"
+      account_Number: 12345678900123,
+      bank: "싸피 은행",
+      balance: "1,110,000"
     },
   ]
+
   const [pass, setPass] = useState(false);
 
   // 클릭 상태를 저장할 배열 생성 및 초기값 설정
@@ -79,12 +85,19 @@ const BankBookPage = () => {
     const updatedClickedItems = Array(bankBookData.length).fill(false);
     updatedClickedItems[index] = !clickedItems[index];
 
+    //redux 저장
+    dispatch(authActions.updatedUserBank(bankBookData[index]))
+    
     // 클릭된 항목의 개수를 세기
     const clickedCount = updatedClickedItems.filter((item) => item).length;
-
     setPass(clickedCount === 1);
     setClickedItems(updatedClickedItems);
   };
+
+  const dataRequest = () => {
+    // API 넣고
+    navigate("/masterbankbook");
+  }
 
   return (
     <div className={style.bankbook}>
@@ -92,9 +105,9 @@ const BankBookPage = () => {
       <div className={style.bankbookstyle}>
         {bankBookData.map((data, index) =>
         (<Book
-          banknumber={data.banknumber}
+          account_Number={data.account_Number}
           bankname={data.bankname}
-          money={data.money}
+          balance={data.balance}
           key={index}
           index={index}
           clickedItems={clickedItems} // 클릭 상태 배열 전달
@@ -104,7 +117,7 @@ const BankBookPage = () => {
       </div>
       {pass
         ?
-        <button className={style.btn}>확인</button>
+        <button className={style.btn} onClick={dataRequest}>확인</button>
         :
         <button className={style.notbtn}>확인</button>
       }
