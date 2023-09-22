@@ -20,4 +20,11 @@ public class UserCustomRepository {
                 .getResultStream()
                 .findFirst();
     }
+
+    public Optional<User> findByLoginId(String loginId){
+        return em.createQuery("select U from User U where U.loginId = :loginId", User.class)
+                .setParameter("loginId", loginId)
+                .getResultStream()
+                .findFirst();
+    }
 }

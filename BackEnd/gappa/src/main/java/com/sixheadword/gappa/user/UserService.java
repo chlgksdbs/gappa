@@ -1,5 +1,6 @@
 package com.sixheadword.gappa.user;
 
+import com.sixheadword.gappa.user.request.CheckPwRequestDto;
 import com.sixheadword.gappa.utils.JwtUtil;
 import com.sixheadword.gappa.utils.RedisUtil;
 import com.sixheadword.gappa.utils.SmsUtil;
@@ -31,6 +32,7 @@ public class UserService {
     private final RedisUtil redisUtil;
     private final BCryptPasswordEncoder encoder;
     private final UserRepository userRepository;
+    private final UserCustomRepository userCustomRepository;
     private final WebAlarmRepository webAlarmRepository;
     private final EntityManager em;
 
@@ -365,6 +367,37 @@ public class UserService {
             status = HttpStatus.ACCEPTED;
         } else {
             resultMap.put("message", "인증실패");
+            status = HttpStatus.BAD_REQUEST;
+        }
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    // 비밀번호 찾기 인증
+    public ResponseEntity<?> checkVerificationPw(CheckPwRequestDto dto) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+        try {
+            User user = userCustomRepository.findByLoginId(dto.getId()).orElse(null);
+
+            if (user == null) {
+                resultMap.put("message", "아이디를 찾을 수 없습니다.");
+                status = HttpStatus.NOT_FOUND;
+            } else {
+                if (!user.getPhone().equals(dto.getPhone())) {
+                    resultMap.put("message", "입력한 핸드폰 번호와 아이디가 일치하지 않습니다.");
+                    status = HttpStatus.BAD_REQUEST;
+                } else {
+                    if (dto.getCode().equals(redisUtil.getData(dto.getPhone()))) {
+                        resultMap.put("message", "인증성공");
+                        status = HttpStatus.OK;
+                    } else {
+                        resultMap.put("message", "인증번호가 일치하지 않습니다.");
+                        status = HttpStatus.BAD_REQUEST;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            resultMap.put("message", "인증번호 시간이 만료되었습니다.");
             status = HttpStatus.BAD_REQUEST;
         }
         return new ResponseEntity<>(resultMap, status);
