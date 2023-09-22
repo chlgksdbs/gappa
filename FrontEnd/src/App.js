@@ -27,6 +27,7 @@ import HistoryBorrowPage from './components/Loan/History/HistoryBorrowPage';
 import HistoryLendPage from './components/Loan/History/HistoryLendPage';
 import HistoryDetailPage from './components/Loan/History/HistoryDetailPage';
 import FriendsAddPage from './components/Friends/FriendsAddPage';
+import FriendsReqPage from './components/Friends/FriendsReqPage';
 
 
 function App() {
@@ -77,6 +78,7 @@ function App() {
             <Route path="/historydetail" element={<HistoryDetailPage />}/>
             <Route path="/friends" element={<FriendsPage />}/>
             <Route path="/friends/add" element={<FriendsAddPage />}/>
+            <Route path="/friends/req" element={<FriendsReqPage />}/>
             <Route path="/profile" element={<ProfilePage />}/>
             <Route path="/account" element={<AccountDetail />}/>
             <Route path="/profile/edit" element={<ProfileEditPage />}/>
