@@ -81,6 +81,28 @@ public class UserService {
         return new ResponseEntity<>(resultMap, httpStatus);
     }
 
+    // 회원정보 수정
+    public ResponseEntity<?> modifyUserInfo(Map<String, String> request, Long userSeq) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+        String phone = request.get("phone");
+        String address = request.get("address");
+        try {
+            User user = em.find(User.class, userSeq);
+            user.setPhone(phone);
+            user.setAddress(address);
+
+            resultMap.put("message", "회원정보 수정 성공");
+            status = HttpStatus.OK;
+        } catch (Exception e) {
+            resultMap.put("message", "회원정보 수정 중 에러 발생");
+            resultMap.put("error", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
+    }
+
     // 회원 탈퇴
     public ResponseEntity<?> deleteUserInfo(Long userSeq) {
         Map<String, Object> resultMap = new HashMap<>();
@@ -129,7 +151,7 @@ public class UserService {
         String loginId = request.get("loginId");
 
         try {
-            String existLoginId = userRepository.selectUserLoginId(loginId);
+            String existLoginId = userRepository.selectUserLoginIdByLoginId(loginId);
 
             if (existLoginId != null) {
                 resultMap.put("code", false);
@@ -182,6 +204,33 @@ public class UserService {
             }
         } catch (Exception e) {
             resultMap.put("message", "간편 비밀번호 확인 중 에러가 발생했습니다.");
+            resultMap.put("error", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    // 아이디 찾기
+    public ResponseEntity<?> findUserId(Map<String, String> request) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+
+        String name = request.get("name");
+        String phone = request.get("phone");
+
+        try {
+            String loginId = userRepository.selectUserLoginIdByNameAndPhone(name, phone);
+            if (loginId != null) {
+                resultMap.put("message", "아이디 찾기 성공");
+                resultMap.put("data", loginId);
+                status = HttpStatus.OK;
+            } else {
+                resultMap.put("message", "일치하는 아이디가 존재하지 않습니다.");
+                status = HttpStatus.BAD_REQUEST;
+            }
+        } catch (Exception e) {
+            resultMap.put("message", "아이디 찾기 중 에러 발생");
             resultMap.put("error", e.getMessage());
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }

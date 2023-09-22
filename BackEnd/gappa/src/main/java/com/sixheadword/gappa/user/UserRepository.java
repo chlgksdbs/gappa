@@ -15,5 +15,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     int selectUserCreditScore(@Param("userSeq") Long userSeq);
 
     @Query(nativeQuery = true, value = "SELECT login_id FROM user u WHERE u.login_id = :loginId")
-    String selectUserLoginId(@Param("loginId") String loginId);
+    String selectUserLoginIdByLoginId(@Param("loginId") String loginId);
+
+    @Query(nativeQuery = true, value = "SELECT login_id FROM user u WHERE u.name = :name AND u.phone = :phone")
+    String selectUserLoginIdByNameAndPhone(@Param("name") String name, @Param("phone") String phone);
 }

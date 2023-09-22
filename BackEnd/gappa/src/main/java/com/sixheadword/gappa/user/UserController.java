@@ -28,6 +28,10 @@ public class UserController {
     }
 
     // API 3. 회원정보 수정
+    @PutMapping
+    public ResponseEntity<?> modifyUserInfo(@RequestBody Map<String, String> request, Authentication authentication) {
+        return userService.modifyUserInfo(request, Long.parseLong(authentication.getName()));
+    }
 
     // API 4. 회원탈퇴
     @DeleteMapping
@@ -57,6 +61,12 @@ public class UserController {
     @PostMapping("/pin/check")
     public ResponseEntity<?> checkPinPassword(@RequestBody Map<String, String> request, Authentication authentication) {
         return userService.checkPinPassword(request, authentication.getName());
+    }
+
+    // API 9. 아이디 찾기
+    @PostMapping("/findid")
+    public ResponseEntity<?> findUserId(@RequestBody Map<String, String> request) {
+        return userService.findUserId(request);
     }
 
     @PostMapping("/phone/send")
