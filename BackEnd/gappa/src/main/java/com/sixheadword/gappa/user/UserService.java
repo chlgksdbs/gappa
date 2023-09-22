@@ -238,6 +238,30 @@ public class UserService {
         return new ResponseEntity<>(resultMap, status);
     }
 
+    // 유저 조회
+    public ResponseEntity<?> searchUserInfo(String loginId) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+
+        try {
+            User user = userRepository.findByLoginId(loginId);
+
+            resultMap.put("profileImg", user.getProfileImg());
+            resultMap.put("name", user.getName());
+            resultMap.put("loginId", user.getLoginId());
+            resultMap.put("phone", user.getPhone());
+            resultMap.put("creditScore", user.getCreditScore());
+            resultMap.put("message", "유저 조회 성공");
+            status = HttpStatus.OK;
+        } catch (Exception e) {
+            resultMap.put("message", "유저 조회 중 에러가 발생했습니다.");
+            resultMap.put("error", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
+    }
+
     // 휴대폰 인증번호 메세지 전송
     public ResponseEntity<?> sendVerificationCode(Map<String, String> request) {
         Map<String, Object> resultMap = new HashMap<>();

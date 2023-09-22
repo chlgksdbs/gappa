@@ -69,6 +69,12 @@ public class UserController {
         return userService.findUserId(request);
     }
 
+    // API 10. 유저 조회
+    @GetMapping("/{loginId}")
+    public ResponseEntity<?> searchUserInfo(@PathVariable("loginId") String loginId) {
+        return userService.searchUserInfo(loginId);
+    }
+
     @PostMapping("/phone/send")
     public ResponseEntity<?> sendVerificationCode(@RequestBody Map<String, String> request){
         return userService.sendVerificationCode(request);

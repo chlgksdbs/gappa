@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByLoginIdAndLoginPassword(String loginId, String loginPassword);
 
+    User findByLoginId(String loginId);
+
     @Query(nativeQuery = true, value = "SELECT credit_score FROM user u WHERE u.user_seq = :userSeq")
     int selectUserCreditScore(@Param("userSeq") Long userSeq);
 
