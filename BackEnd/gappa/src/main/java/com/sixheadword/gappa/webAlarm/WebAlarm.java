@@ -42,4 +42,5 @@ public class WebAlarm {
     // alarmContent: 알림 내용
     @Column(name = "alarm_content", nullable = false)
     private String alarmContent;
+
 }

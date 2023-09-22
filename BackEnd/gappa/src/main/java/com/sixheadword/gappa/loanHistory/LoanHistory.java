@@ -36,7 +36,7 @@ public class LoanHistory {
     private Long oldRedemptionMoney;
     
     // newRedemptionMoney: 거래 후 상환금
-    @Column(name = "new_redemtion_money", nullable = false)
+    @Column(name = "new_redemption_money", nullable = false)
     private Long newRedemptionMoney;
     
     // transactionDate: 거래일시
