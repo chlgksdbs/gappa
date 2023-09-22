@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import Headers from './Headers';
 import style from './BankBookPage.module.css';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch} from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { authActions } from '../../store/authslice';
 
 const BankBookPage = () => {
   const title = "대표 계좌 선택";
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userInfo = useSelector(state => state.auth);
   function Book({ account_Number, bankname, balance, index, clickedItems, onClick }) {
     // 클릭 상태에 따라 스타일을 동적으로 설정
     const itemStyle = {
@@ -85,9 +86,10 @@ const BankBookPage = () => {
     const updatedClickedItems = Array(bankBookData.length).fill(false);
     updatedClickedItems[index] = !clickedItems[index];
 
-    //redux 저장
+    // redux에 저장
     dispatch(authActions.updatedUserBank(bankBookData[index]))
-    
+    console.log(userInfo)
+
     // 클릭된 항목의 개수를 세기
     const clickedCount = updatedClickedItems.filter((item) => item).length;
     setPass(clickedCount === 1);

@@ -2,23 +2,25 @@ import { React, useState, useRef, useEffect } from 'react';
 import style from './SignupPage.module.css';
 import DaumPostcode from 'react-daum-postcode';
 import Modal from 'react-modal';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { authActions } from '../../store/authslice';
 const SignupForm = (props) => {
 
   //초기값 세팅
+  const [phone, setPhone] = useState("");
+  const [name, setName] = useState("");
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  
+
   const [address, setAddress] = useState("");
   const [addressNumber, setAddressNumber] = useState("");
   const [detailAddress, setDetailAdress] = useState("");
   const [finalAddress, setFinalAddress] = useState("");
-
-
-  const [phone, setPhone] = useState("");
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
-
+  
   // 정보 확인
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   //오류 메세지
   const [idMessage, setIdMessage] = useState("");
@@ -36,7 +38,11 @@ const SignupForm = (props) => {
   // const [isPhone,setIsPhone] = useState(false);
   const [pass, setPass] = useState(false);
 
-
+  // 이름 입력
+  const onChangeName = (e) => {
+    const currentName = e.target.value;
+    setName(currentName);
+  }
 
   // 아이디 입력
   const onChangeId = (e) => {
@@ -193,6 +199,14 @@ const SignupForm = (props) => {
     if (isId && isPassword && isPasswordConfirm && isFinalAddress) {
       setPass(true);
       props.sendDataToPage(pass);
+      const userInfo = {
+        login_Id : id,
+        login_Password : password,
+        phone: phone,
+        name: name,
+        address: finalAddress,
+      }
+      dispatch(authActions.updateUserInfo(userInfo));
     } else {
       setPass(false);
       props.sendDataToPage(pass);
@@ -224,7 +238,7 @@ const SignupForm = (props) => {
       </div>
       <>
         <span>이름</span>
-        <input type="text" className={style.input} />
+        <input type="text" className={style.input} value={name} onChange={onChangeName} />
       </>
       <>
         <span>비밀번호</span>

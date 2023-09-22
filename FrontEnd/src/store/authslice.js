@@ -18,7 +18,7 @@ const authSlice = createSlice({
     updateUserInfo(state,action){
       const newItem = action.payload;
       state.login_Id = newItem.login_Id;
-      state.login_Password = newItem.login_password;
+      state.login_Password = newItem.login_Password;
       state.name = newItem.name;
       state.phone = newItem.phone;
       state.address = newItem.address;

@@ -3,9 +3,15 @@ import SignupForm from './SignupForm';
 import style from './SignupPage.module.css';
 import Headers from './Headers';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+
 const SignupPage = () => {
   const title = "회원가입"
   const navigate = useNavigate();
+  const userInfo = useSelector(state => state.auth);
+
+
   const [pass,setPass] = useState(false);
   const handlePass = (data) => {
     setPass(data);
@@ -13,6 +19,7 @@ const SignupPage = () => {
 
   const signupData = ()=>{
     navigate("/bankbook");
+    console.log(userInfo)
   }
   return (
     <div className={style.signuppage}>
