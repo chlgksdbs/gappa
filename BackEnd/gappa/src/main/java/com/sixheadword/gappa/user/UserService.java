@@ -3,17 +3,21 @@ package com.sixheadword.gappa.user;
 import com.sixheadword.gappa.utils.JwtUtil;
 import com.sixheadword.gappa.utils.RedisUtil;
 import com.sixheadword.gappa.utils.SmsUtil;
+import com.sixheadword.gappa.webAlarm.WebAlarm;
+import com.sixheadword.gappa.webAlarm.WebAlarmRepository;
+import com.sixheadword.gappa.webAlarm.dto.response.WebAlarmResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import javax.persistence.EntityManager;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -25,8 +29,12 @@ public class UserService {
 
     private final SmsUtil smsUtil;
     private final RedisUtil redisUtil;
+    private final BCryptPasswordEncoder encoder;
     private final UserRepository userRepository;
-    private static final int EXPIRATION_TIME = 300000; // 문자인증만료시간(5분)
+    private final WebAlarmRepository webAlarmRepository;
+    private final EntityManager em;
+
+    private static final Long EXPIRATION_TIME = 5 * 60 * 1000L; // 문자인증만료시간(5분)
 
     // 로그인
     public ResponseEntity<?> login(Map<String, String> request) {
@@ -34,12 +42,24 @@ public class UserService {
         HttpStatus status = null;
 
         JwtUtil jwtUtil = new JwtUtil();
+        String loginId = request.get("loginId");
+        String loginPassword = request.get("loginPassword");
 
         try {
-            User user = userRepository.findByLoginIdAndLoginPassword(request.get("loginId"), request.get("loginPassword"));
-            resultMap.put("token", jwtUtil.createJwt(Long.toString(user.getUserSeq()), JwtSecretKey));
-            resultMap.put("message", "로그인 완료");
-            status = HttpStatus.OK;
+            User user = userRepository.findByLoginId(loginId);
+            if (user != null) {
+                if (encoder.matches(loginPassword, user.getLoginPassword())) {
+                    resultMap.put("token", jwtUtil.createJwt(Long.toString(user.getUserSeq()), JwtSecretKey));
+                    resultMap.put("message", "로그인 완료");
+                    status = HttpStatus.OK;
+                } else {
+                    resultMap.put("message", "비밀번호가 일치하지 않습니다.");
+                    status = HttpStatus.BAD_REQUEST;
+                }
+            } else {
+                resultMap.put("message", "아이디가 존재하지 않습니다.");
+                status = HttpStatus.BAD_REQUEST;
+            }
         } catch (Exception e) {
             resultMap.put("message", "로그인 실패");
             resultMap.put("error", e.getMessage());
@@ -50,6 +70,7 @@ public class UserService {
     }
 
     // 회원가입
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public ResponseEntity<?> setUserInfo(Map<String, String> request) {
         Map<String, String> resultMap = new HashMap<>();
         HttpStatus httpStatus = null;
@@ -59,10 +80,9 @@ public class UserService {
         String phone = request.get("phone");
         String name = request.get("name");
         String address = request.get("address");
-        String pinPassword = request.get("pinPassword");
 
         try {
-            User user = new User(loginId, loginPassword, phone, name, address, pinPassword);
+            User user = new User(loginId, encoder.encode(loginPassword), phone, name, address);
             userRepository.save(user);
             resultMap.put("message", "회원가입 성공");
             httpStatus = HttpStatus.OK;
@@ -75,22 +95,238 @@ public class UserService {
         return new ResponseEntity<>(resultMap, httpStatus);
     }
 
-    // 신용점수 조회
-    public ResponseEntity<?> getUserCreditScore(String loginId) {
+    // 회원정보 수정
+    public ResponseEntity<?> modifyUserInfo(Map<String, String> request, Long userSeq) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+        String phone = request.get("phone");
+        String address = request.get("address");
+        try {
+            User user = em.find(User.class, userSeq);
+            user.setPhone(phone);
+            user.setAddress(address);
+
+            resultMap.put("message", "회원정보 수정 성공");
+            status = HttpStatus.OK;
+        } catch (Exception e) {
+            resultMap.put("message", "회원정보 수정 중 에러 발생");
+            resultMap.put("error", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    // 회원 탈퇴
+    public ResponseEntity<?> deleteUserInfo(Long userSeq) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
 
         try {
-            /*
-            ** 신용점수 조회 로직 구현 필요
-             */
-            resultMap.put("login_id", loginId);
+            User user = em.find(User.class, userSeq);
+            user.setState(false);
+            user.setExpiredAt(LocalDateTime.now());
+
+            resultMap.put("messsage", "회원 탈퇴 성공");
+            status = HttpStatus.OK;
+        } catch (Exception e) {
+            resultMap.put("message", "회원 탈퇴 실패");
+            resultMap.put("error", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    // 신용점수 조회
+    public ResponseEntity<?> getUserCreditScore(Long userSeq) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+
+        try {
+            int creditScore = userRepository.selectUserCreditScore(userSeq);
+            resultMap.put("credit_score", creditScore);
             resultMap.put("message", "신용점수 조회 성공");
             status = HttpStatus.OK;
         } catch (Exception e) {
             resultMap.put("message", "신용점수 조회 실패");
             resultMap.put("error", e.getMessage());
             status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    // 아이디 중복확인
+    public ResponseEntity<?> checkIdDuplication(Map<String, String> request) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+
+        String loginId = request.get("loginId");
+
+        try {
+            String existLoginId = userRepository.selectUserLoginIdByLoginId(loginId);
+
+            if (existLoginId != null) {
+                resultMap.put("code", false);
+                resultMap.put("message", "이미 해당 아이디가 존재합니다.");
+            } else {
+                resultMap.put("code", true);
+                resultMap.put("message", "아이디 중복확인 성공");
+            }
+            status = HttpStatus.OK;
+        } catch (Exception e) {
+            resultMap.put("message", "아이디 중복확인 에러");
+            resultMap.put("error", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    // 간편 비밀번호 설정
+    public ResponseEntity<?> setPinPassword(Map<String, String> request, String userSeq) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+        try {
+            redisUtil.setDataExpire(userSeq, encoder.encode(request.get("pinPassword")), EXPIRATION_TIME);
+            resultMap.put("message", "간편 비밀번호 설정 성공, 확인 후 적용됩니다.");
+            status = HttpStatus.OK;
+        } catch (Exception e) {
+            resultMap.put("message", "간편 비밀번호 설정 중 에러가 발생했습니다.");
+            resultMap.put("error", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    // 간편 비밀번호 확인
+    public ResponseEntity<?> checkPinPassword(Map<String, String> request, String userSeq) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+        try {
+            if (encoder.matches(request.get("pinPassword"), redisUtil.getData(userSeq))) {
+                User user = em.find(User.class, Long.parseLong(userSeq));
+                user.setPinPassword(encoder.encode(request.get("pinPassword")));
+
+                resultMap.put("message", "간편 비밀번호 확인 완료");
+                status = HttpStatus.OK;
+            } else {
+                resultMap.put("message", "간편 비밀번호가 일치하지 않습니다.");
+                status = HttpStatus.BAD_REQUEST;
+            }
+        } catch (Exception e) {
+            resultMap.put("message", "간편 비밀번호 확인 중 에러가 발생했습니다.");
+            resultMap.put("error", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    // 아이디 찾기
+    public ResponseEntity<?> findUserId(Map<String, String> request) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+
+        String name = request.get("name");
+        String phone = request.get("phone");
+
+        try {
+            String loginId = userRepository.selectUserLoginIdByNameAndPhone(name, phone);
+            if (loginId != null) {
+                resultMap.put("message", "아이디 찾기 성공");
+                resultMap.put("data", loginId);
+                status = HttpStatus.OK;
+            } else {
+                resultMap.put("message", "일치하는 아이디가 존재하지 않습니다.");
+                status = HttpStatus.BAD_REQUEST;
+            }
+        } catch (Exception e) {
+            resultMap.put("message", "아이디 찾기 중 에러 발생");
+            resultMap.put("error", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    // 유저 조회
+    public ResponseEntity<?> searchUserInfo(String loginId) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+
+        try {
+            User user = userRepository.findByLoginId(loginId);
+
+            resultMap.put("profileImg", user.getProfileImg());
+            resultMap.put("name", user.getName());
+            resultMap.put("loginId", user.getLoginId());
+            resultMap.put("phone", user.getPhone());
+            resultMap.put("creditScore", user.getCreditScore());
+            resultMap.put("message", "유저 조회 성공");
+            status = HttpStatus.OK;
+        } catch (Exception e) {
+            resultMap.put("message", "유저 조회 중 에러가 발생했습니다.");
+            resultMap.put("error", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    // 비밀번호 재설정
+    public ResponseEntity<?> updateUserPw(Map<String, String> request) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+
+        String loginId = request.get("loginId");
+        String loginPassword = request.get("loginPassword");
+
+        try {
+            User user = userRepository.findByLoginId(loginId);
+            user.setLoginPassword(encoder.encode(loginPassword));
+
+            resultMap.put("message", "비밀번호 재설정 완료! 다시 로그인 해주세요.");
+            status = HttpStatus.OK;
+        } catch (Exception e) {
+            resultMap.put("message", "비밀번호 재설정 중 에러 발생");
+            resultMap.put("error", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    // 알림 조회
+    public ResponseEntity<?> selectUserAlarm(Long userSeq) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+
+        try {
+            List<WebAlarmResponseDto> webAlarmResponseDtos = new ArrayList<>();
+            List<WebAlarm> webAlarms = webAlarmRepository.findAllByUserSeq(userSeq);
+
+            webAlarms.forEach(webAlarm -> {
+                WebAlarmResponseDto webAlarmResponseDto = WebAlarmResponseDto.builder()
+                        .regDate(webAlarm.getRegDate())
+                        .isRead(webAlarm.isRead())
+                        .readDate(webAlarm.getReadDate())
+                        .alarmCategory(webAlarm.getAlarmCategory())
+                        .alarmContent(webAlarm.getAlarmContent())
+                        .build();
+
+                webAlarmResponseDtos.add(webAlarmResponseDto);
+            });
+
+            resultMap.put("data", webAlarmResponseDtos);
+            resultMap.put("message", "알림 조회 성공");
+            status = HttpStatus.OK;
+        } catch (Exception e) {
+            resultMap.put("message", "알림 조회 중 에러가 발생했습니다.");
+            resultMap.put("error", e.getMessage());
+            status = HttpStatus.BAD_REQUEST;
         }
 
         return new ResponseEntity<>(resultMap, status);
