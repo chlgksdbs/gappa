@@ -1,5 +1,6 @@
 package com.sixheadword.gappa.friendRequest;
 
+import com.sixheadword.gappa.friendRequest.request.FriendSearchFriendsUserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,4 +34,9 @@ public class FriendRequestController {
         return friendRequestService.friendRequestList(Long.parseLong(authentication.getName()));
     }
 
+    // API 4. 친구 신청할 유저 조회
+    @GetMapping("/friends/user")
+    public ResponseEntity<?> searchFriendsUser(@RequestBody FriendSearchFriendsUserDto friendSearchFriendsUserDto, Authentication authentication) {
+        return friendRequestService.searchFriendsUser(Long.parseLong(authentication.getName()), friendSearchFriendsUserDto);
+    }
 }
