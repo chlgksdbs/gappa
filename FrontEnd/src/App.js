@@ -25,6 +25,8 @@ import CustomerServicePage from './components/Sidebar/CustomerServicePage';
 import HistoryBorrowPage from './components/Loan/History/HistoryBorrowPage';
 import HistoryLendPage from './components/Loan/History/HistoryLendPage';
 import HistoryDetailPage from './components/Loan/History/HistoryDetailPage';
+import ReqAgreementPage from './components/Loan/Borrow/ReqAgreementPage';
+import ReqChatPage from './components/Loan/Borrow/ReqChatPage';
 
 
 function App() {
@@ -72,6 +74,8 @@ function App() {
             <Route path="/notice" element={<NoticePage />}/>
             <Route path="/qna" element={<QnAPage />}/>
             <Route path="/customerservice" element={<CustomerServicePage />}/>
+            <Route path="/reqagreement" element={<ReqAgreementPage />}/>
+            <Route path="/reqchat" element={<ReqChatPage />}/>
           </>
         })
       </Routes>
