@@ -10,7 +10,7 @@ const BankBookPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userInfo = useSelector(state => state.auth);
-  function Book({ account_Number, bankname, balance, index, clickedItems, onClick }) {
+  function Book({ account_Number, bankname, balance, index, clickedItems,bank_Img, onClick }) {
     // 클릭 상태에 따라 스타일을 동적으로 설정
     const itemStyle = {
       backgroundColor: clickedItems[index] ? 'lightblue' : 'white',
@@ -20,7 +20,7 @@ const BankBookPage = () => {
         {/* <div className={style.bankbooksize}> */}
         <div className={style.bankbooklist} style={itemStyle} onClick={() => onClick(index)}>
           <div className={style.imgstyle}>
-            <img src="images/Ssafy.png" alt="" />
+            <img src={bank_Img} alt="" />
           </div>
           <div>
             <span>{account_Number}</span>
@@ -46,31 +46,37 @@ const BankBookPage = () => {
       account_Number: 12345678900123,
       bank: "싸피 은행",
       balance: "1,110,000",
+      bank_Img : "images/Ssafy.png"
     },
     {
       account_Number: 12345678900123,
       bank: "싸피 은행",
-      balance: "1,110,000"
+      balance: "1,110,000",
+      bank_Img : "images/Ssafy.png"
     },
     {
       account_Number: 12345678900123,
       bank: "싸피 은행",
-      balance: "1,110,000"
+      balance: "1,110,000",
+      bank_Img : "images/Ssafy.png"
     },
     {
       account_Number: 12345678900123,
       bank: "싸피 은행",
-      balance: "1,110,000"
+      balance: "1,110,000",
+      bank_Img : "images/Ssafy.png"
     },
     {
       account_Number: 12345678900123,
       bank: "싸피 은행",
-      balance: "1,110,000"
+      balance: "1,110,000",
+      bank_Img : "images/Ssafy.png"
     },
     {
       account_Number: 12345678900123,
       bank: "싸피 은행",
-      balance: "1,110,000"
+      balance: "1,110,000",
+      bank_Img : "images/Ssafy.png"
     },
   ]
 
@@ -110,6 +116,7 @@ const BankBookPage = () => {
           account_Number={data.account_Number}
           bankname={data.bankname}
           balance={data.balance}
+          bank_Img={data.bank_Img}
           key={index}
           index={index}
           clickedItems={clickedItems} // 클릭 상태 배열 전달

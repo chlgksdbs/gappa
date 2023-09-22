@@ -11,7 +11,7 @@ const Headers = (props) => {
       <div className={style.middle}>
       <h2>{props.title}</h2>
       </div>
-      <div className={style.right}>
+      <div className={style.right} onClick={()=>props.onClickRight()}>
         <h3>{props.right}</h3>
       </div>
     </div>
