@@ -11,14 +11,14 @@ public class LoanRepositoryImpl {
     private EntityManager em;
 
     // 대출 이력 조회
-    public List<Loan> getLoanByUserSeq(Long userSeq){
-
-        String jpql = "SELECT l FROM Loan l WHERE l.toUser = :userSeq";
-
-        return em.createQuery(jpql, Loan.class)
-                .setParameter("userSeq", userSeq)
-                .getResultList();
-    }
+//    public List<Loan> getLoanByUserSeq(Long userSeq){
+//
+//        String jpql = "SELECT l FROM Loan l WHERE l.toUser = :userSeq";
+//
+//        return em.createQuery(jpql, Loan.class)
+//                .setParameter("userSeq", userSeq)
+//                .getResultList();
+//    }
 
     // 대출중 이력 조회
     public List<Loan> getOnLoanByUserSeq(Long userSeq){
@@ -31,14 +31,14 @@ public class LoanRepositoryImpl {
     }
 
     // 대금 이력 조회
-    public List<Loan> getLoanOppByUserSeq(Long userSeq){
-
-        String jpql = "SELECT l FROM Loan l WHERE l.fromUser = :userSeq";
-
-        return em.createQuery(jpql, Loan.class)
-                .setParameter("userSeq", userSeq)
-                .getResultList();
-    }
+//    public List<Loan> getLoanOppByUserSeq(Long userSeq){
+//
+//        String jpql = "SELECT l FROM Loan l WHERE l.fromUser = :userSeq";
+//
+//        return em.createQuery(jpql, Loan.class)
+//                .setParameter("userSeq", userSeq)
+//                .getResultList();
+//    }
 
     // 대금중 이력 조회
     public List<Loan> getOnLoanOppByUserSeq(Long userSeq){
