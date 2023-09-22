@@ -74,6 +74,7 @@ public class UserService {
     public ResponseEntity<?> setUserInfo(Map<String, String> request) {
         Map<String, String> resultMap = new HashMap<>();
         HttpStatus httpStatus = null;
+        JwtUtil jwtUtil = new JwtUtil();
 
         String loginId = request.get("loginId");
         String loginPassword = request.get("loginPassword");
@@ -84,6 +85,7 @@ public class UserService {
         try {
             User user = new User(loginId, encoder.encode(loginPassword), phone, name, address);
             userRepository.save(user);
+            resultMap.put("token", jwtUtil.createJwt(Long.toString(user.getUserSeq()), JwtSecretKey));
             resultMap.put("message", "회원가입 성공");
             httpStatus = HttpStatus.OK;
         } catch (Exception e) {
