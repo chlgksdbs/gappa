@@ -3,6 +3,8 @@ package com.sixheadword.gappa.loan;
 import com.sixheadword.gappa.loan.dto.response.GetLoanOppResponseDto;
 import com.sixheadword.gappa.loan.dto.response.GetLoanResponseDto;
 import com.sixheadword.gappa.loan.repository.LoanRepository;
+import com.sixheadword.gappa.user.User;
+import com.sixheadword.gappa.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -19,11 +21,13 @@ import java.util.List;
 public class LoanService {
 
     private LoanRepository loanRepository;
+    private UserRepository userRepository;
 
     // 대출 이력 조회
     public List<GetLoanResponseDto> getLoan(Authentication authentication){
         Long userSeq = Long.parseLong(authentication.getName());
-        List<Loan> loans = loanRepository.getLoanByUserSeq(userSeq);
+        User user = userRepository.findById(userSeq).orElse(null);
+        List<Loan> loans = loanRepository.findByFromUser(user);
         
         if(!loans.isEmpty()){
             List<GetLoanResponseDto> getLoanResponseDtos = new ArrayList<>();
@@ -69,7 +73,8 @@ public class LoanService {
     // 대금 이력 조회
     public List<GetLoanOppResponseDto> getLoanOpp(Authentication authentication){
         Long userSeq = Long.parseLong(authentication.getName());
-        List<Loan> loans = loanRepository.getLoanOppByUserSeq(userSeq);
+        User user = userRepository.findById(userSeq).orElse(null);
+        List<Loan> loans = loanRepository.findByToUser(user);
 
         if(!loans.isEmpty()){
             List<GetLoanOppResponseDto> getLoanOppResponseDtos = new ArrayList<>();
