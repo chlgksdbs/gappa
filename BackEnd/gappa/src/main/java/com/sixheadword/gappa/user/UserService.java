@@ -40,12 +40,24 @@ public class UserService {
         HttpStatus status = null;
 
         JwtUtil jwtUtil = new JwtUtil();
+        String loginId = request.get("loginId");
+        String loginPassword = request.get("loginPassword");
 
         try {
-            User user = userRepository.findByLoginIdAndLoginPassword(request.get("loginId"), request.get("loginPassword"));
-            resultMap.put("token", jwtUtil.createJwt(Long.toString(user.getUserSeq()), JwtSecretKey));
-            resultMap.put("message", "로그인 완료");
-            status = HttpStatus.OK;
+            User user = userRepository.findByLoginId(loginId);
+            if (user != null) {
+                if (encoder.matches(loginPassword, user.getLoginPassword())) {
+                    resultMap.put("token", jwtUtil.createJwt(Long.toString(user.getUserSeq()), JwtSecretKey));
+                    resultMap.put("message", "로그인 완료");
+                    status = HttpStatus.OK;
+                } else {
+                    resultMap.put("message", "비밀번호가 일치하지 않습니다.");
+                    status = HttpStatus.BAD_REQUEST;
+                }
+            } else {
+                resultMap.put("message", "아이디가 존재하지 않습니다.");
+                status = HttpStatus.BAD_REQUEST;
+            }
         } catch (Exception e) {
             resultMap.put("message", "로그인 실패");
             resultMap.put("error", e.getMessage());
