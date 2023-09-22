@@ -4,6 +4,7 @@ import DaumPostcode from 'react-daum-postcode';
 import Modal from 'react-modal';
 import { useDispatch } from 'react-redux';
 import { authActions } from '../../store/authslice';
+import { authAxios } from '../api/cuustomaxios';
 const SignupForm = (props) => {
 
   //초기값 세팅
@@ -12,13 +13,13 @@ const SignupForm = (props) => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
-  
+  const [phoneCheckNumber, setPhoneCheckNumber] = useState("");
 
   const [address, setAddress] = useState("");
   const [addressNumber, setAddressNumber] = useState("");
   const [detailAddress, setDetailAdress] = useState("");
   const [finalAddress, setFinalAddress] = useState("");
-  
+
   // 정보 확인
   const dispatch = useDispatch();
 
@@ -28,16 +29,17 @@ const SignupForm = (props) => {
   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
 
   //유효성 검사
-  const [idOverlap, setIdOverlap] = useState(false);
+  // const [idOverlap, setIdOverlap] = useState(false);
   const [openPostcode, setOpenPostcode] = useState(false);
 
   const [isId, setIsId] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
   const [isFinalAddress, setIsFinalAddress] = useState(false);
+  const [checkPhone, setCheckPhone] = useState(false);
   // const [isPhone,setIsPhone] = useState(false);
   const [pass, setPass] = useState(false);
-
+  const [checkPhoneNumber, setCheckPhoneNumber] = useState(false);
   // 이름 입력
   const onChangeName = (e) => {
     const currentName = e.target.value;
@@ -54,17 +56,28 @@ const SignupForm = (props) => {
       setIdMessage("4-12사이 대소문자 또는 숫자만 입력해 주세요!");
       setIsId(false);
     } else {
-      setIdMessage("사용가능한 아이디 입니다.");
-      setIsId(true);
+      setIdMessage("");
     }
   };
 
 
   // 아이디 중복확인
   const onChangeIdOverlap = () => {
+    const checkIds = {
+      loginId: id,
+    }
     setTimeout(() => {
-      setIdOverlap(true);
-    }, 3000);
+      authAxios.post("/users/checkid", checkIds)
+        .then((response) => {
+          setIdMessage("사용가능한 아이디 입니다.");
+          setIsId(true);
+          console.log(response)
+        })
+        .catch(() => {
+          setIdMessage("중복된 아이디 입니다.");
+          setIsId(false);
+        })
+    }, 500);
   }
 
 
@@ -118,7 +131,10 @@ const SignupForm = (props) => {
     }
   };
 
-
+  const onCHnagePhoneCheckNumber = (e) => {
+    const currentPhoneCheckNumber = e.target.value;
+    setPhoneCheckNumber(currentPhoneCheckNumber);
+  }
   // 주소 입력
   const handle = {
     // 버튼 클릭 이벤트
@@ -195,13 +211,40 @@ const SignupForm = (props) => {
     );
   };
 
+  const phoneCheck = () => {
+    const phoneNumber = {
+      phoneNumber: phone,
+    }
+    authAxios.post("/users/phone/send", phoneNumber)
+      .then((response) => {
+        console.log(response)
+        setCheckPhone(true);
+      })
+      .catch((response) => {
+        console.log(response)
+      })
+  }
+
+  const phoneCheckNumberConfirm = () => {
+    const confirmData = {
+      phoneNumber: phone,
+      code: phoneCheckNumber
+    }
+    authAxios.post("/users/phone/check", confirmData)
+      .then(() => {
+        setCheckPhoneNumber(true);
+      })
+      .catch(() => {
+        setCheckPhoneNumber(false);
+      })
+  }
   useEffect(() => {
     if (isId && isPassword && isPasswordConfirm && isFinalAddress) {
       setPass(true);
       props.sendDataToPage(pass);
       const userInfo = {
-        login_Id : id,
-        login_Password : password,
+        login_Id: id,
+        login_Password: password,
         phone: phone,
         name: name,
         address: finalAddress,
@@ -223,12 +266,6 @@ const SignupForm = (props) => {
         <br />
         <input type="text" className={style.forminput} name="ID" value={id} onChange={onChangeId} />
         <input type="button" value="중복확인" className={style.formbtn} onClick={onChangeIdOverlap} />
-        <Modal
-          isOpen={idOverlap}
-          onRequestClose={() => setIdOverlap(false)}
-        >
-
-        </Modal>
         {isId
           ?
           <span className={style.colorblue}>{idMessage}</span>
@@ -264,8 +301,30 @@ const SignupForm = (props) => {
         <span>휴대폰 번호</span>
         <br />
         {phoneIsValid()}
-        <input type="button" value="인증번호 발송" className={style.formbtn} />
+        <input type="button" value="인증번호 발송" className={style.formbtn} onClick={phoneCheck} />
       </div>
+      {
+        checkPhone
+          ?
+          <div className={style.phonecheckform}>
+            <h4>5분안에 입력해주세요.</h4>
+            <div className={style.phoneforms}>
+            <input type="number" value={phoneCheckNumber} onChange={onCHnagePhoneCheckNumber}  className={style.input}/>
+            <input type="button" value="인증번호 확인" onClick={phoneCheckNumberConfirm} className={style.formbtn} />
+            </div>
+            {
+              checkPhoneNumber
+                ?
+                <div>
+                  인증되었습니다.
+                </div>
+                :
+                null
+            }
+          </div>
+          :
+          null
+      }
       <div className={style.adresstop}>
         <span>주소</span>
         <div className={style.idform}>
