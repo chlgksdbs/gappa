@@ -11,6 +11,7 @@ const BankBookPage = () => {
     };
     return (
       <div className={style.all}>
+        {/* <div className={style.bankbooksize}> */}
         <div className={style.bankbooklist} style={itemStyle} onClick={() => onClick(index)}>
           <div className={style.imgstyle}>
             <img src="images/Ssafy.png" alt="" />
@@ -28,6 +29,7 @@ const BankBookPage = () => {
           </div>
         </div>
         <hr />
+        {/* </div> */}
       </div>
     );
   }
@@ -54,35 +56,58 @@ const BankBookPage = () => {
       bankname: "싸피 은행",
       money: "1,110,000"
     },
+    {
+      banknumber: 12345678900123,
+      bankname: "싸피 은행",
+      money: "1,110,000"
+    },
+    {
+      banknumber: 12345678900123,
+      bankname: "싸피 은행",
+      money: "1,110,000"
+    },
   ]
-
+  const [pass, setPass] = useState(false);
 
   // 클릭 상태를 저장할 배열 생성 및 초기값 설정
   const [clickedItems, setClickedItems] = useState(Array(bankBookData.length).fill(false));
 
   // 클릭 이벤트 핸들러
   const handleItemClick = (index) => {
+
     // 클릭된 항목의 상태를 변경
     const updatedClickedItems = Array(bankBookData.length).fill(false);
     updatedClickedItems[index] = !clickedItems[index];
+
+    // 클릭된 항목의 개수를 세기
+    const clickedCount = updatedClickedItems.filter((item) => item).length;
+
+    setPass(clickedCount === 1);
     setClickedItems(updatedClickedItems);
   };
 
   return (
     <div className={style.bankbook}>
       <Headers title={title} />
-      {bankBookData.map((data, index) =>
-      (<Book
-        banknumber={data.banknumber}
-        bankname={data.bankname}
-        money={data.money}
-        key={index}
-        index={index}
-        clickedItems={clickedItems} // 클릭 상태 배열 전달
-        onClick={handleItemClick} // 클릭 이벤트 핸들러 전달
-      />))}
-      <span>다음에 하기</span>
-      <button className={style.btn}>확인</button>
+      <div className={style.bankbookstyle}>
+        {bankBookData.map((data, index) =>
+        (<Book
+          banknumber={data.banknumber}
+          bankname={data.bankname}
+          money={data.money}
+          key={index}
+          index={index}
+          clickedItems={clickedItems} // 클릭 상태 배열 전달
+          onClick={handleItemClick} // 클릭 이벤트 핸들러 전달
+        />))}
+        <span>다음에 하기</span>
+      </div>
+      {pass
+        ?
+        <button className={style.btn}>확인</button>
+        :
+        <button className={style.notbtn}>확인</button>
+      }
     </div>
   );
 }

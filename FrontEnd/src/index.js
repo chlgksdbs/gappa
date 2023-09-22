@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { createRoot } from 'react-dom/client'; // React 18 이상 버전에서 사용
 import './index.css';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
@@ -7,7 +7,12 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store/index";
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import Modal from 'react-modal'; // react-modal을 가져옵니다.
+
+// 애플리케이션의 루트 엘리먼트를 설정합니다.
+Modal.setAppElement('#root'); // '#root'는 애플리케이션의 루트 엘리먼트의 ID나 선택자로 바꿔야 합니다.
+
+const root = createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
     <BrowserRouter>
