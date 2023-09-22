@@ -1,11 +1,12 @@
 package com.sixheadword.gappa.friendList;
 
+import com.sixheadword.gappa.friendList.request.FriendDeleteListRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -18,5 +19,11 @@ public class FriendListController {
     @GetMapping("/friends")
     public ResponseEntity<?> friendList(Authentication authentication) {
         return friendListService.friendList(Long.parseLong(authentication.getName()));
+    }
+
+    // API 2. 친구 삭제
+    @DeleteMapping("/friends")
+    public ResponseEntity<?> deleteFriend(@RequestBody FriendDeleteListRequestDto friendDeleteListRequestDto, Authentication authentication) {
+        return friendListService.deleteFriend(friendDeleteListRequestDto.getList(), Long.parseLong(authentication.getName()));
     }
 }

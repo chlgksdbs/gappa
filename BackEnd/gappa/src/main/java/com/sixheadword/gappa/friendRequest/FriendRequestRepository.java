@@ -1,5 +1,6 @@
 package com.sixheadword.gappa.friendRequest;
 
+import com.sixheadword.gappa.friendList.FriendList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -24,6 +25,13 @@ public class FriendRequestRepository {
         return em.createQuery("select R from FriendRequest R where R.toUser.id = :member_id and R.state = 'W' order by R.requestDate Desc", FriendRequest.class)
                 .setParameter("member_id", id)
                 .getResultList();
+    }
+
+    public FriendRequest findByUserSeqs(Long member_id, Long user_seq){
+        return em.createQuery("select R from FriendRequest R where (R.toUser.id = :member_id and R.fromUser.id = :user_seq) or (R.toUser.id = :user_seq and R.fromUser.id = :member_id) and R.state = 'A'", FriendRequest.class)
+                .setParameter("member_id", member_id)
+                .setParameter("user_seq", user_seq)
+                .getSingleResult();
     }
 
 }

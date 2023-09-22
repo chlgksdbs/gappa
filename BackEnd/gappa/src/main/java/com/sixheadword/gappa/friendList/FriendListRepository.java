@@ -12,8 +12,19 @@ public class FriendListRepository {
 
     private final EntityManager em;
 
+    public FriendList findByUserSeqs(Long member_id, Long user_seq){
+        return em.createQuery("select L from FriendList L where (L.toUser.id = :member_id and L.fromUser.id = :user_seq) or (L.toUser.id = :user_seq and L.fromUser.id = :member_id)", FriendList.class)
+                .setParameter("member_id", member_id)
+                .setParameter("user_seq", user_seq)
+                .getSingleResult();
+    }
+
     public void save(FriendList friendList) {
         em.persist(friendList);
+    }
+
+    public void delete(FriendList friendList){
+        em.remove(friendList);
     }
 
     public List<FriendList> findListById(Long id) {
