@@ -1,5 +1,6 @@
 package com.sixheadword.gappa.user;
 
+import com.sixheadword.gappa.user.request.CheckPwRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -97,5 +98,11 @@ public class UserController {
     @PostMapping("/phone/check")
     public ResponseEntity<?> checkVerificationCode(@RequestBody Map<String, String> request){
         return userService.checkVerificationCode(request);
+    }
+
+    // API 15. 비밀번호 찾기 인증
+    @PostMapping("/findpw")
+    public ResponseEntity<?> checkVerificationPw(@RequestBody CheckPwRequestDto checkPwRequestDto){
+        return userService.checkVerificationPw(checkPwRequestDto);
     }
 }
