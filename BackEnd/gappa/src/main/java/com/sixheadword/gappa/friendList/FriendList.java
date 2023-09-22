@@ -1,5 +1,6 @@
 package com.sixheadword.gappa.friendList;
 
+import com.sixheadword.gappa.friendRequest.FriendRequest;
 import com.sixheadword.gappa.user.User;
 import lombok.Getter;
 
@@ -31,4 +32,14 @@ public class FriendList {
     // createDate: 생성일시
     @Column(name = "create_date", nullable = false)
     private LocalDateTime createDate;
+
+    public FriendList() {
+
+    }
+
+    public FriendList(FriendRequest friendRequest) {
+        this.fromUser = friendRequest.getFromUser();
+        this.toUser = friendRequest.getToUser();
+        this.createDate = LocalDateTime.now();
+    }
 }
