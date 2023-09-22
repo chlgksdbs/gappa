@@ -4,7 +4,7 @@ import style from './SignupPage.module.css';
 import Headers from './Headers';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { authAxios, customAxios } from './api/cuustomaxios';
+import { authAxios, customAxios } from '../api/cuustomaxios';
 
 const SignupPage = () => {
   const title = "회원가입"
@@ -18,18 +18,18 @@ const SignupPage = () => {
   }
 
   const signupAPIData = {
-    loginId: userInfo.login_Id,
-    loginPassword: userInfo.login_Password,
-    phone: userInfo.phone,
-    name: userInfo.name,
-    address: userInfo.address
+    "loginId": userInfo.login_Id,
+    "loginPassword": userInfo.login_Password,
+    "phone": userInfo.phone,
+    "name": userInfo.name,
+    "address": userInfo.address
   }
 
   const signupData = () => {
     setTimeout(() => {
       
     }, 100);
-    customAxios.post('/users/signup', signupAPIData)
+    authAxios.post('/users/signup', signupAPIData)
       .then((response) => {
         console.log(response)
         console.log(signupAPIData)
