@@ -12,6 +12,7 @@ const authSlice = createSlice({
     bank:'',
     balance:'',
     pin_Password:'',
+    bank_Img:'',
   },
   reducers: {
     // 리듀서를 회원가입 페이지 마다 작성해서 처리.
@@ -29,6 +30,7 @@ const authSlice = createSlice({
       state.account_Number = newItem.account_Number;
       state.bank = newItem.bank;
       state.balance = newItem.balance;
+      state.bank_Img = newItem.bank_Img;
     },
 
     updatedUserPin(state,action){
