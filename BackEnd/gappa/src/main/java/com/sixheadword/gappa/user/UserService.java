@@ -262,6 +262,29 @@ public class UserService {
         return new ResponseEntity<>(resultMap, status);
     }
 
+    // 비밀번호 재설정
+    public ResponseEntity<?> updateUserPw(Map<String, String> request) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+
+        String loginId = request.get("loginId");
+        String loginPassword = request.get("loginPassword");
+
+        try {
+            User user = userRepository.findByLoginId(loginId);
+            user.setLoginPassword(encoder.encode(loginPassword));
+
+            resultMap.put("message", "비밀번호 재설정 완료! 다시 로그인 해주세요.");
+            status = HttpStatus.OK;
+        } catch (Exception e) {
+            resultMap.put("message", "비밀번호 재설정 중 에러 발생");
+            resultMap.put("error", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
+    }
+
     // 휴대폰 인증번호 메세지 전송
     public ResponseEntity<?> sendVerificationCode(Map<String, String> request) {
         Map<String, Object> resultMap = new HashMap<>();

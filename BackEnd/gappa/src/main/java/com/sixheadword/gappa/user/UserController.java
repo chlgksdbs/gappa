@@ -75,6 +75,12 @@ public class UserController {
         return userService.searchUserInfo(loginId);
     }
 
+    // API 11. 비밀번호 재설정
+    @PutMapping("/setpw")
+    public ResponseEntity<?> updateUserPw(@RequestBody Map<String, String> request) {
+        return userService.updateUserPw(request);
+    }
+
     @PostMapping("/phone/send")
     public ResponseEntity<?> sendVerificationCode(@RequestBody Map<String, String> request){
         return userService.sendVerificationCode(request);
