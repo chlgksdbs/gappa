@@ -1,29 +1,49 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SignupForm from './SignupForm';
 import style from './SignupPage.module.css';
 import Headers from './Headers';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
+import { authAxios, customAxios } from './api/cuustomaxios';
 
 const SignupPage = () => {
   const title = "회원가입"
   const navigate = useNavigate();
   const userInfo = useSelector(state => state.auth);
+  // const [signupAPIData, setSignupAPIData] = useState("");
 
-
-  const [pass,setPass] = useState(false);
+  const [pass, setPass] = useState(false);
   const handlePass = (data) => {
     setPass(data);
   }
 
-  const signupData = ()=>{
+  const signupAPIData = {
+    loginId: userInfo.login_Id,
+    loginPassword: userInfo.login_Password,
+    phone: userInfo.phone,
+    name: userInfo.name,
+    address: userInfo.address
+  }
+
+  const signupData = () => {
+    setTimeout(() => {
+      
+    }, 100);
+    customAxios.post('/users/signup', signupAPIData)
+      .then((response) => {
+        console.log(response)
+        console.log(signupAPIData)
+      })
+      .catch((response) => {
+        console.log(signupAPIData)
+
+        console.log(response)
+      })
     navigate("/bankbook");
-    console.log(userInfo)
   }
   return (
     <div className={style.signuppage}>
-      <Headers title={title}/>
+      <Headers title={title} />
       <div className={style.ex}>
         <span>입력한 정보가 맞다면</span>
         <br />
@@ -31,10 +51,10 @@ const SignupPage = () => {
       </div>
       <SignupForm sendDataToPage={handlePass} />
       {pass
-      ?
-      <button className={style.btn} onClick={signupData}>확인</button>
-      :
-      <button className={style.notbtn}>확인</button>
+        ?
+        <button className={style.btn} onClick={signupData}>확인</button>
+        :
+        <button className={style.notbtn}>확인</button>
       }
     </div>
   );

@@ -174,9 +174,9 @@ const SignupForm = (props) => {
       result += value[i];
     }
 
+    setPhone(value);
     phoneRef.current.value = result;
-    setPhone(e.target.value);
-    console.log(phone);
+    console.log(value);
   };
 
   const phoneRef = useRef();
