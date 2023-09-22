@@ -44,7 +44,8 @@ public class LoanService {
     }
 
     // 대출중 이력 조회
-    public List<GetLoanResponseDto> getOnLoan(Long userSeq){
+    public List<GetLoanResponseDto> getOnLoan(Authentication authentication){
+        Long userSeq = Long.parseLong(authentication.getName());
         List<Loan> loans = loanRepository.getOnLoanByUserSeq(userSeq);
 
         if(!loans.isEmpty()){
@@ -66,7 +67,8 @@ public class LoanService {
     }
 
     // 대금 이력 조회
-    public List<GetLoanOppResponseDto> getLoanOpp(Long userSeq){
+    public List<GetLoanOppResponseDto> getLoanOpp(Authentication authentication){
+        Long userSeq = Long.parseLong(authentication.getName());
         List<Loan> loans = loanRepository.getLoanOppByUserSeq(userSeq);
 
         if(!loans.isEmpty()){
@@ -90,7 +92,8 @@ public class LoanService {
     }
 
     // 대금중 이력 조회
-    public List<GetLoanOppResponseDto> getOnLoanOpp(Long userSeq){
+    public List<GetLoanOppResponseDto> getOnLoanOpp(Authentication authentication){
+        Long userSeq = Long.parseLong(authentication.getName());
         List<Loan> loans = loanRepository.getOnLoanOppByUserSeq(userSeq);
 
         if(!loans.isEmpty()){
