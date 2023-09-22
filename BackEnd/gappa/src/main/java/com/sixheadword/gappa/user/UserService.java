@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,10 +28,11 @@ public class UserService {
 
     private final SmsUtil smsUtil;
     private final RedisUtil redisUtil;
+    private final BCryptPasswordEncoder encoder;
     private final UserRepository userRepository;
     private final EntityManager em;
 
-    private static final int EXPIRATION_TIME = 300000; // 문자인증만료시간(5분)
+    private static final Long EXPIRATION_TIME = 5 * 60 * 1000L; // 문자인증만료시간(5분)
 
     // 로그인
     public ResponseEntity<?> login(Map<String, String> request) {
@@ -139,6 +141,47 @@ public class UserService {
             status = HttpStatus.OK;
         } catch (Exception e) {
             resultMap.put("message", "아이디 중복확인 에러");
+            resultMap.put("error", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    // 간편 비밀번호 설정
+    public ResponseEntity<?> setPinPassword(Map<String, String> request, String userSeq) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+        try {
+            redisUtil.setDataExpire(userSeq, encoder.encode(request.get("pinPassword")), EXPIRATION_TIME);
+            resultMap.put("message", "간편 비밀번호 설정 성공, 확인 후 적용됩니다.");
+            status = HttpStatus.OK;
+        } catch (Exception e) {
+            resultMap.put("message", "간편 비밀번호 설정 중 에러가 발생했습니다.");
+            resultMap.put("error", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    // 간편 비밀번호 확인
+    public ResponseEntity<?> checkPinPassword(Map<String, String> request, String userSeq) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+        try {
+            if (encoder.matches(request.get("pinPassword"), redisUtil.getData(userSeq))) {
+                User user = em.find(User.class, Long.parseLong(userSeq));
+                user.setPinPassword(encoder.encode(request.get("pinPassword")));
+
+                resultMap.put("message", "간편 비밀번호 확인 완료");
+                status = HttpStatus.OK;
+            } else {
+                resultMap.put("message", "간편 비밀번호가 일치하지 않습니다.");
+                status = HttpStatus.BAD_REQUEST;
+            }
+        } catch (Exception e) {
+            resultMap.put("message", "간편 비밀번호 확인 중 에러가 발생했습니다.");
             resultMap.put("error", e.getMessage());
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }

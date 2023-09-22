@@ -47,6 +47,18 @@ public class UserController {
         return userService.checkIdDuplication(request);
     }
 
+    // API 7. 간편 비밀번호 설정
+    @PostMapping("/pin/set")
+    public ResponseEntity<?> setPinPassword(@RequestBody Map<String, String> request, Authentication authentication) {
+        return userService.setPinPassword(request, authentication.getName());
+    }
+
+    // API 8. 간편 비밀번호 확인
+    @PostMapping("/pin/check")
+    public ResponseEntity<?> checkPinPassword(@RequestBody Map<String, String> request, Authentication authentication) {
+        return userService.checkPinPassword(request, authentication.getName());
+    }
+
     @PostMapping("/phone/send")
     public ResponseEntity<?> sendVerificationCode(@RequestBody Map<String, String> request){
         return userService.sendVerificationCode(request);
