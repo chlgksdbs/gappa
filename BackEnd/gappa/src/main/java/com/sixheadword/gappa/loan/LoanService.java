@@ -5,6 +5,7 @@ import com.sixheadword.gappa.loan.dto.response.GetLoanResponseDto;
 import com.sixheadword.gappa.loan.repository.LoanRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,10 +21,11 @@ public class LoanService {
     private LoanRepository loanRepository;
 
     // 대출 이력 조회
-    public List<GetLoanResponseDto> getLoan(Long userSeq){
+    public List<GetLoanResponseDto> getLoan(Authentication authentication){
+        Long userSeq = Long.parseLong(authentication.getName());
         List<Loan> loans = loanRepository.getLoanByUserSeq(userSeq);
         
-        if(loans.size() != 0){
+        if(!loans.isEmpty()){
             List<GetLoanResponseDto> getLoanResponseDtos = new ArrayList<>();
             for(Loan loan : loans){
                 GetLoanResponseDto getLoanResponseDto = GetLoanResponseDto.builder()
@@ -45,7 +47,7 @@ public class LoanService {
     public List<GetLoanResponseDto> getOnLoan(Long userSeq){
         List<Loan> loans = loanRepository.getOnLoanByUserSeq(userSeq);
 
-        if(loans.size() != 0){
+        if(!loans.isEmpty()){
             List<GetLoanResponseDto> getLoanResponseDtos = new ArrayList<>();
             for(Loan loan : loans){
                 GetLoanResponseDto getLoanResponseDto = GetLoanResponseDto.builder()
@@ -67,7 +69,7 @@ public class LoanService {
     public List<GetLoanOppResponseDto> getLoanOpp(Long userSeq){
         List<Loan> loans = loanRepository.getLoanOppByUserSeq(userSeq);
 
-        if(loans.size() != 0){
+        if(!loans.isEmpty()){
             List<GetLoanOppResponseDto> getLoanOppResponseDtos = new ArrayList<>();
             for(Loan loan : loans){
                 GetLoanOppResponseDto getLoanOppResponseDto = GetLoanOppResponseDto.builder()
@@ -91,7 +93,7 @@ public class LoanService {
     public List<GetLoanOppResponseDto> getOnLoanOpp(Long userSeq){
         List<Loan> loans = loanRepository.getOnLoanOppByUserSeq(userSeq);
 
-        if(loans.size() != 0){
+        if(!loans.isEmpty()){
             List<GetLoanOppResponseDto> getLoanOppResponseDtos = new ArrayList<>();
             for(Loan loan : loans){
                 GetLoanOppResponseDto getLoanOppResponseDto = GetLoanOppResponseDto.builder()
