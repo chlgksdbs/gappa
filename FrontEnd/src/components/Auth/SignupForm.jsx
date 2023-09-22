@@ -1,31 +1,44 @@
-import { React, useState, useRef } from 'react';
+import { React, useState, useRef, useEffect } from 'react';
 import style from './SignupPage.module.css';
 import DaumPostcode from 'react-daum-postcode';
 import Modal from 'react-modal';
-import { useDispatch } from 'react-redux';
-const SignupForm = () => {
+// import { useDispatch } from 'react-redux';
+const SignupForm = (props) => {
 
   //초기값 세팅
   const [address, setAddress] = useState("");
   const [addressNumber, setAddressNumber] = useState("");
+  const [detailAddress, setDetailAdress] = useState("");
+  const [finalAddress, setFinalAddress] = useState("");
+
+
   const [phone, setPhone] = useState("");
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+
   // 정보 확인
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+
   //오류 메세지
   const [idMessage, setIdMessage] = useState("");
   const [passwordMessage, setPasswordMessage] = useState("");
   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
 
   //유효성 검사
+  const [idOverlap, setIdOverlap] = useState(false);
   const [openPostcode, setOpenPostcode] = useState(false);
+
   const [isId, setIsId] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
-  const [idOverlap, setIdOverlap] = useState(false);
+  const [isFinalAddress, setIsFinalAddress] = useState(false);
+  // const [isPhone,setIsPhone] = useState(false);
+  const [pass, setPass] = useState(false);
 
+
+
+  // 아이디 입력
   const onChangeId = (e) => {
     const currentId = e.target.value;
     setId(currentId);
@@ -40,12 +53,16 @@ const SignupForm = () => {
     }
   };
 
+
+  // 아이디 중복확인
   const onChangeIdOverlap = () => {
     setTimeout(() => {
       setIdOverlap(true);
     }, 3000);
   }
 
+
+  // 비밀번호 확인
   const onChangePassword = (e) => {
     const currentPassword = e.target.value;
     setPassword(currentPassword);
@@ -56,17 +73,36 @@ const SignupForm = () => {
         "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!"
       );
       setIsPassword(false);
-      if (currentPassword !== passwordConfirm) {
-        setPasswordConfirmMessage("떼잉~ 비밀번호가 똑같지 않아요!");
-        setIsPasswordConfirm(false);
-      } else {
-        setPasswordConfirmMessage("똑같은 비밀번호를 입력했습니다.");
-        setIsPasswordConfirm(true);
+      if (isPassword) {
+        if (currentPassword !== passwordConfirm) {
+          setPasswordConfirmMessage("떼잉~ 비밀번호가 똑같지 않아요!");
+          setIsPasswordConfirm(false);
+        } else {
+          setPasswordConfirmMessage("똑같은 비밀번호를 입력했습니다.");
+          setIsPasswordConfirm(true);
+        }
       }
     } else {
       setPasswordMessage("안전한 비밀번호 입니다.");
       setIsPassword(true);
-      if (currentPassword !== passwordConfirm) {
+      if (isPassword) {
+        if (currentPassword !== passwordConfirm) {
+          setPasswordConfirmMessage("떼잉~ 비밀번호가 똑같지 않아요!");
+          setIsPasswordConfirm(false);
+        } else {
+          setPasswordConfirmMessage("똑같은 비밀번호를 입력했습니다.");
+          setIsPasswordConfirm(true);
+        }
+      }
+    }
+  };
+
+  // 비밀번호 확인 로직
+  const onChangePasswordConfirm = (e) => {
+    const currentPasswordConfirm = e.target.value;
+    setPasswordConfirm(currentPasswordConfirm);
+    if (isPassword) {
+      if (password !== currentPasswordConfirm) {
         setPasswordConfirmMessage("떼잉~ 비밀번호가 똑같지 않아요!");
         setIsPasswordConfirm(false);
       } else {
@@ -75,18 +111,9 @@ const SignupForm = () => {
       }
     }
   };
-  const onChangePasswordConfirm = (e) => {
-    const currentPasswordConfirm = e.target.value;
-    setPasswordConfirm(currentPasswordConfirm);
-    if (password !== currentPasswordConfirm) {
-      setPasswordConfirmMessage("떼잉~ 비밀번호가 똑같지 않아요!");
-      setIsPasswordConfirm(false);
-    } else {
-      setPasswordConfirmMessage("똑같은 비밀번호를 입력했습니다.");
-      setIsPasswordConfirm(true);
-    }
-  };
-  const phoneRef = useRef();
+
+
+  // 주소 입력
   const handle = {
     // 버튼 클릭 이벤트
     clickButton: () => {
@@ -96,14 +123,28 @@ const SignupForm = () => {
     // 주소 선택 이벤트
     selectAddress: (data) => {
       console.log(`
-            주소: ${data.address},
-            우편번호: ${data.zonecode}
-        `)
+      주소: ${data.address},
+      우편번호: ${data.zonecode}
+      `)
       setAddress(data.address);
       setAddressNumber(data.zonecode);
       setOpenPostcode(false);
     },
   }
+
+  // 상세주소 변경
+  const onChangeDetailAddress = (e) => {
+    const currentDetailAddress = e.target.value;
+    setDetailAdress(currentDetailAddress);
+    if (detailAddress && address && addressNumber) {
+      setFinalAddress(`${address} ${addressNumber} ${detailAddress}`);
+      setIsFinalAddress(true);
+      console.log(finalAddress);
+    } else {
+      setIsFinalAddress(false);
+    }
+  }
+
   // 휴대폰 번호 자동 하이폰 생성
   const autoHypenPhone = (e) => {
     const value = phoneRef.current.value.replace(/\D+/g, "");
@@ -132,6 +173,7 @@ const SignupForm = () => {
     console.log(phone);
   };
 
+  const phoneRef = useRef();
   // 전화번호 입력 칸
   const phoneIsValid = () => {
     return (
@@ -146,6 +188,18 @@ const SignupForm = () => {
 
     );
   };
+
+  useEffect(() => {
+    if (isId && isPassword && isPasswordConfirm && isFinalAddress) {
+      setPass(true);
+      props.sendDataToPage(pass);
+    } else {
+      setPass(false);
+      props.sendDataToPage(pass);
+    }
+
+    // eslint-disable-next-line
+  }, [isId, isPassword, isPasswordConfirm, isFinalAddress, props, pass])
 
   return (
     <div className={style.form}>
@@ -196,8 +250,8 @@ const SignupForm = () => {
         <span>휴대폰 번호</span>
         <br />
         {phoneIsValid()}
-        <input type="button" value="인증번호 발송" className={style.formbtn} />  
-       </div>
+        <input type="button" value="인증번호 발송" className={style.formbtn} />
+      </div>
       <div className={style.adresstop}>
         <span>주소</span>
         <div className={style.idform}>
@@ -220,7 +274,7 @@ const SignupForm = () => {
           <span>우편번호</span>
           <span>상세주소</span>
           <input type="text" value={addressNumber} className={style.inputaddress} readOnly />
-          <input type="text" className={style.input} />
+          <input type="text" className={style.input} value={detailAddress} onChange={onChangeDetailAddress} />
         </div>
       </div>
     </div>
