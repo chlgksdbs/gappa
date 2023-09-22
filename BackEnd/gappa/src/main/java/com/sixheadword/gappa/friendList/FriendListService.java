@@ -56,8 +56,8 @@ public class FriendListService {
         HttpStatus status = null;
         try {
             for (UserSeqDto u : list) {
-                FriendList friendList = friendListRepository.findByUserSeqs(memeber_id, u.getUserSeq());
-                FriendRequest request = friendRequestRepository.findByUserSeqs(memeber_id, u.getUserSeq());
+                FriendList friendList = friendListRepository.findByUserSeqs(memeber_id, u.getUserSeq()).orElseThrow(() -> new IllegalArgumentException("친구 목록을 찾을 수 없습니다."));
+                FriendRequest request = friendRequestRepository.findByUserSeqs(memeber_id, u.getUserSeq()).orElseThrow(() -> new IllegalArgumentException("친구 요청을 찾을 수 없습니다."));
                 friendListRepository.delete(friendList);
                 request.updateState('R');
             }
