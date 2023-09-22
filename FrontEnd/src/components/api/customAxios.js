@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const customAxios = axios.create({
-  baseURL : "/api",
+  baseURL : "http://j9b206.p.ssafy.io/api",
   headers : {
     authorization : `Bearer ${localStorage.getItem("jwtToken")}`,
   }
@@ -9,5 +9,5 @@ export const customAxios = axios.create({
 
 
 export const authAxios = axios.create({
-  baseURL : "/api",
+  baseURL : "http://j9b206.p.ssafy.io/api",
 })
