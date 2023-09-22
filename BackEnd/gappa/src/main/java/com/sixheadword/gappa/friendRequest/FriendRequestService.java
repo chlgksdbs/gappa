@@ -2,7 +2,11 @@ package com.sixheadword.gappa.friendRequest;
 
 import com.sixheadword.gappa.friendList.FriendList;
 import com.sixheadword.gappa.friendList.FriendListRepository;
+import com.sixheadword.gappa.friendList.response.FriendListResponseDto;
+import com.sixheadword.gappa.friendRequest.request.FriendSearchFriendsUserDto;
 import com.sixheadword.gappa.friendRequest.response.FriendRequestListResponseDto;
+import com.sixheadword.gappa.user.User;
+import com.sixheadword.gappa.user.UserCustomRepository;
 import com.sixheadword.gappa.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -10,10 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Transactional(readOnly = true)
@@ -23,6 +24,7 @@ public class FriendRequestService {
     private final FriendRequestRepository friendRequestRepository;
     private final FriendListRepository friendListRepository;
     private final UserRepository userRepository;
+    private final UserCustomRepository userCustomRepository;
 
     // 친구 요청 보내기
     @Transactional
@@ -106,4 +108,37 @@ public class FriendRequestService {
         }
         return new ResponseEntity<>(resultMap, status);
     }
+
+    public ResponseEntity<?> searchFriendsUser(long member_id, FriendSearchFriendsUserDto request) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+
+        User user = userCustomRepository.findByNamePhone(request.getName(), request.getPhone()).orElse(null);
+        if(user == null) {
+            resultMap.put("status", "N");
+            resultMap.put("message", "검색한 사람이 존재하지 않습니다.");
+        } else if(friendListRepository.findByUserSeqs(member_id, user.getUserSeq()).orElse(null) != null) {
+            resultMap.put("status", "A");
+            resultMap.put("message", "이미 친구입니다.");
+        } else if( friendRequestRepository.existsByUserSeqs(member_id, user.getUserSeq()) ) {
+            resultMap.put("status", "R");
+            resultMap.put("message", "이미 친구 신청을 했습니다.");
+        } else if( friendRequestRepository.existsByUserSeqs(user.getUserSeq(), member_id)  ) {
+            resultMap.put("status", "P");
+            resultMap.put("message", "친구 신청을 이미 받았습니다.");
+        } else { // 친구신청 가능 유저
+            FriendListResponseDto friendListResponseDto = FriendListResponseDto.builder()
+                    .profile_img(user.getProfileImg())
+                    .user_name(user.getName())
+                    .user_seq(user.getUserSeq())
+                    .phone(user.getPhone())
+                    .build();
+            resultMap.put("user", friendListResponseDto);
+            resultMap.put("status", "C");
+            resultMap.put("message", "친구 신청이 가능합니다.");
+        }
+        status = HttpStatus.OK;
+        return new ResponseEntity<>(resultMap, status);
+    }
+
 }
