@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SignupForm from './SignupForm';
 import style from './SignupPage.module.css';
 import Headers from './Headers';
+import { useNavigate } from 'react-router-dom';
 const SignupPage = () => {
   const title = "회원가입"
+  const navigate = useNavigate();
+  const [pass,setPass] = useState(false);
+  const handlePass = (data) => {
+    setPass(data);
+  }
+
+  const signupData = ()=>{
+    navigate("/bankbook");
+  }
   return (
     <div className={style.signuppage}>
       <Headers title={title}/>
@@ -12,8 +22,13 @@ const SignupPage = () => {
         <br />
         <span>아래 확인 버튼을 눌러주세요.</span>
       </div>
-      <SignupForm />
-      <button className={style.btn}>확인</button>
+      <SignupForm sendDataToPage={handlePass} />
+      {pass
+      ?
+      <button className={style.btn} onClick={signupData}>확인</button>
+      :
+      <button className={style.notbtn}>확인</button>
+      }
     </div>
   );
 }

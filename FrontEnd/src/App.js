@@ -27,6 +27,8 @@ import HistoryLendPage from './components/Loan/History/HistoryLendPage';
 import HistoryDetailPage from './components/Loan/History/HistoryDetailPage';
 import ReqAgreementPage from './components/Loan/Borrow/ReqAgreementPage';
 import ReqChatPage from './components/Loan/Borrow/ReqChatPage';
+import FriendsAddPage from './components/Friends/FriendsAddPage';
+import FriendsReqPage from './components/Friends/FriendsReqPage';
 
 
 function App() {
@@ -40,7 +42,7 @@ function App() {
     setScreenSize();
   }, [])
 
-  const is_autication = false;
+  const is_autication = true;
 
   return (
     <div className="App">
@@ -67,6 +69,8 @@ function App() {
             <Route path="/historylend" element={<HistoryLendPage />}/>
             <Route path="/historydetail" element={<HistoryDetailPage />}/>
             <Route path="/friends" element={<FriendsPage />}/>
+            <Route path="/friends/add" element={<FriendsAddPage />}/>
+            <Route path="/friends/req" element={<FriendsReqPage />}/>
             <Route path="/profile" element={<ProfilePage />}/>
             <Route path="/account" element={<AccountDetail />}/>
             <Route path="/profile/edit" element={<ProfileEditPage />}/>
