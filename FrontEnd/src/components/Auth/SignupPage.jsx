@@ -4,7 +4,7 @@ import style from './SignupPage.module.css';
 import Headers from './Headers';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { authAxios, customAxios } from '../api/cuustomaxios';
+import { authAxios, customAxios } from '../api/customAxios';
 
 const SignupPage = () => {
   const title = "회원가입"
