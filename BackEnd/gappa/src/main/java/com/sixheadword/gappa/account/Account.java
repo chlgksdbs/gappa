@@ -3,6 +3,7 @@ package com.sixheadword.gappa.account;
 import com.sixheadword.gappa.accountHistory.AccountHistory;
 import com.sixheadword.gappa.user.User;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.List;
 // Account: 계좌 테이블
 @Getter
 @Entity
+@NoArgsConstructor
 @Table(name = "ACCOUNT")
 public class Account {
 
@@ -55,5 +57,12 @@ public class Account {
         this.bank = bank;
         this.balance = balance;
         this.user = user;
+    }
+
+    public Account(Long accountSeq, String accountNumber, String bank, Long balance) {
+        this.accountSeq = accountSeq;
+        this.accountNumber = accountNumber;
+        this.bank = bank;
+        this.balance = balance;
     }
 }

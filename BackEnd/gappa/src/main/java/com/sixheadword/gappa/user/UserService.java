@@ -423,12 +423,10 @@ public class UserService {
             List<WebAlarmResponseDto> webAlarmResponseDtos = new ArrayList<>();
             List<WebAlarm> webAlarms = webAlarmRepository.findAllByUserSeq(userSeq);
 
-            User user = em.find(User.class, userSeq);
-
             webAlarms.forEach(webAlarm -> {
                 WebAlarmResponseDto webAlarmResponseDto = WebAlarmResponseDto.builder()
-                        .name(user.getName())
-                        .profileImg(user.getProfileImg())
+                        .toUserName(webAlarm.getToUser().getName())
+                        .toUserProfileImg(webAlarm.getToUser().getProfileImg())
                         .regDate(webAlarm.getRegDate())
                         .isRead(webAlarm.isRead())
                         .readDate(webAlarm.getReadDate())

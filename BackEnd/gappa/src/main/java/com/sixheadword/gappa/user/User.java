@@ -60,9 +60,13 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<MessageAlarm> messageAlarms = new ArrayList<>();
 
-    // webAlarms: 사용자 웹알림 정보
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<WebAlarm> webAlarms = new ArrayList<>();
+    // fromWebAlarms: 웹알림을 보낸 사용자의 웹알림 정보
+    @OneToMany(mappedBy = "toUser", cascade = CascadeType.ALL)
+    private List<WebAlarm> toWebAlarms = new ArrayList<>();
+
+    // toWebAlarms: 웹알림을 받은 사용자의 웹알림 정보
+    @OneToMany(mappedBy = "fromUser", cascade = CascadeType.ALL)
+    private List<WebAlarm> fromWebAlarms = new ArrayList<>();
 
     // termsHistories: 약관 동의이력
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
