@@ -1,0 +1,87 @@
+.body {
+  height: 100vh;
+  justify-content: flex-start;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-size: 24px;
+}
+
+.container {
+  height: 85%;
+  width: 90%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.messageBox {
+  height: 15%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.message {
+  font-family: 'TheJamsil3Regular';
+  font-size: 20px;
+  margin-bottom: 1vh;
+}
+
+.bold {
+  font-family: 'TheJamsil5Bold';
+  font-size: 22px;
+}
+
+.detailBox {
+  height: 80%;
+  width: 100%;
+}
+
+.title {
+  color: #a1d9ce;
+  margin: 5vh 0 2vh 0;
+}
+
+.detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
+
+.detailKey {
+  font-size: 20px;
+}
+
+.detailValue {
+  font-size: 20px;
+  font-family: 'TheJamsil3Regular';
+}
+
+.btnBox {
+  height: 10%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+}
+
+.btnBox button {
+  background-color: #AFEBDF;
+  font-family: 'TheJamsil5Bold';
+  font-size: 24px;
+  padding: 20px 40px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out;
+  border-radius: 5px;
+}
+
+.btnBox button:first-child {
+  background-color: lightgray;
+}
