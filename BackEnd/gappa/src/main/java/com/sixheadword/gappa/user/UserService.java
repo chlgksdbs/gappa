@@ -119,7 +119,10 @@ public class UserService {
             User user = userRepository.findByLoginId(loginId);
             if (user != null) {
                 if (encoder.matches(loginPassword, user.getLoginPassword())) {
-                    resultMap.put("token", jwtUtil.createJwt(Long.toString(user.getUserSeq()), JwtSecretKey));
+                    Map<String, Object> data = new HashMap<>();
+                    data.put("token", jwtUtil.createJwt(Long.toString(user.getUserSeq()), JwtSecretKey));
+
+                    resultMap.put("data", data);
                     resultMap.put("message", "로그인 완료");
                     status = HttpStatus.OK;
                 } else {
@@ -177,7 +180,10 @@ public class UserService {
             accountRepository.save(account5);
             accountRepository.save(account6);
 
-            resultMap.put("token", jwtUtil.createJwt(Long.toString(user.getUserSeq()), JwtSecretKey));
+            Map<String, Object> data = new HashMap<>();
+            data.put("token", jwtUtil.createJwt(Long.toString(user.getUserSeq()), JwtSecretKey));
+
+            resultMap.put("data", data);
             resultMap.put("message", "회원가입 성공");
             httpStatus = HttpStatus.OK;
         } catch (Exception e) {
@@ -239,7 +245,11 @@ public class UserService {
 
         try {
             int creditScore = userRepository.selectUserCreditScore(userSeq);
-            resultMap.put("credit_score", creditScore);
+
+            Map<String, Object> data = new HashMap<>();
+            data.put("credit_score", creditScore);
+
+            resultMap.put("data", data);
             resultMap.put("message", "신용점수 조회 성공");
             status = HttpStatus.OK;
         } catch (Exception e) {
@@ -262,10 +272,16 @@ public class UserService {
             String existLoginId = userRepository.selectUserLoginIdByLoginId(loginId);
 
             if (existLoginId != null) {
-                resultMap.put("code", false);
+                Map<String, Object> data = new HashMap<>();
+                data.put("code", false);
+
+                resultMap.put("data", data);
                 resultMap.put("message", "이미 해당 아이디가 존재합니다.");
             } else {
-                resultMap.put("code", true);
+                Map<String, Object> data = new HashMap<>();
+                data.put("code", true);
+
+                resultMap.put("data", data);
                 resultMap.put("message", "아이디 중복확인 성공");
             }
             status = HttpStatus.OK;
@@ -330,8 +346,11 @@ public class UserService {
         try {
             String loginId = userRepository.selectUserLoginIdByNameAndPhone(name, phone);
             if (loginId != null) {
+                Map<String, Object> data = new HashMap<>();
+                data.put("login_id", loginId);
+
+                resultMap.put("data", data);
                 resultMap.put("message", "아이디 찾기 성공");
-                resultMap.put("data", loginId);
                 status = HttpStatus.OK;
             } else {
                 resultMap.put("message", "일치하는 아이디가 존재하지 않습니다.");
@@ -353,12 +372,14 @@ public class UserService {
 
         try {
             User user = userRepository.findByLoginId(loginId);
+            Map<String, Object> data = new HashMap<>();
+            data.put("profileImg", user.getProfileImg());
+            data.put("name", user.getName());
+            data.put("loginId", user.getLoginId());
+            data.put("phone", user.getPhone());
+            data.put("creditScore", user.getCreditScore());
 
-            resultMap.put("profileImg", user.getProfileImg());
-            resultMap.put("name", user.getName());
-            resultMap.put("loginId", user.getLoginId());
-            resultMap.put("phone", user.getPhone());
-            resultMap.put("creditScore", user.getCreditScore());
+            resultMap.put("data", data);
             resultMap.put("message", "유저 조회 성공");
             status = HttpStatus.OK;
         } catch (Exception e) {
@@ -402,8 +423,12 @@ public class UserService {
             List<WebAlarmResponseDto> webAlarmResponseDtos = new ArrayList<>();
             List<WebAlarm> webAlarms = webAlarmRepository.findAllByUserSeq(userSeq);
 
+            User user = em.find(User.class, userSeq);
+
             webAlarms.forEach(webAlarm -> {
                 WebAlarmResponseDto webAlarmResponseDto = WebAlarmResponseDto.builder()
+                        .name(user.getName())
+                        .profileImg(user.getProfileImg())
                         .regDate(webAlarm.getRegDate())
                         .isRead(webAlarm.isRead())
                         .readDate(webAlarm.getReadDate())

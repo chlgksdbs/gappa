@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 @Data
 public class WebAlarmResponseDto {
 
+    private String name;
+    private String profileImg;
     private LocalDateTime regDate;
     private boolean isRead;
     private LocalDateTime readDate;
