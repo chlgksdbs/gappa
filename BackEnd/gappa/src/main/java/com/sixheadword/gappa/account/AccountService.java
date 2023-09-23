@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ import java.util.List;
 public class AccountService {
 
     private final AccountRepository accountRepository;
+    private final EntityManager em;
 
     // 대표 계좌 설정
     public void setPrimaryAccount(SetPrimaryReqeustDto setPrimaryReqeustDto, Authentication authentication){
@@ -75,7 +77,8 @@ public class AccountService {
 
     // 전체 계좌 조회
     public List<GetAccountResponseDto> getAllAcount(Long userSeq){
-        List<Account> accounts = accountRepository.findByUser(userSeq);
+        User user = em.find(User.class, userSeq);
+        List<Account> accounts = accountRepository.findByUser(user);
 
         if(accounts.size() != 0){
             List<GetAccountResponseDto> getAccountResponseDtos = new ArrayList<>();
