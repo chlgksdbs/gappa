@@ -3,7 +3,7 @@ import axios from "axios";
 export const customAxios = axios.create({
   baseURL : "/api",
   headers : {
-    authorization : `Bearer ${localStorage.getItem("jwtToken")}`,
+    authorization : `Bearer ${localStorage.getItem("token")}`,
   }
 })
 

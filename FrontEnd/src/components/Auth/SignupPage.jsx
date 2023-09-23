@@ -4,7 +4,7 @@ import style from './SignupPage.module.css';
 import Headers from './Headers';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { authAxios, customAxios } from '../api/customAxios';
+import { authAxios } from '../api/customAxios';
 
 const SignupPage = () => {
   const title = "회원가입"
@@ -32,14 +32,12 @@ const SignupPage = () => {
     authAxios.post('/users/signup', signupAPIData)
       .then((response) => {
         console.log(response)
-        console.log(signupAPIData)
+        window.localStorage.setItem('token', response.data.token )
+        window.location.replace("/bankbook");
       })
       .catch((response) => {
-        console.log(signupAPIData)
-
         console.log(response)
       })
-    navigate("/bankbook");
   }
   return (
     <div className={style.signuppage}>

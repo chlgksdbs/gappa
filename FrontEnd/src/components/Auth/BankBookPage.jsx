@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Headers from './Headers';
 import style from './BankBookPage.module.css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch,useSelector } from 'react-redux';
 import { authActions } from '../../store/authslice';
+import { customAxios } from '../api/customAxios';
 
 const BankBookPage = () => {
   const title = "대표 계좌 선택";
@@ -40,42 +41,49 @@ const BankBookPage = () => {
     );
   }
 
+  const [account, setAccount] = useState();
+  useEffect(()=>{
+    customAxios.get("/accounts")
+    .then((res)=>{
+      console.log(res)
+    })
+  },[])
 
   const bankBookData = [
     {
-      account_Number: 12345678900123,
-      bank: "싸피 은행",
-      balance: "1,110,000",
+      account_Number: 1,
+      bank: "KB국민은행",
+      balance: 1000000,
       bank_Img : "images/Ssafy.png"
     },
     {
-      account_Number: 12345678900123,
-      bank: "싸피 은행",
-      balance: "1,110,000",
+      account_Number: 1,
+      bank: "KEB하나은행",
+      balance: 1000000,
       bank_Img : "images/Ssafy.png"
     },
     {
-      account_Number: 12345678900123,
-      bank: "싸피 은행",
-      balance: "1,110,000",
+      account_Number: 1,
+      bank: "신한은행",
+      balance: 1000000,
       bank_Img : "images/Ssafy.png"
     },
     {
-      account_Number: 12345678900123,
-      bank: "싸피 은행",
-      balance: "1,110,000",
+      account_Number: 1,
+      bank: "우리은행",
+      balance: 1000000,
       bank_Img : "images/Ssafy.png"
     },
     {
-      account_Number: 12345678900123,
-      bank: "싸피 은행",
-      balance: "1,110,000",
+      account_Number: 1,
+      bank: "싸피은행",
+      balance: 1000000,
       bank_Img : "images/Ssafy.png"
     },
     {
-      account_Number: 12345678900123,
-      bank: "싸피 은행",
-      balance: "1,110,000",
+      account_Number: 1,
+      bank: "갚파은행",
+      balance: 1000000,
       bank_Img : "images/Ssafy.png"
     },
   ]
@@ -103,7 +111,7 @@ const BankBookPage = () => {
   };
 
   const dataRequest = () => {
-    // API 넣고
+    // customAxios.post
     navigate("/masterbankbook");
   }
 
@@ -114,7 +122,7 @@ const BankBookPage = () => {
         {bankBookData.map((data, index) =>
         (<Book
           account_Number={data.account_Number}
-          bankname={data.bankname}
+          bankname={data.bank}
           balance={data.balance}
           bank_Img={data.bank_Img}
           key={index}
