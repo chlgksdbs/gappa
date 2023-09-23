@@ -145,7 +145,7 @@ public class UserService {
     // 회원가입
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public ResponseEntity<?> setUserInfo(Map<String, String> request) {
-        Map<String, String> resultMap = new HashMap<>();
+        Map<String, Object> resultMap = new HashMap<>();
         HttpStatus httpStatus = null;
         JwtUtil jwtUtil = new JwtUtil();
 
