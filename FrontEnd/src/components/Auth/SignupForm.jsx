@@ -69,13 +69,9 @@ const SignupForm = (props) => {
     setTimeout(() => {
       authAxios.post("/users/checkid", checkIds)
         .then((response) => {
-          setIdMessage("사용가능한 아이디 입니다.");
-          setIsId(true);
+          setIdMessage(response.data.message);
+          setIsId(response.data.code);
           console.log(response)
-        })
-        .catch(() => {
-          setIdMessage("중복된 아이디 입니다.");
-          setIsId(false);
         })
     }, 500);
   }
