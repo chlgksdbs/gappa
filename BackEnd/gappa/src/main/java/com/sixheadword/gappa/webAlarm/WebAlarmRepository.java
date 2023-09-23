@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface WebAlarmRepository extends JpaRepository<WebAlarm, Long> {
 
-    @Query(nativeQuery = true, value = "SELECT * FROM web_alarm w WHERE w.user_seq = :userSeq")
+    @Query(nativeQuery = true, value = "SELECT * FROM web_alarm w WHERE w.from_user = :userSeq")
     List<WebAlarm> findAllByUserSeq(@Param("userSeq") Long userSeq);
 }
