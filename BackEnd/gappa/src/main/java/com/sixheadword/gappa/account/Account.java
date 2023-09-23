@@ -58,11 +58,4 @@ public class Account {
         this.balance = balance;
         this.user = user;
     }
-
-    public Account(Long accountSeq, String accountNumber, String bank, Long balance) {
-        this.accountSeq = accountSeq;
-        this.accountNumber = accountNumber;
-        this.bank = bank;
-        this.balance = balance;
-    }
 }
