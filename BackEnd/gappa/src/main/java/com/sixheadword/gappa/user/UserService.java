@@ -1,5 +1,7 @@
 package com.sixheadword.gappa.user;
 
+import com.sixheadword.gappa.account.Account;
+import com.sixheadword.gappa.account.repository.AccountRepository;
 import com.sixheadword.gappa.user.request.CheckPwRequestDto;
 import com.sixheadword.gappa.utils.JwtUtil;
 import com.sixheadword.gappa.utils.RedisUtil;
@@ -8,6 +10,7 @@ import com.sixheadword.gappa.webAlarm.WebAlarm;
 import com.sixheadword.gappa.webAlarm.WebAlarmRepository;
 import com.sixheadword.gappa.webAlarm.dto.response.WebAlarmResponseDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -23,6 +27,7 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class UserService {
 
     @Value("{jwt.secret.key}")
@@ -31,12 +36,75 @@ public class UserService {
     private final SmsUtil smsUtil;
     private final RedisUtil redisUtil;
     private final BCryptPasswordEncoder encoder;
+    private final AccountRepository accountRepository;
     private final UserRepository userRepository;
     private final UserCustomRepository userCustomRepository;
     private final WebAlarmRepository webAlarmRepository;
     private final EntityManager em;
 
     private static final Long EXPIRATION_TIME = 5 * 60 * 1000L; // 문자인증만료시간(5분)
+
+    // JPA로 사용자 더미데이터 Insert (현재 ddl-auto 설정 create, 후에 해당 메서드 제거 후 ddl-auto: validate 변경)
+    @PostConstruct
+    public void init() {
+        log.info("Insert User Dummy Data");
+
+        /*
+        insert into user (login_id, login_password, phone, name, address, pin_password, state, credit_score)
+        values
+        ("chlgksdbs", "1234", "01012345678", "갓한윤", "대전광역시", "1234", true, 100),
+        ("zosunny", "1234", "01022345678", "해린공주", "대전광역시", "1234", true, 100),
+        ("w8h0412", "1234", "01032345678", "악당동익", "대전광역시", "1234", true, 100),
+        ("gkfdkdle", "1234", "01042345678", "갓파쿠", "대전광역시", "1234", true, 100),
+        ("dragontig98", "1234", "01052345678", "김드래곤타이거", "대전광역시", "1234", true, 100),
+        ("junghun2581", "1234", "01062345678", "흥청망청", "대전광역시", "1234", true, 100);
+        */
+
+        User user1 = new User("chlgksdbs", encoder.encode("1234"), "01011112222", "갓한윤", "대전광역시");
+        User user2 = new User("zosunny", encoder.encode("1234"), "01022223333", "해린공주", "대전광역시");
+        User user3 = new User("w8h0412", encoder.encode("1234"), "01033334444", "악당동익", "대전광역시");
+        User user4 = new User("gkfdkdle", encoder.encode("1234"), "01044445555", "갓파쿠", "대전광역시");
+        User user5 = new User("dragontig98", encoder.encode("1234"), "01055556666", "김드래곤타이거", "대전광역시");
+        User user6 = new User("junghun2581", encoder.encode("1234"), "01066667777", "흥청망청", "대전광역시");
+
+        userRepository.save(user1);
+        userRepository.save(user2);
+        userRepository.save(user3);
+        userRepository.save(user4);
+        userRepository.save(user5);
+        userRepository.save(user6);
+
+        List<User> users = new ArrayList<>();
+        users.add(user1);
+        users.add(user2);
+        users.add(user3);
+        users.add(user4);
+        users.add(user5);
+        users.add(user6);
+
+        for (int i = 0; i < users.size(); i++) {
+            String accountNumber1 = Integer.toString((int)(Math.random() * 899999) + 100000) + "-" + Integer.toString((int)(Math.random() * 89) + 10) + "-" + Integer.toString((int)(Math.random() * 89) + 10);
+            String accountNumber2 = Integer.toString((int)(Math.random() * 899999) + 100000) + "-" + Integer.toString((int)(Math.random() * 89) + 10) + "-" + Integer.toString((int)(Math.random() * 89) + 10);
+            String accountNumber3 = Integer.toString((int)(Math.random() * 899999) + 100000) + "-" + Integer.toString((int)(Math.random() * 89) + 10) + "-" + Integer.toString((int)(Math.random() * 89) + 10);
+            String accountNumber4 = Integer.toString((int)(Math.random() * 899999) + 100000) + "-" + Integer.toString((int)(Math.random() * 89) + 10) + "-" + Integer.toString((int)(Math.random() * 89) + 10);
+            String accountNumber5 = Integer.toString((int)(Math.random() * 899999) + 100000) + "-" + Integer.toString((int)(Math.random() * 89) + 10) + "-" + Integer.toString((int)(Math.random() * 89) + 10);
+            String accountNumber6 = Integer.toString((int)(Math.random() * 899999) + 100000) + "-" + Integer.toString((int)(Math.random() * 89) + 10) + "-" + Integer.toString((int)(Math.random() * 89) + 10);
+
+            Account account1 = new Account(accountNumber1, "KB국민은행", 1000000L, users.get(i));
+            Account account2 = new Account(accountNumber2, "KEB하나은행", 1000000L, users.get(i));
+            Account account3 = new Account(accountNumber3, "신한은행", 1000000L, users.get(i));
+            Account account4 = new Account(accountNumber4, "우리은행", 1000000L, users.get(i));
+            Account account5 = new Account(accountNumber5, "가파은행", 1000000L, users.get(i));
+            Account account6 = new Account(accountNumber6, "싸피은행", 1000000L, users.get(i));
+
+            accountRepository.save(account1);
+            accountRepository.save(account2);
+            accountRepository.save(account3);
+            accountRepository.save(account4);
+            accountRepository.save(account5);
+            accountRepository.save(account6);
+        }
+    }
 
     // 로그인
     public ResponseEntity<?> login(Map<String, String> request) {
@@ -51,7 +119,10 @@ public class UserService {
             User user = userRepository.findByLoginId(loginId);
             if (user != null) {
                 if (encoder.matches(loginPassword, user.getLoginPassword())) {
-                    resultMap.put("token", jwtUtil.createJwt(Long.toString(user.getUserSeq()), JwtSecretKey));
+                    Map<String, Object> data = new HashMap<>();
+                    data.put("token", jwtUtil.createJwt(Long.toString(user.getUserSeq()), JwtSecretKey));
+
+                    resultMap.put("data", data);
                     resultMap.put("message", "로그인 완료");
                     status = HttpStatus.OK;
                 } else {
@@ -74,7 +145,7 @@ public class UserService {
     // 회원가입
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public ResponseEntity<?> setUserInfo(Map<String, String> request) {
-        Map<String, String> resultMap = new HashMap<>();
+        Map<String, Object> resultMap = new HashMap<>();
         HttpStatus httpStatus = null;
         JwtUtil jwtUtil = new JwtUtil();
 
@@ -87,7 +158,32 @@ public class UserService {
         try {
             User user = new User(loginId, encoder.encode(loginPassword), phone, name, address);
             userRepository.save(user);
-            resultMap.put("token", jwtUtil.createJwt(Long.toString(user.getUserSeq()), JwtSecretKey));
+
+            String accountNumber1 = Integer.toString((int)(Math.random() * 899999) + 100000) + "-" + Integer.toString((int)(Math.random() * 89) + 10) + "-" + Integer.toString((int)(Math.random() * 89) + 10);
+            String accountNumber2 = Integer.toString((int)(Math.random() * 899999) + 100000) + "-" + Integer.toString((int)(Math.random() * 89) + 10) + "-" + Integer.toString((int)(Math.random() * 89) + 10);
+            String accountNumber3 = Integer.toString((int)(Math.random() * 899999) + 100000) + "-" + Integer.toString((int)(Math.random() * 89) + 10) + "-" + Integer.toString((int)(Math.random() * 89) + 10);
+            String accountNumber4 = Integer.toString((int)(Math.random() * 899999) + 100000) + "-" + Integer.toString((int)(Math.random() * 89) + 10) + "-" + Integer.toString((int)(Math.random() * 89) + 10);
+            String accountNumber5 = Integer.toString((int)(Math.random() * 899999) + 100000) + "-" + Integer.toString((int)(Math.random() * 89) + 10) + "-" + Integer.toString((int)(Math.random() * 89) + 10);
+            String accountNumber6 = Integer.toString((int)(Math.random() * 899999) + 100000) + "-" + Integer.toString((int)(Math.random() * 89) + 10) + "-" + Integer.toString((int)(Math.random() * 89) + 10);
+
+            Account account1 = new Account(accountNumber1, "KB국민은행", 1000000L, user);
+            Account account2 = new Account(accountNumber2, "KEB하나은행", 1000000L, user);
+            Account account3 = new Account(accountNumber3, "신한은행", 1000000L, user);
+            Account account4 = new Account(accountNumber4, "우리은행", 1000000L, user);
+            Account account5 = new Account(accountNumber5, "가파은행", 1000000L, user);
+            Account account6 = new Account(accountNumber6, "싸피은행", 1000000L, user);
+
+            accountRepository.save(account1);
+            accountRepository.save(account2);
+            accountRepository.save(account3);
+            accountRepository.save(account4);
+            accountRepository.save(account5);
+            accountRepository.save(account6);
+
+            Map<String, Object> data = new HashMap<>();
+            data.put("token", jwtUtil.createJwt(Long.toString(user.getUserSeq()), JwtSecretKey));
+
+            resultMap.put("data", data);
             resultMap.put("message", "회원가입 성공");
             httpStatus = HttpStatus.OK;
         } catch (Exception e) {
@@ -149,7 +245,11 @@ public class UserService {
 
         try {
             int creditScore = userRepository.selectUserCreditScore(userSeq);
-            resultMap.put("credit_score", creditScore);
+
+            Map<String, Object> data = new HashMap<>();
+            data.put("credit_score", creditScore);
+
+            resultMap.put("data", data);
             resultMap.put("message", "신용점수 조회 성공");
             status = HttpStatus.OK;
         } catch (Exception e) {
@@ -172,10 +272,16 @@ public class UserService {
             String existLoginId = userRepository.selectUserLoginIdByLoginId(loginId);
 
             if (existLoginId != null) {
-                resultMap.put("code", false);
+                Map<String, Object> data = new HashMap<>();
+                data.put("code", false);
+
+                resultMap.put("data", data);
                 resultMap.put("message", "이미 해당 아이디가 존재합니다.");
             } else {
-                resultMap.put("code", true);
+                Map<String, Object> data = new HashMap<>();
+                data.put("code", true);
+
+                resultMap.put("data", data);
                 resultMap.put("message", "아이디 중복확인 성공");
             }
             status = HttpStatus.OK;
@@ -240,8 +346,11 @@ public class UserService {
         try {
             String loginId = userRepository.selectUserLoginIdByNameAndPhone(name, phone);
             if (loginId != null) {
+                Map<String, Object> data = new HashMap<>();
+                data.put("login_id", loginId);
+
+                resultMap.put("data", data);
                 resultMap.put("message", "아이디 찾기 성공");
-                resultMap.put("data", loginId);
                 status = HttpStatus.OK;
             } else {
                 resultMap.put("message", "일치하는 아이디가 존재하지 않습니다.");
@@ -263,12 +372,14 @@ public class UserService {
 
         try {
             User user = userRepository.findByLoginId(loginId);
+            Map<String, Object> data = new HashMap<>();
+            data.put("profileImg", user.getProfileImg());
+            data.put("name", user.getName());
+            data.put("loginId", user.getLoginId());
+            data.put("phone", user.getPhone());
+            data.put("creditScore", user.getCreditScore());
 
-            resultMap.put("profileImg", user.getProfileImg());
-            resultMap.put("name", user.getName());
-            resultMap.put("loginId", user.getLoginId());
-            resultMap.put("phone", user.getPhone());
-            resultMap.put("creditScore", user.getCreditScore());
+            resultMap.put("data", data);
             resultMap.put("message", "유저 조회 성공");
             status = HttpStatus.OK;
         } catch (Exception e) {
@@ -314,6 +425,8 @@ public class UserService {
 
             webAlarms.forEach(webAlarm -> {
                 WebAlarmResponseDto webAlarmResponseDto = WebAlarmResponseDto.builder()
+                        .toUserName(webAlarm.getToUser().getName())
+                        .toUserProfileImg(webAlarm.getToUser().getProfileImg())
                         .regDate(webAlarm.getRegDate())
                         .isRead(webAlarm.isRead())
                         .readDate(webAlarm.getReadDate())

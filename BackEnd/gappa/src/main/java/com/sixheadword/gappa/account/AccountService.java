@@ -21,7 +21,7 @@ import java.util.List;
 @Slf4j
 public class AccountService {
 
-    private AccountRepository accountRepository;
+    private final AccountRepository accountRepository;
 
     // 대표 계좌 설정
     public void setPrimaryAccount(SetPrimaryReqeustDto setPrimaryReqeustDto, Authentication authentication){
