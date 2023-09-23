@@ -3,6 +3,7 @@ import Headers from './Headers';
 import style from './PinPassword.module.css';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { useNavigate } from 'react-router-dom';
+import { customAxios } from '../api/customAxios';
 const PinPasswordConfirm = () => {
   const title = "간편 비밀번호 확인"
   // const right = "다음"
@@ -38,6 +39,11 @@ const PinPasswordConfirm = () => {
       if (userInfo.pin_Password === pin) {
         setAlert("동일한 비밀번호입니다.");
         setIsAlert(true);
+        const body = {'pinPassword': pin}
+        customAxios.post("/users/pin/set", body)
+        .then((res)=>{
+          console.log(res)
+        })
         setTimeout(() => {
           if (isAlert) {
             navigate("/pinpasswordcheck");
