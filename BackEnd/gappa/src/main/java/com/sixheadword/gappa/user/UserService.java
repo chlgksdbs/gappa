@@ -1,6 +1,7 @@
 package com.sixheadword.gappa.user;
 
 import com.sixheadword.gappa.account.Account;
+import com.sixheadword.gappa.account.repository.AccountRepository;
 import com.sixheadword.gappa.user.request.CheckPwRequestDto;
 import com.sixheadword.gappa.utils.JwtUtil;
 import com.sixheadword.gappa.utils.RedisUtil;
@@ -35,6 +36,7 @@ public class UserService {
     private final SmsUtil smsUtil;
     private final RedisUtil redisUtil;
     private final BCryptPasswordEncoder encoder;
+    private final AccountRepository accountRepository;
     private final UserRepository userRepository;
     private final UserCustomRepository userCustomRepository;
     private final WebAlarmRepository webAlarmRepository;
@@ -71,6 +73,37 @@ public class UserService {
         userRepository.save(user4);
         userRepository.save(user5);
         userRepository.save(user6);
+
+        List<User> users = new ArrayList<>();
+        users.add(user1);
+        users.add(user2);
+        users.add(user3);
+        users.add(user4);
+        users.add(user5);
+        users.add(user6);
+
+        for (int i = 0; i < users.size(); i++) {
+            String accountNumber1 = Integer.toString((int)(Math.random() * 899999) + 100000) + "-" + Integer.toString((int)(Math.random() * 89) + 10) + "-" + Integer.toString((int)(Math.random() * 89) + 10);
+            String accountNumber2 = Integer.toString((int)(Math.random() * 899999) + 100000) + "-" + Integer.toString((int)(Math.random() * 89) + 10) + "-" + Integer.toString((int)(Math.random() * 89) + 10);
+            String accountNumber3 = Integer.toString((int)(Math.random() * 899999) + 100000) + "-" + Integer.toString((int)(Math.random() * 89) + 10) + "-" + Integer.toString((int)(Math.random() * 89) + 10);
+            String accountNumber4 = Integer.toString((int)(Math.random() * 899999) + 100000) + "-" + Integer.toString((int)(Math.random() * 89) + 10) + "-" + Integer.toString((int)(Math.random() * 89) + 10);
+            String accountNumber5 = Integer.toString((int)(Math.random() * 899999) + 100000) + "-" + Integer.toString((int)(Math.random() * 89) + 10) + "-" + Integer.toString((int)(Math.random() * 89) + 10);
+            String accountNumber6 = Integer.toString((int)(Math.random() * 899999) + 100000) + "-" + Integer.toString((int)(Math.random() * 89) + 10) + "-" + Integer.toString((int)(Math.random() * 89) + 10);
+
+            Account account1 = new Account(accountNumber1, "KB국민은행", 1000000L, users.get(i));
+            Account account2 = new Account(accountNumber2, "KEB하나은행", 1000000L, users.get(i));
+            Account account3 = new Account(accountNumber3, "신한은행", 1000000L, users.get(i));
+            Account account4 = new Account(accountNumber4, "우리은행", 1000000L, users.get(i));
+            Account account5 = new Account(accountNumber5, "가파은행", 1000000L, users.get(i));
+            Account account6 = new Account(accountNumber6, "싸피은행", 1000000L, users.get(i));
+
+            accountRepository.save(account1);
+            accountRepository.save(account2);
+            accountRepository.save(account3);
+            accountRepository.save(account4);
+            accountRepository.save(account5);
+            accountRepository.save(account6);
+        }
     }
 
     // 로그인
@@ -119,13 +152,30 @@ public class UserService {
         String name = request.get("name");
         String address = request.get("address");
 
-
         try {
             User user = new User(loginId, encoder.encode(loginPassword), phone, name, address);
             userRepository.save(user);
 
-            List<Account> accounts = new ArrayList<>();
+            String accountNumber1 = Integer.toString((int)(Math.random() * 899999) + 100000) + "-" + Integer.toString((int)(Math.random() * 89) + 10) + "-" + Integer.toString((int)(Math.random() * 89) + 10);
+            String accountNumber2 = Integer.toString((int)(Math.random() * 899999) + 100000) + "-" + Integer.toString((int)(Math.random() * 89) + 10) + "-" + Integer.toString((int)(Math.random() * 89) + 10);
+            String accountNumber3 = Integer.toString((int)(Math.random() * 899999) + 100000) + "-" + Integer.toString((int)(Math.random() * 89) + 10) + "-" + Integer.toString((int)(Math.random() * 89) + 10);
+            String accountNumber4 = Integer.toString((int)(Math.random() * 899999) + 100000) + "-" + Integer.toString((int)(Math.random() * 89) + 10) + "-" + Integer.toString((int)(Math.random() * 89) + 10);
+            String accountNumber5 = Integer.toString((int)(Math.random() * 899999) + 100000) + "-" + Integer.toString((int)(Math.random() * 89) + 10) + "-" + Integer.toString((int)(Math.random() * 89) + 10);
+            String accountNumber6 = Integer.toString((int)(Math.random() * 899999) + 100000) + "-" + Integer.toString((int)(Math.random() * 89) + 10) + "-" + Integer.toString((int)(Math.random() * 89) + 10);
 
+            Account account1 = new Account(accountNumber1, "KB국민은행", 1000000L, user);
+            Account account2 = new Account(accountNumber2, "KEB하나은행", 1000000L, user);
+            Account account3 = new Account(accountNumber3, "신한은행", 1000000L, user);
+            Account account4 = new Account(accountNumber4, "우리은행", 1000000L, user);
+            Account account5 = new Account(accountNumber5, "가파은행", 1000000L, user);
+            Account account6 = new Account(accountNumber6, "싸피은행", 1000000L, user);
+
+            accountRepository.save(account1);
+            accountRepository.save(account2);
+            accountRepository.save(account3);
+            accountRepository.save(account4);
+            accountRepository.save(account5);
+            accountRepository.save(account6);
 
             resultMap.put("token", jwtUtil.createJwt(Long.toString(user.getUserSeq()), JwtSecretKey));
             resultMap.put("message", "회원가입 성공");

@@ -49,4 +49,11 @@ public class Account {
     public void modifyPrimary(boolean newRepAccount){
         this.repAccount = newRepAccount;
     }
+
+    public Account(String accountNumber, String bank, Long balance, User user) {
+        this.accountNumber = accountNumber;
+        this.bank = bank;
+        this.balance = balance;
+        this.user = user;
+    }
 }
