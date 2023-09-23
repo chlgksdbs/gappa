@@ -26,7 +26,7 @@ public class Account {
 
     // user: 계좌 사용자 정보
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_seq")
+    @JoinColumn(name = "user_seq", nullable = false)
     private User user;
 
     // accountNumber: 계좌번호
