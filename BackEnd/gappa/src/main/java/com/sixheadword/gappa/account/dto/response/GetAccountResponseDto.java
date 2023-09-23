@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class GetAccountResponseDto {
 
-    private Long account_seq;
-    private String account_number;
+    private Long accountSeq;
+    private String accountNumber;
     private String bank;
     private Long balance;
 

@@ -62,8 +62,8 @@ public class AccountService {
 
         if(account != null){
             GetAccountResponseDto result = GetAccountResponseDto.builder()
-                    .account_seq(account.getAccountSeq())
-                    .account_number(account.getAccountNumber())
+                    .accountSeq(account.getAccountSeq())
+                    .accountNumber(account.getAccountNumber())
                     .bank(account.getBank())
                     .balance(account.getBalance())
                     .build();
@@ -84,8 +84,8 @@ public class AccountService {
             List<GetAccountResponseDto> getAccountResponseDtos = new ArrayList<>();
             for(Account account : accounts){
                 GetAccountResponseDto getAccountResponseDto = GetAccountResponseDto.builder()
-                        .account_seq(account.getAccountSeq())
-                        .account_number(account.getAccountNumber())
+                        .accountSeq(account.getAccountSeq())
+                        .accountNumber(account.getAccountNumber())
                         .bank(account.getBank())
                         .balance(account.getBalance())
                         .build();
