@@ -27,6 +27,9 @@ import HistoryLendPage from './components/Loan/History/HistoryLendPage';
 import HistoryDetailPage from './components/Loan/History/HistoryDetailPage';
 import FriendsAddPage from './components/Friends/FriendsAddPage';
 import FriendsReqPage from './components/Friends/FriendsReqPage';
+import LendRefusePage from './components/Loan/Lend/LendRefusePage';
+import LendCheckPage from './components/Loan/Lend/LendCheckPage';
+import LendSendPage from './components/Loan/Lend/LendSendPage';
 
 
 function App() {
