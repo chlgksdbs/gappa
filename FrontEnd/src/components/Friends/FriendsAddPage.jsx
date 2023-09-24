@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import HeaderSub from '../Common/HeaderSub';
 import style from './FriendsAddPage.module.css';
+import { customAxios } from '../api/customAxios';
 
 const FriendsAdd = () => {
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [isResultOpen, setIsResultOpen] = useState(false);
-  const isResult = true;
+  const [isResult, setIsResult] = useState(false);
+  const [canReq, setCanReq] = useState(false);
+  const [resMsg, setResMsg] = useState("");
+  const [resUser, setResUser] = useState({});
 
   // 이름 입력 핸들러
   const handleNameChange = (event) => {
@@ -20,8 +24,48 @@ const FriendsAdd = () => {
 
   // 검색 버튼 클릭 핸들러
   const handleSearch = () => {
-    setIsResultOpen(!isResultOpen);
+    
+    const body ={
+      name : name,
+      phone : phoneNumber,
+    };
+    customAxios.post("/friends/user", body)
+    .then((res)=>{
+      console.log(res);
+      const resJsonData = res.data;
+
+      if(res.data.status === "N"){
+        setIsResult(false);
+        setCanReq(false);
+      } else if(res.data.status === "C"){
+        setIsResult(true);
+        setCanReq(true);
+        setResUser(resJsonData.user);
+      } else {
+        setIsResult(true);
+        setCanReq(false);
+        setResMsg(res.data.message);
+      }
+
+      setIsResultOpen(true);
+    })
+    .catch((res)=>{
+      console.log(res)
+    })
   };
+
+  const handlefriendsReq = () => {
+    const body ={
+      to_user : resUser.user_seq,
+    };
+    customAxios.post("/friends", body)
+    .then((res)=>{
+      console.log(res);
+    })
+    .catch((res)=>{
+      console.log(res)
+    })
+  }
 
   const toggleSearch = () => {
     setIsResultOpen(!isResultOpen);
@@ -47,18 +91,24 @@ const FriendsAdd = () => {
         <div className={style.resultBox}>
           <div className={style.infoBox}>
             <div className={style.infoImgBox}>
-              <img src="/images/GappaMascot.png" alt="개굴" />
+              <img src={"/images/" + resUser.profile_img} alt="개굴" />
             </div>
             <div className={style.infoUserBox}>
-              <div className={style.infoName}>개구리</div>
-              <div className={style.infoNumber}>010-1234-5678</div>
+              <div className={style.infoName}>{resUser.user_name}</div>
+              <div className={style.infoNumber}>{resUser.phone}</div>
             </div>
           </div>
-          <div className={style.resultBtnBox}>
+          { canReq ? (
+            <div className={style.resultBtnBox}>
             <div className={style.resultBtn}>
-              <button>친구신청</button>
+              <button onClick={handlefriendsReq}>친구신청</button>
             </div>
           </div>
+          ): (
+            <div className={style.resMsg}>
+              {resMsg}
+            </div>
+          )}
         </div>
         ) : (
           <div className={style.resultBox}>

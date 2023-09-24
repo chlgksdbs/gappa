@@ -1,35 +1,34 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import style from './FriendsPage.module.css';
 import Header from '../Common/Header';
 import Footer from '../Common/Footer';
+import { customAxios } from '../api/customAxios';
 
 const FriendsPage = () => {
   const navigate = useNavigate();
 
-  const phoneBook = [
-    {img:'/images/DonghyunKoo.png', name:'김동현', phoneNum:'01079797979'},
-    {img:'/images/DonghyunKoo.png', name:'김동익', phoneNum:'01089536705'},
-    {img:'/images/Add.png', name:'김용범', phoneNum:'01054545454'},
-    {img:'/images/Add.png', name:'최한윤', phoneNum:'01043434343'},
-    {img:'/images/Add.png', name:'조해린', phoneNum:'01079797797'},
-    {img:'/images/Add.png', name:'김정훈', phoneNum:'01089532323'},
-    {img:'/images/Add.png', name:'김동익', phoneNum:'01089531115'},
-    {img:'/images/Add.png', name:'김동익', phoneNum:'01089536705'},
-    {img:'/images/Add.png', name:'조해린', phoneNum:'01079797797'},
-    {img:'/images/Add.png', name:'김정훈', phoneNum:'01089532323'},
-    {img:'/images/Add.png', name:'김동익', phoneNum:'01089531115'},
-    {img:'/images/Add.png', name:'김동익', phoneNum:'01089536705'},
-  ]
+  const [phoneBook, setPhoneBook] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [selectedFriends, setSelectedFriends] = useState([]);
+
+  useEffect(() => {
+    // 친구 목록 조회
+    customAxios.get("/friends")
+    .then((res)=>{
+      console.log(res)
+      setPhoneBook(res.data.list);
+    })
+    .catch((res)=>{
+      console.log(res)
+    })
+  }, []);
 
   const formatPhoneNumber = (phoneNumber) => {
     const formattedPhoneNumber = `${phoneNumber.slice(0, 3)}-${phoneNumber.slice(3, 7)}-${phoneNumber.slice(7, 11)}`;
     return formattedPhoneNumber;
   };
-
-  const [searchTerm, setSearchTerm] = useState('');
-  const [isEditMode, setIsEditMode] = useState(false);
-  const [selectedFriendIndices, setSelectedFriendIndices] = useState([]);
 
   // 검색어 입력 핸들러
   const handleSearch = (event) => {
@@ -39,31 +38,48 @@ const FriendsPage = () => {
   // 편집 버튼 토글 핸들러
   const toggleEditMode = () => {
     setIsEditMode(!isEditMode);
-    setSelectedFriendIndices([]);
+    setSelectedFriends([]);
   };
 
-  const handleFriendClick = (index) => {
+  const handleFriendClick = (friend) => {
     if (isEditMode) {
-      if (selectedFriendIndices.includes(index)) {
-        setSelectedFriendIndices(selectedFriendIndices.filter((i) => i !== index));
+      const friendIndex = selectedFriends.findIndex(selectedFriend => selectedFriend.user_seq === friend.user_seq);
+      if (friendIndex !== -1) {
+        const newSelectedFriends = [...selectedFriends];
+        newSelectedFriends.splice(friendIndex, 1);
+        setSelectedFriends(newSelectedFriends);
       } else {
-        setSelectedFriendIndices([...selectedFriendIndices, index]);
+        setSelectedFriends([...selectedFriends, friend]);
       }
     }
   };
   
-  const handleCheckboxClick = (event, index) => {
+  const handleCheckboxClick = (event, friend) => {
     event.stopPropagation();
-    if (selectedFriendIndices.includes(index)) {
-      setSelectedFriendIndices(selectedFriendIndices.filter((i) => i !== index));
+    const friendIndex = selectedFriends.findIndex(selectedFriend => selectedFriend.user_seq === friend.user_seq);
+    if (friendIndex !== -1) {
+      const newSelectedFriends = [...selectedFriends];
+      newSelectedFriends.splice(friendIndex, 1);
+      setSelectedFriends(newSelectedFriends);
     } else {
-      setSelectedFriendIndices([...selectedFriendIndices, index]);
+      setSelectedFriends([...selectedFriends, friend]);
     }
   };
 
+  const handleDelete = () => {
+    const body = {list : selectedFriends.map(friend => ({ user_seq: friend.user_seq }))};
+    customAxios.put("/friends/unfriends", body)
+    .then((res)=>{
+      console.log(res);
+    })
+    .catch((res)=>{
+      console.log(res)
+    })
+  }
+
   const filteredFriends = phoneBook.filter((friend) => {
-    const nameMatch = friend.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const phoneMatch = friend.phoneNum.includes(searchTerm);
+    const nameMatch = friend.user_name.toLowerCase().includes(searchTerm.toLowerCase());
+    const phoneMatch = friend.phone.includes(searchTerm);
 
     return nameMatch || phoneMatch;
   });
@@ -85,19 +101,19 @@ const FriendsPage = () => {
           {filteredFriends.map((friend, index) => (
             <div
               key={index}
-              className={`${style.friendItem} ${selectedFriendIndices.includes(index) ? style.selectedFriend : ''}`}
-              onClick={() => handleFriendClick(index)}
+              className={`${style.friendItem} ${selectedFriends.some(selectedFriend => selectedFriend.user_seq === friend.user_seq) ? style.selectedFriend : ''}`}
+              onClick={() => handleFriendClick(friend)}
             >
               
-              <img src={friend.img} alt={friend.name} className={style.friendImage} />  
-              <div className={style.friendText}>{friend.name}</div>
-              <div className={style.friendText}>{formatPhoneNumber(friend.phoneNum)}</div>
+              <img src={"/images/" + friend.profile_img} alt={friend.user_name} className={style.friendImage} />  
+              <div className={style.friendText}>{friend.user_name}</div>
+              <div className={style.friendText}>{formatPhoneNumber(friend.phone)}</div>
               {isEditMode && (
                 <input
                   type="checkbox"
                   className={style.checkbox}
-                  checked={selectedFriendIndices.includes(index)}
-                  onChange={(event) => handleCheckboxClick(event, index)}
+                  checked={selectedFriends.some(selectedFriend => selectedFriend.user_seq === friend.user_seq)}
+                  onChange={(event) => handleCheckboxClick(event, friend)}
                 />              
               )}
             </div>
@@ -106,7 +122,7 @@ const FriendsPage = () => {
 
         <div className={style.editBtn}>
           {isEditMode ? (
-            <div className={style.deleteBtn}>삭제</div>
+            <div className={style.deleteBtn} onClick={() => handleDelete()}>삭제</div>
           ) : (
             <img src="./images/addFriend.png" alt="" onClick={() => { navigate("/friends/add") }}/>
           )}

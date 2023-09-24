@@ -1,39 +1,54 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './FriendsReqPage.module.css';
 import HeaderSub from '../Common/HeaderSub';
 import Footer from '../Common/Footer';
+import { customAxios } from '../api/customAxios';
 
 const FriendsReqPage = () => {
-  const 친구신청목록 = [
-    {img:'/images/DonghyunKoo.png', name:'김동현', phoneNum:'01079797979'},
-    {img:'/images/DonghyunKoo.png', name:'김동익', phoneNum:'01089536705'},
-    {img:'/images/Add.png', name:'김용범', phoneNum:'01054545454'},
-    {img:'/images/Add.png', name:'최한윤', phoneNum:'01043434343'},
-    {img:'/images/Add.png', name:'조해린', phoneNum:'01079797797'},
-    {img:'/images/Add.png', name:'김정훈', phoneNum:'01089532323'},
-    {img:'/images/Add.png', name:'김동익', phoneNum:'01089531115'},
-    {img:'/images/Add.png', name:'김동익', phoneNum:'01089536705'},
-    {img:'/images/Add.png', name:'조해린', phoneNum:'01079797797'},
-    {img:'/images/Add.png', name:'김정훈', phoneNum:'01089532323'},
-    {img:'/images/Add.png', name:'김동익', phoneNum:'01089531115'},
-    {img:'/images/Add.png', name:'김동익', phoneNum:'01089536705'},
-  ]
+
+  const [friendsReq, setFriendsReq] = useState([]);
+
+  useEffect(() => {
+    // 친구 신청 목록 조회
+    customAxios.get("/friends/request")
+    .then((res)=>{
+      console.log(res)
+      setFriendsReq(res.data.list);
+    })
+    .catch((res)=>{
+      console.log(res)
+    })
+  }, []);
+
+  const friendsRes = (seq, resType) => {
+    const body ={
+      request_seq : seq,
+      response : resType, 
+    };
+    customAxios.post("/friends/response",body)
+    .then((res)=>{
+      console.log(res)
+    })
+    .catch((res)=>{
+      console.log(res)
+    })
+  }
 
   return (
     <div className={style.body}>
       <HeaderSub title={"친구 신청"} />
       <div className={style.reqList}>
-      {친구신청목록.map((request, index) => (
+      {friendsReq.map((request, index) => (
         <div key={index} className={style.requestItem}>
-          <img src={request.img} alt={request.name} />
+          <img src={"/images/" + request.profile_img} alt={request.to_user_name} />
           <div className={style.infoBox}>
             <div className={style.reqInfo}>
-              <div className={style.reqName}>{request.name}</div>
-              <div className={style.reqNum}>{request.phoneNum}</div>
+              <div className={style.reqName}>{request.to_user_name}</div>
+              {/* <div className={style.reqNum}>{request.phone}</div> */}
             </div>
             <div className={style.reqBtn}>
-              <button>수락</button>
-              <button>거절</button>
+              <button onClick={() => friendsRes(request.request_seq, "T")}>수락</button>
+              <button onClick={() => friendsRes(request.request_seq, "F")}>거절</button>
             </div>
           </div>          
         </div>
