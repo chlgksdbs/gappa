@@ -28,9 +28,9 @@ const LoginPage = () => {
     authAxios.post("/users/login", body)
     .then((res)=>{
       console.log(res)
-      window.localStorage.setItem("token",res.data.token)
-      window.localStorage.setItem("is_autication",true)
-      window.location.replace("/")
+      window.localStorage.setItem("token",res.data.data.token)
+      // window.localStorage.setItem("is_autication",true)
+      // window.location.replace("/")
 
     })
     .catch((res)=>{
