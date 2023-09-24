@@ -1,5 +1,6 @@
-package com.sixheadword.gappa.loan;
+package com.sixheadword.gappa.loan.service;
 
+import com.sixheadword.gappa.loan.Loan;
 import com.sixheadword.gappa.loan.dto.response.GetLoanOppResponseDto;
 import com.sixheadword.gappa.loan.dto.response.GetLoanResponseDto;
 import com.sixheadword.gappa.loan.repository.LoanRepository;

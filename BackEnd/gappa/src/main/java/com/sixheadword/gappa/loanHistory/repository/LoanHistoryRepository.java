@@ -1,6 +1,6 @@
 package com.sixheadword.gappa.loanHistory.repository;
 
-import com.sixheadword.gappa.loanHistory.LoanHistory;
+import com.sixheadword.gappa.loanHistory.entity.LoanHistory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

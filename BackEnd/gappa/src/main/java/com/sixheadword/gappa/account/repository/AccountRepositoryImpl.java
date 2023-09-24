@@ -36,15 +36,15 @@ public class AccountRepositoryImpl implements AccountRepositoryCustom{
     }
 
     // 대표 계좌 조회
-//    @Override
-//    public Account findPrimaryByUserSeq(Long userSeq) {
-//
-//        String jpql = "SELECT a FROM account a WHERE a.userSeq = :userSeq AND a.repAccount = TRUE";
-//
-//        return em.createQuery(jpql, Account.class)
-//                .setParameter("userSeq", userSeq)
-//                .getSingleResult();
-//    }
+    @Override
+    public Account findPrimaryByUserSeq(Long userSeq) {
+
+        String jpql = "SELECT a FROM account a WHERE a.userSeq = :userSeq AND a.repAccount = TRUE";
+
+        return em.createQuery(jpql, Account.class)
+                .setParameter("userSeq", userSeq)
+                .getSingleResult();
+    }
 
     // 전체 계좌 조회
 //    @Override
