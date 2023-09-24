@@ -88,7 +88,6 @@ const ReqAgreementPage = () => {
   useEffect(() => {
     if (memberCheck && serviceCheck && bankCheck && phoneCheck === true) {
       setCheckPoint(true);
-      console.log(checkPoint)
     }
     else {
       setCheckPoint(false);

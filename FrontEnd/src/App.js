@@ -29,6 +29,8 @@ import ReqAgreementPage from './components/Loan/Borrow/ReqAgreementPage';
 import ReqChatPage from './components/Loan/Borrow/ReqChatPage';
 import FriendsAddPage from './components/Friends/FriendsAddPage';
 import FriendsReqPage from './components/Friends/FriendsReqPage';
+import ReqFriendsPage from './components/Loan/Borrow/ReqFriendsPage';
+import ReqBorrowPage from './components/Loan/Borrow/ReqBorrowPage';
 
 
 function App() {
@@ -42,7 +44,7 @@ function App() {
     setScreenSize();
   }, [])
 
-  const is_autication = true;
+  const is_autication = false;
 
   return (
     <div className="App">
@@ -80,6 +82,8 @@ function App() {
             <Route path="/customerservice" element={<CustomerServicePage />}/>
             <Route path="/reqagreement" element={<ReqAgreementPage />}/>
             <Route path="/reqchat" element={<ReqChatPage />}/>
+            <Route path="/reqfriends" element={<ReqFriendsPage />}/>
+            <Route path="/reqBorrow" element={<ReqBorrowPage />}/>
           </>
         })
       </Routes>

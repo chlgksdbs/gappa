@@ -34,6 +34,12 @@
   border-radius: 15px;
 }
 
+.input{
+  border-width: 0;
+  font-size: 17px;
+  font-weight: bold;
+  width: 88%;
+}
 
 /* 아래 입력 Div */
 .inputDiv {
@@ -50,6 +56,7 @@
 
 .nextBtn {
   display: flex;
+  width: 390px;
   height: 50px;
   justify-content: center;
   align-items: center;
@@ -123,4 +130,54 @@
 
 .backspace:hover {
   background-color: #f1f1f1;
+}
+
+.calendarStyle {
+  background-color: #f0f0f0;
+  padding: 20px;
+}
+
+.reason {
+  width: 100%;
+  flex-direction: column;
+}
+
+.reason div{
+  display: flex;
+  /* width: 100%; */
+}
+
+/* .reason div div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  background-color: #80CEBE;
+  border-radius: 15px;
+  padding: 5px 15px 5px 15px;
+  margin: 10px;
+} */
+
+/* 기본 이유 항목 스타일 */
+.reasonItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  background-color: #aaa;
+  border-radius: 15px;
+  padding: 5px 15px 5px 15px;
+  margin: 10px;
+}
+
+/* 선택된 이유 항목 스타일 */
+.selectedReason {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  background-color: #80CEBE;
+  border-radius: 15px;
+  padding: 5px 15px 5px 15px;
+  margin: 10px;
 }
