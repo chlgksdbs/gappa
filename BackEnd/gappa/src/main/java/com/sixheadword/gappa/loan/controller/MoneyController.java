@@ -1,7 +1,7 @@
 package com.sixheadword.gappa.loan.controller;
 
 import com.sixheadword.gappa.loan.dto.request.FailLoanRequestDto;
-import com.sixheadword.gappa.loan.dto.request.RedemptionRequestDto;
+//import com.sixheadword.gappa.loan.dto.request.RedemptionRequestDto;
 import com.sixheadword.gappa.loan.dto.request.SuccessLoanRequestDto;
 import com.sixheadword.gappa.loan.service.MoneyService;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +30,7 @@ public class MoneyController {
     }
 
     // API 2. 대출 취소
-    @PostMapping("/lend")
+    @PostMapping("/fail")
     public ResponseEntity<?> FailLoan(FailLoanRequestDto failLoanRequestDto){
         try {
             moneyService.failLoan(failLoanRequestDto);
@@ -41,14 +41,14 @@ public class MoneyController {
     }
 
     // API 3. 대출금 상환
-    @PostMapping("/redemption")
-    public ResponseEntity<?> redemptionMoney(RedemptionRequestDto redemptionRequestDto){
-        try {
-            moneyService.redemptionMoney(redemptionRequestDto);
-            return ResponseEntity.status(HttpStatus.OK).build();
-        }catch (IllegalArgumentException e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("대출 취소가 실패했습니다.");
-        }
-    }
+//    @PostMapping("/redemption")
+//    public ResponseEntity<?> redemptionMoney(RedemptionRequestDto redemptionRequestDto){
+//        try {
+//            moneyService.redemptionMoney(redemptionRequestDto);
+//            return ResponseEntity.status(HttpStatus.OK).build();
+//        }catch (IllegalArgumentException e){
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("대출 취소가 실패했습니다.");
+//        }
+//    }
 
 }

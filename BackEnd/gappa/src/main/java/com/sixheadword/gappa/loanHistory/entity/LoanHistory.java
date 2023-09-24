@@ -1,6 +1,7 @@
 package com.sixheadword.gappa.loanHistory.entity;
 
 import com.sixheadword.gappa.loan.Loan;
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -44,4 +45,13 @@ public class LoanHistory {
     // transactionDate: 거래일시
     @Column(nullable = false)
     private LocalDateTime transactionDate;
+
+    @Builder
+    public LoanHistory(Type type, Long amount, Long oldRedemptionMoney, Long newRedemptionMoney, LocalDateTime transactionDate ){
+        this.type = type;
+        this.amount = amount;
+        this.oldRedemptionMoney = oldRedemptionMoney;
+        this.newRedemptionMoney = newRedemptionMoney;
+        this.transactionDate = transactionDate;
+    }
 }

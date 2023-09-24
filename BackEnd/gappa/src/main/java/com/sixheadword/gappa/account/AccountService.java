@@ -88,6 +88,7 @@ public class AccountService {
                         .accountNumber(account.getAccountNumber())
                         .bank(account.getBank())
                         .balance(account.getBalance())
+                        .repAccount(account.isRepAccount())
                         .build();
                 getAccountResponseDtos.add(getAccountResponseDto);
             }
