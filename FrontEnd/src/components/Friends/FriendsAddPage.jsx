@@ -32,7 +32,7 @@ const FriendsAdd = () => {
     customAxios.post("/friends/user", body)
     .then((res)=>{
       console.log(res);
-      const resJsonData = res.data;
+      const resDataUser = res.data.user;
 
       if(res.data.status === "N"){
         setIsResult(false);
@@ -40,20 +40,21 @@ const FriendsAdd = () => {
       } else if(res.data.status === "C"){
         setIsResult(true);
         setCanReq(true);
-        setResUser(resJsonData.user);
+        setResUser(resDataUser);
       } else {
         setIsResult(true);
         setCanReq(false);
+        setResUser(resDataUser);
         setResMsg(res.data.message);
       }
-
       setIsResultOpen(true);
     })
     .catch((res)=>{
-      console.log(res)
+      console.log(res);
     })
   };
 
+  // 친구 신청
   const handlefriendsReq = () => {
     const body ={
       to_user : resUser.user_seq,
@@ -61,6 +62,13 @@ const FriendsAdd = () => {
     customAxios.post("/friends", body)
     .then((res)=>{
       console.log(res);
+      setIsResultOpen(false);
+      setIsResult(false)
+      setCanReq(false);
+      setResMsg("");
+      setResUser({});
+      setName("");
+      setPhoneNumber("");
     })
     .catch((res)=>{
       console.log(res)
@@ -69,6 +77,12 @@ const FriendsAdd = () => {
 
   const toggleSearch = () => {
     setIsResultOpen(!isResultOpen);
+    setIsResult(false);
+    setCanReq(false);
+    setResMsg("");
+    setResUser({});
+    setName("");
+    setPhoneNumber("");
   };
 
   return (
@@ -100,10 +114,10 @@ const FriendsAdd = () => {
           </div>
           { canReq ? (
             <div className={style.resultBtnBox}>
-            <div className={style.resultBtn}>
-              <button onClick={handlefriendsReq}>친구신청</button>
+              <div className={style.resultBtn}>
+                <button onClick={handlefriendsReq}>친구신청</button>
+              </div>
             </div>
-          </div>
           ): (
             <div className={style.resMsg}>
               {resMsg}

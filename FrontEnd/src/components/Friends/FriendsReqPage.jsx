@@ -3,13 +3,19 @@ import style from './FriendsReqPage.module.css';
 import HeaderSub from '../Common/HeaderSub';
 import Footer from '../Common/Footer';
 import { customAxios } from '../api/customAxios';
+// import { useNavigate } from 'react-router-dom';
 
 const FriendsReqPage = () => {
+  // const navigate = useNavigate();
 
   const [friendsReq, setFriendsReq] = useState([]);
 
   useEffect(() => {
-    // 친구 신청 목록 조회
+    getRequest();
+  }, []);
+
+  // 친구 신청 목록 조회
+  const getRequest = () => {
     customAxios.get("/friends/request")
     .then((res)=>{
       console.log(res)
@@ -18,8 +24,9 @@ const FriendsReqPage = () => {
     .catch((res)=>{
       console.log(res)
     })
-  }, []);
+  }
 
+  // 친구 신청 응답
   const friendsRes = (seq, resType) => {
     const body ={
       request_seq : seq,
@@ -27,10 +34,10 @@ const FriendsReqPage = () => {
     };
     customAxios.post("/friends/response",body)
     .then((res)=>{
-      console.log(res)
+      getRequest();
     })
     .catch((res)=>{
-      console.log(res)
+      console.log(res);
     })
   }
 
@@ -44,7 +51,7 @@ const FriendsReqPage = () => {
           <div className={style.infoBox}>
             <div className={style.reqInfo}>
               <div className={style.reqName}>{request.to_user_name}</div>
-              {/* <div className={style.reqNum}>{request.phone}</div> */}
+              <div className={style.reqNum}>{request.phone}</div>
             </div>
             <div className={style.reqBtn}>
               <button onClick={() => friendsRes(request.request_seq, "T")}>수락</button>

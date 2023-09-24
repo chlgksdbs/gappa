@@ -14,16 +14,19 @@ const FriendsPage = () => {
   const [selectedFriends, setSelectedFriends] = useState([]);
 
   useEffect(() => {
-    // 친구 목록 조회
+    getFriends();
+  }, []);
+
+  // 친구 목록 조회
+  const getFriends = () => {
     customAxios.get("/friends")
     .then((res)=>{
-      console.log(res)
       setPhoneBook(res.data.list);
     })
     .catch((res)=>{
       console.log(res)
     })
-  }, []);
+  }
 
   const formatPhoneNumber = (phoneNumber) => {
     const formattedPhoneNumber = `${phoneNumber.slice(0, 3)}-${phoneNumber.slice(3, 7)}-${phoneNumber.slice(7, 11)}`;
@@ -68,9 +71,10 @@ const FriendsPage = () => {
 
   const handleDelete = () => {
     const body = {list : selectedFriends.map(friend => ({ user_seq: friend.user_seq }))};
-    customAxios.put("/friends/unfriends", body)
+    customAxios.put("/friends", body)
     .then((res)=>{
-      console.log(res);
+      setIsEditMode(false);
+
     })
     .catch((res)=>{
       console.log(res)
@@ -94,7 +98,9 @@ const FriendsPage = () => {
           <input type="text" placeholder="친구 검색" value={searchTerm} onChange={handleSearch} />
         </div>
         <div className={style.editBtn} onClick={toggleEditMode}>
-          {isEditMode ? '취소' : '편집'}
+          {phoneBook.length > 0 && (
+            isEditMode ? '취소' : '편집'
+          )}
         </div>
 
         <div className={style.friendsList}>
@@ -124,7 +130,10 @@ const FriendsPage = () => {
           {isEditMode ? (
             <div className={style.deleteBtn} onClick={() => handleDelete()}>삭제</div>
           ) : (
-            <img src="./images/addFriend.png" alt="" onClick={() => { navigate("/friends/add") }}/>
+            <div>
+              <img src="/images/FriendsNoti.png" alt="" className={style.friendsIcon} onClick={() => { navigate("/friends/req") }}/>
+              <img src="/images/addFriend.png" alt="" className={style.friendsIcon} onClick={() => { navigate("/friends/add") }}/>
+            </div>
           )}
         </div>
       </div>
