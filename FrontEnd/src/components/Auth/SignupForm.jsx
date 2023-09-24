@@ -70,7 +70,7 @@ const SignupForm = (props) => {
       authAxios.post("/users/checkid", checkIds)
         .then((response) => {
           setIdMessage(response.data.message);
-          setIsId(response.data.code);
+          setIsId(response.data.data.code);
           console.log(response)
         })
     }, 500);
