@@ -7,6 +7,7 @@ import com.sixheadword.gappa.loan.dto.request.FailLoanRequestDto;
 import com.sixheadword.gappa.loan.dto.request.RedemptionRequestDto;
 import com.sixheadword.gappa.loan.dto.request.SuccessLoanRequestDto;
 import com.sixheadword.gappa.loan.repository.LoanRepository;
+import com.sixheadword.gappa.loanHistory.entity.LoanHistory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -48,6 +49,17 @@ public class MoneyService {
 
     // 대출금 상환
     public void redemptionMoney(RedemptionRequestDto redemptionRequestDto){
+        // 현 대출 건
+        Loan loan = loanRepository.findById(redemptionRequestDto.getLoanSeq()).orElse(null);
+        if(loan != null){
+            // 상환금 이체 실행
+            transfer(loan, 0);
+            // 대출 내역에 저장
+            LoanHistory loanHistory =
+            // 대출 상환금, 상태 변경
+        }else{
+
+        }
 
     }
 

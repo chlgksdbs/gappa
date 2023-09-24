@@ -1,6 +1,6 @@
 package com.sixheadword.gappa.loan;
 
-import com.sixheadword.gappa.loanHistory.LoanHistory;
+import com.sixheadword.gappa.loanHistory.entity.LoanHistory;
 import com.sixheadword.gappa.user.User;
 import lombok.Getter;
 

@@ -1,4 +1,4 @@
-package com.sixheadword.gappa.loanHistory;
+package com.sixheadword.gappa.loanHistory.entity;
 
 import com.sixheadword.gappa.loan.Loan;
 import lombok.Getter;
@@ -24,8 +24,10 @@ public class LoanHistory {
     private Loan loan;
     
     // type: 타입
-    @Column(length = 20, nullable = false)
-    private String type;
+//    @Column(length = 20, nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Type type = Type.REDEMPTION;
     
     // amount: 거래금액
     @Column(nullable = false)
