@@ -74,3 +74,19 @@
   transform: scale(1.05);
   /* 다른 원하는 스타일 변경도 여기에 추가 가능 */
 }
+
+.modal{
+  width: 300px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  border: 1px solid black;
+  margin-top: 40%;
+}
+
+.formbtn{
+  background-color: #B3BAF5;
+  border: 0;
+  border-radius: 4px;
+  font-size: 12px;
+}

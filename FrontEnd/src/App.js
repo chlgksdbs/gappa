@@ -53,11 +53,11 @@ function App() {
       return token === null;
     };
     setIsAuthenticated(checkTokenInLocalStorage());
-    console.log(isAuthenticated)
+    console.log(isAuthenticated);
     // eslint-disable-next-line
   }, [])
 
-  const is_autication = false;
+  // const is_autication = true;
 
   return (
     <div className="App">
