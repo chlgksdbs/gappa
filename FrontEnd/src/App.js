@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import { Routes, Route } from "react-router-dom";
 
@@ -31,6 +31,9 @@ import FriendsAddPage from './components/Friends/FriendsAddPage';
 import FriendsReqPage from './components/Friends/FriendsReqPage';
 import ReqFriendsPage from './components/Loan/Borrow/ReqFriendsPage';
 import ReqBorrowPage from './components/Loan/Borrow/ReqBorrowPage';
+import LendRefusePage from './components/Loan/Lend/LendRefusePage';
+import LendCheckPage from './components/Loan/Lend/LendCheckPage';
+import LendSendPage from './components/Loan/Lend/LendSendPage';
 
 
 function App() {
@@ -39,9 +42,19 @@ function App() {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty("--vh", `${vh}px`);
   }
-  // useEffect로 실행될 때마다 작동 되게
+
+
+
+  const [isAuthenticated, setIsAuthenticated] = useState(false);  // useEffect로 실행될 때마다 작동 되게
   useEffect(() => {
     setScreenSize();
+    const checkTokenInLocalStorage = () => {
+      const token = localStorage.getItem("token");
+      return token === null;
+    };
+    setIsAuthenticated(checkTokenInLocalStorage());
+    console.log(isAuthenticated)
+    // eslint-disable-next-line
   }, [])
 
   const is_autication = false;
@@ -49,18 +62,13 @@ function App() {
   return (
     <div className="App">
       <Routes> {/*라우터 작동 정리*/}
-        ({is_autication
+        ({isAuthenticated
           ?
           <>
             <Route path="/" element={<LandingPage />} />
-            <Route path="/login" element={<LoginPage />}/>
-            <Route path="/signup" element={<SignupPage />}/>
-            <Route path="/agreement" element={<AgreementPage />}/>
-            <Route path="/bankbook" element={<BankBookPage/>}/>
-            <Route path="/masterbankbook" element={<MasterBankBookPage/>}/>
-            <Route path="/pinpassword" element={<PinPassword/>}/>
-            <Route path="/pinpasswordconfirm" element={<PinPasswordConfirm/>}/>
-            <Route path="/pinpasswordcheck" element={<PinPasswordCheckPage/>}/>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/agreement" element={<AgreementPage />} />
           </>
           :
           <>
@@ -84,6 +92,11 @@ function App() {
             <Route path="/reqchat" element={<ReqChatPage />}/>
             <Route path="/reqfriends" element={<ReqFriendsPage />}/>
             <Route path="/reqBorrow" element={<ReqBorrowPage />}/>
+            <Route path="/bankbook" element={<BankBookPage />} />
+            <Route path="/masterbankbook" element={<MasterBankBookPage />} />
+            <Route path="/pinpassword" element={<PinPassword />} />
+            <Route path="/pinpasswordconfirm" element={<PinPasswordConfirm />} />
+            <Route path="/pinpasswordcheck" element={<PinPasswordCheckPage />} />
           </>
         })
       </Routes>
