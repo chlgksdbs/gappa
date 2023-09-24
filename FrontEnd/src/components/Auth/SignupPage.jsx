@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import SignupForm from './SignupForm';
 import style from './SignupPage.module.css';
 import Headers from './Headers';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { authAxios } from '../api/customAxios';
 
 const SignupPage = () => {
   const title = "회원가입"
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const userInfo = useSelector(state => state.auth);
   // const [signupAPIData, setSignupAPIData] = useState("");
 
@@ -32,7 +32,7 @@ const SignupPage = () => {
     authAxios.post('/users/signup', signupAPIData)
       .then((response) => {
         console.log(response)
-        window.localStorage.setItem('token', response.data.token )
+        window.localStorage.setItem('token', response.data.data.token )
         window.location.replace("/bankbook");
       })
       .catch((response) => {
