@@ -34,6 +34,7 @@ const SignupPage = () => {
         console.log(response)
         window.localStorage.setItem('token', response.data.data.token )
         window.location.replace("/bankbook");
+        // navigate("/bankbook");
       })
       .catch((response) => {
         console.log(response)

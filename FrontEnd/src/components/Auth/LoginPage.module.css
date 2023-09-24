@@ -59,3 +59,18 @@
   background-color: #80CEBE;
   color:white;
 }
+
+.keyboard{
+  background-color: silver;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  height: 30vh;
+}
+
+.keyboard13{
+  width: auto;
+}
+.keyboard4{
+  width: 25%
+}
