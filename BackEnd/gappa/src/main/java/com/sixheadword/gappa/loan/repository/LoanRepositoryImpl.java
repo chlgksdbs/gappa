@@ -2,6 +2,8 @@ package com.sixheadword.gappa.loan.repository;
 
 import com.sixheadword.gappa.account.Account;
 import com.sixheadword.gappa.loan.Loan;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import javax.persistence.EntityManager;
 import java.util.List;
