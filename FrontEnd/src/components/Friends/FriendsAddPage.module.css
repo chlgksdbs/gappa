@@ -131,6 +131,10 @@
   border-radius: 10px;
 }
 
+.resMsg{
+  font-size: 18px;
+}
+
 .overlay {
   position: fixed;
   top: 0;
