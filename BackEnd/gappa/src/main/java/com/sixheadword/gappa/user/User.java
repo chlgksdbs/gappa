@@ -91,6 +91,10 @@ public class User {
     // address: 주소
     @Column(length = 100, nullable = false)
     private String address;
+
+    // addressDetail : 상세 주소
+    @Column(name = "address_detail", length = 100, nullable = false)
+    private String addressDetail;
     
     // pinPassword: 간편 비밀번호
     @Column(name = "pin_password")
@@ -116,12 +120,13 @@ public class User {
     @Column(name = "expired_at")
     private LocalDateTime expiredAt;
 
-    public User(String loginId, String loginPassword, String phone, String name, String address, String profileImg) {
+    public User(String loginId, String loginPassword, String phone, String name, String address, String addressDetail, String profileImg) {
         this.loginId = loginId;
         this.loginPassword = loginPassword;
         this.phone = phone;
         this.name = name;
         this.address = address;
+        this.addressDetail = addressDetail;
         this.profileImg = profileImg;
         this.state = true;
         this.creditScore = 0;

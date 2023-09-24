@@ -64,12 +64,12 @@ public class UserService {
 //        ("junghun2581", "1234", "01062345678", "흥청망청", "대전광역시", "1234", true, 100);
 //        */
 //
-//        User user1 = new User("chlgksdbs", encoder.encode("1234"), "01011112222", "갓한윤", "대전광역시", "GappaMascot.png");
-//        User user2 = new User("zosunny", encoder.encode("1234"), "01022223333", "해린공주", "대전광역시", "GappaMascot.png");
-//        User user3 = new User("w8h0412", encoder.encode("1234"), "01033334444", "악당동익", "대전광역시", "GappaMascot.png");
-//        User user4 = new User("gkfdkdle", encoder.encode("1234"), "01044445555", "갓파쿠", "대전광역시", "GappaMascot.png");
-//        User user5 = new User("dragontig98", encoder.encode("1234"), "01055556666", "김드래곤타이거", "대전광역시", "GappaMascot.png");
-//        User user6 = new User("junghun2581", encoder.encode("1234"), "01066667777", "흥청망청", "대전광역시", "GappaMascot.png");
+//        User user1 = new User("chlgksdbs", encoder.encode("1234"), "01011112222", "갓한윤", "대전광역시 유성구 덕명동", "101동 101호", "GappaMascot.png");
+//        User user2 = new User("zosunny", encoder.encode("1234"), "01022223333", "해린공주", "대전광역시 유성구 덕명동", "101동 102호", "GappaMascot.png");
+//        User user3 = new User("w8h0412", encoder.encode("1234"), "01033334444", "악당동익", "대전광역시 유성구 덕명동", "101동 103호", "GappaMascot.png");
+//        User user4 = new User("gkfdkdle", encoder.encode("1234"), "01044445555", "갓파쿠", "대전광역시 유성구 덕명동", "101동 104호", "GappaMascot.png");
+//        User user5 = new User("dragontig98", encoder.encode("1234"), "01055556666", "김드래곤타이거", "대전광역시 유성구 덕명동", "101동 105호", "GappaMascot.png");
+//        User user6 = new User("junghun2581", encoder.encode("1234"), "01066667777", "흥청망청", "대전광역시 유성구 덕명동", "101동 106호", "GappaMascot.png");
 //
 //        userRepository.save(user1);
 //        userRepository.save(user2);
@@ -158,9 +158,10 @@ public class UserService {
         String phone = request.get("phone");
         String name = request.get("name");
         String address = request.get("address");
+        String addressDetail = request.get("addressDetail");
 
         try {
-            User user = new User(loginId, encoder.encode(loginPassword), phone, name, address, "GappaMascot.png");
+            User user = new User(loginId, encoder.encode(loginPassword), phone, name, address, addressDetail, "GappaMascot.png");
             userRepository.save(user);
 
             String accountNumber1 = Integer.toString((int)(Math.random() * 899999) + 100000) + "-" + Integer.toString((int)(Math.random() * 89) + 10) + "-" + Integer.toString((int)(Math.random() * 899999) + 100000);
@@ -396,6 +397,7 @@ public class UserService {
                 data.put("phone", user.getPhone());
                 data.put("creditScore", user.getCreditScore());
                 data.put("address", user.getAddress());
+                data.put("addressDetail", user.getAddressDetail());
                 data.put("borrowCnt", borrowCnt);
                 data.put("lendCnt", lendCnt);
                 if (loanStatus == 0) {
@@ -423,6 +425,7 @@ public class UserService {
                 data.put("phone", user.getPhone());
                 data.put("creditScore", user.getCreditScore());
                 data.put("address", user.getAddress());
+                data.put("addressDetail", user.getAddressDetail());
                 data.put("overdueCnt", overdueCnt);
                 data.put("repaymentCnt", repaymentCnt);
                 if (loanStatus == 0) {
