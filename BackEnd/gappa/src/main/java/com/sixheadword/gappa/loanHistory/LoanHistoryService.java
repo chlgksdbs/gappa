@@ -17,8 +17,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LoanHistoryService {
 
-    private LoanHistoryRepository loanHistoryRepository;
-    private LoanRepository loanRepository;
+    private final LoanHistoryRepository loanHistoryRepository;
+    private final LoanRepository loanRepository;
 
     // 대출 및 대금 이력 상세조회
     public GetLoanHistoryResponseDto getLoanHistory(int type, Long loanSeq, Authentication authentication) {
