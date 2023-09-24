@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class LoanController {
 
-    private LoanService loanService;
+    private final LoanService loanService;
 
     // API 1. 대출 이력 조회
     @GetMapping

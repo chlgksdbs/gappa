@@ -20,15 +20,15 @@ import java.util.List;
 @Slf4j
 public class LoanService {
 
-    private LoanRepository loanRepository;
-    private UserRepository userRepository;
+    private final LoanRepository loanRepository;
+    private final UserRepository userRepository;
 
     // 대출 이력 조회
     public List<GetLoanResponseDto> getLoan(Authentication authentication){
         Long userSeq = Long.parseLong(authentication.getName());
         User user = userRepository.findById(userSeq).orElse(null);
         List<Loan> loans = loanRepository.findByFromUser(user);
-        
+
         if(!loans.isEmpty()){
             List<GetLoanResponseDto> getLoanResponseDtos = new ArrayList<>();
             for(Loan loan : loans){
