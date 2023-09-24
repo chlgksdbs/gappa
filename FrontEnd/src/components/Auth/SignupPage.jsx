@@ -22,7 +22,8 @@ const SignupPage = () => {
     "loginPassword": userInfo.login_Password,
     "phone": userInfo.phone,
     "name": userInfo.name,
-    "address": userInfo.address
+    "address": userInfo.address,
+    "addressDetail" : userInfo.addressDetail,
   }
 
   const signupData = () => {

@@ -122,9 +122,6 @@ const LoginPage = () => {
       </div>
       <button className={style.btn} onClick={login}>로그인</button>
 
-
-
-
       {
         modalCheck
         &&
@@ -136,12 +133,12 @@ const LoginPage = () => {
           {shift
             ?
             <div>
-              <div>
+              <div className={style.keyboardset}>
                 {["~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+"].map((number) => (
                   <button
                     key={number}
                     onClick={() => keyboardHendler(number, check)}
-                    className={style.keyboard13}
+                    className={style.keyboardsetitem}
                   >
                     {number}
                   </button>
@@ -195,7 +192,7 @@ const LoginPage = () => {
             :
             <div>
               <div>
-                {["`", 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "-", "="].map((number) => (
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0,].map((number) => (
                   <button
                     key={number}
                     onClick={() => keyboardHendler(number, check)}
@@ -205,7 +202,7 @@ const LoginPage = () => {
                 ))}
               </div>
               <div>
-                {["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]", "\\"].map((word) => (
+                {["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"].map((word) => (
                   <button
                     key={word}
                     onClick={() => keyboardHendler(word, check)}
@@ -215,7 +212,7 @@ const LoginPage = () => {
                 ))}
               </div>
               <div>
-                {["a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'"].map((word) => (
+                {["a", "s", "d", "f", "g", "h", "j", "k", "l"].map((word) => (
                   <button
                     key={word}
                     onClick={() => keyboardHendler(word, check)}
@@ -225,7 +222,7 @@ const LoginPage = () => {
                 ))}
               </div>
               <div>
-                {["z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "Reset"].map((word) => (
+                {["Shift ↑", "z", "x", "c", "v", "b", "n", "m", "←"].map((word) => (
                   <button
                     key={word}
                     onClick={() => keyboardHendler(word, check)}
@@ -235,7 +232,7 @@ const LoginPage = () => {
                 ))}
               </div>
               <div>
-                {["Shift ↑", "Space", "←", "Enter"].map((word) => (
+                {["a/@", "Space", "Enter"].map((word) => (
                   <button
                     key={word}
                     onClick={() => keyboardHendler(word, check)}
