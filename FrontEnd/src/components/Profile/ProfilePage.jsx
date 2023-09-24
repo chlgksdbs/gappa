@@ -1,41 +1,84 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import style from './Profile.module.css';
 import { useNavigate } from 'react-router-dom';
 import HeaderSub from '../Common/HeaderSub';
+import { customAxios } from '../api/customAxios';
 
 const ProfilePage = () => {
   const navigate = useNavigate();
 
+  const [profileImg, setProfileImg] = useState(""); // 프로필이미지
+  const [name, setName] = useState(""); // 이름
+  const [phone, setPhone] = useState(""); // 핸드폰번호
+  const [reliability, setReliability] = useState(50); // 신뢰도
+  const [myProfile, setMyProfile] = useState(true); // 내가 맞는지
+  const [borrowCnt, setBorrowCnt] = useState(-1); // 대출 건수
+  const [lendCnt, setLendCnt] = useState(-1); // 대금 건수
   
-  let reliability = 62; // 신뢰도
-  let borrowCnt = 4; // 대출 건수
-  let lendCnt = 4; // 대금 건수
-  let myProfile = true; // 내가 맞는지
+  const [overdueCnt, setOverdueCnt] = useState(-1); // 연체 횟수
+  const [repaymentsCnt, setRepaymentsCnt] = useState(-1); // 상환 횟수
   
   let title = myProfile ? "내 프로필" : "프로필";
+  
+  // 핸드폰 번호 포맷
+  const formatPhoneNumber = (phoneNumber) => {
+    const formattedNumber = phoneNumber.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+    return formattedNumber;
+  };
 
-  let overdueCnt = 7; // 연체 횟수
-  let repaymentsCnt = 7; // 상환 횟수
+  useEffect(() => {
+    // 토큰 가져오기
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      var base64Url = token.split(".")[1];
+      var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+      var jwtPayload = decodeURIComponent(
+        atob(base64)
+          .split("")
+          .map(function (c) {
+            return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+          })
+          .join("")
+      );
+      const JsonPayload = JSON.parse(jwtPayload);
+      const userSeq = JsonPayload.userSeq;
+    
+      customAxios.get(`/users/${userSeq}`)
+      .then((res)=>{
+        console.log(res);
+        setProfileImg(res.data.data.profileImg);
+        setName(res.data.data.name);
+        setPhone(formatPhoneNumber(res.data.data.phone));
+        setReliability(res.data.data.creditScore);
+        setMyProfile(res.data.data.isMyProfile);
+        setBorrowCnt(res.data.data.borrowCnt);
+        setLendCnt(res.data.data.lendCnt);
+        setOverdueCnt(res.data.data.overdueCnt);
+        setRepaymentsCnt(res.data.data.repaymentCnt);
+      })
+      .catch((res)=>{
+        console.log(res);
+      })
+
+    } else {
+      // 토큰이 없는 경우 처리
+    }
+  }, []);
 
   // 타인이면 userId 등의 식별자로 check
   // 아직 없음... 백 짜여지면 name, phone, profileImg 다 바꿔야함
   
   return (
     <div className={style.main}>
-      {/* <div className={style.header}>
-        <img src="./images/BackBtn.png" alt="" />
-        <p className={style.title}>
-          {myProfile ? ("내 프로필") : ("프로필")}
-          </p>
-      </div> */}
       <HeaderSub title={title}/>
       <div className={style.profile}>
         <div className={style.profileImg}>
-          <img src="./images/DonghyunKoo.png" alt="" />
+          <img src={`./images/${profileImg}`} alt="" />
         </div>
         <div>
-          <p className={style.name}>김동현</p>
-          <p className={style.phone}>010-7387-7777</p>
+          <p className={style.name}>{name}</p>
+          <p className={style.phone}>{phone}</p>
         </div>
       </div>
       <p style={{width: '85%', fontWeight: 'bold', marginBottom: '30px'}}>신뢰도</p>
