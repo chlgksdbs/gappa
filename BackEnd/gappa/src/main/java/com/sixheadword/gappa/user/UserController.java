@@ -71,9 +71,9 @@ public class UserController {
     }
 
     // API 10. 유저 조회
-    @GetMapping("/{loginId}")
-    public ResponseEntity<?> searchUserInfo(@PathVariable("loginId") String loginId) {
-        return userService.searchUserInfo(loginId);
+    @GetMapping("/{userSeq}")
+    public ResponseEntity<?> searchUserInfo(@PathVariable("userSeq") Long userSeq, Authentication authentication) {
+        return userService.searchUserInfo(userSeq, Long.parseLong(authentication.getName()));
     }
 
     // API 11. 비밀번호 재설정
