@@ -206,10 +206,12 @@ public class UserService {
         HttpStatus status = null;
         String phone = request.get("phone");
         String address = request.get("address");
+        String addressDetail = request.get("addressDetail");
         try {
             User user = em.find(User.class, userSeq);
             user.setPhone(phone);
             user.setAddress(address);
+            user.setAddressDetail(addressDetail);
 
             resultMap.put("message", "회원정보 수정 성공");
             status = HttpStatus.OK;
