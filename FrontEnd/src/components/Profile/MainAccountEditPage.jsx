@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import style from './MainAccountEdit.module.css';
 import HeaderSub from '../Common/HeaderSub';
+import { customAxios } from '../api/customAxios';
 
 const MainAccountEditPage = () => {
   const [accounts, setAccounts] = useState([
@@ -28,6 +29,38 @@ const MainAccountEditPage = () => {
       return updatedAccounts;
     });
   };
+
+  useEffect(() => {
+    // 토큰 가져오기
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      var base64Url = token.split(".")[1];
+      var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+      var jwtPayload = decodeURIComponent(
+        atob(base64)
+          .split("")
+          .map(function (c) {
+            return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+          })
+          .join("")
+      );
+      const JsonPayload = JSON.parse(jwtPayload);
+      const userSeq = JsonPayload.userSeq;
+    
+      customAxios.get(`/accounts/${userSeq}`)
+      .then((res)=>{
+        // setAccounts(res.data.data);
+        console.log(res);
+      })
+      .catch((res)=>{
+        console.log(res);
+      })
+
+    } else {
+      // 토큰이 없는 경우 처리
+    }
+  }, []);
 
 
   return (
