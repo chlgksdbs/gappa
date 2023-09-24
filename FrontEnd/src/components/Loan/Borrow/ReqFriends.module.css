@@ -1,0 +1,108 @@
+.body {
+  height: 100vh;
+  justify-content: flex-start;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-size: 24px;
+}
+
+.headerStyle {
+  padding-left: 20px;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.friendsBox {
+  height: 70%;
+  width: 90%;
+}
+
+.editBtn {
+  color:gray;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 8px;
+  margin-bottom: 3vh;
+}
+
+.search input[type="text"] {
+  border: none;
+  flex: 1;
+  padding: 4px;
+  outline: none;
+}
+
+
+.friendsList {
+  justify-content: flex-start;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  height: 95%;
+  margin-bottom: 3vh;
+  overflow-y: auto;
+}
+
+.friendItem {
+  justify-content: flex-start;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  height: 14%;
+  margin-bottom: 5px;
+}
+
+.friendImage {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.selectedFriend {
+  background-color: #ccc;
+}
+
+.friendText {
+  font-size: 20px;
+  margin-right: 20px;
+}
+
+.deleteBtn {
+  color:red;
+}
+
+.inputDiv {
+  display: flex;
+  height: 56%;
+  position: fixed;
+  justify-content: center; 
+  width: 100%;
+  bottom:0;
+  left: 0;
+  right: 0;
+  /* background-color: #979999; */
+}
+
+.nextBtn {
+  display: flex;
+  width: 390px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  background-color: rgba(128, 206, 190, 0.2);
+  margin-bottom: 20px;
+}
