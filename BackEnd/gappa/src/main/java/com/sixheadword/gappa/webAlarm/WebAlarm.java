@@ -2,6 +2,7 @@ package com.sixheadword.gappa.webAlarm;
 
 import com.sixheadword.gappa.user.User;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 // WebAlarm: 알림 테이블
 @Getter
 @Entity
+@NoArgsConstructor
 @Table(name = "WEB_ALARM")
 public class WebAlarm {
 
@@ -48,4 +50,11 @@ public class WebAlarm {
     @Column(name = "alarm_content", nullable = false)
     private String alarmContent;
 
+    public WebAlarm(User toUser, User fromUser, char alarmCategory, String alarmContent) {
+        this.toUser = toUser;
+        this.fromUser = fromUser;
+        this.regDate = LocalDateTime.now();
+        this.alarmCategory = alarmCategory;
+        this.alarmContent = alarmContent;
+    }
 }

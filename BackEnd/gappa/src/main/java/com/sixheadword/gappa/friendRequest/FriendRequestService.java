@@ -8,6 +8,8 @@ import com.sixheadword.gappa.friendRequest.response.FriendRequestListResponseDto
 import com.sixheadword.gappa.user.User;
 import com.sixheadword.gappa.user.UserCustomRepository;
 import com.sixheadword.gappa.user.UserRepository;
+import com.sixheadword.gappa.webAlarm.WebAlarm;
+import com.sixheadword.gappa.webAlarm.WebAlarmRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,7 @@ public class FriendRequestService {
     private final FriendListRepository friendListRepository;
     private final UserRepository userRepository;
     private final UserCustomRepository userCustomRepository;
+    private final WebAlarmRepository webAlarmRepository;
 
     // 친구 요청 보내기
     @Transactional
@@ -32,15 +35,20 @@ public class FriendRequestService {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
         try {
-            Long to_user = Long.parseLong(request.get("to_user"));
-            FriendRequest friendRequest = new FriendRequest(userRepository.getReferenceById(member_id), userRepository.getReferenceById(to_user));
+            Long to_user_seq = Long.parseLong(request.get("to_user"));
+            User from_user = userRepository.findById(member_id).orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
+            User to_user = userRepository.findById(to_user_seq).orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
+            FriendRequest friendRequest = new FriendRequest(from_user, to_user);
             friendRequestRepository.save(friendRequest);
-            resultMap.put("message", "요청성공");
-            status = HttpStatus.OK;
             //알림 만드는 로직
+            String alarmContent = to_user.getName() + "님에게 친구 신청이 왔어요!";
+            WebAlarm webAlarm = new WebAlarm(to_user, from_user, 'F', alarmContent);
+            webAlarmRepository.save(webAlarm);
 
-            //websocket 알림 보내는 로직
+            //푸시 알림 보내기
 
+            status = HttpStatus.OK;
+            resultMap.put("message", "요청성공");
         } catch (Exception e) {
             resultMap.put("message", "요청실패");
             resultMap.put("exception", e.getMessage());
