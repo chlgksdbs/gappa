@@ -58,7 +58,7 @@ public class AccountService {
 
     // 대표 계좌 조회
     public GetAccountResponseDto getPrimaryAccount(Long userSeq){
-        Account account = accountRepository.findById(userSeq).orElse(null);
+        Account account = accountRepository.findPrimaryByUserSeq(userSeq);
 
         if(account != null){
             GetAccountResponseDto result = GetAccountResponseDto.builder()

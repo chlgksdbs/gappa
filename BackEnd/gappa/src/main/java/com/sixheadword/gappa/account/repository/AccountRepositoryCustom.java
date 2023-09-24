@@ -13,7 +13,7 @@ public interface AccountRepositoryCustom {
     public void unsetPrimaryAccount(Long userSeq, Long accountSeq);
 
     // 대표 계좌 조회
-//    public Account findPrimaryByUserSeq(Long userSeq);
+    public Account findPrimaryByUserSeq(Long userSeq);
 
     // 전체 계좌 조회
 //    public List<Account> findAllAccounts(Long userSeq);

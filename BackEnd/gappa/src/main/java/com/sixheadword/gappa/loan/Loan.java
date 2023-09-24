@@ -70,4 +70,9 @@ public class Loan {
     // status: 상태
     @Column(length = 1, nullable = false)
     private char status;
+
+    // 상태 변경 메서드
+    public void setStatus(char newStatus){
+        this.status = newStatus;
+    }
 }

@@ -58,4 +58,14 @@ public class Account {
         this.balance = balance;
         this.user = user;
     }
+
+    // 송금
+    public void setMinusBalance(Long newBalance){
+        this.balance = this.balance - newBalance;
+    }
+
+    // 입금
+    public void setAddBalance(Long newBalance){
+        this.balance = this.balance + newBalance;
+    }
 }
