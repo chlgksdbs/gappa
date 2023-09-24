@@ -25,8 +25,12 @@ import CustomerServicePage from './components/Sidebar/CustomerServicePage';
 import HistoryBorrowPage from './components/Loan/History/HistoryBorrowPage';
 import HistoryLendPage from './components/Loan/History/HistoryLendPage';
 import HistoryDetailPage from './components/Loan/History/HistoryDetailPage';
+import ReqAgreementPage from './components/Loan/Borrow/ReqAgreementPage';
+import ReqChatPage from './components/Loan/Borrow/ReqChatPage';
 import FriendsAddPage from './components/Friends/FriendsAddPage';
 import FriendsReqPage from './components/Friends/FriendsReqPage';
+import ReqFriendsPage from './components/Loan/Borrow/ReqFriendsPage';
+import ReqBorrowPage from './components/Loan/Borrow/ReqBorrowPage';
 import LendRefusePage from './components/Loan/Lend/LendRefusePage';
 import LendCheckPage from './components/Loan/Lend/LendCheckPage';
 import LendSendPage from './components/Loan/Lend/LendSendPage';
@@ -53,6 +57,7 @@ function App() {
     // eslint-disable-next-line
   }, [])
 
+  const is_autication = false;
 
   return (
     <div className="App">
@@ -67,27 +72,31 @@ function App() {
           </>
           :
           <>
+            <Route path="/" element={<HomePage />}/>
+            <Route path="/borrow" element={<BorrowPage />}/>
+            <Route path="/lend" element={<LendPage />}/>
+            <Route path="/historyborrow" element={<HistoryBorrowPage />}/>
+            <Route path="/historylend" element={<HistoryLendPage />}/>
+            <Route path="/historydetail" element={<HistoryDetailPage />}/>
+            <Route path="/friends" element={<FriendsPage />}/>
+            <Route path="/friends/add" element={<FriendsAddPage />}/>
+            <Route path="/friends/req" element={<FriendsReqPage />}/>
+            <Route path="/profile" element={<ProfilePage />}/>
+            <Route path="/account" element={<AccountDetail />}/>
+            <Route path="/profile/edit" element={<ProfileEditPage />}/>
+            <Route path="/profile/accountedit" element={<MainAccountEditPage />}/>
+            <Route path="/notice" element={<NoticePage />}/>
+            <Route path="/qna" element={<QnAPage />}/>
+            <Route path="/customerservice" element={<CustomerServicePage />}/>
+            <Route path="/reqagreement" element={<ReqAgreementPage />}/>
+            <Route path="/reqchat" element={<ReqChatPage />}/>
+            <Route path="/reqfriends" element={<ReqFriendsPage />}/>
+            <Route path="/reqBorrow" element={<ReqBorrowPage />}/>
             <Route path="/bankbook" element={<BankBookPage />} />
             <Route path="/masterbankbook" element={<MasterBankBookPage />} />
             <Route path="/pinpassword" element={<PinPassword />} />
             <Route path="/pinpasswordconfirm" element={<PinPasswordConfirm />} />
             <Route path="/pinpasswordcheck" element={<PinPasswordCheckPage />} />
-            <Route path="/" element={<HomePage />} />
-            <Route path="/borrow" element={<BorrowPage />} />
-            <Route path="/lend" element={<LendPage />} />
-            <Route path="/historyborrow" element={<HistoryBorrowPage />} />
-            <Route path="/historylend" element={<HistoryLendPage />} />
-            <Route path="/historydetail" element={<HistoryDetailPage />} />
-            <Route path="/friends" element={<FriendsPage />} />
-            <Route path="/friends/add" element={<FriendsAddPage />} />
-            <Route path="/friends/req" element={<FriendsReqPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/account" element={<AccountDetail />} />
-            <Route path="/profile/edit" element={<ProfileEditPage />} />
-            <Route path="/profile/accountedit" element={<MainAccountEditPage />} />
-            <Route path="/notice" element={<NoticePage />} />
-            <Route path="/qna" element={<QnAPage />} />
-            <Route path="/customerservice" element={<CustomerServicePage />} />
           </>
         })
       </Routes>

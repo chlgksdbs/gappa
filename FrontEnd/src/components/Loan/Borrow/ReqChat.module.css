@@ -1,0 +1,183 @@
+.main {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chatDiv {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  align-items: center;
+  width: 90%;
+  justify-content: start;
+}
+
+.chatContent {
+  display: flex;
+  align-items: center;
+  height: 40%;
+  padding: 10px 10px 10px 15px;
+  margin-left: 10px;
+  border: solid #aaa 1px;
+  border-radius: 15px;
+}
+
+.chatBalance {
+  display: flex;
+  align-items: center;
+  height: 4%;
+  padding: 10px 10px 10px 15px;
+  margin-left: auto;
+  margin-right: 20px;
+  border: solid #aaa 1px;
+  border-radius: 15px;
+}
+
+.input{
+  border-width: 0;
+  font-size: 17px;
+  font-weight: bold;
+  width: 88%;
+}
+
+/* 아래 입력 Div */
+.inputDiv {
+  display: flex;
+  height: 56%;
+  position: fixed;
+  justify-content: center; 
+  width: 100%;
+  bottom:0;
+  left: 0;
+  right: 0;
+  /* background-color: #979999; */
+}
+
+.nextBtn {
+  display: flex;
+  width: 390px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  background-color: rgba(128, 206, 190, 0.2);
+  margin-bottom: 20px;
+}
+
+.plusNum {
+  display: flex;
+  justify-content: center;
+  height: 15%;
+}
+
+.plusNumDiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  margin: 5px 10px 5px 10px;
+  background-color: whitesmoke;
+  border-radius: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.plusNumDiv:hover {
+  background-color: #f1f1f1;
+}
+
+/* 패스워드 입력 키패드 */
+.pinkeypad {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  /* background-color: #aaa; */
+}
+
+/* 각 핀 입력 키 */
+.pinkey {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: whitesmoke;
+  height: 50px;
+  width: 100px;
+  border: 0;
+  border-radius: 15px;
+  font-size: 25px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin: auto;
+}
+
+.pinkey:hover {
+  background-color: #f1f1f1;
+}
+
+/* 백스페이스 키 */
+.backspace {
+  margin: auto;
+  height: 50px;
+  width: 100px;
+  background-color: whitesmoke;
+  border: 0;
+  border-radius: 15px;
+  color: black;
+  font-size: 30px;
+}
+
+.backspace:hover {
+  background-color: #f1f1f1;
+}
+
+.calendarStyle {
+  background-color: #f0f0f0;
+  padding: 20px;
+}
+
+.reason {
+  width: 100%;
+  flex-direction: column;
+}
+
+.reason div{
+  display: flex;
+  /* width: 100%; */
+}
+
+/* .reason div div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  background-color: #80CEBE;
+  border-radius: 15px;
+  padding: 5px 15px 5px 15px;
+  margin: 10px;
+} */
+
+/* 기본 이유 항목 스타일 */
+.reasonItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  background-color: #aaa;
+  border-radius: 15px;
+  padding: 5px 15px 5px 15px;
+  margin: 10px;
+}
+
+/* 선택된 이유 항목 스타일 */
+.selectedReason {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  background-color: #80CEBE;
+  border-radius: 15px;
+  padding: 5px 15px 5px 15px;
+  margin: 10px;
+}
