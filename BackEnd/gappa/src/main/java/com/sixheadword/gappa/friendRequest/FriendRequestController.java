@@ -35,7 +35,7 @@ public class FriendRequestController {
     }
 
     // API 4. 친구 신청할 유저 조회
-    @GetMapping("/friends/user")
+    @PostMapping("/friends/user")
     public ResponseEntity<?> searchFriendsUser(@RequestBody FriendSearchFriendsUserDto friendSearchFriendsUserDto, Authentication authentication) {
         return friendRequestService.searchFriendsUser(Long.parseLong(authentication.getName()), friendSearchFriendsUserDto);
     }
