@@ -16,5 +16,6 @@ public class FriendRequestListResponseDto {
     private Long request_seq;
     private String to_user_name;
     private String profile_img;
+    private String phone;
     private LocalDateTime request_date;
 }
