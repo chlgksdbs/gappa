@@ -2,6 +2,9 @@ package com.sixheadword.gappa.user;
 
 import com.sixheadword.gappa.account.Account;
 import com.sixheadword.gappa.account.repository.AccountRepository;
+import com.sixheadword.gappa.loan.Loan;
+import com.sixheadword.gappa.loan.repository.LoanRepository;
+import com.sixheadword.gappa.loan.repository.LoanRepositoryImpl;
 import com.sixheadword.gappa.user.request.CheckPwRequestDto;
 import com.sixheadword.gappa.utils.JwtUtil;
 import com.sixheadword.gappa.utils.RedisUtil;
@@ -40,6 +43,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserCustomRepository userCustomRepository;
     private final WebAlarmRepository webAlarmRepository;
+    private final LoanRepository loanRepository;
     private final EntityManager em;
 
     private static final Long EXPIRATION_TIME = 5 * 60 * 1000L; // 문자인증만료시간(5분)
@@ -60,12 +64,12 @@ public class UserService {
 //        ("junghun2581", "1234", "01062345678", "흥청망청", "대전광역시", "1234", true, 100);
 //        */
 //
-//        User user1 = new User("chlgksdbs", encoder.encode("1234"), "01011112222", "갓한윤", "대전광역시", "GappaMascot.png");
-//        User user2 = new User("zosunny", encoder.encode("1234"), "01022223333", "해린공주", "대전광역시", "GappaMascot.png");
-//        User user3 = new User("w8h0412", encoder.encode("1234"), "01033334444", "악당동익", "대전광역시", "GappaMascot.png");
-//        User user4 = new User("gkfdkdle", encoder.encode("1234"), "01044445555", "갓파쿠", "대전광역시", "GappaMascot.png");
-//        User user5 = new User("dragontig98", encoder.encode("1234"), "01055556666", "김드래곤타이거", "대전광역시", "GappaMascot.png");
-//        User user6 = new User("junghun2581", encoder.encode("1234"), "01066667777", "흥청망청", "대전광역시", "GappaMascot.png");
+//        User user1 = new User("chlgksdbs", encoder.encode("1234"), "01011112222", "갓한윤", "대전광역시 유성구 덕명동", "101동 101호", "GappaMascot.png");
+//        User user2 = new User("zosunny", encoder.encode("1234"), "01022223333", "해린공주", "대전광역시 유성구 덕명동", "101동 102호", "GappaMascot.png");
+//        User user3 = new User("w8h0412", encoder.encode("1234"), "01033334444", "악당동익", "대전광역시 유성구 덕명동", "101동 103호", "GappaMascot.png");
+//        User user4 = new User("gkfdkdle", encoder.encode("1234"), "01044445555", "갓파쿠", "대전광역시 유성구 덕명동", "101동 104호", "GappaMascot.png");
+//        User user5 = new User("dragontig98", encoder.encode("1234"), "01055556666", "김드래곤타이거", "대전광역시 유성구 덕명동", "101동 105호", "GappaMascot.png");
+//        User user6 = new User("junghun2581", encoder.encode("1234"), "01066667777", "흥청망청", "대전광역시 유성구 덕명동", "101동 106호", "GappaMascot.png");
 //
 //        userRepository.save(user1);
 //        userRepository.save(user2);
@@ -154,9 +158,10 @@ public class UserService {
         String phone = request.get("phone");
         String name = request.get("name");
         String address = request.get("address");
+        String addressDetail = request.get("addressDetail");
 
         try {
-            User user = new User(loginId, encoder.encode(loginPassword), phone, name, address, "GappaMascot.png");
+            User user = new User(loginId, encoder.encode(loginPassword), phone, name, address, addressDetail, "GappaMascot.png");
             userRepository.save(user);
 
             String accountNumber1 = Integer.toString((int)(Math.random() * 899999) + 100000) + "-" + Integer.toString((int)(Math.random() * 89) + 10) + "-" + Integer.toString((int)(Math.random() * 899999) + 100000);
@@ -201,10 +206,12 @@ public class UserService {
         HttpStatus status = null;
         String phone = request.get("phone");
         String address = request.get("address");
+        String addressDetail = request.get("addressDetail");
         try {
             User user = em.find(User.class, userSeq);
             user.setPhone(phone);
             user.setAddress(address);
+            user.setAddressDetail(addressDetail);
 
             resultMap.put("message", "회원정보 수정 성공");
             status = HttpStatus.OK;
@@ -366,18 +373,70 @@ public class UserService {
     }
 
     // 유저 조회
-    public ResponseEntity<?> searchUserInfo(String loginId) {
+    public ResponseEntity<?> searchUserInfo(Long userSeq, Long loginUserSeq) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
 
         try {
-            User user = userRepository.findByLoginId(loginId);
             Map<String, Object> data = new HashMap<>();
-            data.put("profileImg", user.getProfileImg());
-            data.put("name", user.getName());
-            data.put("loginId", user.getLoginId());
-            data.put("phone", user.getPhone());
-            data.put("creditScore", user.getCreditScore());
+            User user = userRepository.findByUserSeq(userSeq);
+            if (userSeq.equals(loginUserSeq)) { // 자기 자신의 유저 정보 조회
+                Long borrowCnt = loanRepository.countLoanByToUser(user);
+                Long lendCnt = loanRepository.countLoanByFromUser(user);
+                List<Loan> loans = loanRepository.findByFromUser(user);
+                char loanStatus = 0;
+
+                for (int i = 0; i < loans.size(); i++) {
+                    if (loans.get(i).getStatus() == 'D') {          // 연체중
+                        loanStatus = 'D';
+                        break;
+                    } else if (loans.get(i).getStatus() == 'O') {   // 진행중
+                        loanStatus = 'O';
+                    }
+                }
+                data.put("profileImg", user.getProfileImg());
+                data.put("name", user.getName());
+                data.put("phone", user.getPhone());
+                data.put("creditScore", user.getCreditScore());
+                data.put("address", user.getAddress());
+                data.put("addressDetail", user.getAddressDetail());
+                data.put("borrowCnt", borrowCnt);
+                data.put("lendCnt", lendCnt);
+                if (loanStatus == 0) {
+                    data.put("status", 'C');
+                } else {
+                    data.put("status", loanStatus);
+                }
+                data.put("isMyProfile", true);
+            } else {                            // 다른 사람의 유저 정보 조회
+                Long overdueCnt = loanRepository.countLoanByRedemptionDateGreaterThanAndFromUser(LocalDateTime.now(), user);
+                Long repaymentCnt = loanRepository.countLoanByUserSeq(userSeq);
+                List<Loan> loans = loanRepository.findByFromUser(user);
+                char loanStatus = 0;
+
+                for (int i = 0; i < loans.size(); i++) {
+                    if (loans.get(i).getStatus() == 'D') {          // 연체중
+                        loanStatus = 'D';
+                        break;
+                    } else if (loans.get(i).getStatus() == 'O') {   // 진행중
+                        loanStatus = 'O';
+                    }
+                }
+                data.put("profileImg", user.getProfileImg());
+                data.put("name", user.getName());
+                data.put("phone", user.getPhone());
+                data.put("creditScore", user.getCreditScore());
+                data.put("address", user.getAddress());
+                data.put("addressDetail", user.getAddressDetail());
+                data.put("overdueCnt", overdueCnt);
+                data.put("repaymentCnt", repaymentCnt);
+                if (loanStatus == 0) {
+                    data.put("status", 'C');
+                } else {
+                    data.put("status", loanStatus);
+                }
+                data.put("isMyProfile", false);
+            }
 
             resultMap.put("data", data);
             resultMap.put("message", "유저 조회 성공");

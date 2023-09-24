@@ -22,7 +22,7 @@ public class FriendListController {
     }
 
     // API 2. 친구 삭제
-    @DeleteMapping("/friends")
+    @PutMapping("/friends")
     public ResponseEntity<?> deleteFriend(@RequestBody FriendDeleteListRequestDto friendDeleteListRequestDto, Authentication authentication) {
         return friendListService.deleteFriend(friendDeleteListRequestDto.getList(), Long.parseLong(authentication.getName()));
     }
