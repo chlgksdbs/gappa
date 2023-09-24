@@ -4,13 +4,7 @@ import HeaderSub from '../Common/HeaderSub';
 import { customAxios } from '../api/customAxios';
 
 const MainAccountEditPage = () => {
-  const [accounts, setAccounts] = useState([
-    { id: 1, accountNumber: '123-456-7890', bank: '싸피은행', balance: 100000, isRepresentative: true },
-    { id: 2, accountNumber: '987-654-3210', bank: '정훈은행', balance: 50000, isRepresentative: false },
-    { id: 3, accountNumber: '555-555-5555', bank: '용범은행', balance: 75000, isRepresentative: false },
-    { id: 4, accountNumber: '123-456789-206', bank: '한윤은행', balance: 75000, isRepresentative: false },
-    // 다른 계좌 정보 추가
-  ]);
+  const [accounts, setAccounts] = useState([]);
 
   const representativeAccount = accounts.find((account) => account.isRepresentative);
   const otherAccounts = accounts.filter((account) => !account.isRepresentative);
@@ -27,6 +21,22 @@ const MainAccountEditPage = () => {
         isRepresentative: account.id === id,
       }));
       return updatedAccounts;
+    });
+    // put 요청
+
+    const requestData = {
+      accountSeq: id,
+    };
+
+    console.log(requestData.accountSeq);
+
+    customAxios.post(`/accounts/primary`, requestData)
+    .then((res)=>{
+      console.log("대표 계좌 설정 완료");
+    })
+    .catch((error) => {
+      // 오류 발생 시 처리
+      console.error("대표 계좌 변경 오류:", error);
     });
   };
 
@@ -50,7 +60,15 @@ const MainAccountEditPage = () => {
     
       customAxios.get(`/accounts/${userSeq}`)
       .then((res)=>{
-        // setAccounts(res.data.data);
+        // 서버에서 받은 데이터로 accounts 상태를 업데이트
+        const updatedAccounts = res.data.map((account) => ({
+          id: account.accountSeq,
+          accountNumber: account.accountNumber,
+          bank: account.bank,
+          balance: account.balance,
+          isRepresentative: account.reqAccount,
+        }));
+        setAccounts(updatedAccounts);
         console.log(res);
       })
       .catch((res)=>{
