@@ -126,7 +126,6 @@ public class FriendRequestService {
         if(user == null) {
             resultMap.put("status", "N");
             resultMap.put("message", "검색한 사람이 존재하지 않습니다.");
-            status = HttpStatus.BAD_REQUEST;
         } else {
             FriendListResponseDto friendListResponseDto = FriendListResponseDto.builder()
                     .profile_img(user.getProfileImg())
@@ -148,8 +147,8 @@ public class FriendRequestService {
                 resultMap.put("status", "C");
                 resultMap.put("message", "친구 신청이 가능합니다.");
             }
-            status = HttpStatus.OK;
         }
+        status = HttpStatus.OK;
         return new ResponseEntity<>(resultMap, status);
     }
 
