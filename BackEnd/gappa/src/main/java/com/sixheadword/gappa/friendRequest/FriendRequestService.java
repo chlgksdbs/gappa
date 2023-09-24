@@ -102,7 +102,8 @@ public class FriendRequestService {
                         .request_seq(r.getFriendRequestSeq())
                         .to_user_name(r.getFromUser().getName())
                         .request_date(r.getRequestDate())
-                        .profile_img(r.getToUser().getProfileImg())
+                        .phone(r.getFromUser().getPhone())
+                        .profile_img(r.getFromUser().getProfileImg())
                         .build();
                 dtos.add(friendRequestListResponseDto);
             }
