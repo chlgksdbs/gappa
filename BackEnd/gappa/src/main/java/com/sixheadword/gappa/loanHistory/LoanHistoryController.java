@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class LoanHistoryController {
 
-    private LoanHistoryService loanHistoryService;
+    private final LoanHistoryService loanHistoryService;
 
     // API 1. 대출 이력 상세조회
     @GetMapping("/{loanSeq}")
