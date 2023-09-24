@@ -65,6 +65,13 @@
   width: 100%;
   position: fixed;
   bottom: 0;
-  height: 30vh;
+  height: 340px;
 }
 
+.last{
+
+}
+.last img{
+  width: 140px;
+  height: 60px;
+}

@@ -14,7 +14,7 @@ const LoginPage = () => {
 
   const [modalCheck, setModalCheck] = useState(false);
   const [shift, setShift] = useState(false);
-
+  const [ctrl, setCtrl] = useState(false);
   const [check, setCheck] = useState("");
 
   const handlerLogin = (e) => {
@@ -52,7 +52,7 @@ const LoginPage = () => {
       if (e === "Shift ↑" || e === "Shift ↓") {
         setShift(!shift);
       }
-      else if (e === "Space") {
+      else if (e === "SPACE") {
         setId(id + " ");
       }
       else if (e === "←") {
@@ -62,7 +62,7 @@ const LoginPage = () => {
       }
       else if (e === "Reset") {
         setId("");
-      } else if (e === "Enter") {
+      } else if (e === "확인") {
         setModalCheck(false)
         setTimeout(() => {
           setModalCheck(true);
@@ -76,7 +76,7 @@ const LoginPage = () => {
       if (e === "Shift ↑" || e === "Shift ↓") {
         setShift(!shift);
       }
-      else if (e === "Space") {
+      else if (e === "SPACE") {
         setPassword(password + " ");
       }
       else if (e === "←") {
@@ -86,7 +86,7 @@ const LoginPage = () => {
       }
       else if (e === "Reset") {
         setPassword("");
-      } else if (e === "Enter") {
+      } else if (e === "확인") {
         setModalCheck(false);
       }
       else {
@@ -134,57 +134,57 @@ const LoginPage = () => {
             ?
             <div>
               <div className={style.keyboardset}>
-                {["~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+"].map((number) => (
+                {["words/62.png", "words/63.png", "words/64.png", "words/65.png", "words/66.png", "words/67.png", "words/68.png", "words/69.png", "words/70.png", "words/71.png"].map((number) => (
                   <button
                     key={number}
                     onClick={() => keyboardHendler(number, check)}
                     className={style.keyboardsetitem}
                   >
-                    {number}
+                    <img src={number} alt="" />
                   </button>
                 ))}
               </div>
               <div>
-                {["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "{", "}", "|"].map((word) => (
+                {["words/1.png", "words/2.png", "words/3.png", "words/4.png", "words/5.png", "words/6.png", "words/7.png", "words/8.png", "words/9.png", "words/10.png"].map((word) => (
                   <button
                     key={word}
                     onClick={() => keyboardHendler(word, check)}
                     className={style.keyboard13}
                   >
-                    {word}
+                    <img src={word} alt="" />
                   </button>
                 ))}
               </div>
               <div>
-                {["A", "S", "D", "F", "G", "H", "I", "J", "K", "L", ":", '"'].map((word) => (
+                {["words/11.png", "words/12.png", "words/13.png", "words/14.png", "words/15.png", "words/16.png", "words/17.png", "words/18.png", "words/19.png"].map((word) => (
                   <button
                     key={word}
                     onClick={() => keyboardHendler(word, check)}
                     className={style.keyboard13}
                   >
-                    {word}
+                    <img src={word} alt="" />
                   </button>
                 ))}
               </div>
               <div>
-                {["Z", "X", "C", "V", "B", "N", "M", "<", ">", "?", "Reset"].map((word) => (
+                {["words/90.png", "words/20.png", "words/21.png", "words/22.png", "words/23.png", "words/24.png", "words/25.png", "words/26.png", "words/91.png"].map((word) => (
                   <button
                     key={word}
                     onClick={() => keyboardHendler(word, check)}
                     className={style.keyboard13}
                   >
-                    {word}
+                    <img src={word} alt="" />
                   </button>
                 ))}
               </div>
               <div>
-                {["Shift ↓", "Space", "←", "Enter"].map((word) => (
+                {["words/92.png", "words/94.png", "words/95.png", "words/96.png"].map((word) => (
                   <button
                     key={word}
                     onClick={() => keyboardHendler(word, check)}
                     className={style.keyboard4}
                   >
-                    {word}
+                    <img src={word} alt="" />
                   </button>
                 ))}
               </div>
@@ -192,52 +192,53 @@ const LoginPage = () => {
             :
             <div>
               <div>
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0,].map((number) => (
+                {["words/52.png", "words/53.png", "words/54.png", "words/55.png", "words/56.png", "words/57.png", "words/58.png", "words/59.png", "words/60.png", "words/61.png"].map((number) => (
                   <button
                     key={number}
                     onClick={() => keyboardHendler(number, check)}
                   >
-                    {number}
+                    <img src={number} alt="" />
                   </button>
                 ))}
               </div>
               <div>
-                {["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"].map((word) => (
+                {["words/26.png", "words/27.png", "words/28.png", "words/29.png", "words/30.png", "words/31.png", "words/32.png", "words/33.png", "words/34.png", "words/35.png"].map((word) => (
                   <button
                     key={word}
                     onClick={() => keyboardHendler(word, check)}
                   >
-                    {word}
+                    <img src={word} alt="" />
                   </button>
                 ))}
               </div>
               <div>
-                {["a", "s", "d", "f", "g", "h", "j", "k", "l"].map((word) => (
+                {["words/36.png", "words/37.png", "words/38.png", "words/39.png", "words/40.png", "words/41.png", "words/42.png", "words/43.png", "words/44.png"].map((word) => (
                   <button
                     key={word}
                     onClick={() => keyboardHendler(word, check)}
                   >
-                    {word}
+                    <img src={word} alt="" />
                   </button>
                 ))}
               </div>
               <div>
-                {["Shift ↑", "z", "x", "c", "v", "b", "n", "m", "←"].map((word) => (
+                {["words/99.png", "words/45.png", "words/46.png", "words/47.png", "words/48.png", "words/49.png", "words/50.png", "words/51.png", "words/91.png"].map((word) => (
                   <button
                     key={word}
                     onClick={() => keyboardHendler(word, check)}
                   >
-                    {word}
+                    <img src={word} alt="" />
                   </button>
                 ))}
               </div>
               <div>
-                {["a/@", "Space", "Enter"].map((word) => (
+                {["words/92.png", "words/94.png", "words/95.png", "words/96.png"].map((word) => (
                   <button
                     key={word}
                     onClick={() => keyboardHendler(word, check)}
+                    className={style.last}
                   >
-                    {word}
+                    <img src={word} alt="" />
                   </button>
                 ))}
               </div>
