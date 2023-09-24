@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Headers from './Headers';
 import style from './BankBookPage.module.css';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { authActions } from '../../store/authslice';
 import { customAxios } from '../api/customAxios';
 
@@ -11,7 +11,7 @@ const BankBookPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userInfo = useSelector(state => state.auth);
-  function Book({ account_Number, bankname, balance, index, clickedItems,bank_Img, onClick }) {
+  function Book({ account_Number, bankname, balance, index, clickedItems, bank_Img, onClick }) {
     // 클릭 상태에 따라 스타일을 동적으로 설정
     const itemStyle = {
       backgroundColor: clickedItems[index] ? 'lightblue' : 'white',
@@ -40,54 +40,20 @@ const BankBookPage = () => {
       </div>
     );
   }
-
-  const [account, setAccount] = useState();
-  useEffect(()=>{
-    customAxios.get("/accounts")
-    .then((res)=>{
-      console.log(res)
-    })
-  },[])
-
-  const bankBookData = [
-    {
-      account_Number: 1,
-      bank: "KB국민은행",
-      balance: 1000000,
-      bank_Img : "images/Ssafy.png"
-    },
-    {
-      account_Number: 1,
-      bank: "KEB하나은행",
-      balance: 1000000,
-      bank_Img : "images/Ssafy.png"
-    },
-    {
-      account_Number: 1,
-      bank: "신한은행",
-      balance: 1000000,
-      bank_Img : "images/Ssafy.png"
-    },
-    {
-      account_Number: 1,
-      bank: "우리은행",
-      balance: 1000000,
-      bank_Img : "images/Ssafy.png"
-    },
-    {
-      account_Number: 1,
-      bank: "싸피은행",
-      balance: 1000000,
-      bank_Img : "images/Ssafy.png"
-    },
-    {
-      account_Number: 1,
-      bank: "갚파은행",
-      balance: 1000000,
-      bank_Img : "images/Ssafy.png"
-    },
-  ]
-
+  const bankImg = ["images/Kb.png",
+    "images/hana.png",
+    "images/sin.png",
+    "images/we.png",
+    "images/gappalogo.png",
+    "images/ssafy.png"]
+  const [bankBookData, setBankBookData] = useState([]);
+  useEffect(() => {
+    customAxios.get("/accounts/1")
+      .then((res) => {
+        console.log(res.data[0])
+        setBankBookData(res.data)
+      })
+  }, [])
   const [pass, setPass] = useState(false);
 
   // 클릭 상태를 저장할 배열 생성 및 초기값 설정
@@ -102,6 +68,7 @@ const BankBookPage = () => {
 
     // redux에 저장
     dispatch(authActions.updatedUserBank(bankBookData[index]))
+    dispatch(authActions.updatedUserBankImg({bankImg:bankImg[index]}))
     console.log(userInfo)
 
     // 클릭된 항목의 개수를 세기
@@ -111,7 +78,13 @@ const BankBookPage = () => {
   };
 
   const dataRequest = () => {
-    // customAxios.post
+    customAxios.post("/accounts/primary",{accountSeq:userInfo.accountSeq})
+    .then((res)=>{
+      console.log(res)
+    })
+    .catch((res)=>{
+
+    })
     navigate("/masterbankbook");
   }
 
@@ -121,12 +94,13 @@ const BankBookPage = () => {
       <div className={style.bankbookstyle}>
         {bankBookData.map((data, index) =>
         (<Book
-          account_Number={data.account_Number}
+          account_Number={data.accountNumber}
           bankname={data.bank}
           balance={data.balance}
-          bank_Img={data.bank_Img}
+          bank_Img={bankImg[index]}
           key={index}
           index={index}
+          accountSeq={data.accountSeq}
           clickedItems={clickedItems} // 클릭 상태 배열 전달
           onClick={handleItemClick} // 클릭 이벤트 핸들러 전달
         />))}
