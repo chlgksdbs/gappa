@@ -126,16 +126,8 @@ public class FriendRequestService {
         if(user == null) {
             resultMap.put("status", "N");
             resultMap.put("message", "검색한 사람이 존재하지 않습니다.");
-        } else if(friendListRepository.findByUserSeqs(member_id, user.getUserSeq()).orElse(null) != null) {
-            resultMap.put("status", "A");
-            resultMap.put("message", "이미 친구입니다.");
-        } else if( friendRequestRepository.existsByUserSeqs(member_id, user.getUserSeq()) ) {
-            resultMap.put("status", "R");
-            resultMap.put("message", "이미 친구 신청을 했습니다.");
-        } else if( friendRequestRepository.existsByUserSeqs(user.getUserSeq(), member_id)  ) {
-            resultMap.put("status", "P");
-            resultMap.put("message", "친구 신청을 이미 받았습니다.");
-        } else { // 친구신청 가능 유저
+            status = HttpStatus.NO_CONTENT;
+        } else {
             FriendListResponseDto friendListResponseDto = FriendListResponseDto.builder()
                     .profile_img(user.getProfileImg())
                     .user_name(user.getName())
@@ -143,10 +135,21 @@ public class FriendRequestService {
                     .phone(user.getPhone())
                     .build();
             resultMap.put("user", friendListResponseDto);
-            resultMap.put("status", "C");
-            resultMap.put("message", "친구 신청이 가능합니다.");
+            if(friendListRepository.findByUserSeqs(member_id, user.getUserSeq()).orElse(null) != null) {
+                resultMap.put("status", "A");
+                resultMap.put("message", "이미 친구입니다.");
+            } else if( friendRequestRepository.existsByUserSeqs(member_id, user.getUserSeq()) ) {
+                resultMap.put("status", "R");
+                resultMap.put("message", "이미 친구 신청을 했습니다.");
+            } else if( friendRequestRepository.existsByUserSeqs(user.getUserSeq(), member_id)  ) {
+                resultMap.put("status", "P");
+                resultMap.put("message", "친구 신청을 이미 받았습니다.");
+            } else { // 친구신청 가능 유저
+                resultMap.put("status", "C");
+                resultMap.put("message", "친구 신청이 가능합니다.");
+            }
+            status = HttpStatus.OK;
         }
-        status = HttpStatus.OK;
         return new ResponseEntity<>(resultMap, status);
     }
 
