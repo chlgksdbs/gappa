@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 
 @Service
 @Transactional
@@ -25,8 +26,9 @@ public class MoneyService {
     public void successLoan (SuccessLoanRequestDto successLoanRequestDto){
         Loan loan = loanRepository.findById(successLoanRequestDto.getLoanSeq()).orElse(null);
         if(loan != null){
-            // 대출 상태 변경
+            // 대출 상태 및 실행일자 변경
             loan.setStatus('O');
+            loan.setStartDate(LocalDateTime.now());
             // 대출금 이체 실행
             transfer(loan, 1);
             loanRepository.save(loan);

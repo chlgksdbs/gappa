@@ -3,6 +3,7 @@ package com.sixheadword.gappa.loan.service;
 import com.sixheadword.gappa.loan.Loan;
 import com.sixheadword.gappa.loan.dto.request.LoanInfoRequestDto;
 import com.sixheadword.gappa.loan.dto.response.GetLoanOppResponseDto;
+import com.sixheadword.gappa.loan.dto.response.GetLoanRequestResponseDto;
 import com.sixheadword.gappa.loan.dto.response.GetLoanResponseDto;
 import com.sixheadword.gappa.loan.repository.LoanRepository;
 import com.sixheadword.gappa.user.User;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +66,20 @@ public class LoanService {
         }
     }
 
-
+    // 대출 신청 조회
+    public GetLoanRequestResponseDto getLoanRequest(Long loanSeq, Authentication authentication){
+        User user = userRepository.findById(Long.parseLong(authentication.getName())).orElse(null);
+        Loan loan = loanRepository.findById(loanSeq).orElse(null);
+        if(user != null && loan != null && loan.getToUser().getUserSeq().equals(user.getUserSeq())){
+            return GetLoanRequestResponseDto.builder()
+                    .principal(loan.getPrincipal())
+                    .startDate(loan.getStartDate())
+                    .redemptionDate(loan.getRedemptionDate())
+                    .build();
+        }else{
+            throw new IllegalArgumentException("대출 신청 조회에 실패했습니다.");
+        }
+    }
 
     // 대출 이력 조회
     public List<GetLoanResponseDto> getLoan(Authentication authentication){
