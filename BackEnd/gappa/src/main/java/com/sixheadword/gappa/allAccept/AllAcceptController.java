@@ -12,7 +12,7 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/all")
+@RequestMapping("/api")
 public class AllAcceptController {
 
     @GetMapping("/accept")
@@ -20,7 +20,7 @@ public class AllAcceptController {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.OK;
 
-        resultMap.put("message", status);
+        resultMap.put("message", "Hello, Gappa!");
 
         return new ResponseEntity<>(resultMap, status);
     }
