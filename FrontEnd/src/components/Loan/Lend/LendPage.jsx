@@ -1,11 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import HeaderSub from '../../Common/HeaderSub';
 import { useNavigate } from 'react-router-dom';
 import style from './LendPage.module.css';
+import { customAxios } from '../../api/customAxios';
 
 const LendPage = () => {
   const navigate = useNavigate();
   const money = 500000;
+
+
+  useEffect(() => {
+    getApply();
+  }, []);
+
+  const getApply = () => {
+    customAxios.get('/loan/apply/5')
+    .then((res)=>{
+      console.log(res);
+    })
+    .catch((res)=>{
+      console.log(res);
+    })
+  }
+  
+  
 
   return (
     <div className={style.body}>
