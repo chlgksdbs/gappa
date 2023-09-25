@@ -381,8 +381,8 @@ public class UserService {
             Map<String, Object> data = new HashMap<>();
             User user = userRepository.findByUserSeq(userSeq);
             if (userSeq.equals(loginUserSeq)) { // 자기 자신의 유저 정보 조회
-                Long borrowCnt = loanRepository.countLoanByToUser(user);
-                Long lendCnt = loanRepository.countLoanByFromUser(user);
+                Long borrowCnt = loanRepository.countLoanByFromUser(user);
+                Long lendCnt = loanRepository.countLoanByToUser(user);
                 List<Loan> loans = loanRepository.findByFromUser(user);
                 char loanStatus = 0;
 
