@@ -4,6 +4,7 @@ import com.sixheadword.gappa.loanHistory.entity.LoanHistory;
 import com.sixheadword.gappa.user.User;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // Loan: 대출 테이블
-@Getter
+@Getter @Setter
 @Entity
 @Table(name = "LOAN")
 public class Loan {
@@ -72,18 +73,18 @@ public class Loan {
     @Column(length = 1, nullable = false)
     private char status;
 
-    @Builder
-    public Loan(User fromUser, User toUser, Long principal, String loanReasonCategory, String loanOtherReason, LocalDateTime startDate, LocalDateTime redemptionDate, Long interest, char status){
-        this.fromUser = fromUser;
-        this.toUser = toUser;
-        this.principal = principal;
-        this.loanReasonCategory = loanReasonCategory;
-        this.loanOtherReason = loanOtherReason;
-        this.startDate = startDate;
-        this.redemptionDate = redemptionDate;
-        this.interest = interest;
-        this.status = status;
-    }
+//    @Builder
+//    public Loan(User fromUser, User toUser, Long principal, String loanReasonCategory, String loanOtherReason, LocalDateTime startDate, LocalDateTime redemptionDate, Long interest, char status){
+//        this.fromUser = fromUser;
+//        this.toUser = toUser;
+//        this.principal = principal;
+//        this.loanReasonCategory = loanReasonCategory;
+//        this.loanOtherReason = loanOtherReason;
+//        this.startDate = startDate;
+//        this.redemptionDate = redemptionDate;
+//        this.interest = interest;
+//        this.status = status;
+//    }
 
     // 상태 변경 메서드
     public void setStatus(char newStatus){
