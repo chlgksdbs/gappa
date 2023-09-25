@@ -1,33 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import style from './ReqFriends.module.css';
 import HeaderSub from '../../Common/HeaderSub';
+import { customAxios } from '../../api/customAxios';
 
 const ReqFriendPages = () => {
   const navigate = useNavigate();
 
-  const phoneBook = [
-    {img:'/images/DonghyunKoo.png', name:'dldm', phoneNum:'01079797979'},
-    {img:'/images/DonghyunKoo.png', name:'김동익', phoneNum:'01089536705'},
-    {img:'/images/Kkomi.jpg', name:'이은경', phoneNum:'01054002335'},
-    {img:'/images/Add.png', name:'최한윤', phoneNum:'01043434343'},
-    {img:'/images/Add.png', name:'조해린', phoneNum:'01079797797'},
-    {img:'/images/Add.png', name:'김정훈', phoneNum:'01089532323'},
-    {img:'/images/Add.png', name:'김동익', phoneNum:'01089531115'},
-    {img:'/images/Add.png', name:'김동익', phoneNum:'01089536705'},
-    {img:'/images/Add.png', name:'조해린', phoneNum:'01079797797'},
-    {img:'/images/Add.png', name:'김정훈', phoneNum:'01089532323'},
-    {img:'/images/Add.png', name:'김동익', phoneNum:'01089531115'},
-    {img:'/images/Add.png', name:'김동익', phoneNum:'01089536705'},
-  ]
+  const [phoneBook, setPhoneBook] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [userSeq, setUserSeq] = useState(-1);
+
+  useEffect(() => {
+    getFriends();
+  }, []);
+
+  // 친구 목록 조회
+  const getFriends = () => {
+    customAxios.get("/friends")
+    .then((res)=>{
+      setPhoneBook(res.data.list);
+    })
+    .catch((res)=>{
+      console.log(res)
+    })
+  }
 
   const formatPhoneNumber = (phoneNumber) => {
     const formattedPhoneNumber = `${phoneNumber.slice(0, 3)}-${phoneNumber.slice(3, 7)}-${phoneNumber.slice(7, 11)}`;
     return formattedPhoneNumber;
   };
-
-  const [searchTerm, setSearchTerm] = useState('');
-  const [userSeq, setUserSeq] = useState(-1);
 
   // 검색어 입력 핸들러
   const handleSearch = (event) => {
