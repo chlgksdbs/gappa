@@ -19,6 +19,12 @@ public class RedisUtil {
         return valueOperations.get(key);
     }
 
+    // (key, value) 저장
+    public void save(String key, String value){
+        ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
+        valueOperations.set(key, value);
+    }
+
     //  duration 동안 (key, value)를 저장
     public void setDataExpire(String key, String value, long duration) {
         ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
@@ -29,5 +35,10 @@ public class RedisUtil {
     // 데이터 삭제
     public void deleteData(String key) {
         redisTemplate.delete(key);
+    }
+
+    // key값 있는지 확인
+    public boolean hasKey(String key){
+        return redisTemplate.hasKey(key);
     }
 }
