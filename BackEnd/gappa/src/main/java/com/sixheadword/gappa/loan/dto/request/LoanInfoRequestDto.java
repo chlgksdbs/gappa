@@ -24,7 +24,7 @@ public class LoanInfoRequestDto {
     // 사유
     private String loanOtherReason;
     // 실행일자
-    private LocalDateTime startDate;
+    private String startDate;
     // 희망 상환일자
-    private LocalDateTime redemptionDate;
+    private String redemptionDate;
 }
