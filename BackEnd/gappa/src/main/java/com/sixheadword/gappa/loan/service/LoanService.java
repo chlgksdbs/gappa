@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class LoanService {
 
     private final LoanRepository loanRepository;
     private final UserRepository userRepository;
+    private final EntityManager em;
 
 
     // 대출 정보 등록
@@ -34,17 +36,28 @@ public class LoanService {
         Long calInterest = Math.round((loanInfoRequestDto.getPrincipal() * 0.2) / 365);
 
         if(fromUser != null && toUser != null){
-            Loan loan = Loan.builder()
-                    .fromUser(fromUser)
-                    .toUser(toUser)
-                    .principal(loanInfoRequestDto.getPrincipal())
-                    .loanReasonCategory(loanInfoRequestDto.getLoanReasonCategory())
-                    .loanOtherReason(loanInfoRequestDto.getLoanOtherReason())
-                    .startDate(loanInfoRequestDto.getStartDate())
-                    .redemptionDate(loanInfoRequestDto.getRedemptionDate())
-                    .interest(calInterest)
-                    .status('W')
-                    .build();
+            Loan loan = new Loan();
+            loan.setFromUser(fromUser);
+            loan.setToUser(toUser);
+            loan.setPrincipal(loanInfoRequestDto.getPrincipal());
+            loan.setLoanReasonCategory(loanInfoRequestDto.getLoanReasonCategory());
+            loan.setLoanOtherReason(loanInfoRequestDto.getLoanOtherReason());
+            loan.setStartDate(loanInfoRequestDto.getStartDate());
+            loan.setRedemptionDate(loanInfoRequestDto.getRedemptionDate());
+            loan.setInterest(calInterest);
+            loan.setStatus('W');
+            
+//            Loan loan = Loan.builder()
+//                    .fromUser(fromUser)
+//                    .toUser(toUser)
+//                    .principal(loanInfoRequestDto.getPrincipal())
+//                    .loanReasonCategory(loanInfoRequestDto.getLoanReasonCategory())
+//                    .loanOtherReason(loanInfoRequestDto.getLoanOtherReason())
+//                    .startDate(loanInfoRequestDto.getStartDate())
+//                    .redemptionDate(loanInfoRequestDto.getRedemptionDate())
+//                    .interest(calInterest)
+//                    .status('W')
+//                    .build();
             loanRepository.save(loan);
         }else{
             throw new IllegalArgumentException("대출 신청에 실패했습니다.");
