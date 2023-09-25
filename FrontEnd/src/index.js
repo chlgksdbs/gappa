@@ -8,6 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store/index";
 import Modal from 'react-modal'; // react-modal을 가져옵니다.
+import './firebase-messaging-sw';
 
 // 애플리케이션의 루트 엘리먼트를 설정합니다.
 Modal.setAppElement('#root'); // '#root'는 애플리케이션의 루트 엘리먼트의 ID나 선택자로 바꿔야 합니다.

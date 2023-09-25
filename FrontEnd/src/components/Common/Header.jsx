@@ -66,7 +66,7 @@ const Header = ( props ) => {
         <p className={style.title}>{title}</p>
       </div>
       <div className="notIcon">
-        <img src="/images/Notifications.png" alt="" className={style.notIcon}/>
+        <img src="/images/Notifications.png" alt="" className={style.notIcon} onClick={() => { navigate("/notification") }}/>
       </div>
       <div className={`${style.sidebar} ${isSidebarOpen ? style.open : ''}`}>
         <div className={style.sidebarLogo} onClick={() => { navigate("/profile") }}>
