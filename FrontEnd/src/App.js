@@ -34,6 +34,8 @@ import ReqBorrowPage from './components/Loan/Borrow/ReqBorrowPage';
 import LendRefusePage from './components/Loan/Lend/LendRefusePage';
 import LendCheckPage from './components/Loan/Lend/LendCheckPage';
 import LendSendPage from './components/Loan/Lend/LendSendPage';
+import NotificationPage from './components/Notification/NotificationPage';
+import FCMtestPage from './components/Notification/FCMtestPage';
 
 
 function App() {
@@ -53,11 +55,11 @@ function App() {
       return token === null;
     };
     setIsAuthenticated(checkTokenInLocalStorage());
-    console.log(isAuthenticated)
+    console.log(isAuthenticated);
     // eslint-disable-next-line
   }, [])
 
-  const is_autication = false;
+  // const is_autication = true;
 
   return (
     <div className="App">
@@ -75,6 +77,9 @@ function App() {
             <Route path="/" element={<HomePage />}/>
             <Route path="/borrow" element={<BorrowPage />}/>
             <Route path="/lend" element={<LendPage />}/>
+            <Route path="/lend/check" element={<LendCheckPage />}/>
+            <Route path="/lend/refuse" element={<LendRefusePage />}/>
+            <Route path="/lend/send" element={<LendSendPage />}/>
             <Route path="/historyborrow" element={<HistoryBorrowPage />}/>
             <Route path="/historylend" element={<HistoryLendPage />}/>
             <Route path="/historydetail" element={<HistoryDetailPage />}/>
@@ -97,6 +102,9 @@ function App() {
             <Route path="/pinpassword" element={<PinPassword />} />
             <Route path="/pinpasswordconfirm" element={<PinPasswordConfirm />} />
             <Route path="/pinpasswordcheck" element={<PinPasswordCheckPage />} />
+            <Route path="/notification" element={<NotificationPage />}/>
+
+            <Route path="/fcmtest" element={<FCMtestPage />}/>
           </>
         })
       </Routes>

@@ -1,0 +1,21 @@
+.body {
+  height: 100vh;
+  justify-content: flex-start;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-size: 24px;
+}
+
+.notiBox {
+  height: 75%;
+  width: 90%;
+  padding: 1vh 1vw 1vh 1vw;
+  overflow-y: scroll;
+}
+
+.notiItem {
+  background-color: aquamarine;
+  height: 15%;
+  margin-bottom: 1vh;
+}
