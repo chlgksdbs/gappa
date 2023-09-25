@@ -4,6 +4,7 @@ import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 import { getToken, getMessaging } from 'firebase/messaging';
+// import { customAxios } from './components/api/customAxios';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -38,8 +39,20 @@ async function requestPermission() {
     vapidKey: "BEGTfGO_ZzNesa6dGfyqdv6bLEy96rCBOcsZPV36Glm4MdYmWqVBhDjxIywtut1qVKq7hD_973Q3_fseOCFhuKU",
   });
 
-  if (token) console.log("token: ", token);
-  else console.log("Can not get Token");
+  if (token) {
+    console.log("token: ", token);
+    localStorage.setItem("fcmToken", token);
+    // const body = {
+    //   token : token
+    // };
+    // customAxios.post("/fcm/login", body)
+    // .then((res)=>{
+    //   console.log(res);
+    // })
+    // .catch((res)=>{
+    //   console.log(res);
+    // })
+  } else console.log("Can not get Token");
 
   // onMessage(messaging, (payload) => {
   //   console.log("메시지가 도착했습니다.", payload);
