@@ -65,19 +65,23 @@
   width: 100vw;
   position: fixed;
   bottom: 0;
-  height: 31.5vh;
+  height: 33vh;
   display: flex;
-  
+
 }
 
 
 .keyboardsetitem{
-  width: 9.05vw;
+  width: 9.091vw;
   height: 6vh;
+  background-color: silver;
+  border: 0.1px solid silver;
+  padding: 0;
+  /* margin: 0; */
 }
 
 .keyboardsetitem img {
-  /* object-fit: cover; */
+  object-fit: cover;
   width: 100%;
   height: 100%;
 }
@@ -85,6 +89,8 @@
 .keyboardsetitemlast{
   width: 25vw;
   height: 7vh;
+  border: 0.1px solid silver;
+  padding: 0;
 }
 
 .keyboardsetitemlast img{
