@@ -161,6 +161,7 @@ const LoginPage = () => {
       } else if (e === "words/71.png") {
         setPassword(password + ")")
       }
+      
     } else if (check === "Pw" && !shift) {
       if (e === "words/52.png") {
         setPassword(password + 1)
