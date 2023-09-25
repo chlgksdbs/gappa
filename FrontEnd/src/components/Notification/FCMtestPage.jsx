@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import HeaderSub from '../Common/HeaderSub';
 import { customAxios } from '../api/customAxios';
 
 const FCMtestPage = () => {
+  const initialToken = localStorage.getItem("fcmToken");
+  const [Fcmtoken] = useState(initialToken);
 
   const setting = () => {
-    const Fcmtoken = localStorage.getItem("fcmToken");
     const body = {
       token : Fcmtoken
     };
@@ -17,7 +18,7 @@ const FCMtestPage = () => {
       console.log(res);
     })
   }
-  
+
 
   const send = () => {
     customAxios.post("/fcm/push")
@@ -33,6 +34,7 @@ const FCMtestPage = () => {
     <div>
       <HeaderSub title={"FCM"} />
       <button onClick={send }>보내기</button>
+      <div>Fcmtoken: {Fcmtoken}</div>
       <button onClick={setting }>fcm토큰보내기</button>
     </div>
   );
