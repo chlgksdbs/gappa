@@ -49,6 +49,7 @@ public class LoanService {
             loan.setLoanOtherReason(loanInfoRequestDto.getLoanOtherReason());
             loan.setStartDate(LocalDateTime.parse(loanInfoRequestDto.getStartDate(), formatter));
             loan.setRedemptionDate(LocalDateTime.parse(loanInfoRequestDto.getRedemptionDate(), formatter));
+            loan.setRedemptionMoney(0L);
             loan.setInterest(calInterest);
             loan.setStatus('W');
 
