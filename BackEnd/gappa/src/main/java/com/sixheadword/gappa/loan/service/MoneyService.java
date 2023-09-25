@@ -4,7 +4,6 @@ import com.sixheadword.gappa.account.Account;
 import com.sixheadword.gappa.account.repository.AccountRepository;
 import com.sixheadword.gappa.loan.Loan;
 import com.sixheadword.gappa.loan.dto.request.FailLoanRequestDto;
-//import com.sixheadword.gappa.loan.dto.request.RedemptionRequestDto;
 import com.sixheadword.gappa.loan.dto.request.RedemptionRequestDto;
 import com.sixheadword.gappa.loan.dto.request.SuccessLoanRequestDto;
 import com.sixheadword.gappa.loan.repository.LoanRepository;
@@ -36,7 +35,7 @@ public class MoneyService {
             loan.setStatus('O');
             loan.setStartDate(LocalDateTime.now());
             // 대출금 이체 실행
-            transfer(loan, 1);
+            transfer(loan, 0L, 1);
             loanRepository.save(loan);
         }else{
             throw new IllegalArgumentException("대출 실행에 실패했습니다.");

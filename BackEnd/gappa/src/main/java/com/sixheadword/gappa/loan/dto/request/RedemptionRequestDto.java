@@ -1,13 +1,11 @@
 package com.sixheadword.gappa.loan.dto.request;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import javax.transaction.Transactional;
 
 @RequiredArgsConstructor
-@Transactional
+@AllArgsConstructor
 @Data
 @Builder
 public class RedemptionRequestDto {
