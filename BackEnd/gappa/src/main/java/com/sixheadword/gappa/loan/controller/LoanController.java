@@ -29,11 +29,10 @@ public class LoanController {
     }
 
     // API 2. 대출 신청 조회
-    @GetMapping("/apply")
-    public ResponseEntity<?> getLoanRequest(Long loanSeq, Authentication authentication){
+    @GetMapping("/apply/{loanSeq}")
+    public ResponseEntity<?> getLoanRequest(@PathVariable Long loanSeq, Authentication authentication){
         try{
-            loanService.getLoanRequest(loanSeq, authentication);
-            return ResponseEntity.status(HttpStatus.OK).build();
+            return ResponseEntity.ok(loanService.getLoanRequest(loanSeq, authentication));
         }catch (IllegalArgumentException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("대출 신청 조회 실패");
         }
