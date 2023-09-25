@@ -46,7 +46,7 @@ public class LoanService {
             loan.setRedemptionDate(loanInfoRequestDto.getRedemptionDate());
             loan.setInterest(calInterest);
             loan.setStatus('W');
-            
+
 //            Loan loan = Loan.builder()
 //                    .fromUser(fromUser)
 //                    .toUser(toUser)
@@ -75,6 +75,8 @@ public class LoanService {
         if(!loans.isEmpty()){
             List<GetLoanResponseDto> getLoanResponseDtos = new ArrayList<>();
             for(Loan loan : loans){
+                // 신청중(W)과 취소(F)인 경우 제외
+                if(loan.getStatus() == 'W' || loan.getStatus() == 'F') continue;
                 GetLoanResponseDto getLoanResponseDto = GetLoanResponseDto.builder()
                         .loanSeq(loan.getLoanSeq())
                         .toUser(loan.getToUser().getName())
@@ -126,6 +128,8 @@ public class LoanService {
         if(!loans.isEmpty()){
             List<GetLoanOppResponseDto> getLoanOppResponseDtos = new ArrayList<>();
             for(Loan loan : loans){
+                // 신청중(W)과 취소(F)인 경우 제외
+                if(loan.getStatus() == 'W' || loan.getStatus() == 'F') continue;
                 GetLoanOppResponseDto getLoanOppResponseDto = GetLoanOppResponseDto.builder()
                         .loanSeq(loan.getLoanSeq())
                         .fromUser(loan.getFromUser().getName())
