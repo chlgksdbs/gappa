@@ -129,7 +129,7 @@ const LoginPage = () => {
         console.log(res)
         window.localStorage.setItem("token", res.data.data.token)
         // window.localStorage.setItem("is_autication",true)
-        // window.location.replace("/")
+        window.location.replace("/");
 
       })
       .catch((res) => {
