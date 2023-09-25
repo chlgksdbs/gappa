@@ -62,6 +62,7 @@ const LoginPage = () => {
     setLtwo(removeItemAtIndex(Ltwo, randomLtwo));
     setLthree(removeItemAtIndex(Lthree, randomLthree));
 
+    
     setSone(removeItemAtIndex(Sone, randomSone));
     setStwo(removeItemAtIndex(Stwo, randomStwo));
     setSthree(removeItemAtIndex(Sthree, randomSthree));
