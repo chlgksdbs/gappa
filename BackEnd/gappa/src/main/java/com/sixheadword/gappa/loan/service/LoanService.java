@@ -72,6 +72,8 @@ public class LoanService {
         Loan loan = loanRepository.findById(loanSeq).orElse(null);
         if(user != null && loan != null && loan.getToUser().getUserSeq().equals(user.getUserSeq())){
             return GetLoanRequestResponseDto.builder()
+                    .toUser(loan.getToUser().getName())
+                    .fromUser(loan.getFromUser().getName())
                     .principal(loan.getPrincipal())
                     .startDate(loan.getStartDate())
                     .redemptionDate(loan.getRedemptionDate())

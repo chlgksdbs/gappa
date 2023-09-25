@@ -57,18 +57,17 @@ public class AccountService {
     }
 
     // 대표 계좌 조회
-    public GetAccountResponseDto getPrimaryAccount(Long userSeq){
-        Account account = accountRepository.findPrimaryByUserSeq(userSeq);
+    public GetAccountResponseDto getPrimaryAccount(Authentication authentication){
+        Account account = accountRepository.findPrimaryByUserSeq(Long.parseLong(authentication.getName()));
 
         if(account != null){
-            GetAccountResponseDto result = GetAccountResponseDto.builder()
+            return GetAccountResponseDto.builder()
                     .accountSeq(account.getAccountSeq())
                     .accountNumber(account.getAccountNumber())
                     .bank(account.getBank())
                     .balance(account.getBalance())
                     .build();
 
-            return result;
         }else{
             throw new IllegalArgumentException("계좌를 찾을 수 없습니다");
 

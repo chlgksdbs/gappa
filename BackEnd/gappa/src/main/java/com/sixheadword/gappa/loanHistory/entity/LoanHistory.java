@@ -3,12 +3,15 @@ package com.sixheadword.gappa.loanHistory.entity;
 import com.sixheadword.gappa.loan.Loan;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 // LoanHistory: 대출 내역 테이블
-@Getter
+@Getter @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "LOAN_HISTORY")
 public class LoanHistory {
