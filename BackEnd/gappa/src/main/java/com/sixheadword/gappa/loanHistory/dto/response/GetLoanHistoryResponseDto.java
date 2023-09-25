@@ -33,5 +33,7 @@ public class GetLoanHistoryResponseDto {
     private Long interest;
     // 중도 상환금
     private Long redemptionMoney;
+    // 현재 user의 채권자 여부
+    private char isGappa;
 
 }

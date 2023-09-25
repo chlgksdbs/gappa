@@ -23,10 +23,8 @@ public class LoanHistoryService {
     // 대출 및 대금 이력 상세조회
     public GetLoanHistoryResponseDto getLoanHistory(int type, Long loanSeq, Authentication authentication) {
         Loan loan = loanRepository.findById(loanSeq).orElse(null);
-        // type = 0 : 대출, type = 1 : 대금
-        if((loan != null)
-                && (type == 0 && Long.parseLong(authentication.getName()) == loan.getFromUser().getUserSeq())
-                || (type == 1 && Long.parseLong(authentication.getName()) == loan.getToUser().getUserSeq())){
+        // type = 0 : 대출
+        if((loan != null) && (type == 0 && Long.parseLong(authentication.getName()) == loan.getFromUser().getUserSeq())){
             return GetLoanHistoryResponseDto.builder()
                     .toUserName(loan.getToUser().getName())
                     .fromUserName(loan.getFromUser().getName())
@@ -37,8 +35,23 @@ public class LoanHistoryService {
                     .balance(loan.getPrincipal() - loan.getRedemptionMoney())
                     .interest(loan.getInterest())
                     .redemptionMoney(loan.getRedemptionMoney())
+                    .isGappa('X')
                     .build();
-        }else {
+            // type = 1 : 대금
+        }else if((loan != null) && (type == 1 && Long.parseLong(authentication.getName()) == loan.getToUser().getUserSeq())){
+            return GetLoanHistoryResponseDto.builder()
+                    .toUserName(loan.getToUser().getName())
+                    .fromUserName(loan.getFromUser().getName())
+                    .startDate(loan.getStartDate())
+                    .redemptionDate(loan.getRedemptionDate())
+                    .expiredDate(loan.getExpiredDate())
+                    .principal(loan.getPrincipal())
+                    .balance(loan.getPrincipal() - loan.getRedemptionMoney())
+                    .interest(loan.getInterest())
+                    .redemptionMoney(loan.getRedemptionMoney())
+                    .isGappa('O')
+                    .build();
+        } else {
             throw new IllegalArgumentException("상세 이력을 조회할 수 없습니다.");
         }
     }

@@ -1,14 +1,13 @@
 package com.sixheadword.gappa.loan.controller;
 
+import com.sixheadword.gappa.loan.dto.request.LoanInfoRequestDto;
 import com.sixheadword.gappa.loan.service.LoanService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/loan")
@@ -18,7 +17,18 @@ public class LoanController {
 
     private final LoanService loanService;
 
-    // API 1. 대출 이력 조회
+    // API 1. 대출 정보 등록
+    @PostMapping("/regist")
+    public ResponseEntity<?> registLoanInfo(@RequestBody LoanInfoRequestDto loanInfoRequestDto){
+        try{
+            loanService.registLoanInfo(loanInfoRequestDto);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("대출 정보 등록 실패");
+        }
+    }
+
+    // API 2. 대출 이력 조회
     @GetMapping
     public ResponseEntity<?> getLoanHistory(Authentication authentication) {
         try {
@@ -28,7 +38,7 @@ public class LoanController {
         }
     }
 
-    // API 2. 대출중 이력 조회
+    // API 3. 대출중 이력 조회
     @GetMapping("/on")
     public ResponseEntity<?> getOnLoanHistory(Authentication authentication) {
         try {
@@ -38,7 +48,7 @@ public class LoanController {
         }
     }
 
-    // API 3. 대금 이력 조회
+    // API 4. 대금 이력 조회
     @GetMapping("/opp")
     public ResponseEntity<?> getLoanOppHistory(Authentication authentication) {
         try {
@@ -48,7 +58,7 @@ public class LoanController {
         }
     }
 
-    // API 4. 대금중 이력 조회
+    // API 5. 대금중 이력 조회
     @GetMapping("/opp/on")
     public ResponseEntity<?> getOnLoanOppHistory(Authentication authentication) {
         try {
