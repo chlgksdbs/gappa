@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +38,8 @@ public class LoanService {
         User toUser = userRepository.findById(loanInfoRequestDto.getToUser()).orElse(null);
         Long calInterest = Math.round((loanInfoRequestDto.getPrincipal() * 0.2) / 365);
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
         if(fromUser != null && toUser != null){
             Loan loan = new Loan();
             loan.setFromUser(fromUser);
@@ -44,8 +47,8 @@ public class LoanService {
             loan.setPrincipal(loanInfoRequestDto.getPrincipal());
             loan.setLoanReasonCategory(loanInfoRequestDto.getLoanReasonCategory());
             loan.setLoanOtherReason(loanInfoRequestDto.getLoanOtherReason());
-            loan.setStartDate(loanInfoRequestDto.getStartDate());
-            loan.setRedemptionDate(loanInfoRequestDto.getRedemptionDate());
+            loan.setStartDate(LocalDateTime.parse(loanInfoRequestDto.getStartDate(), formatter));
+            loan.setRedemptionDate(LocalDateTime.parse(loanInfoRequestDto.getRedemptionDate(), formatter));
             loan.setInterest(calInterest);
             loan.setStatus('W');
 
