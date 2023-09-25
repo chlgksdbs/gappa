@@ -19,6 +19,19 @@ const FCMtestPage = () => {
     })
   }
 
+  async function subs() {
+    console.log("권한 요청 중...");
+  
+    const permission = await Notification.requestPermission();
+    if (permission === "denied") {
+      console.log("알림 권한이 허용되지 않음");
+      return;
+    }       
+      
+    console.log("알림 권한이 허용됨");
+
+  }
+
 
   const send = () => {
     customAxios.post("/fcm/push")
@@ -36,6 +49,7 @@ const FCMtestPage = () => {
       <button onClick={send }>보내기</button>
       <div>Fcmtoken: {Fcmtoken}</div>
       <button onClick={setting }>fcm토큰보내기</button>
+      <button onClick={subs }>알림 권한 허용 요청</button>
     </div>
   );
 };
