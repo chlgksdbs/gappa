@@ -75,6 +75,9 @@ function App() {
             <Route path="/" element={<HomePage />}/>
             <Route path="/borrow" element={<BorrowPage />}/>
             <Route path="/lend" element={<LendPage />}/>
+            <Route path="/lend/check" element={<LendCheckPage />}/>
+            <Route path="/lend/refuse" element={<LendRefusePage />}/>
+            <Route path="/lend/send" element={<LendSendPage />}/>
             <Route path="/historyborrow" element={<HistoryBorrowPage />}/>
             <Route path="/historylend" element={<HistoryLendPage />}/>
             <Route path="/historydetail" element={<HistoryDetailPage />}/>
