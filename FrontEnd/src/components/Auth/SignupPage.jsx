@@ -22,7 +22,8 @@ const SignupPage = () => {
     "loginPassword": userInfo.login_Password,
     "phone": userInfo.phone,
     "name": userInfo.name,
-    "address": userInfo.address
+    "address": userInfo.address,
+    "addressDetail" : userInfo.addressDetail,
   }
 
   const signupData = () => {
@@ -34,6 +35,7 @@ const SignupPage = () => {
         console.log(response)
         window.localStorage.setItem('token', response.data.data.token )
         window.location.replace("/bankbook");
+        // navigate("/bankbook");
       })
       .catch((response) => {
         console.log(response)
