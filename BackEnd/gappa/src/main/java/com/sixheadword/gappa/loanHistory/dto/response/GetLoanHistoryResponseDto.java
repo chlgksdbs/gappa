@@ -19,6 +19,8 @@ public class GetLoanHistoryResponseDto {
     private String toUserName;
     // 채무자
     private String fromUserName;
+    // 이미지
+    private String profileImg;
     // 대출 실행일
     private LocalDateTime startDate;
     // 상환 예정일
