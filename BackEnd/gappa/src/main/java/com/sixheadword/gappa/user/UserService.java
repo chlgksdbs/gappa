@@ -381,11 +381,22 @@ public class UserService {
             Map<String, Object> data = new HashMap<>();
             User user = userRepository.findByUserSeq(userSeq);
             if (userSeq.equals(loginUserSeq)) { // 자기 자신의 유저 정보 조회
-                Long borrowCnt = loanRepository.countLoanByFromUser(user);
-                Long lendCnt = loanRepository.countLoanByToUser(user);
+                List<Loan> borrowLoan = loanRepository.findByFromUser(user);
+                int borrowCnt = 0;
+                for (int i = 0; i < borrowLoan.size(); i++) {
+                    if (borrowLoan.get(i).getStatus() == 'W' || borrowLoan.get(i).getStatus() == 'F') continue;
+                    borrowCnt++;
+                }
+
+                List<Loan> lendLoan = loanRepository.findByToUser(user);
+                int lendCnt = 0;
+                for (int i = 0; i < lendLoan.size(); i++) {
+                    if (lendLoan.get(i).getStatus() == 'W' || lendLoan.get(i).getStatus() == 'F') continue;
+                    lendCnt++;
+                }
+
                 List<Loan> loans = loanRepository.findByFromUser(user);
                 char loanStatus = 0;
-
                 for (int i = 0; i < loans.size(); i++) {
                     if (loans.get(i).getStatus() == 'D') {          // 연체중
                         loanStatus = 'D';
@@ -394,6 +405,7 @@ public class UserService {
                         loanStatus = 'O';
                     }
                 }
+
                 data.put("profileImg", user.getProfileImg());
                 data.put("name", user.getName());
                 data.put("phone", user.getPhone());
