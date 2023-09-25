@@ -2,6 +2,7 @@ package com.sixheadword.gappa.loan;
 
 import com.sixheadword.gappa.loanHistory.entity.LoanHistory;
 import com.sixheadword.gappa.user.User;
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -71,8 +72,23 @@ public class Loan {
     @Column(length = 1, nullable = false)
     private char status;
 
+    @Builder
+    public Loan(User fromUser, User toUser, Long principal, String loanReasonCategory, String loanOtherReason, LocalDateTime startDate, LocalDateTime redemptionDate, Long interest, char status){
+        this.fromUser = fromUser;
+        this.toUser = toUser;
+        this.principal = principal;
+        this.loanReasonCategory = loanReasonCategory;
+        this.loanOtherReason = loanOtherReason;
+        this.startDate = startDate;
+        this.redemptionDate = redemptionDate;
+        this.interest = interest;
+        this.status = status;
+    }
+
     // 상태 변경 메서드
     public void setStatus(char newStatus){
         this.status = newStatus;
     }
+
+
 }

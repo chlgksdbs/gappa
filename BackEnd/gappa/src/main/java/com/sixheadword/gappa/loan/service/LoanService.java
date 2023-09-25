@@ -64,9 +64,11 @@ public class LoanService {
             for(Loan loan : loans){
                 GetLoanResponseDto getLoanResponseDto = GetLoanResponseDto.builder()
                         .loanSeq(loan.getLoanSeq())
-                        .toUser(loan.getToUser().getUserSeq())
+                        .toUser(loan.getToUser().getName())
                         .principal(loan.getPrincipal())
                         .startDate(loan.getStartDate())
+                        .redemptionDate(loan.getRedemptionDate())
+                        .profileImg(loan.getToUser().getProfileImg())
                         .status(loan.getStatus())
                         .build();
                 getLoanResponseDtos.add(getLoanResponseDto);
@@ -87,9 +89,11 @@ public class LoanService {
             for(Loan loan : loans){
                 GetLoanResponseDto getLoanResponseDto = GetLoanResponseDto.builder()
                         .loanSeq(loan.getLoanSeq())
-                        .toUser(loan.getToUser().getUserSeq())
+                        .toUser(loan.getToUser().getName())
                         .principal(loan.getPrincipal())
                         .startDate(loan.getStartDate())
+                        .redemptionDate(loan.getRedemptionDate())
+                        .profileImg(loan.getToUser().getProfileImg())
                         .status(loan.getStatus())
                         .build();
                 getLoanResponseDtos.add(getLoanResponseDto);
@@ -111,9 +115,11 @@ public class LoanService {
             for(Loan loan : loans){
                 GetLoanOppResponseDto getLoanOppResponseDto = GetLoanOppResponseDto.builder()
                         .loanSeq(loan.getLoanSeq())
-                        .fromUser(loan.getFromUser().getUserSeq())
+                        .fromUser(loan.getFromUser().getName())
+                        .profileImg(loan.getFromUser().getProfileImg())
                         .principal(loan.getPrincipal())
                         .startDate(loan.getStartDate())
+                        .redemptionDate(loan.getRedemptionDate())
                         .status(loan.getStatus())
                         .build();
                 getLoanOppResponseDtos.add(getLoanOppResponseDto);
@@ -136,9 +142,11 @@ public class LoanService {
             for(Loan loan : loans){
                 GetLoanOppResponseDto getLoanOppResponseDto = GetLoanOppResponseDto.builder()
                         .loanSeq(loan.getLoanSeq())
-                        .fromUser(loan.getFromUser().getUserSeq())
+                        .fromUser(loan.getFromUser().getName())
+                        .profileImg(loan.getFromUser().getProfileImg())
                         .principal(loan.getPrincipal())
                         .startDate(loan.getStartDate())
+                        .redemptionDate(loan.getRedemptionDate())
                         .status(loan.getStatus())
                         .build();
                 getLoanOppResponseDtos.add(getLoanOppResponseDto);
