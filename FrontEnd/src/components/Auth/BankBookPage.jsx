@@ -40,12 +40,12 @@ const BankBookPage = () => {
       </div>
     );
   }
-  const bankImg = ["images/Kb.png",
+  const bankImg = ["images/KB.png",
     "images/hana.png",
     "images/sin.png",
     "images/we.png",
     "images/gappalogo.png",
-    "images/ssafy.png"]
+    "images/Ssafy.png"]
   const [bankBookData, setBankBookData] = useState([]);
   useEffect(() => {
     customAxios.get("/accounts/1")

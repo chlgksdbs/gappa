@@ -155,7 +155,7 @@ const SignupForm = (props) => {
     const currentDetailAddress = e.target.value;
     setDetailAdress(currentDetailAddress);
     if (detailAddress && address && addressNumber) {
-      setFinalAddress(`${address} ${addressNumber} ${detailAddress}`);
+      setFinalAddress(`${address} ${addressNumber}`);
       setIsFinalAddress(true);
       console.log(finalAddress);
     } else {
@@ -244,6 +244,7 @@ const SignupForm = (props) => {
         phone: phone,
         name: name,
         address: finalAddress,
+        addressDetail : detailAddress,
       }
       dispatch(authActions.updateUserInfo(userInfo));
     } else {
