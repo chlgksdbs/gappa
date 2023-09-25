@@ -8,6 +8,10 @@ spring:
     host: j9b206.p.ssafy.io
     port: 9707
 
+  batch:
+    jdbc:
+      initialize-schema: always
+
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL8Dialect
