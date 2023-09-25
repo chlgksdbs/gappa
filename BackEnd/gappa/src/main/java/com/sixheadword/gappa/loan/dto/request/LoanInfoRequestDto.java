@@ -27,5 +27,4 @@ public class LoanInfoRequestDto {
     private LocalDateTime startDate;
     // 희망 상환일자
     private LocalDateTime redemptionDate;
-
 }
