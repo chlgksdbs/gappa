@@ -22,14 +22,14 @@ const LoginPage = () => {
   // 배열
   const [Lone, setLone] = useState(["words/62.png", "words/63.png", "words/64.png", "words/65.png", "words/66.png", "words/67.png", "words/68.png", "words/69.png", "words/70.png", "words/71.png"]);
   const [Ltwo, setLtwo] = useState(["words/1.png", "words/2.png", "words/3.png", "words/4.png", "words/5.png", "words/6.png", "words/7.png", "words/8.png", "words/9.png", "words/10.png"])
-  const [Lthree, setLthree] = useState(["words/11.png", "words/12.png", "words/13.png", "words/14.png", "words/15.png", "words/16.png", "words/17.png", "words/18.png", "words/19.png"])
+  const [Lthree, setLthree] = useState([randomData, "words/11.png", "words/12.png", "words/13.png", "words/14.png", "words/15.png", "words/16.png", "words/17.png", "words/18.png", "words/19.png"])
   //eslint-disable-next-line
-  const [Lfour, setLfour] = useState([randomData, "words/90.png", "words/20.png", "words/21.png", "words/22.png", "words/100.png", "words/23.png", "words/24.png", "words/25.png", "words/91.png"])
+  const [Lfour, setLfour] = useState(["words/99.png", "words/20.png", "words/21.png", "words/22.png", "words/100.png", "words/23.png", "words/24.png", "words/25.png", "words/91.png"])
   const [Sone, setSone] = useState(["words/52.png", "words/53.png", "words/54.png", "words/55.png", "words/56.png", "words/57.png", "words/58.png", "words/59.png", "words/60.png", "words/61.png"])
   const [Stwo, setStwo] = useState(["words/26.png", "words/27.png", "words/28.png", "words/29.png", "words/30.png", "words/31.png", "words/32.png", "words/33.png", "words/34.png", "words/35.png"])
   const [Sthree, setSthree] = useState([randomData, "words/36.png", "words/37.png", "words/38.png", "words/39.png", "words/40.png", "words/41.png", "words/42.png", "words/43.png", "words/44.png"])
   //eslint-disable-next-line
-  const [Sfour, setSfour] = useState(["words/99.png", "words/45.png", "words/46.png", "words/47.png", "words/48.png", "words/49.png", "words/50.png", "words/51.png", "words/91.png"])
+  const [Sfour, setSfour] = useState(["words/90.png", "words/45.png", "words/46.png", "words/47.png", "words/48.png", "words/49.png", "words/50.png", "words/51.png", "words/91.png"])
 
   const [randomLone, setRandomLone] = useState(3)
   const [randomLtwo, setRandomLtwo] = useState(7)
@@ -62,7 +62,7 @@ const LoginPage = () => {
     setLtwo(removeItemAtIndex(Ltwo, randomLtwo));
     setLthree(removeItemAtIndex(Lthree, randomLthree));
 
-    
+
     setSone(removeItemAtIndex(Sone, randomSone));
     setStwo(removeItemAtIndex(Stwo, randomStwo));
     setSthree(removeItemAtIndex(Sthree, randomSthree));
@@ -138,6 +138,7 @@ const LoginPage = () => {
       })
   }
   const keyboardOne = (e, index) => {
+    console.log(e)
     if (check === "Pw" && shift) {
       if (e === "words/62.png") {
         setPassword(password + "!")
@@ -277,7 +278,7 @@ const LoginPage = () => {
   }
   const keyboardFour = (e, index) => {
     if (check === "Pw" && shift) {
-      if (e === "words/90.png") {
+      if (e === "words/99.png") {
         setShift(!shift);
       } else if (e === "words/20.png") {
         setPassword(password + "Z")
@@ -299,7 +300,7 @@ const LoginPage = () => {
         }
       }
     } else if (check === "Pw" && !shift) {
-      if (e === "words/99.png") {
+      if (e === "words/90.png") {
         setShift(!shift);
       } else if (e === "words/99.png") {
         setPassword(password + "z")
@@ -347,6 +348,20 @@ const LoginPage = () => {
     }
   }
 
+  const getItemStyle = (item) => {
+    if (item === 'words/90.png' || item ==='words/91.png' || item ==="words/99.png") {
+      return {
+        width: '18.1vw',
+        height: '6vh',
+      };
+    }
+    // 특별한 조건이 아니라면 기본 스타일을 반환
+    return {
+      width: '9.05vw',
+      height: '6vh',
+    };
+  };
+
   return (
     <div className={style.Login}>
       <div className={style.guide}>
@@ -379,7 +394,7 @@ const LoginPage = () => {
           isOpen={ctrl}
           onRequestClose={() => setCtrl(false)}
           className={style.keyboard}
-          >
+        >
         </Modal>
       }
       {
@@ -409,7 +424,7 @@ const LoginPage = () => {
                   <button
                     key={index}
                     onClick={() => keyboardTwo(word, index, check)}
-                    className={style.keyboard13}
+                    className={style.keyboardsetitem}
                   >
                     <img src={word} alt="" />
                   </button>
@@ -420,7 +435,7 @@ const LoginPage = () => {
                   <button
                     key={index}
                     onClick={() => keyboardThree(word, index, check)}
-                    className={style.keyboard13}
+                    className={style.keyboardsetitem}
                   >
                     <img src={word} alt="" />
                   </button>
@@ -431,8 +446,8 @@ const LoginPage = () => {
                   <button
                     key={index}
                     onClick={() => keyboardFour(word, index, check)}
-                    className={style.keyboard13}
-                  >
+                    className={style.keyboardsetitem}
+                    style={getItemStyle(word)}>
                     <img src={word} alt="" />
                   </button>
                 ))}
@@ -442,7 +457,7 @@ const LoginPage = () => {
                   <button
                     key={index}
                     onClick={() => keyboardFive(word, index, check)}
-                    className={style.keyboard4}
+                    className={style.keyboardsetitemlast}
                   >
                     <img src={word} alt="" />
                   </button>
@@ -456,6 +471,7 @@ const LoginPage = () => {
                   <button
                     key={index}
                     onClick={() => keyboardOne(word, index, check)}
+                    className={style.keyboardsetitem}
                   >
                     <img src={word} alt="" />
                   </button>
@@ -466,6 +482,7 @@ const LoginPage = () => {
                   <button
                     key={index}
                     onClick={() => keyboardTwo(word, index, check)}
+                    className={style.keyboardsetitem}
                   >
                     <img src={word} alt="" />
                   </button>
@@ -476,6 +493,7 @@ const LoginPage = () => {
                   <button
                     key={index}
                     onClick={() => keyboardThree(word, index, check)}
+                    className={style.keyboardsetitem}
                   >
                     <img src={word} alt="" />
                   </button>
@@ -486,7 +504,8 @@ const LoginPage = () => {
                   <button
                     key={index}
                     onClick={() => keyboardFour(word, index, check)}
-                  >
+                    className={style.keyboardsetitem}
+                    style={getItemStyle(word)}>
                     <img src={word} alt="" />
                   </button>
                 ))}
@@ -496,7 +515,7 @@ const LoginPage = () => {
                   <button
                     key={index}
                     onClick={() => keyboardFive(word, index, check)}
-                    className={style.last}
+                    className={style.keyboardsetitemlast}
                   >
                     <img src={word} alt="" />
                   </button>

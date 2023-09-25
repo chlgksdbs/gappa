@@ -62,16 +62,32 @@
 
 .keyboard{
   background-color: silver;
-  width: 100%;
+  width: 100vw;
   position: fixed;
   bottom: 0;
-  height: 340px;
+  height: 31.5vh;
+  display: flex;
+  
 }
 
-/* .last{
 
+.keyboardsetitem{
+  width: 9.05vw;
+  height: 6vh;
 }
-.last img{
-  width: 140px;
-  height: 60px;
-} */
+
+.keyboardsetitem img {
+  /* object-fit: cover; */
+  width: 100%;
+  height: 100%;
+}
+
+.keyboardsetitemlast{
+  width: 25vw;
+  height: 7vh;
+}
+
+.keyboardsetitemlast img{
+  width: 100%;
+  height: 100%;
+}
