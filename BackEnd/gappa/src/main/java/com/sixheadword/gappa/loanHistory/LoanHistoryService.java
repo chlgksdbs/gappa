@@ -21,10 +21,10 @@ public class LoanHistoryService {
     private final LoanRepository loanRepository;
 
     // 대출 및 대금 이력 상세조회
-    public GetLoanHistoryResponseDto getLoanHistory(int type, Long loanSeq, Authentication authentication) {
+    public GetLoanHistoryResponseDto getLoanHistory(Long loanSeq, Authentication authentication) {
         Loan loan = loanRepository.findById(loanSeq).orElse(null);
         // type = 0 : 대출
-        if((loan != null) && (type == 0 && Long.parseLong(authentication.getName()) == loan.getFromUser().getUserSeq())){
+        if((loan != null) && (Long.parseLong(authentication.getName()) == loan.getFromUser().getUserSeq())){
             return GetLoanHistoryResponseDto.builder()
                     .toUserName(loan.getToUser().getName())
                     .fromUserName(loan.getFromUser().getName())
@@ -38,7 +38,7 @@ public class LoanHistoryService {
                     .isGappa('X')
                     .build();
             // type = 1 : 대금
-        }else if((loan != null) && (type == 1 && Long.parseLong(authentication.getName()) == loan.getToUser().getUserSeq())){
+        }else if((loan != null) && (Long.parseLong(authentication.getName()) == loan.getToUser().getUserSeq())){
             return GetLoanHistoryResponseDto.builder()
                     .toUserName(loan.getToUser().getName())
                     .fromUserName(loan.getFromUser().getName())
