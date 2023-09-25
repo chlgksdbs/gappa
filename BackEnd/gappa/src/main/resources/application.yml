@@ -34,3 +34,6 @@ jwt:
   secret:
     key: 89525749bcff2dc9c717e6014d03d342fe93d46de7fb6b0915c930ed3e675f663adb3932cd145044aba992c3fa3d501e39df232a077319b5f235be80d9647120
 
+# firebase
+fcm:
+  certification: certification.json
