@@ -1,19 +1,17 @@
 package com.sixheadword.gappa.loan.dto.request;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import javax.transaction.Transactional;
 
-//@RequiredArgsConstructor
-//@Transactional
-//@Data
-//@Builder
-//public class RedemptionRequestDto {
-//
-//    private Long accountSeq;
-//    private Long loanSeq;
-//    private Long amount;
-//
-//}
+@RequiredArgsConstructor
+@AllArgsConstructor
+@Data
+@Builder
+public class RedemptionRequestDto {
+
+    private Long accountSeq;
+    private Long loanSeq;
+    private Long amount;
+
+}

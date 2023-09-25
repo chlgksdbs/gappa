@@ -27,7 +27,7 @@ public class AccountRepositoryImpl implements AccountRepositoryCustom{
     @Override
     public void unsetPrimaryAccount(Long userSeq, Long accountSeq) {
 
-        String jpql = "UPDATE account a SET a.repAccount = FALSE WHERE a.userSeq = :userSeq AND a.accountSeq = :accountSeq";
+        String jpql = "UPDATE Account a SET a.repAccount = FALSE WHERE a.userSeq = :userSeq AND a.accountSeq = :accountSeq";
 
         em.createQuery(jpql)
                 .setParameter("userSeq", userSeq)
@@ -39,7 +39,7 @@ public class AccountRepositoryImpl implements AccountRepositoryCustom{
     @Override
     public Account findPrimaryByUserSeq(Long userSeq) {
 
-        String jpql = "SELECT a FROM account a WHERE a.userSeq = :userSeq AND a.repAccount = TRUE";
+        String jpql = "SELECT a FROM Account a WHERE a.user.userSeq = :userSeq AND a.repAccount = true";
 
         return em.createQuery(jpql, Account.class)
                 .setParameter("userSeq", userSeq)
