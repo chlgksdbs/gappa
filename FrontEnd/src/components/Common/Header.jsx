@@ -77,6 +77,7 @@ const Header = ( props ) => {
         <div className={style.menus} onClick={() => { navigate("/notice") }} >공지사항</div>
         <div className={style.menus} onClick={() => { navigate("/customerservice") }} >고객센터</div>
         <div className={style.menus} onClick={() => { navigate("/qna") }} >자주묻는 질문</div>
+        <div className={style.menus} onClick={() => { navigate("/fcmtest") }} >푸시알림</div>
         <div className={style.menus}>로그아웃</div>
       </div>
         {isSidebarOpen && (
