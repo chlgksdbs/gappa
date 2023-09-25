@@ -34,6 +34,8 @@ import ReqBorrowPage from './components/Loan/Borrow/ReqBorrowPage';
 import LendRefusePage from './components/Loan/Lend/LendRefusePage';
 import LendCheckPage from './components/Loan/Lend/LendCheckPage';
 import LendSendPage from './components/Loan/Lend/LendSendPage';
+import NotificationPage from './components/Notification/NotificationPage';
+import FCMtestPage from './components/Notification/FCMtestPage';
 
 
 function App() {
@@ -100,6 +102,9 @@ function App() {
             <Route path="/pinpassword" element={<PinPassword />} />
             <Route path="/pinpasswordconfirm" element={<PinPasswordConfirm />} />
             <Route path="/pinpasswordcheck" element={<PinPasswordCheckPage />} />
+            <Route path="/notification" element={<NotificationPage />}/>
+
+            <Route path="/fcmtest" element={<FCMtestPage />}/>
           </>
         })
       </Routes>
