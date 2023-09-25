@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+// import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 import { getToken, getMessaging } from 'firebase/messaging';
@@ -20,21 +20,19 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const messaging = getMessaging(app);
-const analytics = getAnalytics(app);
+// const analytics = getAnalytics(app);
 
 
 async function requestPermission() {
   console.log("권한 요청 중...");
 
-  Notification.requestPermission().then((permission) => {
-    if (permission === "granted") {
-      console.log("알림 권한이 허용됨");
-
-      // FCM 메세지 처리
-    } else {
-      console.log("알림 권한 허용 안됨");
-    }
-  });
+  const permission = await Notification.requestPermission();
+  if (permission === "denied") {
+    console.log("알림 권한이 허용되지 않음");
+    return;
+  }       
+    
+  console.log("알림 권한이 허용됨");
 
   const token = await getToken(messaging, {
     vapidKey: "BEGTfGO_ZzNesa6dGfyqdv6bLEy96rCBOcsZPV36Glm4MdYmWqVBhDjxIywtut1qVKq7hD_973Q3_fseOCFhuKU",
