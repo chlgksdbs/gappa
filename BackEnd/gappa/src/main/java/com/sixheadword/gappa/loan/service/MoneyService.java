@@ -5,6 +5,7 @@ import com.sixheadword.gappa.account.repository.AccountRepository;
 import com.sixheadword.gappa.loan.Loan;
 import com.sixheadword.gappa.loan.dto.request.FailLoanRequestDto;
 //import com.sixheadword.gappa.loan.dto.request.RedemptionRequestDto;
+import com.sixheadword.gappa.loan.dto.request.RedemptionRequestDto;
 import com.sixheadword.gappa.loan.dto.request.SuccessLoanRequestDto;
 import com.sixheadword.gappa.loan.repository.LoanRepository;
 import com.sixheadword.gappa.loanHistory.entity.LoanHistory;
@@ -19,8 +20,8 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class MoneyService {
 
-    private LoanRepository loanRepository;
-    private AccountRepository accountRepository;
+    private final LoanRepository loanRepository;
+    private final AccountRepository accountRepository;
 
     // 대출 실행
     public void successLoan (SuccessLoanRequestDto successLoanRequestDto){
@@ -50,17 +51,29 @@ public class MoneyService {
     }
 
     // 대출금 상환
-//    public void redemptionMoney(RedemptionRequestDto redemptionRequestDto){
-//        // 현 대출 건
-//        Loan loan = loanRepository.findById(redemptionRequestDto.getLoanSeq()).orElse(null);
-//        if(loan != null){
-//            // 상환 일자 확인
-//            if(<=loan.getExpiredDate())
-//        }else{
-//            throw new IllegalArgumentException("대출 건 조회에 실패했습니다.");
-//        }
+    public void redemptionMoney(RedemptionRequestDto redemptionRequestDto){
+        // 현 대출 건
+        Loan loan = loanRepository.findById(redemptionRequestDto.getLoanSeq()).orElse(null);
+        if(loan != null){
+            // 대출 내역 저장
+
+
+
+//            // 일자 비교
+//            int isOver = LocalDateTime.now().compareTo(loan.getExpiredDate());
+//            // 상환 일자를 지났으면 이자부터 차감
+//            if(isOver > 0){
 //
-//    }
+//            }
+//            // 상환 일자를 안지났으면
+//            else if(isOver <= 0){
+//
+//            }
+        }else{
+            throw new IllegalArgumentException("대출 건 조회에 실패했습니다.");
+        }
+
+    }
 
     // 송급 및 입금 실행
     @Transactional

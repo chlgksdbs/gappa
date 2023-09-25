@@ -1,7 +1,7 @@
 package com.sixheadword.gappa.loan.controller;
 
 import com.sixheadword.gappa.loan.dto.request.FailLoanRequestDto;
-//import com.sixheadword.gappa.loan.dto.request.RedemptionRequestDto;
+import com.sixheadword.gappa.loan.dto.request.RedemptionRequestDto;
 import com.sixheadword.gappa.loan.dto.request.SuccessLoanRequestDto;
 import com.sixheadword.gappa.loan.service.MoneyService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/loan/money")
 public class MoneyController {
 
-    private MoneyService moneyService;
+    private final MoneyService moneyService;
 
     // API 1. 대출 실행
     @PostMapping("/lend")
@@ -41,14 +41,14 @@ public class MoneyController {
     }
 
     // API 3. 대출금 상환
-//    @PostMapping("/redemption")
-//    public ResponseEntity<?> redemptionMoney(RedemptionRequestDto redemptionRequestDto){
-//        try {
-//            moneyService.redemptionMoney(redemptionRequestDto);
-//            return ResponseEntity.status(HttpStatus.OK).build();
-//        }catch (IllegalArgumentException e){
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("대출 취소가 실패했습니다.");
-//        }
-//    }
+    @PostMapping("/redemption")
+    public ResponseEntity<?> redemptionMoney(RedemptionRequestDto redemptionRequestDto){
+        try {
+            moneyService.redemptionMoney(redemptionRequestDto);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("대출 취소가 실패했습니다.");
+        }
+    }
 
 }
