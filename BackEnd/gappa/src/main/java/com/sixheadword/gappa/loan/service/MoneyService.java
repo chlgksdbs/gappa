@@ -11,6 +11,7 @@ import com.sixheadword.gappa.loanHistory.entity.LoanHistory;
 import com.sixheadword.gappa.loanHistory.entity.Type;
 import com.sixheadword.gappa.loanHistory.repository.LoanHistoryRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -20,6 +21,7 @@ import java.time.LocalDateTime;
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Slf4j
 public class MoneyService {
 
     private final LoanRepository loanRepository;
@@ -111,7 +113,6 @@ public class MoneyService {
     }
 
     // 송급 및 입금 실행
-    @Transactional
     public void transfer(Loan loan, Long amount, int type){
         // 채무자
         Account fromUserAccount = accountRepository.findPrimaryByUserSeq(loan.getFromUser().getUserSeq());
@@ -120,23 +121,28 @@ public class MoneyService {
 
         // type = 0) 상환에 의한 송금 및 입금
         if(type == 0){
+            // 잔액 있는지 확인
             if(fromUserAccount.getBalance() >= amount){
                 // 채무자가 송금
                 fromUserAccount.setMinusBalance(amount);
+                accountRepository.save(fromUserAccount);
                 // 채권자는 입금
                 toUserAccount.setAddBalance(amount);
+                accountRepository.save(toUserAccount);
             }else {
                 throw new IllegalArgumentException("현재 계좌에 잔액이 부족합니다.");
             }
         }
         // type = 1) 대출 실행에 의한 송금 및 입금
-        if(type == 1){
+        else if(type == 1){
             // 잔액 있는지 확인
-            if(toUserAccount.getBalance() >= loan.getRedemptionMoney()){
+            if(toUserAccount.getBalance() >= loan.getPrincipal()){
                 // 채권자가 송금
-                toUserAccount.setMinusBalance(loan.getRedemptionMoney());
+                toUserAccount.setMinusBalance(loan.getPrincipal());
+                accountRepository.save(toUserAccount);
                 // 채무자는 입금
-                fromUserAccount.setAddBalance(loan.getRedemptionMoney());
+                fromUserAccount.setAddBalance(loan.getPrincipal());
+                accountRepository.save(fromUserAccount);
             }else {
                 throw new IllegalArgumentException("현재 계좌에 잔액이 부족합니다.");
             }

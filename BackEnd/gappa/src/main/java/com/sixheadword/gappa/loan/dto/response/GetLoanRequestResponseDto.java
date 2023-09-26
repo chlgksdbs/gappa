@@ -18,5 +18,7 @@ public class GetLoanRequestResponseDto {
     private Long principal;
     private LocalDateTime startDate;
     private LocalDateTime redemptionDate;
+    private String bank;
+    private String accountNumber;
 
 }
