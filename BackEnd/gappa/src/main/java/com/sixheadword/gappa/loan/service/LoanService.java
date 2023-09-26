@@ -1,5 +1,6 @@
 package com.sixheadword.gappa.loan.service;
 
+import com.sixheadword.gappa.FCM.FCMService;
 import com.sixheadword.gappa.account.Account;
 import com.sixheadword.gappa.account.repository.AccountRepository;
 import com.sixheadword.gappa.loan.Loan;
@@ -10,6 +11,8 @@ import com.sixheadword.gappa.loan.dto.response.GetLoanResponseDto;
 import com.sixheadword.gappa.loan.repository.LoanRepository;
 import com.sixheadword.gappa.user.User;
 import com.sixheadword.gappa.user.UserRepository;
+import com.sixheadword.gappa.webAlarm.WebAlarm;
+import com.sixheadword.gappa.webAlarm.WebAlarmRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -31,7 +34,8 @@ public class LoanService {
     private final LoanRepository loanRepository;
     private final UserRepository userRepository;
     private final AccountRepository accountRepository;
-    private final EntityManager em;
+    private final WebAlarmRepository webAlarmRepository;
+    private final FCMService fcmService;
 
 
     // 대출 정보 등록
@@ -55,7 +59,11 @@ public class LoanService {
             loan.setRedemptionMoney(0L);
             loan.setInterest(calInterest);
             loan.setStatus('W');
-
+            //알림함
+            String alarmContent = fromUser.getName() + " 님에게 대출 신청이 왔어요!";
+            webAlarmRepository.save(new WebAlarm(toUser, fromUser, 'A', alarmContent));
+            //푸시알림
+            fcmService.pushNotification(toUser.getUserSeq(), alarmContent);
 //            Loan loan = Loan.builder()
 //                    .fromUser(fromUser)
 //                    .toUser(toUser)

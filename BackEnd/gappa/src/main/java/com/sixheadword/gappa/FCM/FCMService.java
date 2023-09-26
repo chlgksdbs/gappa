@@ -43,7 +43,7 @@ public class FCMService {
     }
 
     // 사용자에게 push 알림
-    public ResponseEntity<?> pushNotification(long member_id, String title, String content){
+    public ResponseEntity<?> pushNotification(long member_id, String content){
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
         try {
@@ -58,7 +58,7 @@ public class FCMService {
                         .setToken(token)
                         .setWebpushConfig(WebpushConfig.builder()
                                 .putHeader("ttl", "300")
-                                .setNotification(new WebpushNotification(title, content))
+                                .setNotification(new WebpushNotification("Gappa", content))
                                 .build())
                         .build();
                 String response = FirebaseMessaging.getInstance().sendAsync(message).get();
