@@ -61,34 +61,36 @@ const HistoryBorrowPage = () => {
         <span onClick={() => handleFilterChange(4)} style={borrowFilter === 4 ? {color: 'black'} : {color: '#737373'}}>연체 중</span>
       </div>
       <p className={style.totalCnt}>총 {filteredBorrows.length} 건</p>
-      <div className={style.borrowDiv}>
-        {filteredBorrows.map((borrow) => (
-          <div className={style.columnDiv} key={borrow.id} onClick={() => goToHistoryDetail()}>
-            <div>
-              <p className={style.columnDate}>{borrow.startdate} ~ {borrow.enddate}</p>
-              <div className={style.columnDiv2}>
-                <img src={borrow.img} alt="" className={style.columnImg}/>
-                <div>
-                  <p className={style.columnName}>{borrow.name}</p>
-                  <p>{formatBalance(borrow.balance)}원</p>
+      <div className={style.body}> 
+        <div className={style.borrowDiv}>
+          {filteredBorrows.map((borrow) => (
+            <div className={style.columnDiv} key={borrow.id} onClick={() => goToHistoryDetail()}>
+              <div>
+                <p className={style.columnDate}>{borrow.startdate} ~ {borrow.enddate}</p>
+                <div className={style.columnDiv2}>
+                  <img src={borrow.img} alt="" className={style.columnImg}/>
+                  <div>
+                    <p className={style.columnName}>{borrow.name}</p>
+                    <p>{formatBalance(borrow.balance)}원</p>
+                  </div>
                 </div>
               </div>
+              {borrow.isStatus === 'C' ? (
+                <div className={style.borrowStatus} style={{color: "blue"}}>
+                  상환 완료
+                </div>
+              ) : borrow.isStatus === 'D' ? (
+                <div className={style.borrowStatus} style={{color: "red"}}>
+                  연체 중
+                </div>
+              ) : borrow.isStatus === 'O' ? (
+                <div className={style.borrowStatus} style={{color: "black"}}>
+                  대출 중
+                </div>
+              ) : null}
             </div>
-            {borrow.isStatus === 'C' ? (
-              <div className={style.borrowStatus} style={{color: "blue"}}>
-                상환 완료
-              </div>
-            ) : borrow.isStatus === 'D' ? (
-              <div className={style.borrowStatus} style={{color: "red"}}>
-                연체 중
-              </div>
-            ) : borrow.isStatus === 'O' ? (
-              <div className={style.borrowStatus} style={{color: "black"}}>
-                대출 중
-              </div>
-            ) : null}
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
       <Footer />
     </div>
