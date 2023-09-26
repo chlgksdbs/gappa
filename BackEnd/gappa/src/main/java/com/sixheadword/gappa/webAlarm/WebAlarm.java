@@ -20,12 +20,12 @@ public class WebAlarm {
     @Column(name = "web_alarm_seq", unique = true, nullable = false)
     private Long webAlarmSeq;
 
-    // toUser: 알림을 보내는 사용자 일련번호
+    // toUser: 알림을 받는 사용자 일련번호
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "to_user", nullable = false)
     private User toUser;
 
-    // fromUser: 알림을 받는 사용자 일련번호
+    // fromUser: 알림을 보내는 사용자 일련번호
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "from_user", nullable = false)
     private User fromUser;
