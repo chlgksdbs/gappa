@@ -588,4 +588,28 @@ public class UserService {
         }
         return new ResponseEntity<>(resultMap, status);
     }
+
+    // 간편 비밀번호 유효성 검증
+    public ResponseEntity<?> checkValidatePinPassword(Map<String, String> request, Long userSeq) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+
+        String pinPassword = request.get("pinPassword");
+        try {
+            User user = em.find(User.class, userSeq);
+            if (encoder.matches(pinPassword, user.getPinPassword())) {
+                resultMap.put("message", "간편 비밀번호 확인 성공");
+                status = HttpStatus.OK;
+            } else {
+                resultMap.put("message", "간편 비밀번호가 일치하지 않습니다.");
+                status = HttpStatus.BAD_REQUEST;
+            }
+        } catch (Exception e) {
+            resultMap.put("message", "간편 비밀번호 유효성 검증 중 에러 발생");
+            resultMap.put("error", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
+    }
 }
