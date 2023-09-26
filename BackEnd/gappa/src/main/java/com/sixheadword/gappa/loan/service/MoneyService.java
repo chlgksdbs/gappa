@@ -62,6 +62,7 @@ public class MoneyService {
     public void redemptionMoney(RedemptionRequestDto redemptionRequestDto){
         // 현 대출 건
         Loan loan = loanRepository.findById(redemptionRequestDto.getLoanSeq()).orElse(null);
+
         if(loan != null){
             // 대출 내역 저장(연체중)
             if(loan.getStatus() == 'D'){
@@ -69,7 +70,7 @@ public class MoneyService {
                 transfer(loan, redemptionRequestDto.getAmount(), 0);
                 // 내역 저장
                 LoanHistory loanHistory = new LoanHistory();
-                loanHistory.setLoan(loan);
+//                loanHistory.setLoan(loan);
                 loanHistory.setType(Type.INTEREST);
                 loanHistory.setAmount(redemptionRequestDto.getAmount());
                 loanHistory.setOldRedemptionMoney(loan.getRedemptionMoney());
@@ -92,7 +93,6 @@ public class MoneyService {
                 transfer(loan, redemptionRequestDto.getAmount(), 0);
                 // 내역 저장
                 LoanHistory loanHistory = new LoanHistory();
-                loanHistory.setLoan(loan);
                 loanHistory.setType(Type.REDEMPTION);
                 loanHistory.setAmount(redemptionRequestDto.getAmount());
                 loanHistory.setOldRedemptionMoney(loan.getRedemptionMoney());
