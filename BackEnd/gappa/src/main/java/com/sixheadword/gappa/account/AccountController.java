@@ -1,5 +1,6 @@
 package com.sixheadword.gappa.account;
 
+import com.sixheadword.gappa.account.dto.request.SetAccountTransactionRequestDto;
 import com.sixheadword.gappa.account.dto.request.SetPrimaryReqeustDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,9 +10,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/accounts")
 @RequiredArgsConstructor
 @Slf4j
+@RequestMapping("/api/accounts")
 public class AccountController {
 
     private final AccountService accountService;
@@ -49,13 +50,16 @@ public class AccountController {
     }
 
     // API 4. 전체 계좌 조회
-    @GetMapping("/{userSeq}")
-    public ResponseEntity<?> showAllAccount(@PathVariable("userSeq") Long userSeq){
+    @GetMapping
+    public ResponseEntity<?> showAllAccount(Authentication authentication){
         try{
-            return ResponseEntity.ok(accountService.getAllAcount(userSeq));
+            return ResponseEntity.ok(accountService.getAllAcount(authentication));
         }catch (IllegalArgumentException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("전체 계좌 조회 실패");
         }
     }
 
 }
+
+
+
