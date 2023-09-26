@@ -7,7 +7,7 @@ import { customAxios } from '../../api/customAxios';
 const LendPage = () => {
   const navigate = useNavigate();
 
-  const loanSeq = 9;
+  const loanSeq = 16;
 
   const [toUser, setToUser] = useState("");
   const [fromUser, setFromUser] = useState("");
