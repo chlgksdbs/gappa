@@ -65,7 +65,7 @@ public class Account {
     }
 
     // 입금
-    public void setAddBalance(Long newBalance){
+    public void setAddBalance(Long newBalance) {
         this.balance = this.balance + newBalance;
     }
 }
