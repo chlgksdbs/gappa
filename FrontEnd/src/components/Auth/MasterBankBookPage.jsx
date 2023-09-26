@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Headers from './Headers';
 import style from './MasterBankBookPage.module.css';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { customAxios } from '../api/customAxios';
 
 const MasterBankBookPage = () => {
   const right = "다음";
@@ -12,6 +13,12 @@ const MasterBankBookPage = () => {
   const onClickRight = () =>{
     navigate("/pinpassword");
   }
+  useEffect(()=>{
+    customAxios.get("/accounts/primary")
+    .then((res)=>{
+      console.log(res)
+    })
+  })
   return (
     <div className={style.masterbankbookpage}>
       <Headers right={right} onClickRight={onClickRight}/>
