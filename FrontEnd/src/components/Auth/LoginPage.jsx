@@ -12,11 +12,10 @@ const LoginPage = () => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
 
-  const [modalCheck, setModalCheck] = useState(false);
   const [shift, setShift] = useState(false);
-  const [ctrl, setCtrl] = useState(false);
   const [check, setCheck] = useState("");
-
+  
+  const [modalCheck, setModalCheck] = useState(false);
   const randomData = "words/101.png";
 
   // 배열
@@ -117,6 +116,7 @@ const LoginPage = () => {
 
   const handlerId = (e) => {
     setId(e.target.value);
+    setPlaceholderId("");
     console.log(id)
   }
 
@@ -408,16 +408,6 @@ const LoginPage = () => {
         </div>
       </div>
       <button className={style.btn} onClick={login}>로그인</button>
-      {
-        ctrl
-        &&
-        <Modal
-          isOpen={ctrl}
-          onRequestClose={() => setCtrl(false)}
-          className={style.keyboard}
-        >
-        </Modal>
-      }
       {
         modalCheck
         &&
