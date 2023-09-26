@@ -1,5 +1,7 @@
 package com.sixheadword.gappa.loan.service;
 
+import com.sixheadword.gappa.account.Account;
+import com.sixheadword.gappa.account.repository.AccountRepository;
 import com.sixheadword.gappa.loan.Loan;
 import com.sixheadword.gappa.loan.dto.request.LoanInfoRequestDto;
 import com.sixheadword.gappa.loan.dto.response.GetLoanOppResponseDto;
@@ -28,6 +30,7 @@ public class LoanService {
 
     private final LoanRepository loanRepository;
     private final UserRepository userRepository;
+    private final AccountRepository accountRepository;
     private final EntityManager em;
 
 
@@ -75,12 +78,17 @@ public class LoanService {
         User user = userRepository.findById(Long.parseLong(authentication.getName())).orElse(null);
         Loan loan = loanRepository.findById(loanSeq).orElse(null);
         if(user != null && loan != null && loan.getToUser().getUserSeq().equals(user.getUserSeq())){
+            // 채무자의 대표 계좌
+            Account fromUserAccount = accountRepository.findPrimaryByUserSeq(loan.getFromUser().getUserSeq());
+
             return GetLoanRequestResponseDto.builder()
                     .toUser(loan.getToUser().getName())
                     .fromUser(loan.getFromUser().getName())
                     .principal(loan.getPrincipal())
                     .startDate(loan.getStartDate())
                     .redemptionDate(loan.getRedemptionDate())
+                    .bank(fromUserAccount.getBank())
+                    .accountNumber(fromUserAccount.getAccountNumber())
                     .build();
         }else{
             throw new IllegalArgumentException("대출 신청 조회에 실패했습니다.");
