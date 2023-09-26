@@ -105,7 +105,6 @@ const HistoryDetailPage = (props) => {
         </div>
         <div className={style.line} />
         <div>
-          {/* if (res.data.isGappa == "X") { */}
           {isGappa ? 
           <>
             <div className={style.div2}>
