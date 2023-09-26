@@ -83,10 +83,11 @@ const MainAccountEditPage = () => {
     <div className={style.main}>
       <HeaderSub title={"대표 계좌 변경"}/>
 
+      <div className={style.body}>
       {accounts.length === 0 ?
       <>
         계좌가 없네요...
-      </>  
+      </>
       :
       <>
         {/* 대표 계좌를 먼저 출력합니다. */}
@@ -128,11 +129,14 @@ const MainAccountEditPage = () => {
             </div>
           )
         ))}
+      </>
+      }
+      </div>
+      <div className={style.inputDiv}>
         <div className={style.nextBtn} onClick={nextHandler}>
           신청
         </div>
-      </>
-      }
+      </div>
     </div>
   );
 };

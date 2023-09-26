@@ -6,8 +6,15 @@
   /* align-items: center; */
 }
 
+.body {
+  flex-grow: 1;
+  min-height: 70vh;
+  overflow-y: auto; /* body가 길어질 때만 스크롤이 생깁니다. */
+  margin-bottom: 20px;
+}
+
 .accountDiv {
-  height: 10%;
+  /* height: 10%; */
   margin: 20px 0 10px 0;
 }
 
@@ -31,6 +38,14 @@
   border-bottom: 1px solid #aaa;
   line-height: 0.1em;
   margin: 10px 0 10px;
+}
+
+.inputDiv {
+  display: flex;
+  height: 10%;
+  justify-content: center; 
+  width: 100%;
+  margin-top: auto;
 }
 
 .nextBtn {
