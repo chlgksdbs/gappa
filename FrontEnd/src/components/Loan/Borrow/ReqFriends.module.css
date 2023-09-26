@@ -86,7 +86,7 @@
 
 .inputDiv {
   display: flex;
-  height: 56%;
+  height: 9%;
   justify-content: center; 
   width: 100%;
   margin-top: auto;
@@ -94,11 +94,22 @@
 
 .nextBtn {
   display: flex;
-  width: 390px;
+  width: 90%;
   height: 50px;
   justify-content: center;
   align-items: center;
   font-size: 25px;
-  background-color: rgba(128, 206, 190, 0.2);
+  background: #80CEBE;
+  margin-bottom: 20px;
+}
+
+.notBtn {
+  display: flex;
+  width: 90%;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  background: lightgray;
   margin-bottom: 20px;
 }

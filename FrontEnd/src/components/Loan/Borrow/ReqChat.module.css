@@ -5,6 +5,20 @@
   align-items: center;
 }
 
+.body {
+  width: 90%;
+  max-height: 78vh;
+  /* min-height: 70vh; */
+  overflow-y: scroll; /* 스크롤이 필요한 경우에만 스크롤 바 표시 */
+  scrollbar-width: none; /* Firefox에서 스크롤 바 숨기기 */
+  -ms-overflow-style: none; /* Internet Explorer에서 스크롤 바 숨기기 */
+  padding-bottom: 20px;
+}
+.body::-webkit-scrollbar {
+  width: 0; /* Webkit 기반 브라우저(Chrome, Safari)에서 스크롤 바 숨기기 */
+  display: none; /* Safari에서 스크롤 바 숨기기 */
+}
+
 .chatDiv {
   display: grid;
   grid-template-columns: 1fr 4fr;
@@ -25,11 +39,16 @@
 
 .chatBalance {
   display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
   align-items: center;
+}
+
+.chatBalance div{
+  display: inline-block;
   height: 4%;
-  padding: 10px 10px 10px 15px;
+  padding: 10px 15px 10px 15px;
   margin-left: auto;
-  margin-right: 20px;
   border: solid #aaa 1px;
   border-radius: 15px;
 }
@@ -44,7 +63,7 @@
 /* 아래 입력 Div */
 .inputDiv {
   display: flex;
-  height: 56%;
+  height: 53%;
   justify-content: center; 
   width: 100%;
   margin-top: auto;
@@ -52,30 +71,34 @@
 
 .nextBtn {
   display: flex;
-  width: 390px;
+  width: 360px;
   height: 50px;
   justify-content: center;
   align-items: center;
   font-size: 25px;
-  background-color: rgba(128, 206, 190, 0.2);
-  margin-bottom: 20px;
+  background: #80CEBE;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
 }
 
 .notbtn{
   display: flex;
-  width: 390px;
+  width: 360px;
   height: 50px;
   justify-content: center;
   align-items: center;
   font-size: 25px;
   background: lightgray;
-  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
 }
 
 .plusNum {
   display: flex;
   justify-content: center;
-  height: 15%;
+  height: 14%;
 }
 
 .plusNumDiv {
@@ -96,7 +119,7 @@
 
 /* 패스워드 입력 키패드 */
 .pinkeypad {
-  margin-top: 20px;
+  margin-top: 10px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
@@ -171,7 +194,7 @@
   justify-content: center;
   align-items: center;
   height: 30px;
-  background-color: #aaa;
+  background-color: whitesmoke;
   border-radius: 15px;
   padding: 5px 15px 5px 15px;
   margin: 10px;
