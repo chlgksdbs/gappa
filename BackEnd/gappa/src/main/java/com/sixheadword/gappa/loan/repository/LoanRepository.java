@@ -31,4 +31,7 @@ public interface LoanRepository extends JpaRepository<Loan, Long>, LoanRepositor
     // "SELECT l FROM Loan l WHERE l.fromUser = :userSeq AND l.redemptionDate >= l.expiredDate"
     @Query(nativeQuery = true, value = "SELECT count(*) FROM loan l JOIN user u ON l.from_user = u.user_seq WHERE u.user_seq = :userSeq AND l.redemption_date >= l.expired_date")
     Long countLoanByUserSeq(@Param("userSeq") Long userSeq);
+
+    // 대출 전체 조회 (Spring Batch)
+    List<Loan> findAll();
 }

@@ -25,9 +25,9 @@ public class BatchScheduler {
     private final JobLauncher jobLauncher;
     private final JobConfig jobConfig;
 
-    // 매일 오전 4시 30분 실행 스케줄러
+    // 매일 오전 4시 30분 실행 스케줄러 (강제 이체)
     @Scheduled(cron = "0 30 4 * * *")
-    public void runSpringBatchJob() {
+    public void runAfterPeriodLoanJob() {
 
         // JobParameter 설정
         Map<String, JobParameter> confMap = new HashMap<>();
@@ -37,7 +37,28 @@ public class BatchScheduler {
         JobParameters jobParameters = new JobParameters(confMap);
 
         try {
-            jobLauncher.run(jobConfig.overdueLoanJob(), jobParameters);
+            jobLauncher.run(jobConfig.afterPeriodLoanJob(), jobParameters);
+        } catch (JobExecutionAlreadyRunningException
+                | JobInstanceAlreadyCompleteException
+                | JobParametersInvalidException
+                | JobRestartException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    // 매일 오전 9시 실행 스케줄러 (재촉 알림)
+    @Scheduled(cron = "0 0 9 * * *")
+    public void runBeforePeriodLoanJob() {
+
+        // JobParameter 설정
+        Map<String, JobParameter> confMap = new HashMap<>();
+        confMap.put("time", new JobParameter(new Date()));
+
+        // JobParameters 생성
+        JobParameters jobParameters = new JobParameters(confMap);
+
+        try {
+            jobLauncher.run(jobConfig.beforePeriodLoanJob(), jobParameters);
         } catch (JobExecutionAlreadyRunningException
                 | JobInstanceAlreadyCompleteException
                 | JobParametersInvalidException
