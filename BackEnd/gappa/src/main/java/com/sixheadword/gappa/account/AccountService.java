@@ -79,8 +79,8 @@ public class AccountService {
     }
 
     // 전체 계좌 조회
-    public List<GetAccountResponseDto> getAllAcount(Long userSeq){
-        User user = em.find(User.class, userSeq);
+    public List<GetAccountResponseDto> getAllAcount(Authentication authentication){
+        User user = em.find(User.class, Long.parseLong(authentication.getName()));
         List<Account> accounts = accountRepository.findByUser(user);
 
         if(accounts.size() != 0){

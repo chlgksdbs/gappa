@@ -50,10 +50,10 @@ public class AccountController {
     }
 
     // API 4. 전체 계좌 조회
-    @GetMapping("/{userSeq}")
-    public ResponseEntity<?> showAllAccount(@PathVariable("userSeq") Long userSeq){
+    @GetMapping
+    public ResponseEntity<?> showAllAccount(Authentication authentication){
         try{
-            return ResponseEntity.ok(accountService.getAllAcount(userSeq));
+            return ResponseEntity.ok(accountService.getAllAcount(authentication));
         }catch (IllegalArgumentException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("전체 계좌 조회 실패");
         }
