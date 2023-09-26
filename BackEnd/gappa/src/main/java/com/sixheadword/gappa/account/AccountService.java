@@ -49,7 +49,7 @@ public class AccountService {
         Long accountSeq = setPrimaryReqeustDto.getAccountSeq();
 
         // 현재 대표 계좌 해제
-        accountRepository.unsetPrimaryAccount(userSeq, accountSeq);
+        accountRepository.unsetPrimaryAccount(userSeq);
         // 대표 계좌 설정
         Account account = accountRepository.findById(accountSeq).orElse(null);
         if(account != null){

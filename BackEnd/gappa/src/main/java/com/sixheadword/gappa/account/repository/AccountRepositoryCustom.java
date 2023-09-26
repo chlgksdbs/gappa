@@ -10,7 +10,7 @@ public interface AccountRepositoryCustom {
 //    public void setPrimaryAccount(Long userSeq, Long accountSeq);
 
     // 현재 대표 계좌 해제
-    public void unsetPrimaryAccount(Long userSeq, Long accountSeq);
+    public void unsetPrimaryAccount(Long userSeq);
 
     // 대표 계좌 조회
     public Account findPrimaryByUserSeq(Long userSeq);
