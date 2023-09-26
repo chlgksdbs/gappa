@@ -3,7 +3,7 @@ import style from './LoginPage.module.css';
 import { useNavigate } from 'react-router-dom';
 import { authAxios } from '../api/customAxios';
 import Modal from 'react-modal';
-
+import toast, { Toaster } from 'react-hot-toast';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ const LoginPage = () => {
 
   const [shift, setShift] = useState(false);
   const [check, setCheck] = useState("");
-  
+
   const [modalCheck, setModalCheck] = useState(false);
   const randomData = "words/101.png";
 
@@ -130,11 +130,16 @@ const LoginPage = () => {
         console.log(res)
         window.localStorage.setItem("token", res.data.data.token)
         // window.localStorage.setItem("is_autication",true)
-        window.location.replace("/");
+        toast.success("로그인 성공!")
+        setTimeout(() => {
 
+          window.location.replace("/");
+        }, 200);
       })
       .catch((res) => {
-        // console.log(res)
+        setId("")
+        setPassword("")
+        toast.error("아이디와 비밀번호를 확인해주세요!")
       })
   }
   const keyboardOne = (e, index) => {
@@ -385,6 +390,7 @@ const LoginPage = () => {
   };
   return (
     <div className={style.Login}>
+      <div><Toaster /></div>
       <div className={style.guide}>
         <span>아이디와 비밀번호를</span>
         <br />
