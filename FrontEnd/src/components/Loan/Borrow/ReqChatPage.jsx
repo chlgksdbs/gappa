@@ -90,6 +90,17 @@ const ReqChatPage = () => {
     setReasonText(value);
   }
 
+  // 마지막 넘겨주기
+  const reqFriendsHandler = () => {
+    const data = {
+      balance,
+      dateAsString,
+      reason,
+      reasonText,
+    };
+    navigate("/reqfriends", { state: data });
+  }
+
   return (
     <div className={style.main}>
       <HeaderSub title={"대출 신청"} />
@@ -156,9 +167,15 @@ const ReqChatPage = () => {
       {reqStep === 1 ?
       <div className={style.inputDiv}>
         <div>
-          <div className={style.nextBtn} onClick={nextHandler}>
-            다음
-          </div>
+          {
+            balance > 0 && balance <= 500000
+            ?
+            <div className={style.nextBtn} onClick={nextHandler}>
+              다음
+            </div>
+            :
+            <div className={style.notbtn}>다음</div>
+          }
           <div className={style.plusNum}>
             <div className={style.plusNumDiv} onClick={plus1Handler}>
               +10만
@@ -190,9 +207,13 @@ const ReqChatPage = () => {
       : reqStep === 2 ?
       <div className={style.inputDiv}>
         <div>
-          <div className={style.nextBtn} onClick={nextHandler}>
-            다음
-          </div>
+          {dateAsString !== currentDateString && dateValue > currentDate ? 
+            <div className={style.nextBtn} onClick={nextHandler}>
+              다음
+            </div>
+          : 
+          <div className={style.notbtn}>다음</div>
+          }
           <div className={style.calendarStyle}>
             <Calendar onChange={onChange} value={dateValue} />
           </div>
@@ -201,9 +222,13 @@ const ReqChatPage = () => {
       : reqStep === 3 ?
       <div className={style.inputDiv}>
         <div>
-          <div className={style.nextBtn} onClick={nextHandler}>
-            다음
-          </div>
+          {reason === "" ? 
+            <div className={style.notbtn}>다음</div>
+          :
+            <div className={style.nextBtn} onClick={nextHandler}>
+              다음
+            </div>
+          }
           <div className={style.reason}>
             <div>
               <div onClick={() => reasonClickHandler("월세 대출", 1)}
@@ -239,7 +264,7 @@ const ReqChatPage = () => {
       </div>
       : reqStep === 4 ?
       <div className={style.inputDiv} style={{height: "10%"}}>
-        <div className={style.nextBtn} onClick={(()=>{navigate("/reqfriends")})}>
+        <div className={style.nextBtn} onClick={reqFriendsHandler}>
           다음
         </div>
       </div>

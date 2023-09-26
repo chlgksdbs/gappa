@@ -1,17 +1,48 @@
-import React from 'react';
+import React, { useEffect,useState } from 'react';
 import Headers from './Headers';
 import style from './MasterBankBookPage.module.css';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { customAxios } from '../api/customAxios';
 
 const MasterBankBookPage = () => {
   const right = "다음";
   const navigate = useNavigate();
-  const userInfo = useSelector(state => state.auth);
+  const [userInfo,setUserInfo] = useState(useSelector(state => state.auth));
+  const [img, setImg] = useState("");
 
   const onClickRight = () =>{
     navigate("/pinpassword");
   }
+  useEffect(()=>{
+    customAxios.get("/accounts/primary")
+    .then((res)=>{
+      console.log(res)
+      if(res.data.bank==="KB국민은행"){
+        setImg("images/KB.png")
+      }else if(res.data.bank ==="KEB하나은행"){
+        setImg("images/hana.png")
+      }else if(res.data.bank ==="신한은행"){
+        setImg("images/sin.png")
+      }else if(res.data.bank ==="우리은행"){
+        setImg("images/we.png")
+      }else if(res.data.bank ==="가파은행"){
+        setImg("images/gappalogo.png")
+      }else if(res.data.bank ==="싸피은행"){
+        setImg("images/Ssafy.png")
+      }
+      setUserInfo({
+        account_Number : res.data.accountNumber,
+        account_Seq : res.data.accountSeq,
+        balance : res.data.balance,
+        bank : res.data.bank,
+        bank_Img : img,
+      })
+    })
+    .catch((res)=>{
+      console.log(res)
+    })
+  },[img])
   return (
     <div className={style.masterbankbookpage}>
       <Headers right={right} onClickRight={onClickRight}/>
