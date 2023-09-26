@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import style from './ReqChat.module.css';
 import HeaderSub from '../../Common/HeaderSub';
 import { useNavigate } from 'react-router-dom';
@@ -101,69 +101,83 @@ const ReqChatPage = () => {
     navigate("/reqfriends", { state: data });
   }
 
+  // const [messages, setMessages] = useState([]);
+  const messageContainerRef = useRef(null);
+
+  useEffect(() => {
+    // 스크롤을 최하단으로 이동
+    if (messageContainerRef.current) {
+      messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
+    }
+  }, [reqStep, balance, dateAsString, reason, reasonText]);
+
   return (
     <div className={style.main}>
       <HeaderSub title={"대출 신청"} />
-      {reqStep >= 1 ?
-      <>
-        <div className={style.chatDiv}>
-          <img src="/images/GappaChat.png" alt="" style={{height: "80px"}}/>
-          <div className={style.chatContent}>
-            얼마를 빌릴거에요?
-          </div>
-        </div>
-        <div className={style.chatBalance}>
-          {formatBalance(balance)}원
-        </div>
-      </>
-      : null}
-      {reqStep >= 2 ?
-      <>
-        <div className={style.chatDiv}>
-          <img src="/images/GappaChat.png" alt="" style={{height: "80px"}}/>
-          <div className={style.chatContent}>
-            상환일자는 언제로 할까요?
-          </div>
-        </div>
-        
-        {dateAsString !== currentDateString && dateValue > currentDate ? 
-          <div className={style.chatBalance}>
-            {dateAsString}
-          </div>
-        : null}
-      </>
-      : null}
-      {reqStep >= 3 ?
-      <>
-        <div className={style.chatDiv}>
-          <img src="/images/GappaChat.png" alt="" style={{height: "80px"}}/>
-          <div className={style.chatContent}>
-            이용 카테고리를 선택해주세요!
-          </div>
-        </div>
-        {reason === "" ? null
-        : 
-          <>
-            <div className={style.chatBalance}>
-              {reason}
+      <div className={style.body} ref={messageContainerRef}>
+        {reqStep >= 1 ?
+        <>
+          <div className={style.chatDiv}>
+            <div>
+              <img src="/images/GappaChat.png" alt="" style={{height: "80px"}}/>
             </div>
-          </>
-        }
-      </>
-      : null}
-      {reqStep >= 4 ?
-      <>
-        <div className={style.chatDiv}>
-          <img src="/images/GappaChat.png" alt="" style={{height: "80px"}}/>
-          <div className={style.chatContent}>
-            대출 사유는 뭐에요?
+            <div className={style.chatContent}>
+              얼마를 빌릴거에요?
+            </div>
           </div>
-        </div>
-        <div className={style.chatBalance}>
-          <input type="text" className={style.input} value={reasonText} onChange={reasonHandleChange} placeholder='대출 사유를 입력하세요'/>
-        </div>
-      </>
-      : null}
+          <div className={style.chatBalance}>
+            <div>{formatBalance(balance)}원</div>
+          </div>
+        </>
+        : null}
+        {reqStep >= 2 ?
+        <>
+          <div className={style.chatDiv}>
+            <img src="/images/GappaChat.png" alt="" style={{height: "80px"}}/>
+            <div className={style.chatContent}>
+              상환일자는 언제로 할까요?
+            </div>
+          </div>
+          
+          {dateAsString !== currentDateString && dateValue > currentDate ? 
+            <div className={style.chatBalance}>
+              <div>{dateAsString}</div>
+            </div>
+          : null}
+        </>
+        : null}
+        {reqStep >= 3 ?
+        <>
+          <div className={style.chatDiv}>
+            <img src="/images/GappaChat.png" alt="" style={{height: "80px"}}/>
+            <div className={style.chatContent}>
+              이용 카테고리를 선택해주세요!
+            </div>
+          </div>
+          {reason === "" ? null
+          : 
+            <>
+              <div className={style.chatBalance}>
+                <div>{reason}</div>
+              </div>
+            </>
+          }
+        </>
+        : null}
+        {reqStep >= 4 ?
+        <>
+          <div className={style.chatDiv}>
+            <img src="/images/GappaChat.png" alt="" style={{height: "80px"}}/>
+            <div className={style.chatContent}>
+              대출 사유는 뭐에요?
+            </div>
+          </div>
+          <div className={style.chatBalance}>
+            <div><input type="text" className={style.input} value={reasonText} onChange={reasonHandleChange} placeholder='대출 사유를 입력하세요'/></div>
+          </div>
+        </>
+        : null}
+      </div>
       {reqStep === 1 ?
       <div className={style.inputDiv}>
         <div>

@@ -86,6 +86,7 @@ const HistoryLendPage = () => {
         <span onClick={() => handleFilterChange(4)} style={lendFilter === 4 ? {color: 'black'} : {color: '#737373'}}>연체 중</span>
       </div>
       <p className={style.totalCnt}>총 {filteredLends.length} 건</p>
+      <div className={style.body}>
       <div className={style.lendDiv}>
         {filteredLends.map((lend) => (
           <div className={style.columnDiv} key={lend.id} onClick={() => goToHistoryDetail(lend)}>
@@ -114,6 +115,7 @@ const HistoryLendPage = () => {
             ) : null}
           </div>
         ))}
+      </div>
       </div>
       <Footer />
     </div>
