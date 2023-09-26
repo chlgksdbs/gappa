@@ -31,13 +31,13 @@ const LoginPage = () => {
   //eslint-disable-next-line
   const [Sfour, setSfour] = useState(["words/90.png", "words/45.png", "words/46.png", "words/47.png", "words/48.png", "words/49.png", "words/50.png", "words/51.png", "words/91.png"])
 
-  const [randomLone, setRandomLone] = useState(3)
-  const [randomLtwo, setRandomLtwo] = useState(7)
-  const [randomLthree, setRandomLthree] = useState(2)
+  const [randomLone, setRandomLone] = useState(Math.floor(Math.random() * Lone.length))
+  const [randomLtwo, setRandomLtwo] = useState(Math.floor(Math.random() * Ltwo.length))
+  const [randomLthree, setRandomLthree] = useState(Math.floor(Math.random() * Lthree.length))
 
-  const [randomSone, setRandomSone] = useState(4)
-  const [randomStwo, setRandomStwo] = useState(5)
-  const [randomSthree, setRandomSthree] = useState(4)
+  const [randomSone, setRandomSone] = useState(Math.floor(Math.random() * Sone.length))
+  const [randomStwo, setRandomStwo] = useState(Math.floor(Math.random() * Stwo.length))
+  const [randomSthree, setRandomSthree] = useState(Math.floor(Math.random() * Sthree.length))
 
 
   const addItemAtIndex = (myList, newItem, index) => {
@@ -301,21 +301,22 @@ const LoginPage = () => {
         }
       }
     } else if (check === "Pw" && !shift) {
+      console.log(password)
       if (e === "words/90.png") {
         setShift(!shift);
-      } else if (e === "words/99.png") {
-        setPassword(password + "z")
       } else if (e === "words/45.png") {
-        setPassword(password + "x")
+        setPassword(password + "z")
       } else if (e === "words/46.png") {
-        setPassword(password + "c")
+        setPassword(password + "x")
       } else if (e === "words/47.png") {
-        setPassword(password + "v")
+        setPassword(password + "c")
       } else if (e === "words/48.png") {
-        setPassword(password + "b")
+        setPassword(password + "v")
       } else if (e === "words/49.png") {
-        setPassword(password + "n")
+        setPassword(password + "b")
       } else if (e === "words/50.png") {
+        setPassword(password + "n")
+      } else if (e === "words/51.png") {
         setPassword(password + "m")
       } else if (e === "words/91.png") {
         if (setPassword.length > 0) {
@@ -339,8 +340,7 @@ const LoginPage = () => {
       if (e === "words/92.png") {
         updateLists();
       } else if (e === "words/94.png") {
-        setCtrl(!ctrl);
-        setModalCheck(!modalCheck);
+        setPassword("");
       } else if (e === "words/95.png") {
         setPassword(password + " ")
       } else if (e === "words/96.png") {
@@ -350,12 +350,14 @@ const LoginPage = () => {
   }
 
   const getItemStyle = (item) => {
-    if (item === 'words/90.png' || item ==='words/91.png' || item ==="words/99.png") {
+    if (item === 'words/90.png' || item === 'words/91.png' || item === "words/99.png") {
       return {
         width: '18.1vw',
         height: '6vh',
       };
     }
+
+
     // 특별한 조건이 아니라면 기본 스타일을 반환
     return {
       width: '9.05vw',
@@ -363,6 +365,24 @@ const LoginPage = () => {
     };
   };
 
+  const getItemStyleTwo = (item) => {
+    if (item === "words/92.png" || item === "words/94.png") {
+      return {
+        width: "15vw",
+      }
+    } else if (item === "words/95.png") {
+      return {
+        width: "45vw",
+      }
+    }
+  }
+
+  const customStyles = {
+    overlay: {
+      backgroundColor: 'rgba(0, 0, 0, 0.0)', // 투명도를 조절하려면 rgba 색상 값을 사용합니다.
+      zIndex: 1000, // 모달이 다른 요소 위에 나타나도록 z-index 설정
+    },
+  };
   return (
     <div className={style.Login}>
       <div className={style.guide}>
@@ -405,6 +425,7 @@ const LoginPage = () => {
           isOpen={modalCheck}
           onRequestClose={() => setModalCheck(false)}
           className={style.keyboard}
+          style={customStyles}
         >
           {shift
             ?
@@ -416,7 +437,7 @@ const LoginPage = () => {
                     onClick={() => keyboardOne(word, index, check)}
                     className={style.keyboardsetitem}
                   >
-                    <img src={word} alt="" oncontextmenu="return false" style={{"-webkit-touch-callout": "none"}}/>
+                    <img src={word} alt="" oncontextmenu="return false" style={{ "-webkit-touch-callout": "none" }} />
                   </button>
                 ))}
               </div>
@@ -427,7 +448,7 @@ const LoginPage = () => {
                     onClick={() => keyboardTwo(word, index, check)}
                     className={style.keyboardsetitem}
                   >
-                    <img src={word} alt="" oncontextmenu="return false"  style={{"-webkit-touch-callout": "none"}}/>
+                    <img src={word} alt="" oncontextmenu="return false" style={{ "-webkit-touch-callout": "none" }} />
                   </button>
                 ))}
               </div>
@@ -438,7 +459,7 @@ const LoginPage = () => {
                     onClick={() => keyboardThree(word, index, check)}
                     className={style.keyboardsetitem}
                   >
-                    <img src={word} alt="" oncontextmenu="return false" style={{"-webkit-touch-callout": "none"}}/>
+                    <img src={word} alt="" oncontextmenu="return false" style={{ "-webkit-touch-callout": "none" }} />
                   </button>
                 ))}
               </div>
@@ -449,7 +470,7 @@ const LoginPage = () => {
                     onClick={() => keyboardFour(word, index, check)}
                     className={style.keyboardsetitem}
                     style={getItemStyle(word)}>
-                    <img src={word} alt="" oncontextmenu="return false" style={{"-webkit-touch-callout": "none"}}/>
+                    <img src={word} alt="" oncontextmenu="return false" style={{ "-webkit-touch-callout": "none" }} />
                   </button>
                 ))}
               </div>
@@ -459,8 +480,9 @@ const LoginPage = () => {
                     key={index}
                     onClick={() => keyboardFive(word, index, check)}
                     className={style.keyboardsetitemlast}
+                    style={getItemStyleTwo(word)}
                   >
-                    <img src={word} alt="" oncontextmenu="return false" style={{"-webkit-touch-callout": "none"}}/>
+                    <img src={word} alt="" oncontextmenu="return false" style={{ "-webkit-touch-callout": "none" }} />
                   </button>
                 ))}
               </div>
@@ -474,7 +496,7 @@ const LoginPage = () => {
                     onClick={() => keyboardOne(word, index, check)}
                     className={style.keyboardsetitem}
                   >
-                    <img src={word} alt="" oncontextmenu="return false" style={{"-webkit-touch-callout": "none"}} />
+                    <img src={word} alt="" oncontextmenu="return false" style={{ "-webkit-touch-callout": "none" }} />
                   </button>
                 ))}
               </div>
@@ -485,7 +507,7 @@ const LoginPage = () => {
                     onClick={() => keyboardTwo(word, index, check)}
                     className={style.keyboardsetitem}
                   >
-                    <img src={word} alt="" oncontextmenu="return false" style={{"-webkit-touch-callout": "none"}}/>
+                    <img src={word} alt="" oncontextmenu="return false" style={{ "-webkit-touch-callout": "none" }} />
                   </button>
                 ))}
               </div>
@@ -496,7 +518,7 @@ const LoginPage = () => {
                     onClick={() => keyboardThree(word, index, check)}
                     className={style.keyboardsetitem}
                   >
-                    <img src={word} alt="" oncontextmenu="return false" style={{"-webkit-touch-callout": "none"}}/>
+                    <img src={word} alt="" oncontextmenu="return false" style={{ "-webkit-touch-callout": "none" }} />
                   </button>
                 ))}
               </div>
@@ -507,7 +529,7 @@ const LoginPage = () => {
                     onClick={() => keyboardFour(word, index, check)}
                     className={style.keyboardsetitem}
                     style={getItemStyle(word)}>
-                    <img src={word} alt="" oncontextmenu="return false" style={{"-webkit-touch-callout": "none"}}/>
+                    <img src={word} alt="" oncontextmenu="return false" style={{ "-webkit-touch-callout": "none" }} />
                   </button>
                 ))}
               </div>
@@ -517,8 +539,9 @@ const LoginPage = () => {
                     key={index}
                     onClick={() => keyboardFive(word, index, check)}
                     className={style.keyboardsetitemlast}
+                    style={getItemStyleTwo(word)}
                   >
-                    <img src={word} alt="" oncontextmenu="return false" style={{"-webkit-touch-callout": "none"}}/>
+                    <img src={word} alt="" oncontextmenu="return false" style={{ "-webkit-touch-callout": "none" }} />
                   </button>
                 ))}
               </div>
