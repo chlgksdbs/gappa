@@ -54,4 +54,13 @@ public class LoanRepositoryImpl {
                 .getResultList();
     }
 
+    // 모든 대출 신청 내역 조회
+    public List<Loan> getAllLoanRequest(Long userSeq){
+        String jpql = "SELECT l FROM Loan l WHERE l.toUser.userSeq = :userSeq AND status = 'W'";
+
+        return em.createQuery(jpql, Loan.class)
+                .setParameter("userSeq", userSeq)
+                .getResultList();
+    }
+
 }

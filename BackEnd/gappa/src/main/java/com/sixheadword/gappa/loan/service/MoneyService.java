@@ -48,6 +48,8 @@ public class MoneyService {
             //푸시 알림 보내기
             fcmService.pushNotification(loan.getFromUser().getUserSeq(), alarmContent);
             loanRepository.save(loan);
+            // 계좌 내역 저장
+            saveAccountHistory(loan);
         }else{
             throw new IllegalArgumentException("대출 실행에 실패했습니다.");
         }
@@ -74,6 +76,7 @@ public class MoneyService {
     public void redemptionMoney(RedemptionRequestDto redemptionRequestDto){
         // 현 대출 건
         Loan loan = loanRepository.findById(redemptionRequestDto.getLoanSeq()).orElse(null);
+
         if(loan != null){
             // 대출 내역 저장(연체중)
             if(loan.getStatus() == 'D'){
@@ -81,7 +84,7 @@ public class MoneyService {
                 transfer(loan, redemptionRequestDto.getAmount(), 0);
                 // 내역 저장
                 LoanHistory loanHistory = new LoanHistory();
-                loanHistory.setLoan(loan);
+//                loanHistory.setLoan(loan);
                 loanHistory.setType(Type.INTEREST);
                 loanHistory.setAmount(redemptionRequestDto.getAmount());
                 loanHistory.setOldRedemptionMoney(loan.getRedemptionMoney());
@@ -104,7 +107,6 @@ public class MoneyService {
                 transfer(loan, redemptionRequestDto.getAmount(), 0);
                 // 내역 저장
                 LoanHistory loanHistory = new LoanHistory();
-                loanHistory.setLoan(loan);
                 loanHistory.setType(Type.REDEMPTION);
                 loanHistory.setAmount(redemptionRequestDto.getAmount());
                 loanHistory.setOldRedemptionMoney(loan.getRedemptionMoney());
@@ -161,5 +163,10 @@ public class MoneyService {
                 throw new IllegalArgumentException("현재 계좌에 잔액이 부족합니다.");
             }
         }
+    }
+
+    // 계좌에 거래 내역 저장
+    public void saveAccountHistory(Loan loan){
+
     }
 }

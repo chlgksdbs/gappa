@@ -10,7 +10,6 @@ import javax.transaction.Transactional;
 @Builder
 public class RedemptionRequestDto {
 
-    private Long accountSeq;
     private Long loanSeq;
     private Long amount;
 
