@@ -31,7 +31,6 @@ import FriendsAddPage from './components/Friends/FriendsAddPage';
 import FriendsReqPage from './components/Friends/FriendsReqPage';
 import ReqFriendsPage from './components/Loan/Borrow/ReqFriendsPage';
 import ReqBorrowPage from './components/Loan/Borrow/ReqBorrowPage';
-import LendRefusePage from './components/Loan/Lend/LendRefusePage';
 import LendCheckPage from './components/Loan/Lend/LendCheckPage';
 import LendSendPage from './components/Loan/Lend/LendSendPage';
 import NotificationPage from './components/Notification/NotificationPage';
@@ -79,7 +78,6 @@ function App() {
             <Route path="/borrow" element={<BorrowPage />}/>
             <Route path="/lend" element={<LendPage />}/>
             <Route path="/lend/check" element={<LendCheckPage />}/>
-            <Route path="/lend/refuse" element={<LendRefusePage />}/>
             <Route path="/lend/send" element={<LendSendPage />}/>
             <Route path="/lend/complete" element={<LendCompletePage />}/>
             <Route path="/historyborrow" element={<HistoryBorrowPage />}/>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import style from './LendSendPage.module.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import HeaderSub from '../../Common/HeaderSub';
 import { customAxios } from '../../api/customAxios';
 import PinPasswordVerify from '../../Auth/PinPasswordVerify';
@@ -8,7 +8,8 @@ import PinPasswordVerify from '../../Auth/PinPasswordVerify';
 const LendSendPage = () => {
   const navigate = useNavigate();
 
-  const loanSeq = 16;
+  const location = useLocation();
+  const loanSeq = location.state.loanSeq;
 
   const [showPinPasswordVerify, setShowPinPasswordVerify] = useState(false);
 
@@ -65,7 +66,7 @@ const LendSendPage = () => {
     customAxios.post('/loan/money/lend', body)
     .then((res)=>{
       console.log(res);
-      navigate('/lend/complete');
+      navigate('/lend/complete', { state: { loanSeq: loanSeq}});
     })
     .catch((res)=>{
       console.log(res);
@@ -127,7 +128,7 @@ const LendSendPage = () => {
           <div className={style.detailValue}>{toUser}</div>
         </div>
         <div className={style.btnBox}>
-          <button onClick={()=> navigate('/lend/refuse')}>거절</button>
+          {/* <button onClick={()=> navigate('/lend/refuse')}>거절</button> */}
           <button onClick={handleSendButtonClick}>송금</button>
         </div>
       </div>

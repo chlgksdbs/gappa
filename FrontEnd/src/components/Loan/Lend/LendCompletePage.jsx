@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import style from './LendCompletePage.module.css'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Header from '../../Common/Header';
 import { customAxios } from '../../api/customAxios';
 
 const LendCompletePage = () => {
   const navigate = useNavigate();
 
-  const loanSeq = 16;
+  const location = useLocation();
+  const loanSeq = location.state.loanSeq;
 
   const [toUser, setToUser] = useState("");
   const [fromUser, setFromUser] = useState("");
