@@ -14,7 +14,7 @@ const HomeAccount = () => {
       {isExistAccount ? (
         <div className={style.myAcc}>
           <div>계좌번호</div>
-          <div>{account}</div>
+          <div>{account}<p></p></div>
           <div>잔액</div>
           <div>{money.toLocaleString()}원</div>
         </div>

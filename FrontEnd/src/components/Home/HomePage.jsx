@@ -13,14 +13,12 @@ const HomePage = () => {
       <Header />
       <HomeAccount />
       <div className={style.loan}>
-        <div className={style.loandiv} onClick={() => navigate("/reqagreement")}>
-          대출 신청
-          <img src="./images/Bankroll.png" alt="" />
-        </div>
-        <div className={style.loandiv}>
-          대출 확인
-          <img src="./images/History.png" alt="" />
-        </div>
+        <img src="./images/HomeDivBtn1.png" alt="" onClick={() => navigate("/reqagreement")}/>
+        <img src="./images/HomeDivBtn2.png" alt="" />
+        <img src="./images/HomeDivBtn3.png" alt="" />
+        <img src="./images/HomeDivBtn4.png" alt="" />
+        <img src="./images/HomeDivBtn5.png" alt="" />
+        <img src="./images/HomeDivBtn6.png" alt="" />
       </div>
 
       <div className={style.historyBox}>

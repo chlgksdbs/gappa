@@ -117,10 +117,16 @@ const ReqFriendPages = () => {
         </div>
         } 
       </div>
-      <div className={style.inputDiv} style={{height: "7.5%"}}>
+      <div className={style.inputDiv}>
+        {userSeq == -1 ? 
+        <div className={style.notBtn}>
+          다음
+        </div>
+        :
         <div className={style.nextBtn} onClick={nextHandler}>
           다음
         </div>
+        }
       </div>
     </div>
   );
