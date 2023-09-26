@@ -2,15 +2,17 @@ package com.sixheadword.gappa.loan.repository;
 
 import com.sixheadword.gappa.account.Account;
 import com.sixheadword.gappa.loan.Loan;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
+@RequiredArgsConstructor
 public class LoanRepositoryImpl {
 
-    private EntityManager em;
+    private final EntityManager em;
 
     // 대출 이력 조회
 //    public List<Loan> getLoanByUserSeq(Long userSeq){
@@ -25,7 +27,7 @@ public class LoanRepositoryImpl {
     // 대출중 이력 조회
     public List<Loan> getOnLoanByUserSeq(Long userSeq){
 
-        String jpql = "SELECT l FROM Loan l WHERE l.toUser = :userSeq AND status in ('O', 'D')";
+        String jpql = "SELECT l FROM Loan l WHERE l.fromUser.userSeq = :userSeq AND status in ('O', 'D')";
 
         return em.createQuery(jpql, Loan.class)
                 .setParameter("userSeq", userSeq)
@@ -45,7 +47,7 @@ public class LoanRepositoryImpl {
     // 대금중 이력 조회
     public List<Loan> getOnLoanOppByUserSeq(Long userSeq){
 
-        String jpql = "SELECT l FROM Loan l WHERE l.fromUser = :userSeq AND status in ('O', 'D')";
+        String jpql = "SELECT l FROM Loan l WHERE l.toUser.userSeq = :userSeq AND status in ('O', 'D')";
 
         return em.createQuery(jpql, Loan.class)
                 .setParameter("userSeq", userSeq)
