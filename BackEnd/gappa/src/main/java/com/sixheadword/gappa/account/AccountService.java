@@ -1,8 +1,12 @@
 package com.sixheadword.gappa.account;
 
+import com.sixheadword.gappa.account.dto.request.SetAccountTransactionRequestDto;
 import com.sixheadword.gappa.account.dto.request.SetPrimaryReqeustDto;
 import com.sixheadword.gappa.account.dto.response.GetAccountResponseDto;
+import com.sixheadword.gappa.account.dto.response.GetAccountTransactionResponseDto;
 import com.sixheadword.gappa.account.repository.AccountRepository;
+import com.sixheadword.gappa.accountHistory.AccountHistory;
+import com.sixheadword.gappa.accountHistory.repository.AccountHistoryRepository;
 import com.sixheadword.gappa.user.User;
 import com.sixheadword.gappa.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +26,7 @@ import java.util.List;
 public class AccountService {
 
     private final AccountRepository accountRepository;
+    private final UserRepository userRepository;
     private final EntityManager em;
 
     // 대표 계좌 설정

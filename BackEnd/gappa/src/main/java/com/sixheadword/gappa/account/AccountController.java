@@ -1,5 +1,6 @@
 package com.sixheadword.gappa.account;
 
+import com.sixheadword.gappa.account.dto.request.SetAccountTransactionRequestDto;
 import com.sixheadword.gappa.account.dto.request.SetPrimaryReqeustDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,9 +10,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/accounts")
 @RequiredArgsConstructor
 @Slf4j
+@RequestMapping("/api/accounts")
 public class AccountController {
 
     private final AccountService accountService;
@@ -59,3 +60,6 @@ public class AccountController {
     }
 
 }
+
+
+
