@@ -94,7 +94,7 @@ const ReqChatPage = () => {
   const reqFriendsHandler = () => {
     const data = {
       balance,
-      dateValue,
+      dateAsString,
       reason,
       reasonText,
     };

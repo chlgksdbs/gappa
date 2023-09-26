@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import style from './ReqFriends.module.css';
 import HeaderSub from '../../Common/HeaderSub';
 import { customAxios } from '../../api/customAxios';
+import { useLocation } from 'react-router-dom';
 
 const ReqFriendPages = () => {
   const navigate = useNavigate();
@@ -10,6 +11,14 @@ const ReqFriendPages = () => {
   const [phoneBook, setPhoneBook] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [userSeq, setUserSeq] = useState(-1);
+  const [fromUser, setFromUser] = useState(0);
+
+  const currentDate = new Date();
+  // currentDate를 YYYY-MM-DD 형식으로 변환합니다.
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = String(currentDate.getMonth() + 1).padStart(2, '0');
+  const currentDay = String(currentDate.getDate()).padStart(2, '0');
+  const currentDateString = `${currentYear}-${currentMonth}-${currentDay}`;
 
   useEffect(() => {
     getFriends();
@@ -36,17 +45,46 @@ const ReqFriendPages = () => {
     setSearchTerm(event.target.value);
   };
 
-
   const handleFriendClick = (index) => {
     setUserSeq(index);
   };
 
-  const filteredFriends = phoneBook.filter((friend) => {
-    const nameMatch = friend.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const phoneMatch = friend.phoneNum.includes(searchTerm);
+  const location = useLocation();
+  const { balance, dateAsString, reason, reasonText } = location.state || {};
 
-    return nameMatch || phoneMatch;
-  });
+  const nextHandler = () => {
+    // 토큰 가져오기
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      var base64Url = token.split(".")[1];
+      var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+      var jwtPayload = decodeURIComponent(
+        atob(base64)
+          .split("")
+          .map(function (c) {
+            return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+          })
+          .join("")
+      );
+      const JsonPayload = JSON.parse(jwtPayload);
+      setFromUser(JsonPayload.userSeq);
+      console.log(JsonPayload.userSeq);
+      console.log(fromUser);
+
+
+      const data = {
+        fromUser: parseInt(JsonPayload.userSeq, 10),
+        toUser: phoneBook[userSeq].user_seq,
+        principal: balance,
+        loanReasonCategory: reason,
+        loanOtherReason: reasonText,
+        startDate: currentDateString + " 09:00:00",
+        redemptionDate: dateAsString + " 09:00:00",
+      };
+      navigate("/reqBorrow", { state: data });
+    }
+  }
 
   return (
     <div className={style.body}>
@@ -58,23 +96,29 @@ const ReqFriendPages = () => {
         <div className={style.search}>
           <input type="text" placeholder="친구 검색" value={searchTerm} onChange={handleSearch} />
         </div>
+        {phoneBook.length === 0 ? 
+        <>
+          친구가 없습니다.
+        </>
+        :
         <div className={style.friendsList}>
-          {filteredFriends.map((friend, index) => (
+          {phoneBook.map((friend, index) => (
             <div
-              key={index}
-              className={`${style.friendItem} ${userSeq===index ? style.selectedFriend : ''}`}
-              onClick={() => handleFriendClick(index)}
+            key={index}
+            className={`${style.friendItem} ${userSeq===index ? style.selectedFriend : ''}`}
+            onClick={() => handleFriendClick(index)}
             >
               
-              <img src={friend.img} alt={friend.name} className={style.friendImage} />  
-              <div className={style.friendText}>{friend.name}</div>
-              <div className={style.friendText}>{formatPhoneNumber(friend.phoneNum)}</div>
+              <img src={"/images/" + friend.profile_img} alt={friend.user_name} className={style.friendImage} />  
+              <div className={style.friendText}>{friend.user_name}</div>
+              <div className={style.friendText}>{formatPhoneNumber(friend.phone)}</div>
             </div>
           ))}
         </div>
+        } 
       </div>
       <div className={style.inputDiv} style={{height: "7.5%"}}>
-        <div className={style.nextBtn} onClick={(()=>{navigate("/reqBorrow")})}>
+        <div className={style.nextBtn} onClick={nextHandler}>
           다음
         </div>
       </div>
