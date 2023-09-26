@@ -4,6 +4,7 @@ import style from './PinPassword.module.css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { authActions } from '../../store/authslice';
+import { customAxios } from '../api/customAxios';
 const PinPassword = () => {
   const title = "간편 비밀번호 설정"
   const [pin, setPin] = useState('');
@@ -33,7 +34,14 @@ const PinPassword = () => {
   useEffect(()=>{
     if(pin.length === 6){
       dispatch(authActions.updatedUserPin({pin_Password : pin}));
-      navigate("/pinpasswordconfirm");
+       customAxios.post("/users/pin/set",{pinPassword: pin})
+      .then((res)=>{
+
+        navigate("/pinpasswordconfirm");
+      })
+      .catch((res)=>{
+        
+      })
     }
   },[pin,dispatch,navigate])
 

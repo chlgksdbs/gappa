@@ -8,7 +8,7 @@ import PinPasswordVerify from '../../Auth/PinPasswordVerify';
 const LendSendPage = () => {
   const navigate = useNavigate();
 
-  const loanSeq = 9;
+  const loanSeq = 16;
 
   const [showPinPasswordVerify, setShowPinPasswordVerify] = useState(false);
 
