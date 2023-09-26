@@ -23,6 +23,6 @@ public class FCMController {
 
     @PostMapping("/fcm/push")
     public ResponseEntity<?> pushNotification(Authentication authentication) {
-        return fcmService.pushNotification(Long.parseLong(authentication.getName()), "push 알림", "내용내용");
+        return fcmService.pushNotification(Long.parseLong(authentication.getName()), "내용내용");
     }
 }

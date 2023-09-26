@@ -1,5 +1,6 @@
 package com.sixheadword.gappa.loan.service;
 
+import com.sixheadword.gappa.FCM.FCMService;
 import com.sixheadword.gappa.account.Account;
 import com.sixheadword.gappa.account.repository.AccountRepository;
 import com.sixheadword.gappa.loan.Loan;
@@ -10,6 +11,8 @@ import com.sixheadword.gappa.loan.repository.LoanRepository;
 import com.sixheadword.gappa.loanHistory.entity.LoanHistory;
 import com.sixheadword.gappa.loanHistory.entity.Type;
 import com.sixheadword.gappa.loanHistory.repository.LoanHistoryRepository;
+import com.sixheadword.gappa.webAlarm.WebAlarm;
+import com.sixheadword.gappa.webAlarm.WebAlarmRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -27,7 +30,8 @@ public class MoneyService {
     private final LoanRepository loanRepository;
     private final LoanHistoryRepository loanHistoryRepository;
     private final AccountRepository accountRepository;
-    private final EntityManager em;
+    private final WebAlarmRepository webAlarmRepository;
+    private final FCMService fcmService;
 
     // 대출 실행
     public void successLoan (SuccessLoanRequestDto successLoanRequestDto){
@@ -38,6 +42,11 @@ public class MoneyService {
             loan.setStartDate(LocalDateTime.now());
             // 대출금 이체 실행
             transfer(loan, 0L, 1);
+            //알림 만드는 로직
+            String alarmContent = loan.getToUser().getName() + "님이 " + loan.getPrincipal() + "원을 빌려줬어요!";
+            webAlarmRepository.save(new WebAlarm(loan.getFromUser(), loan.getToUser(), 'R', alarmContent));
+            //푸시 알림 보내기
+            fcmService.pushNotification(loan.getFromUser().getUserSeq(), alarmContent);
             loanRepository.save(loan);
         }else{
             throw new IllegalArgumentException("대출 실행에 실패했습니다.");
@@ -50,6 +59,11 @@ public class MoneyService {
         Loan loan = loanRepository.findById(failLoanRequestDto.getLoanSeq()).orElse(null);
         if(loan != null){
             loan.setStatus('F');
+            //알림 만드는 로직
+            String alarmContent = loan.getToUser().getName() + "님에게 " + loan.getPrincipal() + "원 대출이 거절됐어요";
+            webAlarmRepository.save(new WebAlarm(loan.getFromUser(), loan.getToUser(), 'R', alarmContent));
+            //푸시 알림 보내기
+            fcmService.pushNotification(loan.getFromUser().getUserSeq(), alarmContent);
             loanRepository.save(loan);
         }else{
             throw new IllegalArgumentException("대출 실행 취소에 실패했습니다.");
