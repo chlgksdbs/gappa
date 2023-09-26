@@ -45,7 +45,7 @@ public class FriendRequestService {
             String alarmContent = from_user.getName() + "님에게 친구 신청이 왔어요!";
             webAlarmRepository.save(new WebAlarm(to_user, from_user, 'F', alarmContent));
             //푸시 알림 보내기
-            fcmService.pushNotification(to_user.getUserSeq(), "친구요청", alarmContent);
+            fcmService.pushNotification(to_user.getUserSeq(), alarmContent);
             status = HttpStatus.OK;
             resultMap.put("message", "요청성공");
         } catch (Exception e) {
@@ -77,19 +77,19 @@ public class FriendRequestService {
                 friendListRepository.save(new FriendList(friendRequest));
                 friendRequest.updateState('A');
                 // 알림 생성
-                alarmContent = to_user.getName() + "님이 친구요청을 승인했습니다.";
+                alarmContent = to_user.getName() + "님이 친구요청을 승인했어요!";
                 webAlarmRepository.save(new WebAlarm(from_user, to_user, 'F', alarmContent));
                 // push 알림
-                fcmService.pushNotification(from_user.getUserSeq(), "친구요청", alarmContent);
+                fcmService.pushNotification(from_user.getUserSeq(), alarmContent);
                 resultMap.put("message", "친구요청 승인 성공");
                 status = HttpStatus.OK;
             } else if (res.equals("F")) {
                 friendRequest.updateState('R');
                 // 알림 생성
-                alarmContent = from_user.getName() + "님이 친구요청을 거절했습니다.";
+                alarmContent = from_user.getName() + "님이 친구요청을 거절했어요";
                 webAlarmRepository.save(new WebAlarm(from_user, to_user, 'F', alarmContent));
                 // push 알림
-                fcmService.pushNotification(from_user.getUserSeq(), "친구요청", alarmContent);
+                fcmService.pushNotification(from_user.getUserSeq(), alarmContent);
                 resultMap.put("message", "친구요청 거절 성공");
                 status = HttpStatus.OK;
             } else {
