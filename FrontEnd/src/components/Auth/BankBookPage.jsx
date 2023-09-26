@@ -48,7 +48,7 @@ const BankBookPage = () => {
     "images/Ssafy.png"]
   const [bankBookData, setBankBookData] = useState([]);
   useEffect(() => {
-    customAxios.get("/accounts/1")
+    customAxios.get("/accounts")
       .then((res) => {
         console.log(res.data[0])
         setBankBookData(res.data)
