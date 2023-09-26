@@ -38,27 +38,20 @@ const PinPasswordConfirm = () => {
     if (pin.length > 5) {
       const body = { 'pinPassword': pin }
       console.log(body);
-
       customAxios.post("/users/pin/check", body)
         .then((res) => {
           console.log(res.message);
+          setTimeout(() => {
+            navigate("/pinpasswordcheck");
+          }, 700);
         })
         .catch((e) => {
           console.log(e.message);
+          setAlert("비밀번호가 일치하지 않습니다");
+          setPin("");
+          setIsAlert(false);
         })
-
-      setTimeout(() => {
-        if (isAlert) {
-          navigate("/pinpasswordcheck");
-        }
-
-      }, 700);
-    } else {
-      setAlert("비밀번호가 일치하지 않습니다");
-      setPin("");
-      setIsAlert(false);
     }
-
   }, [pin, userInfo.pin_Password, isAlert, navigate])
   return (
     <div className={style.pinpassword}>
