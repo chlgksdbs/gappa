@@ -53,7 +53,7 @@ const SignupForm = (props) => {
     const idRegExp = /^[a-zA-z0-9]{4,12}$/;
 
     if (!idRegExp.test(currentId)) {
-      setIdMessage("4-12사이 대소문자 또는 숫자만 입력해 주세요!");
+      setIdMessage("4-12 사이 대소문자 또는 숫자만 입력해 주세요!");
       setIsId(false);
     } else {
       setIdMessage("");
@@ -90,10 +90,10 @@ const SignupForm = (props) => {
       setIsPassword(false);
       if (isPassword) {
         if (currentPassword !== passwordConfirm) {
-          setPasswordConfirmMessage("떼잉~ 비밀번호가 똑같지 않아요!");
+          setPasswordConfirmMessage("비밀번호가 일치하지 않습니다.");
           setIsPasswordConfirm(false);
         } else {
-          setPasswordConfirmMessage("똑같은 비밀번호를 입력했습니다.");
+          setPasswordConfirmMessage("비밀번호가 일치합니다.");
           setIsPasswordConfirm(true);
         }
       }
@@ -102,10 +102,10 @@ const SignupForm = (props) => {
       setIsPassword(true);
       if (isPassword) {
         if (currentPassword !== passwordConfirm) {
-          setPasswordConfirmMessage("떼잉~ 비밀번호가 똑같지 않아요!");
+          setPasswordConfirmMessage("비밀번호가 일치하지 않습니다.");
           setIsPasswordConfirm(false);
         } else {
-          setPasswordConfirmMessage("똑같은 비밀번호를 입력했습니다.");
+          setPasswordConfirmMessage("비밀번호가 일치합니다.");
           setIsPasswordConfirm(true);
         }
       }
@@ -118,10 +118,10 @@ const SignupForm = (props) => {
     setPasswordConfirm(currentPasswordConfirm);
     if (isPassword) {
       if (password !== currentPasswordConfirm) {
-        setPasswordConfirmMessage("떼잉~ 비밀번호가 똑같지 않아요!");
+        setPasswordConfirmMessage("비밀번호가 일치하지 않습니다.");
         setIsPasswordConfirm(false);
       } else {
-        setPasswordConfirmMessage("똑같은 비밀번호를 입력했습니다.");
+        setPasswordConfirmMessage("비밀번호가 일치합니다.");
         setIsPasswordConfirm(true);
       }
     }
