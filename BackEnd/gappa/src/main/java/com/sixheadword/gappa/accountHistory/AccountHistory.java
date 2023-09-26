@@ -1,6 +1,7 @@
 package com.sixheadword.gappa.accountHistory;
 
 import com.sixheadword.gappa.account.Account;
+import com.sixheadword.gappa.user.User;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -23,6 +24,11 @@ public class AccountHistory {
     @JoinColumn(name = "account_seq")
     private Account account;
 
+    // toUser: 거래 상대 사용자 일련번호
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "to_user")
+    private User toUser;
+
     // oldBalance: 거래 전 잔액
     @Column(name = "old_balance", nullable = false)
     private Long oldBalance;
@@ -42,4 +48,6 @@ public class AccountHistory {
     // accountType: 거래 분류
     @Column(name = "account_type", nullable = false)
     private boolean accountType;
+
+
 }
