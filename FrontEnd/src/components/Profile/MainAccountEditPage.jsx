@@ -5,9 +5,10 @@ import { customAxios } from '../api/customAxios';
 
 const MainAccountEditPage = () => {
   const [accounts, setAccounts] = useState([]);
+  const [selectedAccount, setSelectedAccount] = useState(null);
 
-  const representativeAccount = accounts.find((account) => account.isRepresentative);
-  const otherAccounts = accounts.filter((account) => !account.isRepresentative);
+  // const representativeAccount = accounts.find((account) => account.isRepresentative);
+  // const otherAccounts = accounts.filter((account) => !account.isRepresentative);
 
   const formatBalance = (balance) => {
     // balance를 1,000 단위로 포맷팅하여 반환합니다.
@@ -15,21 +16,16 @@ const MainAccountEditPage = () => {
   };
 
   const setAsRepresentative = (id) => {
-    setAccounts((prevAccounts) => {
-      const updatedAccounts = prevAccounts.map((account) => ({
-        ...account,
-        isRepresentative: account.id === id,
-      }));
-      return updatedAccounts;
-    });
-    // put 요청
-
+    setSelectedAccount(id);
+    console.log(selectedAccount);
+  };
+  
+  const nextHandler = () => {
     const requestData = {
-      accountSeq: id,
+      accountSeq: selectedAccount,
     };
-
-    console.log(requestData.accountSeq);
-
+    
+    console.log(requestData);
     customAxios.post(`/accounts/primary`, requestData)
     .then((res)=>{
       console.log("대표 계좌 설정 완료");
@@ -38,7 +34,8 @@ const MainAccountEditPage = () => {
       // 오류 발생 시 처리
       console.error("대표 계좌 변경 오류:", error);
     });
-  };
+    
+  }
 
   useEffect(() => {
     // 토큰 가져오기
@@ -66,7 +63,7 @@ const MainAccountEditPage = () => {
           accountNumber: account.accountNumber,
           bank: account.bank,
           balance: account.balance,
-          isRepresentative: account.reqAccount,
+          isRepresentative: account.repAccount,
         }));
         setAccounts(updatedAccounts);
         console.log(res);
@@ -74,6 +71,7 @@ const MainAccountEditPage = () => {
       .catch((res)=>{
         console.log(res);
       })
+
 
     } else {
       // 토큰이 없는 경우 처리
@@ -85,41 +83,56 @@ const MainAccountEditPage = () => {
     <div className={style.main}>
       <HeaderSub title={"대표 계좌 변경"}/>
 
-      {/* 대표 계좌를 먼저 출력합니다. */}
-      {representativeAccount && (
-        <div
-          key={representativeAccount.id}
-          className={style.accountDiv}
-          onClick={() => setAsRepresentative(representativeAccount.id)}
-        >
-          <div className={style.accountDetail1}>
-            {representativeAccount.accountNumber}   <img src="/images/MainAccount.png" alt="" style={{marginLeft: "15px", height: "20px"}}/>
-          </div>
-          <div className={style.accountDetail2}>
-            <p>{representativeAccount.bank}</p>
-            <p>{formatBalance(representativeAccount.balance)}원</p>
-          </div>
-          <div className={style.line} />
-        </div>
-      )}
+      {accounts.length === 0 ?
+      <>
+        계좌가 없네요...
+      </>  
+      :
+      <>
+        {/* 대표 계좌를 먼저 출력합니다. */}
+        {accounts.map((account) => (
+          account.isRepresentative && (
+            <div
+              key={account.id}
+              className={style.accountDiv}
+              onClick={() => setAsRepresentative(account.id)}
+            >
+              <div className={style.accountDetail1}>
+                {account.accountNumber}   <img src="/images/MainAccount.png" alt="" style={{marginLeft: "15px", height: "20px"}}/>
+              </div>
+              <div className={style.accountDetail2}>
+                <p>{account.bank}</p>
+                <p>{formatBalance(account.balance)}원</p>
+              </div>
+              <div className={style.line} />
+            </div>
+          )
+        ))}
 
-      {/* 그 외의 계좌들을 출력합니다. */}
-      {otherAccounts.map((account) => (
-        <div
-          key={account.id}
-          className={style.accountDiv}
-          onClick={() => setAsRepresentative(account.id)}
-        >
-          <div className={style.accountDetail1}>
-            {account.accountNumber}
-          </div>
-          <div className={style.accountDetail2}>
-            <p>{account.bank}</p>
-            <p>{formatBalance(account.balance)}원</p>
-          </div>
-          <div className={style.line} />
+        {/* 그 외의 계좌들을 출력합니다. */}
+        {accounts.map((account) => (
+          !account.isRepresentative && (
+            <div
+              key={account.id}
+              className={style.accountDiv}
+              onClick={() => setAsRepresentative(account.id)}
+            >
+              <div className={style.accountDetail1}>
+                {account.accountNumber}
+              </div>
+              <div className={style.accountDetail2}>
+                <p>{account.bank}</p>
+                <p>{formatBalance(account.balance)}원</p>
+              </div>
+              <div className={style.line} />
+            </div>
+          )
+        ))}
+        <div className={style.nextBtn} onClick={nextHandler}>
+          신청
         </div>
-      ))}
+      </>
+      }
     </div>
   );
 };
