@@ -27,7 +27,7 @@ const SignupForm = (props) => {
   const [idMessage, setIdMessage] = useState("");
   const [passwordMessage, setPasswordMessage] = useState("");
   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
-
+  const [phoneMessage, setPhonemessage] = useState("");
   //유효성 검사
   // const [idOverlap, setIdOverlap] = useState(false);
   const [openPostcode, setOpenPostcode] = useState(false);
@@ -95,59 +95,8 @@ const SignupForm = (props) => {
   const onClickPassword = (e) => {
     setModalCheck(true);
     setCheck(e);
+    setShift(false)
   }
-
-  // // 비밀번호 확인
-  // const onChangePassword = (e) => {
-  //   console.log(e)
-  //   const currentPassword = e.target.value;
-  //   setPassword(currentPassword);
-  //   const passwordRegExp =
-  //     /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
-  //   if (!passwordRegExp.test(currentPassword)) {
-  //     setPasswordMessage(
-  //       "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!"
-  //     );
-  //     setIsPassword(false);
-  //     if (isPassword) {
-  //       if (currentPassword !== passwordConfirm) {
-  //         setPasswordConfirmMessage("비밀번호가 일치하지 않습니다.");
-  //         setIsPasswordConfirm(false);
-  //       } else {
-  //         setPasswordConfirmMessage("비밀번호가 일치합니다.");
-  //         setIsPasswordConfirm(true);
-  //       }
-  //     }
-  //   } else {
-  //     setPasswordMessage("안전한 비밀번호 입니다.");
-  //     setIsPassword(true);
-  //     if (isPassword) {
-  //       if (currentPassword !== passwordConfirm) {
-  //         setPasswordConfirmMessage("비밀번호가 일치하지 않습니다.");
-  //         setIsPasswordConfirm(false);
-  //       } else {
-  //         setPasswordConfirmMessage("비밀번호가 일치합니다.");
-  //         setIsPasswordConfirm(true);
-  //       }
-  //     }
-  //   }
-  // };
-
-  // // 비밀번호 확인 로직
-  // const onChangePasswordConfirm = (e) => {
-  //   const currentPasswordConfirm = e.target.value;
-  //   setPasswordConfirm(currentPasswordConfirm);
-  //   if (isPassword) {
-  //     if (password !== currentPasswordConfirm) {
-  //       setPasswordConfirmMessage("비밀번호가 일치하지 않습니다.");
-  //       setIsPasswordConfirm(false);
-  //     } else {
-  //       setPasswordConfirmMessage("비밀번호가 일치합니다.");
-  //       setIsPasswordConfirm(true);
-  //     }
-  //   }
-  // };
-
 
   useEffect(() => {
     const passwordRegExp =
@@ -230,7 +179,16 @@ const SignupForm = (props) => {
       setIsFinalAddress(false);
     }
   }
-
+  useEffect(() => {
+    if (detailAddress && address && addressNumber) {
+      setFinalAddress(`${address} ${addressNumber}`);
+      setIsFinalAddress(true);
+      console.log(finalAddress);
+    } else {
+      setIsFinalAddress(false);
+    }
+    // eslint-disable-next-line
+  }, [detailAddress])
   // 휴대폰 번호 자동 하이폰 생성
   const autoHypenPhone = (e) => {
     const value = phoneRef.current.value.replace(/\D+/g, "");
@@ -256,7 +214,6 @@ const SignupForm = (props) => {
 
     setPhone(value);
     phoneRef.current.value = result;
-    console.log(value);
   };
 
   const phoneRef = useRef();
@@ -281,11 +238,12 @@ const SignupForm = (props) => {
     }
     authAxios.post("/users/phone/send", phoneNumber)
       .then((response) => {
-        console.log(response)
         setCheckPhone(true);
+        setPhonemessage("5분 안에 입력해주세요.")
       })
       .catch((response) => {
-        console.log(response)
+        setCheckPhone(true);
+        setPhonemessage("제대로 된 번호를 입력해주세요.")
       })
   }
 
@@ -895,7 +853,7 @@ const SignupForm = (props) => {
       </>
       <>
         <span>비밀번호</span>
-        <input type="text" className={style.input} name="password" value={password} onClick={() => onClickPassword("Pw")} readOnly />
+        <input type="password" className={style.input} name="password" value={password} onClick={() => onClickPassword("Pw")} readOnly />
         {isPassword
           ?
           <span className={style.colorblue}>{passwordMessage}</span>
@@ -905,7 +863,7 @@ const SignupForm = (props) => {
       </>
       <>
         <span>비밀번호 확인</span>
-        <input type="text" className={style.input} name="passwordcheck" value={passwordConfirm} onClick={() => onClickPassword("PwC")} readOnly />
+        <input type="password" className={style.input} name="passwordcheck" value={passwordConfirm} onClick={() => onClickPassword("PwC")} readOnly />
         {isPasswordConfirm
           ?
           <span className={style.colorblue}>{passwordConfirmMessage}</span>
@@ -923,11 +881,16 @@ const SignupForm = (props) => {
         checkPhone
           ?
           <div className={style.phonecheckform}>
-            <h4>5분안에 입력해주세요.</h4>
-            <div className={style.phoneforms}>
-              <input type="number" value={phoneCheckNumber} onChange={onCHnagePhoneCheckNumber} className={style.input} />
-              <input type="button" value="인증번호 확인" onClick={phoneCheckNumberConfirm} className={style.formbtn} />
-            </div>
+            <h4>{phoneMessage}</h4>
+            {phoneMessage === "5분 안에 입력해주세요."
+              ?
+              <div className={style.phoneforms}>
+                <input type="number" value={phoneCheckNumber} onChange={onCHnagePhoneCheckNumber} className={style.input} />
+                <input type="button" value="인증번호 확인" onClick={phoneCheckNumberConfirm} className={style.formbtn} />
+              </div>
+              :
+              null
+            }
             {
               checkPhoneNumber
                 ?
