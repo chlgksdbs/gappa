@@ -14,13 +14,13 @@ import org.springframework.context.annotation.Configuration;
 public class JobConfig {
 
     private final JobBuilderFactory jobBuilderFactory;
-    private final Step step1;
+    private final Step overdueLoanStep;
 
     // overdueLoanJob: 기한이 지난 대출 건에 대한 Job
     @Bean
     public Job overdueLoanJob() {
-        return jobBuilderFactory.get("job")
-                .start(step1)
+        return jobBuilderFactory.get("overdueLoanJob")
+                .start(overdueLoanStep)
                 .build();
     }
 }
