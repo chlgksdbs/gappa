@@ -80,11 +80,16 @@
   /* margin: 0; */
 }
 
+.keyboardsetitem:active{
+  border: 0.1px solid black;
+}
+
 .keyboardsetitem img {
   object-fit: cover;
   width: 100%;
   height: 100%;
 }
+
 
 .keyboardsetitemlast{
   width: 25vw;
@@ -93,6 +98,9 @@
   padding: 0;
 }
 
+.keyboardsetitemlast:active{
+  border: 1px solid black;
+}
 .keyboardsetitemlast img{
   width: 100%;
   height: 100%;
