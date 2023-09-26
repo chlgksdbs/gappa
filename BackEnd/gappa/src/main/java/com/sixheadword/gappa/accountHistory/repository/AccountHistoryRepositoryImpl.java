@@ -15,7 +15,7 @@ public class AccountHistoryRepositoryImpl implements AccountHistoryRepositoryCus
     // 계좌 거래 내역 조회
     public List<AccountHistory> findAllByAccountSeq(Long accountSeq){
 
-        String jpql = "SELECT a FROM AccountHistory a WHERE a.accountSeq = :accountSeq";
+        String jpql = "SELECT a FROM AccountHistory a WHERE a.account.accountSeq = :accountSeq";
 
         return em.createQuery(jpql, AccountHistory.class)
                 .setParameter("accountSeq", accountSeq)

@@ -1,10 +1,9 @@
 package com.sixheadword.gappa.accountHistory;
 
-import com.sixheadword.gappa.account.dto.request.SetAccountTransactionRequestDto;
+import com.sixheadword.gappa.accountHistory.dto.request.SetAccountTransactionRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,11 +18,11 @@ public class AccountHistoryController {
 
     // API 1. 계좌 거래 내역 상세조회
     @PostMapping("/detail")
-    public ResponseEntity<?> showTransactionDetail(Authentication authentication, @RequestBody SetAccountTransactionRequestDto setTransactionRequestDto){
+    public ResponseEntity<?> showTransactionDetail(@RequestBody SetAccountTransactionRequestDto setTransactionRequestDto){
         try{
-            return ResponseEntity.ok(accountHistoryService.getTransactionDetail(authentication, setTransactionRequestDto));
+            return ResponseEntity.ok(accountHistoryService.getTransactionDetail(setTransactionRequestDto));
         }catch (IllegalArgumentException e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("거래 내역 상세조회에 실패");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("거래 내역 상세조회 실패");
         }
     }
 }

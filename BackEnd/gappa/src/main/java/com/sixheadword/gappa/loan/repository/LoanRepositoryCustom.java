@@ -1,6 +1,7 @@
 package com.sixheadword.gappa.loan.repository;
 
 import com.sixheadword.gappa.loan.Loan;
+import com.sixheadword.gappa.loanHistory.entity.LoanHistory;
 
 import java.util.List;
 

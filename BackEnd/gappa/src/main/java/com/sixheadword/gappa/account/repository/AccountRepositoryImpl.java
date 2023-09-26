@@ -25,13 +25,12 @@ public class AccountRepositoryImpl implements AccountRepositoryCustom{
 
     // 현재 대표 계좌 해제
     @Override
-    public void unsetPrimaryAccount(Long userSeq, Long accountSeq) {
+    public void unsetPrimaryAccount(Long userSeq) {
 
-        String jpql = "UPDATE Account a SET a.repAccount = FALSE WHERE a.userSeq = :userSeq AND a.accountSeq = :accountSeq";
+        String jpql = "UPDATE Account a SET a.repAccount = FALSE WHERE a.user.userSeq = :userSeq AND a.repAccount = TRUE";
 
         em.createQuery(jpql)
                 .setParameter("userSeq", userSeq)
-                .setParameter("accountSeq", accountSeq)
                 .executeUpdate();
     }
 
