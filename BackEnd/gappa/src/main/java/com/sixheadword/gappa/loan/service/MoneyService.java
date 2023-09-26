@@ -39,6 +39,8 @@ public class MoneyService {
             // 대출금 이체 실행
             transfer(loan, 0L, 1);
             loanRepository.save(loan);
+            // 계좌 내역 저장
+            saveAccountHistory(loan);
         }else{
             throw new IllegalArgumentException("대출 실행에 실패했습니다.");
         }
@@ -147,5 +149,10 @@ public class MoneyService {
                 throw new IllegalArgumentException("현재 계좌에 잔액이 부족합니다.");
             }
         }
+    }
+
+    // 계좌에 거래 내역 저장
+    public void saveAccountHistory(Loan loan){
+
     }
 }

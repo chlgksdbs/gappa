@@ -73,7 +73,7 @@ public class LoanService {
         }
     }
 
-    // 대출 신청 조회
+    // 대출 신청 해당건 조회
     public GetLoanRequestResponseDto getLoanRequest(Long loanSeq, Authentication authentication){
         User user = userRepository.findById(Long.parseLong(authentication.getName())).orElse(null);
         Loan loan = loanRepository.findById(loanSeq).orElse(null);
@@ -94,6 +94,35 @@ public class LoanService {
             throw new IllegalArgumentException("대출 신청 조회에 실패했습니다.");
         }
     }
+
+    // 대출 신청 모두 조회
+    public List<GetLoanRequestResponseDto> getAllLoanRequest(Authentication authentication){
+        List<Loan> allLoanRequest = loanRepository.getAllLoanRequest(Long.parseLong(authentication.getName()));
+        if(!allLoanRequest.isEmpty()){
+            List<GetLoanRequestResponseDto> getLoanRequestResponseDtos = new ArrayList<>();
+            for(Loan loan : allLoanRequest){
+                if(loan.getToUser().getUserSeq().equals(Long.parseLong(authentication.getName()))){
+                    // 채무자의 대표 계좌
+                    Account fromUserAccount = accountRepository.findPrimaryByUserSeq(loan.getFromUser().getUserSeq());
+
+                    GetLoanRequestResponseDto getLoanRequestResponseDto = GetLoanRequestResponseDto.builder()
+                            .toUser(loan.getToUser().getName())
+                            .fromUser(loan.getFromUser().getName())
+                            .principal(loan.getPrincipal())
+                            .startDate(loan.getStartDate())
+                            .redemptionDate(loan.getRedemptionDate())
+                            .bank(fromUserAccount.getBank())
+                            .accountNumber(fromUserAccount.getAccountNumber())
+                            .build();
+                    getLoanRequestResponseDtos.add(getLoanRequestResponseDto);
+                }
+            }
+            return getLoanRequestResponseDtos;
+        }else {
+            throw new IllegalArgumentException("대출 신청 조회에 실패했습니다.");
+        }
+    }
+
 
     // 대출 이력 조회
     public List<GetLoanResponseDto> getLoan(Authentication authentication){
