@@ -425,8 +425,8 @@ public class UserService {
 
             webAlarms.forEach(webAlarm -> {
                 WebAlarmResponseDto webAlarmResponseDto = WebAlarmResponseDto.builder()
-                        .toUserName(webAlarm.getToUser().getName())
-                        .toUserProfileImg(webAlarm.getToUser().getProfileImg())
+                        .fromUserName(webAlarm.getFromUser().getName())
+                        .fromUserProfileImg(webAlarm.getFromUser().getProfileImg())
                         .regDate(webAlarm.getRegDate())
                         .isRead(webAlarm.isRead())
                         .readDate(webAlarm.getReadDate())
