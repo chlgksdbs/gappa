@@ -1,27 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import style from './HistoryLend.module.css';
 import HeaderSub from '../../Common/HeaderSub';
 import Footer from '../../Common/Footer';
+import { customAxios } from '../../api/customAxios';
 
 const HistoryLendPage = () => {
   const navigate = useNavigate();
 
-  const [lends] = useState([
-    { id: 1, name: '김동익', img: '/images/DonghyunKoo.png',
-    balance: 200000, startdate: '2023-01-01', enddate: '2023-02-01', isStatus: 'C'},
-    { id: 2, name: '김정훈',img: '/images/DonghyunKoo.png',
-    balance: 100000, startdate: '2023-02-02', enddate: '2023-03-01', isStatus: 'C'},
-    { id: 3, name: '김용범',img: '/images/DonghyunKoo.png',
-    balance: 200000, startdate: '2023-08-02', enddate: '2023-09-01', isStatus: 'O'},
-    { id: 4, name: '김동현',img: '/images/DonghyunKoo.png',
-    balance: 200000, startdate: '2023-08-01', enddate: '2023-10-01', isStatus: 'D'},
-    // 다른 계좌 정보 추가
-  ]);
+  const [lends,setLends] = useState([]);
 
   const formatBalance = (balance) => {
     // balance를 1,000 단위로 포맷팅하여 반환합니다.
     return balance.toLocaleString();
+  };
+
+  const formatStartdate = (startdate) => {
+    // 날짜 문자열을 Date 객체로 파싱
+    const date = new Date(startdate);
+  
+    // 년, 월, 일 추출
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1 필요, 두 자리로 패딩
+    const day = String(date.getDate()).padStart(2, '0'); // 두 자리로 패딩
+  
+    // YYYY-MM-DD 형식으로 반환
+    return `${year}-${month}-${day}`;
   };
 
   const [lendFilter, setLendFilter] = useState(1); // 기본값 1로 설정
@@ -43,10 +47,31 @@ const HistoryLendPage = () => {
     }
   });
 
-  const goToHistoryDetail = () => {
-    navigate("/historydetail");
-    // 이때 lend.id 값을 백으로 넘겨주고 받는 행위가 일어나야함
+  const goToHistoryDetail = (loan) => {
+    console.log(loan);
+    navigate("/historydetail", { state: { loanId: loan.id } });
   };
+
+  useEffect(() => {    
+    customAxios.get(`/loan/opp`)
+      .then((res)=>{
+        console.log(res);
+
+        const updatedLends = res.data.map((lend) => ({
+          id: lend.loanSeq,
+          name: lend.fromUser,
+          img: `/images/${lend.profileImg}`,
+          balance: lend.principal,
+          startdate: lend.startDate,
+          enddate: lend.redemptionDate,
+          isStatus: lend.status,
+        }));
+        setLends(updatedLends);
+      })
+      .catch((res)=>{
+        console.log(res);
+      })
+  }, []);
 
   return (
     <div className={style.main}>
@@ -64,9 +89,9 @@ const HistoryLendPage = () => {
       <div className={style.body}>
       <div className={style.lendDiv}>
         {filteredLends.map((lend) => (
-          <div className={style.columnDiv} key={lend.id} onClick={() => goToHistoryDetail()}>
+          <div className={style.columnDiv} key={lend.id} onClick={() => goToHistoryDetail(lend)}>
             <div>
-              <p className={style.columnDate}>{lend.startdate} ~ {lend.enddate}</p>
+              <p className={style.columnDate}>{formatStartdate(lend.startdate)} ~ {formatStartdate(lend.enddate)}</p>
               <div className={style.columnDiv2}>
                 <img src={lend.img} alt="" className={style.columnImg}/>
                 <div>

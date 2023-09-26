@@ -1,27 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import HeaderSub from '../../Common/HeaderSub';
 import style from './HistoryBorrow.module.css';
+import HeaderSub from '../../Common/HeaderSub';
 import Footer from '../../Common/Footer';
+import { customAxios } from '../../api/customAxios';
 
 const HistoryBorrowPage = () => {
   const navigate = useNavigate();
 
-  const [borrows] = useState([
-    { id: 1, name: '김동익', img: '/images/DonghyunKoo.png',
-    balance: 200000, startdate: '2023-01-01', enddate: '2023-02-01', isStatus: 'C'},
-    { id: 2, name: '김정훈',img: '/images/DonghyunKoo.png',
-    balance: 100000, startdate: '2023-02-02', enddate: '2023-03-01', isStatus: 'C'},
-    { id: 3, name: '김용범',img: '/images/DonghyunKoo.png',
-    balance: 200000, startdate: '2023-08-02', enddate: '2023-09-01', isStatus: 'O'},
-    { id: 4, name: '김동현',img: '/images/DonghyunKoo.png',
-    balance: 200000, startdate: '2023-08-01', enddate: '2023-10-01', isStatus: 'D'},
-    // 다른 계좌 정보 추가
-  ]);
+  const [borrows,setBorrows] = useState([]);
 
   const formatBalance = (balance) => {
     // balance를 1,000 단위로 포맷팅하여 반환합니다.
     return balance.toLocaleString();
+  };
+
+  const formatStartdate = (startdate) => {
+    // 날짜 문자열을 Date 객체로 파싱
+    const date = new Date(startdate);
+  
+    // 년, 월, 일 추출
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1 필요, 두 자리로 패딩
+    const day = String(date.getDate()).padStart(2, '0'); // 두 자리로 패딩
+  
+    // YYYY-MM-DD 형식으로 반환
+    return `${year}-${month}-${day}`;
   };
 
   const [borrowFilter, setBorrowFilter] = useState(1); // 기본값 1로 설정
@@ -43,10 +47,30 @@ const HistoryBorrowPage = () => {
     }
   });
 
-  const goToHistoryDetail = () => {
-    navigate("/historydetail");
-    // 이때 lend.id 값을 백으로 넘겨주고 받는 행위가 일어나야함
+  const goToHistoryDetail = (borrow) => {
+    navigate("/historydetail", { state: { loanId: borrow.id } });
   };
+
+  useEffect(() => {    
+    customAxios.get(`/loan`)
+      .then((res)=>{
+        console.log(res);
+
+        const updatedBorrows = res.data.map((borrow) => ({
+          id: borrow.loanSeq,
+          name: borrow.toUser,
+          img: `/images/${borrow.profileImg}`,
+          balance: borrow.principal,
+          startdate: borrow.startDate,
+          enddate: borrow.redemptionDate,
+          isStatus: borrow.status,
+        }));
+        setBorrows(updatedBorrows);
+      })
+      .catch((res)=>{
+        console.log(res);
+      })
+  }, []);
 
   return (
     <div className={style.main}>
@@ -61,12 +85,12 @@ const HistoryBorrowPage = () => {
         <span onClick={() => handleFilterChange(4)} style={borrowFilter === 4 ? {color: 'black'} : {color: '#737373'}}>연체 중</span>
       </div>
       <p className={style.totalCnt}>총 {filteredBorrows.length} 건</p>
-      <div className={style.body}> 
+      <div className={style.body}>
         <div className={style.borrowDiv}>
           {filteredBorrows.map((borrow) => (
-            <div className={style.columnDiv} key={borrow.id} onClick={() => goToHistoryDetail()}>
+            <div className={style.columnDiv} key={borrow.id} onClick={() => goToHistoryDetail(borrow)}>
               <div>
-                <p className={style.columnDate}>{borrow.startdate} ~ {borrow.enddate}</p>
+                <p className={style.columnDate}>{formatStartdate(borrow.startdate)} ~ {formatStartdate(borrow.enddate)}</p>
                 <div className={style.columnDiv2}>
                   <img src={borrow.img} alt="" className={style.columnImg}/>
                   <div>
@@ -74,20 +98,20 @@ const HistoryBorrowPage = () => {
                     <p>{formatBalance(borrow.balance)}원</p>
                   </div>
                 </div>
+                {borrow.isStatus === 'C' ? (
+                  <div className={style.borrowStatus} style={{color: "blue"}}>
+                    상환 완료
+                  </div>
+                ) : borrow.isStatus === 'D' ? (
+                  <div className={style.borrowStatus} style={{color: "red"}}>
+                    연체 중
+                  </div>
+                ) : borrow.isStatus === 'O' ? (
+                  <div className={style.borrowStatus} style={{color: "black"}}>
+                    대출 중
+                  </div>
+                ) : null}
               </div>
-              {borrow.isStatus === 'C' ? (
-                <div className={style.borrowStatus} style={{color: "blue"}}>
-                  상환 완료
-                </div>
-              ) : borrow.isStatus === 'D' ? (
-                <div className={style.borrowStatus} style={{color: "red"}}>
-                  연체 중
-                </div>
-              ) : borrow.isStatus === 'O' ? (
-                <div className={style.borrowStatus} style={{color: "black"}}>
-                  대출 중
-                </div>
-              ) : null}
             </div>
           ))}
         </div>

@@ -100,7 +100,7 @@ const AgreementPage = () => {
   return (
     <div className={style.agreement}>
       <Headers title={title} />
-      <img src="images/Gappalogo.png" alt="" className={style.gappalogo} />
+      <img src="images/gappalogo.png" alt="" className={style.gappalogo} />
       <br />
       <div className={style.welcome}>
         <span>GAPPA에 오신 것을 환영합니다.</span>

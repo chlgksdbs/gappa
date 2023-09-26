@@ -36,27 +36,23 @@ const PinPasswordConfirm = () => {
 
   useEffect(() => {
     if (pin.length > 5) {
-      if (userInfo.pin_Password === pin) {
-        setAlert("동일한 비밀번호입니다.");
-        setIsAlert(true);
-        const body = {'pinPassword': pin}
-        customAxios.post("/users/pin/set", body)
-        .then((res)=>{
-          console.log(res)
-        })
-        setTimeout(() => {
-          if (isAlert) {
+      const body = { 'pinPassword': pin }
+      console.log(body);
+      customAxios.post("/users/pin/check", body)
+        .then((res) => {
+          console.log(res.message);
+          setTimeout(() => {
             navigate("/pinpasswordcheck");
-          }
-
-        }, 700);
-      } else {
-        setAlert("비밀번호가 일치하지 않습니다");
-        setPin("");
-        setIsAlert(false);
-      }
+          }, 700);
+        })
+        .catch((e) => {
+          console.log(e.message);
+          setAlert("비밀번호가 일치하지 않습니다");
+          setPin("");
+          setIsAlert(false);
+        })
     }
-  }, [pin, userInfo.pin_Password,isAlert,navigate])
+  }, [pin, userInfo.pin_Password, isAlert, navigate])
   return (
     <div className={style.pinpassword}>
       <Headers title={title} />
