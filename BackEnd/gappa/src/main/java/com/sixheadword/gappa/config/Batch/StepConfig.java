@@ -21,9 +21,32 @@ public class StepConfig {
     private final ItemProcessor<Loan, Loan> overdueLoanProcessor;
     private final ItemWriter<Loan> overdueLoanWriter;
 
+    // checkPeriodLoanStep: 대출 기한을 체크하는 Step
     @Bean
-    public Step overdueLoanStep() {
-        return stepBuilderFactory.get("overdueLoanStep")
+    public Step checkPeriodLoanStep() {
+        return stepBuilderFactory.get("checkPeriodLoanStep")
+                .<Loan, Loan> chunk(10)
+                .reader(overdueLoanReader)
+                .processor(overdueLoanProcessor)
+                .writer(overdueLoanWriter)
+                .build();
+    }
+
+    // afterPeriodLoanStep: 대출 기한이 지난 건에 대한 Step
+    @Bean
+    public Step afterPeriodLoanStep() {
+        return stepBuilderFactory.get("afterPeriodLoanStep")
+                .<Loan, Loan> chunk(10)
+                .reader(overdueLoanReader)
+                .processor(overdueLoanProcessor)
+                .writer(overdueLoanWriter)
+                .build();
+    }
+
+    // beforePeriodLoanStep: 대출 기한이 임박한 건에 대한 Step (1주일 이내)
+    @Bean
+    public Step beforePeriodLoanStep() {
+        return stepBuilderFactory.get("beforePeriodLoanStep")
                 .<Loan, Loan> chunk(10)
                 .reader(overdueLoanReader)
                 .processor(overdueLoanProcessor)
