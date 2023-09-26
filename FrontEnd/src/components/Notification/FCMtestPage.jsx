@@ -32,6 +32,15 @@ const FCMtestPage = () => {
     })
   }
 
+  const reload = () => {
+    window.location.reload();
+  }
+
+  const logout = () => {
+    window.localStorage.removeItem("token");
+    window.localStorage.removeItem("fcmToken");
+  }
+
   async function subs() {
     console.log("권한 요청 중...");
 
@@ -84,7 +93,8 @@ const FCMtestPage = () => {
       <div>Fcmtoken: {Fcmtoken}</div>
       <button onClick={setting }>fcm토큰보내기</button>
       <button onClick={subs }>알림 권한 허용 요청</button>
-      <button onClick={getFirebaseToken }>Firebase 토큰 가져오기</button>
+      <button onClick={reload }>새로고침</button>
+      <button onClick={logout }>로그아웃</button>
     </div>
   );
 };
