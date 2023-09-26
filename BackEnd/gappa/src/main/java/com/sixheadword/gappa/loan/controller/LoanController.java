@@ -28,7 +28,7 @@ public class LoanController {
         }
     }
 
-    // API 2. 대출 신청 조회
+    // API 2. 대출 신청 해당건 조회
     @GetMapping("/apply/{loanSeq}")
     public ResponseEntity<?> getLoanRequest(@PathVariable Long loanSeq, Authentication authentication){
         try{
@@ -38,7 +38,17 @@ public class LoanController {
         }
     }
 
-    // API 3. 대출 이력 조회
+    // API 3. 대출 신청 모두 조회
+    @GetMapping("/apply")
+    public ResponseEntity<?> getAllLoanRequest(Authentication authentication){
+        try{
+            return ResponseEntity.ok(loanService.getAllLoanRequest(authentication));
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("모든 대출 신청 조회 실패");
+        }
+    }
+
+    // API 4. 대출 이력 조회
     @GetMapping
     public ResponseEntity<?> getLoanHistory(Authentication authentication) {
         try {
@@ -48,7 +58,7 @@ public class LoanController {
         }
     }
 
-    // API 4. 대출중 이력 조회
+    // API 5. 대출중 이력 조회
     @GetMapping("/on")
     public ResponseEntity<?> getOnLoanHistory(Authentication authentication) {
         try {
@@ -58,7 +68,7 @@ public class LoanController {
         }
     }
 
-    // API 5. 대금 이력 조회
+    // API 6. 대금 이력 조회
     @GetMapping("/opp")
     public ResponseEntity<?> getLoanOppHistory(Authentication authentication) {
         try {
@@ -68,7 +78,7 @@ public class LoanController {
         }
     }
 
-    // API 6. 대금중 이력 조회
+    // API 7. 대금중 이력 조회
     @GetMapping("/opp/on")
     public ResponseEntity<?> getOnLoanOppHistory(Authentication authentication) {
         try {

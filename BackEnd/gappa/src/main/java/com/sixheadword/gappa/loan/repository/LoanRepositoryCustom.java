@@ -19,4 +19,7 @@ public interface LoanRepositoryCustom {
     // 대금중 이력 조회
     public List<Loan> getOnLoanOppByUserSeq(Long userSeq);
 
+    // 모든 대출 신청 내역 조회
+    public List<Loan> getAllLoanRequest(Long userSeq);
+
 }
