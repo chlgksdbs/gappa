@@ -1,6 +1,5 @@
 package com.sixheadword.gappa.account;
 
-import com.sixheadword.gappa.account.dto.request.SetAccountTransactionRequestDto;
 import com.sixheadword.gappa.account.dto.request.SetPrimaryReqeustDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

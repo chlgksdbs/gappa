@@ -1,4 +1,4 @@
-package com.sixheadword.gappa.account.dto.request;
+package com.sixheadword.gappa.loanHistory.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,10 +7,10 @@ import lombok.RequiredArgsConstructor;
 
 @AllArgsConstructor
 @RequiredArgsConstructor
-@Builder
 @Data
-public class SetAccountTransactionRequestDto {
+@Builder
+public class SetLoanTransactionRequestDto {
 
-    private Long accountSeq;
+    private Long loanSeq;
 
 }

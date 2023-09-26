@@ -1,4 +1,4 @@
-package com.sixheadword.gappa.account.dto.response;
+package com.sixheadword.gappa.accountHistory.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +13,8 @@ import java.time.LocalDateTime;
 @Data
 public class GetAccountTransactionResponseDto {
 
-    private Long accountSeq;
+    private Long accountHistorySeq;
+    private String toUser;
     private Long oldBalance;
     private Long newBalance;
     private Long amount;
