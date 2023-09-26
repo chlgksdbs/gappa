@@ -36,6 +36,7 @@ import LendCheckPage from './components/Loan/Lend/LendCheckPage';
 import LendSendPage from './components/Loan/Lend/LendSendPage';
 import NotificationPage from './components/Notification/NotificationPage';
 import FCMtestPage from './components/Notification/FCMtestPage';
+import LendCompletePage from './components/Loan/Lend/LendCompletePage';
 
 
 function App() {
@@ -80,6 +81,7 @@ function App() {
             <Route path="/lend/check" element={<LendCheckPage />}/>
             <Route path="/lend/refuse" element={<LendRefusePage />}/>
             <Route path="/lend/send" element={<LendSendPage />}/>
+            <Route path="/lend/complete" element={<LendCompletePage />}/>
             <Route path="/historyborrow" element={<HistoryBorrowPage />}/>
             <Route path="/historylend" element={<HistoryLendPage />}/>
             <Route path="/historydetail" element={<HistoryDetailPage />}/>
