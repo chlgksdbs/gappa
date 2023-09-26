@@ -87,13 +87,9 @@
 .inputDiv {
   display: flex;
   height: 56%;
-  position: fixed;
   justify-content: center; 
   width: 100%;
-  bottom:0;
-  left: 0;
-  right: 0;
-  /* background-color: #979999; */
+  margin-top: auto;
 }
 
 .nextBtn {
