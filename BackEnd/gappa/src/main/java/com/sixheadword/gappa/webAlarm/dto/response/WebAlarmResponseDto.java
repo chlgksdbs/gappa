@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Data
 public class WebAlarmResponseDto {
 
+    private Long webAlarmSeq;
     private String fromUserName;
     private String fromUserProfileImg;
     private LocalDateTime regDate;
