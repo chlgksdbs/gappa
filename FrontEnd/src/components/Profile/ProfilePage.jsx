@@ -3,17 +3,22 @@ import style from './Profile.module.css';
 import { useNavigate } from 'react-router-dom';
 import HeaderSub from '../Common/HeaderSub';
 import { customAxios } from '../api/customAxios';
+import { useLocation } from 'react-router-dom';
 
 const ProfilePage = () => {
   const navigate = useNavigate();
+
+  const location = useLocation();
+  const locdata = location.state;
 
   const [profileImg, setProfileImg] = useState(""); // 프로필이미지
   const [name, setName] = useState(""); // 이름
   const [phone, setPhone] = useState(""); // 핸드폰번호
   const [reliability, setReliability] = useState(50); // 신뢰도
   const [myProfile, setMyProfile] = useState(true); // 내가 맞는지
-  const [borrowCnt, setBorrowCnt] = useState(-1); // 대출 건수
-  const [lendCnt, setLendCnt] = useState(-1); // 대금 건수
+  const [borrowCnt, setBorrowCnt] = useState(0); // 대출 건수
+  const [lendCnt, setLendCnt] = useState(0); // 대금 건수
+  const [status, setStatus] = useState(""); // 상태
   
   const [overdueCnt, setOverdueCnt] = useState(-1); // 연체 횟수
   const [repaymentsCnt, setRepaymentsCnt] = useState(-1); // 상환 횟수
@@ -27,24 +32,44 @@ const ProfilePage = () => {
   };
 
   useEffect(() => {
-    // 토큰 가져오기
-    const token = localStorage.getItem("token");
-
-    if (token) {
-      var base64Url = token.split(".")[1];
-      var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-      var jwtPayload = decodeURIComponent(
-        atob(base64)
-          .split("")
-          .map(function (c) {
-            return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-          })
-          .join("")
-      );
-      const JsonPayload = JSON.parse(jwtPayload);
-      const userSeq = JsonPayload.userSeq;
-    
-      customAxios.get(`/users/${userSeq}`)
+    if (locdata == null){ // 나 일 경우
+      // 토큰 가져오기
+      const token = localStorage.getItem("token");
+  
+      if (token) {
+        var base64Url = token.split(".")[1];
+        var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+        var jwtPayload = decodeURIComponent(
+          atob(base64)
+            .split("")
+            .map(function (c) {
+              return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+            })
+            .join("")
+        );
+        const JsonPayload = JSON.parse(jwtPayload);
+        const userSeq = JsonPayload.userSeq;
+      
+        customAxios.get(`/users/${userSeq}`)
+        .then((res)=>{
+          console.log(res);
+          setProfileImg(res.data.data.profileImg);
+          setName(res.data.data.name);
+          setPhone(formatPhoneNumber(res.data.data.phone));
+          setReliability(res.data.data.creditScore);
+          setMyProfile(res.data.data.isMyProfile);
+          setBorrowCnt(res.data.data.borrowCnt);
+          setLendCnt(res.data.data.lendCnt);
+        })
+        .catch((res)=>{
+          console.log(res);
+        })
+  
+      } else {
+        // 토큰이 없는 경우 처리
+      }
+    } else { // 남 일 경우
+      customAxios.get(`/users/${locdata}`)
       .then((res)=>{
         console.log(res);
         setProfileImg(res.data.data.profileImg);
@@ -52,22 +77,15 @@ const ProfilePage = () => {
         setPhone(formatPhoneNumber(res.data.data.phone));
         setReliability(res.data.data.creditScore);
         setMyProfile(res.data.data.isMyProfile);
-        setBorrowCnt(res.data.data.borrowCnt);
-        setLendCnt(res.data.data.lendCnt);
         setOverdueCnt(res.data.data.overdueCnt);
         setRepaymentsCnt(res.data.data.repaymentCnt);
+        setStatus(res.data.data.status);
       })
       .catch((res)=>{
         console.log(res);
       })
-
-    } else {
-      // 토큰이 없는 경우 처리
     }
   }, []);
-
-  // 타인이면 userId 등의 식별자로 check
-  // 아직 없음... 백 짜여지면 name, phone, profileImg 다 바꿔야함
   
   return (
     <div className={style.main}>
@@ -77,7 +95,20 @@ const ProfilePage = () => {
           <img src={`./images/${profileImg}`} alt="" />
         </div>
         <div>
-          <p className={style.name}>{name}</p>
+          <p className={style.name}>
+            {name}
+            {myProfile ? null : (
+              <div>
+                {status === 'C' ? (
+                  <div className={style.statusBox} style={{backgroundColor: "rgba(128, 206, 190, 0.3)", color: "blue"}}>대출가능</div>
+                ) : status === 'O' ? (
+                  <div className={style.statusBox} style={{backgroundColor: "rgba(255, 138, 0, 0.3", color: "orange"}}>진행 중</div>
+                ) : status === 'D' ? (
+                  <div className={style.statusBox} style={{backgroundColor: "rgba(242, 130, 130, 0.3)", color: "red"}}>연체 중</div>
+                ) : null}
+              </div>
+            )}
+          </p>
           <p className={style.phone}>{phone}</p>
         </div>
       </div>

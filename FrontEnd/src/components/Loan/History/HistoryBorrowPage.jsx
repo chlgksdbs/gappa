@@ -98,20 +98,20 @@ const HistoryBorrowPage = () => {
                     <p>{formatBalance(borrow.balance)}원</p>
                   </div>
                 </div>
-                {borrow.isStatus === 'C' ? (
-                  <div className={style.borrowStatus} style={{color: "blue"}}>
-                    상환 완료
-                  </div>
-                ) : borrow.isStatus === 'D' ? (
-                  <div className={style.borrowStatus} style={{color: "red"}}>
-                    연체 중
-                  </div>
-                ) : borrow.isStatus === 'O' ? (
-                  <div className={style.borrowStatus} style={{color: "black"}}>
-                    대출 중
-                  </div>
-                ) : null}
               </div>
+              {borrow.isStatus === 'C' ? (
+                <div className={style.borrowStatus} style={{color: "blue"}}>
+                  상환 완료
+                </div>
+              ) : borrow.isStatus === 'D' ? (
+                <div className={style.borrowStatus} style={{color: "red"}}>
+                  연체 중
+                </div>
+              ) : borrow.isStatus === 'O' ? (
+                <div className={style.borrowStatus} style={{color: "black"}}>
+                  대출 중
+                </div>
+              ) : null}
             </div>
           ))}
         </div>

@@ -151,7 +151,9 @@ const ReqChatPage = () => {
           <div className={style.chatDiv}>
             <img src="/images/GappaChat.png" alt="" style={{height: "80px"}}/>
             <div className={style.chatContent}>
-              이용 카테고리를 선택해주세요!
+              이용 카테고리를 
+              <br/>
+              선택해주세요!
             </div>
           </div>
           {reason === "" ? null
@@ -169,11 +171,13 @@ const ReqChatPage = () => {
           <div className={style.chatDiv}>
             <img src="/images/GappaChat.png" alt="" style={{height: "80px"}}/>
             <div className={style.chatContent}>
-              대출 사유는 뭐에요?
+              친구에게 요청할 대출사유를
+              <br/>
+              적어주세요!
             </div>
           </div>
           <div className={style.chatBalance}>
-            <div><input type="text" className={style.input} value={reasonText} onChange={reasonHandleChange} placeholder='대출 사유를 입력하세요'/></div>
+            <div style={{width: "205px"}}><input type="text" className={style.input} value={reasonText} onChange={reasonHandleChange} placeholder='대출 사유를 입력하세요'/></div>
           </div>
         </>
         : null}
