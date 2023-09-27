@@ -190,6 +190,6 @@ public class MoneyService {
     // 원 콤마
     public String formatWithCommas(long number) {
         NumberFormat numberFormat = NumberFormat.getInstance();
-        return numberFormat.format(number) + "원";
+        return numberFormat.format(number);
     }
 }
