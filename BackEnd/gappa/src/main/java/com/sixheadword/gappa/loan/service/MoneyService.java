@@ -95,10 +95,18 @@ public class MoneyService {
                 Long totalRedemptionMoney = loan.getRedemptionMoney() + redemptionRequestDto.getAmount();
                 // 현재까지의 총 상환금이 '(대출원금+이자)*연체일자' 를 넘어가면 상환 완료
                 int lateDate = LocalDateTime.now().compareTo(loan.getRedemptionDate());
+                //알림 만드는 로직
+                String alarmContent = loan.getFromUser().getName() + "님이 " + redemptionRequestDto.getAmount() + "원을 상환했어요!";
+                char alarmCategory = 'P';
                 if(totalRedemptionMoney >= (loan.getPrincipal() + loan.getInterest()) * lateDate) {
                     loan.setStatus('C');
                     loan.setExpiredDate(LocalDateTime.now());
+                    alarmContent = loan.getFromUser().getName() + "님이 " + loan.getPrincipal() + "원 대출 상환을 완료했어요!";
+                    alarmCategory = 'C';
                 }
+                webAlarmRepository.save(new WebAlarm(loan.getToUser(), loan.getFromUser(), alarmCategory, alarmContent));
+                //푸시 알림 보내기
+                fcmService.pushNotification(loan.getToUser().getUserSeq(), alarmContent);
                 loan.setRedemptionMoney(totalRedemptionMoney);
             }
             // 대출 내역 저장(진행중)
@@ -115,11 +123,19 @@ public class MoneyService {
                 loanHistoryRepository.save(loanHistory);
                 // 대출 내역의 상환금 업데이트
                 Long totalRedemptionMoney = loan.getRedemptionMoney() + redemptionRequestDto.getAmount();
+                //알림 만드는 로직
+                String alarmContent = loan.getFromUser().getName() + "님이 " + redemptionRequestDto.getAmount() + "원을 상환했어요!";
+                char alarmCategory = 'P';
                 // 현재까지의 총 상환금이 대출원금을 넘어가면 상환 완료
                 if(totalRedemptionMoney >= loan.getPrincipal()){
                     loan.setStatus('C');
                     loan.setExpiredDate(LocalDateTime.now());
+                    alarmContent = loan.getFromUser().getName() + "님이 " + loan.getPrincipal() + "원 대출 상환을 완료했어요!";
+                    alarmCategory = 'C';
                 }
+                webAlarmRepository.save(new WebAlarm(loan.getToUser(), loan.getFromUser(), alarmCategory, alarmContent));
+                //푸시 알림 보내기
+                fcmService.pushNotification(loan.getToUser().getUserSeq(), alarmContent);
                 loan.setRedemptionMoney(totalRedemptionMoney);
             }
         }else{
