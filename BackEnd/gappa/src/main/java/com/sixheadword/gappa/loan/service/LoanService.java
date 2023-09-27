@@ -114,6 +114,7 @@ public class LoanService {
                     Account fromUserAccount = accountRepository.findPrimaryByUserSeq(loan.getFromUser().getUserSeq());
 
                     GetLoanRequestResponseDto getLoanRequestResponseDto = GetLoanRequestResponseDto.builder()
+                            .loanSeq(loan.getLoanSeq())
                             .toUser(loan.getToUser().getName())
                             .fromUser(loan.getFromUser().getName())
                             .principal(loan.getPrincipal())

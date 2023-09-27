@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Data
 public class GetLoanRequestResponseDto {
 
+    private Long loanSeq;
     private String toUser;
     private String fromUser;
     private Long principal;
