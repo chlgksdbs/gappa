@@ -13,12 +13,15 @@ const HomePage = () => {
       <Header />
       <HomeAccount />
       <div className={style.loan}>
-        <img src="./images/HomeDivBtn1.png" alt="" onClick={() => navigate("/reqagreement")}/>
-        <img src="./images/HomeDivBtn2.png" alt="" />
-        <img src="./images/HomeDivBtn3.png" alt="" />
-        <img src="./images/HomeDivBtn4.png" alt="" />
-        <img src="./images/HomeDivBtn5.png" alt="" />
-        <img src="./images/HomeDivBtn6.png" alt="" />
+        <div className={style.quickMenu}>퀵메뉴</div>
+        <div className={style.imgDiv}>
+          <img src="./images/HomeDivBtn1.png" alt="" onClick={() => navigate("/reqagreement")}/>
+          <img src="./images/HomeDivBtn2.png" alt="" onClick={() => navigate("/historyborrow")}/>
+          <img src="./images/HomeDivBtn3.png" alt="" onClick={() => navigate("/historylend")}/>
+          <img src="./images/HomeDivBtn4.png" alt="" onClick={() => navigate("/historylend")}/>
+          <img src="./images/HomeDivBtn5.png" alt="" onClick={() => navigate("/friends")}/>
+          <img src="./images/HomeDivBtn6.png" alt="" onClick={() => navigate("/lend/list")}/>
+        </div>
       </div>
 
       <div className={style.historyBox}>
