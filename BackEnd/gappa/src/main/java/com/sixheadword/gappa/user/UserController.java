@@ -111,4 +111,17 @@ public class UserController {
     public ResponseEntity<?> checkValidatePinPassword(@RequestBody Map<String, String> request, Authentication authentication) {
         return userService.checkValidatePinPassword(request, Long.parseLong(authentication.getName()));
     }
+
+    // API 17. 알림 확인
+    @PutMapping("/alarm/single")
+    public ResponseEntity<?> checkSingleAlarm(@RequestBody Map<String, String> request, Authentication authentication) {
+        return userService.checkSingleAlarm(request, Long.parseLong(authentication.getName()));
+
+    }
+
+    // API 18. 알림 전체 확인
+    @PutMapping("/alarm/all")
+    public ResponseEntity<?> checkAllAlarm(Authentication authentication) {
+        return userService.checkAllAlarm(Long.parseLong(authentication.getName()));
+    }
 }
