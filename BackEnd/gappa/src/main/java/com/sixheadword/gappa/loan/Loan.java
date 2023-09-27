@@ -3,6 +3,8 @@ package com.sixheadword.gappa.loan;
 import com.sixheadword.gappa.loanHistory.LoanHistory;
 import com.sixheadword.gappa.user.User;
 import lombok.Getter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -23,6 +25,7 @@ public class Loan {
 
     // loanHistories: 대출 내역 정보
     @OneToMany(mappedBy = "loan", cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<LoanHistory> loanHistories = new ArrayList<>();
 
     // fromUser: 돈을 보낸 사용자 일련번호

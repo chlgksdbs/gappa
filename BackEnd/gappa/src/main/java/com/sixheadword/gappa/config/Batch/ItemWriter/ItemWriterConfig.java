@@ -1,36 +1,31 @@
-package com.sixheadword.gappa.config.Batch;
+package com.sixheadword.gappa.config.Batch.ItemWriter;
 
 import com.sixheadword.gappa.loan.Loan;
-import com.sixheadword.gappa.loan.repository.LoanRepository;
 import com.sixheadword.gappa.user.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.batch.item.ItemReader;
+import org.springframework.batch.item.ItemWriter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Slf4j
 @RequiredArgsConstructor
 @Configuration
-public class ItemReaderConfig {
-
-    private final LoanRepository loanRepository;
+public class ItemWriterConfig {
 
     @Bean
-    public ItemReader<Loan> afterPeriodLoanReader() {
+    public ItemWriter<Loan> afterPeriodLoanWriter() {
 
         return null;
     }
 
     @Bean
-    public ItemReader<Loan> beforePeriodLoanReader() {
-
+    public ItemWriter<Loan> beforePeriodLoanWriter() {
         return null;
     }
 
     @Bean
-    public ItemReader<User> inactiveUserReader() {
-
+    public ItemWriter<User> inactiveUserWriter() {
         return null;
     }
 

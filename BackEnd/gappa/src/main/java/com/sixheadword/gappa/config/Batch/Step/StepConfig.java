@@ -1,4 +1,4 @@
-package com.sixheadword.gappa.config.Batch;
+package com.sixheadword.gappa.config.Batch.Step;
 
 import com.sixheadword.gappa.loan.Loan;
 import com.sixheadword.gappa.loan.repository.LoanRepository;

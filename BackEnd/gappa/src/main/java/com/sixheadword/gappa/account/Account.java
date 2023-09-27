@@ -4,6 +4,8 @@ import com.sixheadword.gappa.accountHistory.AccountHistory;
 import com.sixheadword.gappa.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ public class Account {
 
     // accountHistories: 계좌 거래내역 정보
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<AccountHistory> accountHistories = new ArrayList<>();
 
     // user: 계좌 사용자 정보

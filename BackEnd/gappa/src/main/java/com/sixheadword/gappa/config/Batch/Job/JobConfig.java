@@ -1,4 +1,4 @@
-package com.sixheadword.gappa.config.Batch;
+package com.sixheadword.gappa.config.Batch.Job;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
