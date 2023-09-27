@@ -613,4 +613,50 @@ public class UserService {
 
         return new ResponseEntity<>(resultMap, status);
     }
+
+    public ResponseEntity<?> checkSingleAlarm(Map<String, String> request, Long userSeq) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+
+        Long webAlarmSeq = Long.parseLong(request.get("webAlarmSeq"));
+        try {
+            WebAlarm webAlarm = em.find(WebAlarm.class, webAlarmSeq);
+            if (webAlarm.getFromUser().getUserSeq().equals(userSeq)) {
+                webAlarm.setRead(true);
+                status = HttpStatus.OK;
+            } else {
+                status = HttpStatus.BAD_REQUEST;
+            }
+            resultMap.put("message", "알림 확인 완료");
+        } catch (Exception e) {
+
+            resultMap.put("message", "알림 확인 중, 에러 발생");
+            resultMap.put("error", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    public ResponseEntity<?> checkAllAlarm(Long userSeq) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+
+        try {
+            User user = em.find(User.class, userSeq);
+            List<WebAlarm> webAlarms = webAlarmRepository.findAllByFromUser(user);
+            webAlarms.forEach(webAlarm -> {
+                if (!webAlarm.isRead()) webAlarm.setRead(true);
+            });
+            resultMap.put("message", "알림 확인 완료");
+            status = HttpStatus.OK;
+        } catch (Exception e) {
+
+            resultMap.put("message", "알림 전체 확인 중, 에러 발생");
+            resultMap.put("error", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
+    }
 }
