@@ -41,6 +41,7 @@ public class LoanHistoryService {
                     .balance(loan.getPrincipal() - loan.getRedemptionMoney() + loan.getInterest())
                     .interest(loan.getInterest())
                     .redemptionMoney(loan.getRedemptionMoney())
+                    .status(loan.getStatus())
                     .isGappa('X')
                     .build();
             // type = 1 : 대금
@@ -56,6 +57,7 @@ public class LoanHistoryService {
                     .balance(loan.getPrincipal() - loan.getRedemptionMoney() + loan.getInterest())
                     .interest(loan.getInterest())
                     .redemptionMoney(loan.getRedemptionMoney())
+                    .status(loan.getStatus())
                     .isGappa('O')
                     .build();
         } else {
