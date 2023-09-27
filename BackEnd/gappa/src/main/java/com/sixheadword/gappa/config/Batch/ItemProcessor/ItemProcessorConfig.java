@@ -1,7 +1,6 @@
 package com.sixheadword.gappa.config.Batch.ItemProcessor;
 
 import com.sixheadword.gappa.loan.Loan;
-import com.sixheadword.gappa.user.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
@@ -20,11 +19,6 @@ public class ItemProcessorConfig {
 
     @Bean
     public ItemProcessor<Loan, Loan> beforePeriodLoanProcessor() {
-        return null;
-    }
-
-    @Bean
-    public ItemProcessor<User, User> inactiveUserProcessor() {
         return null;
     }
 
