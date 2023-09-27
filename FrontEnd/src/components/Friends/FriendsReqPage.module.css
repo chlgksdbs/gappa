@@ -66,3 +66,7 @@
   border-radius: 5px;
   margin-left: 1vw;
 }
+
+.reqBtn button:first-child{
+  background-color: #ccc;
+}
