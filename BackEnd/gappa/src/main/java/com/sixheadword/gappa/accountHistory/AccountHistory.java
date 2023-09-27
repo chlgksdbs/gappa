@@ -2,7 +2,11 @@ package com.sixheadword.gappa.accountHistory;
 
 import com.sixheadword.gappa.account.Account;
 import com.sixheadword.gappa.user.User;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,6 +14,7 @@ import java.time.LocalDateTime;
 // AccountHistory: 계좌 거래내역 테이블
 @Getter
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "ACCOUNT_HISTORY")
 public class AccountHistory {
 
@@ -42,12 +47,23 @@ public class AccountHistory {
     private Long amount;
     
     // createdAt: 거래내역 생성일자
-    @Column(name = "created_at", nullable = false)
+    @CreatedDate    // entity 생성 시각 자동 기록
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
     
     // accountType: 거래 분류
     @Column(name = "account_type", nullable = false)
     private boolean accountType;
 
+    @Builder
+    public AccountHistory(Account account, User toUser, Long oldBalance, Long newBalance, Long amount, LocalDateTime createdAt, boolean accountType){
+        this.account = account;
+        this.toUser = toUser;
+        this.oldBalance = oldBalance;
+        this.newBalance = newBalance;
+        this.amount = amount;
+        this.createdAt = createdAt;
+        this.accountType = accountType;
+    }
 
 }

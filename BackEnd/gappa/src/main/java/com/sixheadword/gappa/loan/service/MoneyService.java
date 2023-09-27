@@ -3,6 +3,8 @@ package com.sixheadword.gappa.loan.service;
 import com.sixheadword.gappa.FCM.FCMService;
 import com.sixheadword.gappa.account.Account;
 import com.sixheadword.gappa.account.repository.AccountRepository;
+import com.sixheadword.gappa.accountHistory.AccountHistory;
+import com.sixheadword.gappa.accountHistory.repository.AccountHistoryRepository;
 import com.sixheadword.gappa.loan.Loan;
 import com.sixheadword.gappa.loan.dto.request.FailLoanRequestDto;
 import com.sixheadword.gappa.loan.dto.request.RedemptionRequestDto;
@@ -11,6 +13,7 @@ import com.sixheadword.gappa.loan.repository.LoanRepository;
 import com.sixheadword.gappa.loanHistory.entity.LoanHistory;
 import com.sixheadword.gappa.loanHistory.entity.Type;
 import com.sixheadword.gappa.loanHistory.repository.LoanHistoryRepository;
+import com.sixheadword.gappa.user.User;
 import com.sixheadword.gappa.webAlarm.WebAlarm;
 import com.sixheadword.gappa.webAlarm.WebAlarmRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +33,7 @@ public class MoneyService {
     private final LoanRepository loanRepository;
     private final LoanHistoryRepository loanHistoryRepository;
     private final AccountRepository accountRepository;
+    private final AccountHistoryRepository accountHistoryRepository;
     private final WebAlarmRepository webAlarmRepository;
     private final FCMService fcmService;
 
@@ -48,8 +52,6 @@ public class MoneyService {
             //푸시 알림 보내기
             fcmService.pushNotification(loan.getFromUser().getUserSeq(), alarmContent);
             loanRepository.save(loan);
-            // 계좌 내역 저장
-            saveAccountHistory(loan);
         }else{
             throw new IllegalArgumentException("대출 실행에 실패했습니다.");
         }
@@ -142,9 +144,18 @@ public class MoneyService {
                 // 채무자가 송금
                 fromUserAccount.setMinusBalance(amount);
                 accountRepository.save(fromUserAccount);
+                // 채무자 계좌에 내역 저장
+                Long oldB1 = fromUserAccount.getBalance() + amount;
+                Long newB1 = fromUserAccount.getBalance();
+                saveAccountHistory(fromUserAccount, loan.getToUser(), oldB1, newB1, amount, true);
+                //
                 // 채권자는 입금
                 toUserAccount.setAddBalance(amount);
                 accountRepository.save(toUserAccount);
+                // 채권자 계좌에 내역 저장
+                Long oldB0 = toUserAccount.getBalance() - amount;
+                Long newB0 = toUserAccount.getBalance();
+                saveAccountHistory(toUserAccount, loan.getFromUser(), oldB0, newB0, amount, false);
             }else {
                 throw new IllegalArgumentException("현재 계좌에 잔액이 부족합니다.");
             }
@@ -156,9 +167,18 @@ public class MoneyService {
                 // 채권자가 송금
                 toUserAccount.setMinusBalance(loan.getPrincipal());
                 accountRepository.save(toUserAccount);
+                // 채권자 계좌에 내역 저장
+                Long oldB0 = toUserAccount.getBalance() + loan.getPrincipal();
+                Long newB0 = toUserAccount.getBalance();
+                saveAccountHistory(toUserAccount, loan.getFromUser(), oldB0, newB0, loan.getPrincipal(), true);
+                //
                 // 채무자는 입금
                 fromUserAccount.setAddBalance(loan.getPrincipal());
                 accountRepository.save(fromUserAccount);
+                // 채무자 계좌에 내역 저장
+                Long oldB1 = fromUserAccount.getBalance() - loan.getPrincipal();
+                Long newB1 = fromUserAccount.getBalance();
+                saveAccountHistory(fromUserAccount, loan.getToUser(), oldB1, newB1, loan.getPrincipal(), false);
             }else {
                 throw new IllegalArgumentException("현재 계좌에 잔액이 부족합니다.");
             }
@@ -166,7 +186,16 @@ public class MoneyService {
     }
 
     // 계좌에 거래 내역 저장
-    public void saveAccountHistory(Loan loan){
-
+    public void saveAccountHistory(Account account, User toUser, Long oldB, Long newB, Long amount, boolean type){
+        // 채권자 및 채무자 계좌에 내역 저장
+        AccountHistory accountHistory = AccountHistory.builder()
+                .account(account)
+                .toUser(toUser)
+                .oldBalance(oldB)
+                .newBalance(newB)
+                .amount(amount)
+                .accountType(type)
+                .build();
+        accountHistoryRepository.save(accountHistory);
     }
 }
