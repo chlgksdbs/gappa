@@ -496,6 +496,7 @@ public class UserService {
 
             webAlarms.forEach(webAlarm -> {
                 WebAlarmResponseDto webAlarmResponseDto = WebAlarmResponseDto.builder()
+                        .webAlarmSeq(webAlarm.getWebAlarmSeq())
                         .fromUserName(webAlarm.getFromUser().getName())
                         .fromUserProfileImg(webAlarm.getFromUser().getProfileImg())
                         .regDate(webAlarm.getRegDate())
