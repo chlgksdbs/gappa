@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import java.text.NumberFormat;
 import java.time.LocalDateTime;
 
 @Service
@@ -43,7 +44,7 @@ public class MoneyService {
             // 대출금 이체 실행
             transfer(loan, 0L, 1);
             //알림 만드는 로직
-            String alarmContent = loan.getToUser().getName() + "님이 " + loan.getPrincipal() + "원을 빌려줬어요!";
+            String alarmContent = loan.getToUser().getName() + "님이 " + formatWithCommas(loan.getPrincipal()) + "원을 빌려줬어요!";
             webAlarmRepository.save(new WebAlarm(loan.getFromUser(), loan.getToUser(), 'R', alarmContent));
             //푸시 알림 보내기
             fcmService.pushNotification(loan.getFromUser().getUserSeq(), alarmContent);
@@ -62,7 +63,7 @@ public class MoneyService {
         if(loan != null){
             loan.setStatus('F');
             //알림 만드는 로직
-            String alarmContent = loan.getToUser().getName() + "님에게 " + loan.getPrincipal() + "원 대출이 거절됐어요";
+            String alarmContent = loan.getToUser().getName() + "님에게 " + formatWithCommas(loan.getPrincipal()) + "원 대출이 거절됐어요";
             webAlarmRepository.save(new WebAlarm(loan.getFromUser(), loan.getToUser(), 'R', alarmContent));
             //푸시 알림 보내기
             fcmService.pushNotification(loan.getFromUser().getUserSeq(), alarmContent);
@@ -96,12 +97,12 @@ public class MoneyService {
                 // 현재까지의 총 상환금이 '(대출원금+이자)*연체일자' 를 넘어가면 상환 완료
                 int lateDate = LocalDateTime.now().compareTo(loan.getRedemptionDate());
                 //알림 만드는 로직
-                String alarmContent = loan.getFromUser().getName() + "님이 " + redemptionRequestDto.getAmount() + "원을 상환했어요!";
+                String alarmContent = loan.getFromUser().getName() + "님이 " + formatWithCommas(redemptionRequestDto.getAmount()) + "원을 상환했어요!";
                 char alarmCategory = 'P';
                 if(totalRedemptionMoney >= (loan.getPrincipal() + loan.getInterest()) * lateDate) {
                     loan.setStatus('C');
                     loan.setExpiredDate(LocalDateTime.now());
-                    alarmContent = loan.getFromUser().getName() + "님이 " + loan.getPrincipal() + "원 대출 상환을 완료했어요!";
+                    alarmContent = loan.getFromUser().getName() + "님이 " + formatWithCommas(loan.getPrincipal()) + "원 대출 상환을 완료했어요!";
                     alarmCategory = 'C';
                 }
                 webAlarmRepository.save(new WebAlarm(loan.getToUser(), loan.getFromUser(), alarmCategory, alarmContent));
@@ -124,13 +125,13 @@ public class MoneyService {
                 // 대출 내역의 상환금 업데이트
                 Long totalRedemptionMoney = loan.getRedemptionMoney() + redemptionRequestDto.getAmount();
                 //알림 만드는 로직
-                String alarmContent = loan.getFromUser().getName() + "님이 " + redemptionRequestDto.getAmount() + "원을 상환했어요!";
+                String alarmContent = loan.getFromUser().getName() + "님이 " + formatWithCommas(redemptionRequestDto.getAmount()) + "원을 상환했어요!";
                 char alarmCategory = 'P';
                 // 현재까지의 총 상환금이 대출원금을 넘어가면 상환 완료
                 if(totalRedemptionMoney >= loan.getPrincipal()){
                     loan.setStatus('C');
                     loan.setExpiredDate(LocalDateTime.now());
-                    alarmContent = loan.getFromUser().getName() + "님이 " + loan.getPrincipal() + "원 대출 상환을 완료했어요!";
+                    alarmContent = loan.getFromUser().getName() + "님이 " + formatWithCommas(loan.getPrincipal()) + "원 대출 상환을 완료했어요!";
                     alarmCategory = 'C';
                 }
                 webAlarmRepository.save(new WebAlarm(loan.getToUser(), loan.getFromUser(), alarmCategory, alarmContent));
@@ -184,5 +185,11 @@ public class MoneyService {
     // 계좌에 거래 내역 저장
     public void saveAccountHistory(Loan loan){
 
+    }
+
+    // 원 콤마
+    public String formatWithCommas(long number) {
+        NumberFormat numberFormat = NumberFormat.getInstance();
+        return numberFormat.format(number) + "원";
     }
 }

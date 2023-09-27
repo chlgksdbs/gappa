@@ -60,7 +60,7 @@ public class LoanService {
             loan.setInterest(calInterest);
             loan.setStatus('W');
             //알림함
-            String alarmContent = fromUser.getName() + " 님에게 대출 신청이 왔어요!";
+            String alarmContent = fromUser.getName() + "님이 대출 신청을 보냈어요!";
             webAlarmRepository.save(new WebAlarm(toUser, fromUser, 'A', alarmContent));
             //푸시알림
             fcmService.pushNotification(toUser.getUserSeq(), alarmContent);
