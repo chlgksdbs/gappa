@@ -2,10 +2,16 @@ import React, { useState } from 'react';
 import style from './AccountDetail.module.css';
 import Footer from '../Common/Footer';
 import HeaderSub from '../Common/HeaderSub';
+import { useLocation } from 'react-router-dom';
 
 const AccountDetail = () => {
   const myAccount = "카카오 3333-033-757-283";
   const money = 2500;
+
+  /////////////// 이렇게 써라 동익아~~
+  const location = useLocation();
+  const data = location.state;
+  /////////////// data를 가져다 쓰세요~~~
 
   const transactions = [
     { 형태: "입금", 얼마: 11000, 잔액: 11123, description: "월급", time: "2023-09-18 10:00" },

@@ -45,9 +45,24 @@
 }
 
 .name {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   font-size: 22px;
   font-weight: bold;
   margin: 20px 0px 15px 15px;
+}
+
+.statusBox {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  width: 85px;
+  height: 30px;
+  font-size: 18px;
+  border-radius: 15px;
+  box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.2);
 }
 
 .phone {

@@ -9,22 +9,35 @@
 
 .loan {
   background-color: rgba(128, 206, 190, 0.2);
-  height: 35vh;
+  height: 33vh;
   width: 100%;
-  justify-content: center;
+  /* justify-content: center;
   align-items: center;
   display: flex;
+  flex-wrap: wrap; */
+}
+
+.quickMenu {
+  /* width: 90%; */
+  margin: 5% 0 1% 5%;
+}
+
+.imgDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
 }
 
-.loan img {
-  height: 95px;
+
+.imgDiv img {
+  height: 110px;
   margin: 10px 5px 0px 5px;
 }
 
 .historyBox {
   background-color: rgba(128, 206, 190, 0.2);
-  height: 20vh;
+  height: 22vh;
   width: 100%;
   justify-content: center;
   align-items: center;
