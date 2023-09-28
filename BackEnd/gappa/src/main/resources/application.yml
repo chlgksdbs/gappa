@@ -4,36 +4,15 @@ spring:
     url: jdbc:mysql://j9B206.p.ssafy.io:2231/gappa?serverTimezone=UTC&characterEncoding=UTF-8
     username: gappa
     password: bqefip4o407wwgdn6-c4sc-zzhpf11-vvla
-  redis:
-    host: j9b206.p.ssafy.io
-    port: 9707
-
-  batch:
-    jdbc:
-      initialize-schema: always
 
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
     hibernate:
-      ddl-auto: validate
-      use-new-id-generator-mappings: false
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
         default_batch_fetch_size: 1000
-
-# sms
-accessKey: fM7dsWwkyM4SRx3dihNM
-secretKey: lklJtbeKB4fR7WcNrbZb7gL4LpqFp27b2msw5RzF
-serviceId: ncp:sms:kr:312413481836:gappa
-
-# system number
-systemPhoneNumber: 01073877808
-
-# jwt
-jwt:
-  secret:
-    key: 89525749bcff2dc9c717e6014d03d342fe93d46de7fb6b0915c930ed3e675f663adb3932cd145044aba992c3fa3d501e39df232a077319b5f235be80d9647120
 
