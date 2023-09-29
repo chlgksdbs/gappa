@@ -55,6 +55,7 @@
 
 .input{
   border-width: 0;
+  outline: none;
   font-size: 17px;
   font-weight: bold;
   width: 88%;
