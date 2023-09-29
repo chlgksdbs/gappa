@@ -1,4 +1,4 @@
-.body {
+.main {
   height: 100vh;
   justify-content: flex-start;
   align-items: center;
@@ -7,9 +7,22 @@
   font-size: 24px;
 }
 
+.body {
+  width: 90%;
+  max-height: 82vh;
+  /* min-height: 70vh; */
+  overflow-y: scroll; /* 스크롤이 필요한 경우에만 스크롤 바 표시 */
+  scrollbar-width: none; /* Firefox에서 스크롤 바 숨기기 */
+  -ms-overflow-style: none; /* Internet Explorer에서 스크롤 바 숨기기 */
+}
+.body::-webkit-scrollbar {
+  width: 0; /* Webkit 기반 브라우저(Chrome, Safari)에서 스크롤 바 숨기기 */
+  display: none; /* Safari에서 스크롤 바 숨기기 */
+}
+
 .loan {
   background-color: rgba(128, 206, 190, 0.2);
-  height: 33vh;
+  /* height: 33vh; */
   width: 100%;
   /* justify-content: center;
   align-items: center;
@@ -19,6 +32,7 @@
 
 .quickMenu {
   /* width: 90%; */
+  padding-top: 10px;
   margin: 5% 0 1% 5%;
 }
 
@@ -31,7 +45,7 @@
 
 
 .imgDiv img {
-  height: 110px;
+  height: 105px;
   margin: 10px 5px 0px 5px;
 }
 
