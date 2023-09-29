@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import style from './MainAccountEdit.module.css';
 import HeaderSub from '../Common/HeaderSub';
 import { customAxios } from '../api/customAxios';
+import toast, { Toaster } from 'react-hot-toast';
 
 const MainAccountEditPage = () => {
   const [accounts, setAccounts] = useState([]);
@@ -27,9 +28,12 @@ const MainAccountEditPage = () => {
     console.log(requestData);
     customAxios.put(`/accounts/primary`, requestData)
     .then((res)=>{
-      console.log("대표 계좌 변경 완료");
-      alert("대표 계좌 변경 성공!");
-      window.location.reload();
+      toast.success("대표 계좌 변경 성공!", {
+        duration: 1000,
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     })
     .catch((error) => {
       // 오류 발생 시 처리
@@ -61,7 +65,7 @@ const MainAccountEditPage = () => {
   return (
     <div className={style.main}>
       <HeaderSub title={"대표 계좌 변경"}/>
-
+      <div><Toaster /></div>
       <div className={style.body}>
         {accounts.length === 0 ?
         <div className={style.noneAccountDiv}>

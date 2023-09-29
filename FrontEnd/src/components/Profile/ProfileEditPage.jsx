@@ -5,6 +5,7 @@ import DaumPostcode from 'react-daum-postcode';
 import Modal from 'react-modal';
 import { useNavigate } from 'react-router-dom';
 import { customAxios } from '../api/customAxios';
+import toast, { Toaster } from 'react-hot-toast';
 
 const ProfileEditPage = () => {
   const navigate = useNavigate();
@@ -115,12 +116,21 @@ const ProfileEditPage = () => {
     .then((res) => {
       // 성공적으로 업데이트된 경우 처리
       console.log("프로필 정보가 성공적으로 업데이트되었습니다.");
-      alert("프로필 업데이트 완료"); // 일단 alert로 해놨음. 바꿀 예정
-      navigate("/profile");
+      toast.success("프로필 업데이트 성공!", {
+        duration: 1000,
+      });
+      setTimeout(() => {
+        navigate("/profile");
+      }, 1000);
     })
     .catch((error) => {
       // 오류 발생 시 처리
-      alert("프로필 업데이트 실패"); // 일단 alert로 해놨음. 바꿀 예정
+      toast.error("프로필 업데이트 실패!", {
+        duration: 1000,
+      });
+      setTimeout(() => {
+        navigate("/profile");
+      }, 1000);
       console.error("프로필 정보 업데이트 오류:", error);
     });
   }
@@ -128,6 +138,7 @@ const ProfileEditPage = () => {
   return (
     <div className={style.main}>
       <HeaderSub title={"내 프로필 수정"}/>
+      <div><Toaster /></div>
       <div className={style.profileImg}>
           <img src={`/images/${profileImg}`} alt="" />
       </div>
