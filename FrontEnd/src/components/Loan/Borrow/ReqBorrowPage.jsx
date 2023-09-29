@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import HeaderSub from '../../Common/HeaderSub';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import style from './ReqBorrow.module.css';
 import { customAxios } from '../../api/customAxios';
 import { useLocation } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 
 const ReqBorrowPage = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const location = useLocation();
   const data = location.state;
 
@@ -66,11 +67,20 @@ const ReqBorrowPage = () => {
     customAxios.post("/loan/regist", data)
     .then((res)=>{
       console.log(res);
-      alert("대출을 신청했습니다.");
-      navigate('/');
+      toast.success("대출을 신청했습니다!", {
+        duration: 1000,
+      });
+      setTimeout(() => {
+        window.location.replace("/");
+      }, 1000);
     })
     .catch((res)=>{
-      console.log(res);
+      toast.error("대출 신청에 실패했습니다.", {
+        duration: 1000,
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     })
   };
 
@@ -79,6 +89,7 @@ const ReqBorrowPage = () => {
   return (
     <div className={style.body}>
       <HeaderSub title={"대출 신청"} />
+      <div><Toaster /></div>
       <div className={style.container}>
         <div className={style.messageBox}>
           <div className={style.message}><span className={style.bold}>{name}</span> 님이 <span className={style.bold}>{name2}</span> 님에게</div>
