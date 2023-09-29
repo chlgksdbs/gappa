@@ -156,14 +156,37 @@ const ReqChatPage = () => {
               선택해주세요!
             </div>
           </div>
-          {reason === "" ? null
+          {/* {reason === "" ? null
           : 
             <>
               <div className={style.chatBalance}>
                 <div>{reason}</div>
               </div>
             </>
-          }
+          } */}
+          <div className={style.reason}>
+            <div onClick={() => reasonClickHandler("월세 대출", 1)}
+            className={1 === selectedReasonIndex ? style.selectedReason : style.reasonItem}>
+              월세 대출</div>
+            <div onClick={() => reasonClickHandler("관리비 대출", 2)}
+            className={2 === selectedReasonIndex ? style.selectedReason : style.reasonItem}>
+              관리비 대출</div>
+            <div onClick={() => reasonClickHandler("생활비 대출", 3)}
+            className={3 === selectedReasonIndex ? style.selectedReason : style.reasonItem}>
+              생활비 대출</div>
+            <div onClick={() => reasonClickHandler("비상금 대출", 4)}
+            className={4 === selectedReasonIndex ? style.selectedReason : style.reasonItem}>
+              비상금 대출</div>
+            <div onClick={() => reasonClickHandler("취미 생활 대출", 5)}
+            className={5 === selectedReasonIndex ? style.selectedReason : style.reasonItem}>
+              취미 생활 대출</div>
+            <div onClick={() => reasonClickHandler("경조사비 대출", 6)}
+            className={6 === selectedReasonIndex ? style.selectedReason : style.reasonItem}>
+              경조사비 대출</div>
+            <div onClick={() => reasonClickHandler("기타 사유", 7)}
+            className={7 === selectedReasonIndex ? style.selectedReason : style.reasonItem}>
+              기타 사유</div>
+          </div>
         </>
         : null}
         {reqStep >= 4 ?
@@ -238,7 +261,7 @@ const ReqChatPage = () => {
         </div>
       </div>
       : reqStep === 3 ?
-      <div className={style.inputDiv}>
+      <div className={style.inputDiv} style={{height: "10%"}}>
         <div>
           {reason === "" ? 
             <div className={style.notbtn}>다음</div>
@@ -247,37 +270,6 @@ const ReqChatPage = () => {
               다음
             </div>
           }
-          <div className={style.reason}>
-            <div>
-              <div onClick={() => reasonClickHandler("월세 대출", 1)}
-              className={1 === selectedReasonIndex ? style.selectedReason : style.reasonItem}>
-                월세 대출</div>
-              <div onClick={() => reasonClickHandler("관리비 대출", 2)}
-              className={2 === selectedReasonIndex ? style.selectedReason : style.reasonItem}>
-                관리비 대출</div>
-            </div>
-            <div>
-              <div onClick={() => reasonClickHandler("생활비 대출", 3)}
-              className={3 === selectedReasonIndex ? style.selectedReason : style.reasonItem}>
-                생활비 대출</div>
-              <div onClick={() => reasonClickHandler("비상금 대출", 4)}
-              className={4 === selectedReasonIndex ? style.selectedReason : style.reasonItem}>
-                비상금 대출</div>
-            </div>
-            <div>
-              <div onClick={() => reasonClickHandler("취미 생활 대출", 5)}
-              className={5 === selectedReasonIndex ? style.selectedReason : style.reasonItem}>
-                취미 생활 대출</div>
-              <div onClick={() => reasonClickHandler("경조사비 대출", 6)}
-              className={6 === selectedReasonIndex ? style.selectedReason : style.reasonItem}>
-                경조사비 대출</div>
-            </div>
-            <div>
-              <div onClick={() => reasonClickHandler("기타 사유", 7)}
-              className={7 === selectedReasonIndex ? style.selectedReason : style.reasonItem}>
-                기타 사유</div>
-            </div>
-          </div>
         </div>
       </div>
       : reqStep === 4 ?
