@@ -169,14 +169,11 @@
 }
 
 .reason {
-  width: 100%;
-  flex-direction: column;
+  /* width: 100%; */
+  /* flex-direction: column; */
+  margin-left: auto;
 }
 
-.reason div{
-  display: flex;
-  /* width: 100%; */
-}
 
 /* .reason div div{
   display: flex;
@@ -194,11 +191,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: fit-content;
   height: 30px;
   background-color: whitesmoke;
   border-radius: 15px;
   padding: 5px 15px 5px 15px;
   margin: 10px;
+  margin-left: auto;
 }
 
 /* 선택된 이유 항목 스타일 */
@@ -206,9 +205,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: fit-content;
   height: 30px;
   background-color: #80CEBE;
   border-radius: 15px;
   padding: 5px 15px 5px 15px;
   margin: 10px;
+  margin-left: auto;
 }
