@@ -40,8 +40,8 @@ const HomeAccount = () => {
       {isExistAccount ? (
         <div className={style.myAcc}>
           <div>
-            <span className={style.titleText}>계좌번호</span>
-            <span className={style.titleText}>{bank}</span>
+            <span className={style.titleText} style={{paddingTop: "10px"}}>계좌번호</span>
+            <span className={style.titleText} style={{paddingTop: "10px"}}>{bank}</span>
             </div>
           <div className={style.contentText}>{account}<p></p></div>
           <div className={style.titleText}>잔액</div>
