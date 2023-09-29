@@ -69,6 +69,7 @@
 }
 
 .friendText {
+  min-width: 74px;
   font-size: 20px;
   margin-right: 20px;
 }

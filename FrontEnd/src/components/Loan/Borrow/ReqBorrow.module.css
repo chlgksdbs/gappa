@@ -62,6 +62,13 @@
   font-family: 'TheJamsil3Regular';
 }
 
+.inputDiv {
+  display: flex;
+  justify-content: center; 
+  width: 100%;
+  margin-top: auto;
+}
+
 .nextBtn {
   display: flex;
   width: 390px;
@@ -69,6 +76,6 @@
   justify-content: center;
   align-items: center;
   font-size: 25px;
-  background-color: rgba(128, 206, 190, 0.2);
+  background: #80CEBE;
   margin-bottom: 20px;
 }

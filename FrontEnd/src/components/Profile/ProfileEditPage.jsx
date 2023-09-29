@@ -132,31 +132,33 @@ const ProfileEditPage = () => {
           <img src={`/images/${profileImg}`} alt="" />
       </div>
       <div className={style.profileEdit}>
-        <p>이름</p>
-        <input type="text" value={name} className={style.input} onChange={handleNameChange}/>
-        <div className={style.line} />
-        <p>휴대폰 번호</p>
+        <p className={style.detailtitle}>이름</p>
+        <input type="text" value={name} className={style.input} onChange={handleNameChange} readOnly/>
+        {/* <div className={style.line} /> */}
+        <p className={style.detailtitle}>휴대폰 번호</p>
         <input type="text" value={phone} className={style.input} onChange={handlePhoneChange}/>
-        <div className={style.line} />
-        <p>주소</p>
-        <input type="text" value={address} className={style.input} readOnly/>
-        <button onClick={handleAddress.clickButton} className={style.formbtn}>주소 검색</button>
-        {openPostcode &&
-          <Modal
-            isOpen={openPostcode}
-            onRequestClose={() => setOpenPostcode(false)}
-            className={style.modal}
-          >
-            <DaumPostcode
-              onComplete={handleAddress.selectAddress}  // 값을 선택할 경우 실행되는 이벤트
-              autoClose={false} // 값을 선택할 경우 사용되는 DOM을 제거하여 자동 닫힘 설정
-              defaultQuery='' // 팝업을 열때 기본적으로 입력되는 검색어
-            />
-          </Modal>}
-        <div className={style.line} />
-        <p>상세 주소</p>
+        {/* <div className={style.line} /> */}
+        <div style={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
+          <p className={style.detailtitle}>주소</p>
+          <button onClick={handleAddress.clickButton} className={style.formbtn}>주소 검색</button>
+        </div>
+          <input type="text" value={address} className={style.input} readOnly/>
+          {openPostcode &&
+            <Modal
+              isOpen={openPostcode}
+              onRequestClose={() => setOpenPostcode(false)}
+              className={style.modal}
+            >
+              <DaumPostcode
+                onComplete={handleAddress.selectAddress}  // 값을 선택할 경우 실행되는 이벤트
+                autoClose={false} // 값을 선택할 경우 사용되는 DOM을 제거하여 자동 닫힘 설정
+                defaultQuery='' // 팝업을 열때 기본적으로 입력되는 검색어
+              />
+            </Modal>}
+        {/* <div className={style.line} /> */}
+        <p className={style.detailtitle}>상세 주소</p>
         <input type="text" value={detailAddress} className={style.input} onChange={onChangeDetailAddress}/>
-        <div className={style.line} />
+        {/* <div className={style.line} /> */}
       </div>
       <button className={style.editConfirm} onClick={modUserInfo}>확인</button>
     </div>
