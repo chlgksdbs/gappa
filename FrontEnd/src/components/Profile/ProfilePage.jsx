@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import HeaderSub from '../Common/HeaderSub';
 import { customAxios } from '../api/customAxios';
 import { useLocation } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -92,11 +93,21 @@ const ProfilePage = () => {
     const body = { list: locdata };
     customAxios.put("/friends", body)
     .then((res)=>{
-      alert("친구삭제에 성공했습니다.");
+      toast.success("친구를 삭제했습니다!", {
+        duration: 1000,
+      });
+      setTimeout(() => {
+        window.location.replace("/profile");
+      }, 1000);
       console.log(res);
     })
     .catch((res)=>{
-      alert("친구삭제에 실패했습니다.");
+      toast.error("친구삭제에 실패했습니다.", {
+        duration: 1000,
+      });
+      setTimeout(() => {
+        window.location.replace("/profile");
+      }, 1000);
       console.log(res);
     })
   }
@@ -104,6 +115,7 @@ const ProfilePage = () => {
   return (
     <div className={style.main}>
       <HeaderSub title={title}/>
+      <div><Toaster /></div>
       <div className={style.profile}>
         <div className={style.profileImg}>
           <img src={`./images/${profileImg}`} alt="" />
