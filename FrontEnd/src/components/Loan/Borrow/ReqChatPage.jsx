@@ -23,7 +23,7 @@ const ReqChatPage = () => {
   const year = dateValue.getFullYear(); // 년도
   const month = String(dateValue.getMonth() + 1).padStart(2, '0'); // 월 (0부터 시작하므로 +1 필요)
   const day = String(dateValue.getDate()).padStart(2, '0'); // 날짜
-  const dateAsString = `${year}-${month}-${day}`;
+  const dateAsString = `${year}년 ${month}월 ${day}일`;
 
   const formatBalance = (balance) => {
     // balance를 1,000 단위로 포맷팅하여 반환합니다.

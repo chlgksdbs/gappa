@@ -85,7 +85,21 @@ const ProfilePage = () => {
         console.log(res);
       })
     }
-  }, []);
+  }, [locdata]);
+
+  // 친구 삭제
+  const handleDelete = () => {
+    const body = { list: locdata };
+    customAxios.put("/friends", body)
+    .then((res)=>{
+      alert("친구삭제에 성공했습니다.");
+      console.log(res);
+    })
+    .catch((res)=>{
+      alert("친구삭제에 실패했습니다.");
+      console.log(res);
+    })
+  }
   
   return (
     <div className={style.main}>
@@ -155,7 +169,7 @@ const ProfilePage = () => {
               <p className={style.repaymentsCntFont}>{repaymentsCnt}</p>
             </div>
           </div>
-          <div className={style.deleteBtn}>
+          <div className={style.deleteBtn} onClick={handleDelete}>
             친구 삭제
           </div>
         </>

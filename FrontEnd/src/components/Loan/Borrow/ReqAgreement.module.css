@@ -110,6 +110,13 @@
   accent-color: #80CEBE;
 }
 
+.fakeAgree {
+  margin-top: 20px;
+  padding: 0 5px 0 5px;
+  font-size: 13px;
+  color: red;
+}
+
 .goodbtn{
   display: flex;
   align-items: center;

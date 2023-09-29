@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import HeaderSub from '../../Common/HeaderSub';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import style from './ReqBorrow.module.css';
 import { customAxios } from '../../api/customAxios';
 import { useLocation } from 'react-router-dom';
 
 const ReqBorrowPage = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const location = useLocation();
   const data = location.state;
 
@@ -59,13 +59,15 @@ const ReqBorrowPage = () => {
     } else {
       // 토큰이 없는 경우 처리
     }
-  }, []);
+  }, [data.toUser]);
 
   const nextHandler = () => {
     console.log(data);
     customAxios.post("/loan/regist", data)
     .then((res)=>{
       console.log(res);
+      alert("대출을 신청했습니다.");
+      navigate('/');
     })
     .catch((res)=>{
       console.log(res);
@@ -111,8 +113,10 @@ const ReqBorrowPage = () => {
             <div className={style.detailValue}>{name}</div>
           </div>
         </div>
-        <div className={style.nextBtn} onClick={nextHandler}>
-          신청
+        <div className={style.inputDiv}>
+          <div className={style.nextBtn} onClick={nextHandler}>
+            신청
+          </div>
         </div>
       </div>
     </div>

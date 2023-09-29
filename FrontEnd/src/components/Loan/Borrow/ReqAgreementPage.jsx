@@ -219,6 +219,10 @@ const ReqAgreementPage = () => {
               checked={phoneCheck}
               onChange={(e) => phoneCheckHandler(e)} />
           </div>
+          <div className={style.fakeAgree}>
+            ※ 상기 대출 약관 동의는 모의로 진행되며, 
+            대출 약관 동의 내용은 법적 효력을 갖지 않습니다.
+          </div>
           <div className={style.buttondiv}>
             {
               checkPoint

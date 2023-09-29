@@ -52,6 +52,13 @@ const ReqFriendPages = () => {
   const location = useLocation();
   const { balance, dateAsString, reason, reasonText } = location.state || {};
 
+  const filteredFriends = phoneBook.filter((friend) => {
+    const nameMatch = friend.user_name.toLowerCase().includes(searchTerm.toLowerCase());
+    const phoneMatch = friend.phone.includes(searchTerm);
+
+    return nameMatch || phoneMatch;
+  });
+
   const nextHandler = () => {
     // 토큰 가져오기
     const token = localStorage.getItem("token");
@@ -102,7 +109,7 @@ const ReqFriendPages = () => {
         </>
         :
         <div className={style.friendsList}>
-          {phoneBook.map((friend, index) => (
+          {filteredFriends.map((friend, index) => (
             <div
             key={index}
             className={`${style.friendItem} ${userSeq===index ? style.selectedFriend : ''}`}
@@ -118,7 +125,7 @@ const ReqFriendPages = () => {
         } 
       </div>
       <div className={style.inputDiv}>
-        {userSeq == -1 ? 
+        {userSeq === -1 ? 
         <div className={style.notBtn}>
           다음
         </div>
