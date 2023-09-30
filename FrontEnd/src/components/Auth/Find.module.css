@@ -1,0 +1,26 @@
+.body{
+  display:flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.idpassword{
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  height: 89vh;
+  align-items: center;
+}
+
+.btn{
+  /* width: 100%; */
+  width: 50%;
+  height: 70px;
+  border: 0;
+  background-color: #80CEBE;
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+  border-radius: 5vw;
+}
