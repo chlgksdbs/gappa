@@ -37,7 +37,7 @@ import LendSendPage from './components/Loan/Lend/LendSendPage';
 import NotificationPage from './components/Notification/NotificationPage';
 import FCMtestPage from './components/Notification/FCMtestPage';
 import LendCompletePage from './components/Loan/Lend/LendCompletePage';
-
+import Branding from './components/Auth/branding';
 
 function App() {
   // vw, vh를 보이는 화면의 %로 계산하는 식
@@ -56,7 +56,13 @@ function App() {
       return token === null;
     };
     setIsAuthenticated(checkTokenInLocalStorage());
-    console.log(isAuthenticated);
+    // 이미지 우클릭 방지
+    const preventImageContextMenu = (event) => {
+      if (event.target.tagName === "IMG") {
+        event.preventDefault();
+      }
+    };
+    window.addEventListener("contextmenu", preventImageContextMenu);
     // eslint-disable-next-line
   }, [])
 
@@ -72,41 +78,42 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/agreement" element={<AgreementPage />} />
+            <Route path="/branding" element={<Branding/>}/>
           </>
           :
           <>
-            <Route path="/" element={<HomePage />}/>
-            <Route path="/borrow" element={<BorrowPage />}/>
-            <Route path="/lend" element={<LendPage />}/>
-            <Route path="/lend/check" element={<LendCheckPage />}/>
-            <Route path="/lend/refuse" element={<LendRefusePage />}/>
-            <Route path="/lend/send" element={<LendSendPage />}/>
-            <Route path="/lend/complete" element={<LendCompletePage />}/>
-            <Route path="/historyborrow" element={<HistoryBorrowPage />}/>
-            <Route path="/historylend" element={<HistoryLendPage />}/>
-            <Route path="/historydetail" element={<HistoryDetailPage />}/>
-            <Route path="/friends" element={<FriendsPage />}/>
-            <Route path="/friends/add" element={<FriendsAddPage />}/>
-            <Route path="/friends/req" element={<FriendsReqPage />}/>
-            <Route path="/profile" element={<ProfilePage />}/>
-            <Route path="/account" element={<AccountDetail />}/>
-            <Route path="/profile/edit" element={<ProfileEditPage />}/>
-            <Route path="/profile/accountedit" element={<MainAccountEditPage />}/>
-            <Route path="/notice" element={<NoticePage />}/>
-            <Route path="/qna" element={<QnAPage />}/>
-            <Route path="/customerservice" element={<CustomerServicePage />}/>
-            <Route path="/reqagreement" element={<ReqAgreementPage />}/>
-            <Route path="/reqchat" element={<ReqChatPage />}/>
-            <Route path="/reqfriends" element={<ReqFriendsPage />}/>
-            <Route path="/reqBorrow" element={<ReqBorrowPage />}/>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/borrow" element={<BorrowPage />} />
+            <Route path="/lend" element={<LendPage />} />
+            <Route path="/lend/check" element={<LendCheckPage />} />
+            <Route path="/lend/refuse" element={<LendRefusePage />} />
+            <Route path="/lend/send" element={<LendSendPage />} />
+            <Route path="/lend/complete" element={<LendCompletePage />} />
+            <Route path="/historyborrow" element={<HistoryBorrowPage />} />
+            <Route path="/historylend" element={<HistoryLendPage />} />
+            <Route path="/historydetail" element={<HistoryDetailPage />} />
+            <Route path="/friends" element={<FriendsPage />} />
+            <Route path="/friends/add" element={<FriendsAddPage />} />
+            <Route path="/friends/req" element={<FriendsReqPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/account" element={<AccountDetail />} />
+            <Route path="/profile/edit" element={<ProfileEditPage />} />
+            <Route path="/profile/accountedit" element={<MainAccountEditPage />} />
+            <Route path="/notice" element={<NoticePage />} />
+            <Route path="/qna" element={<QnAPage />} />
+            <Route path="/customerservice" element={<CustomerServicePage />} />
+            <Route path="/reqagreement" element={<ReqAgreementPage />} />
+            <Route path="/reqchat" element={<ReqChatPage />} />
+            <Route path="/reqfriends" element={<ReqFriendsPage />} />
+            <Route path="/reqBorrow" element={<ReqBorrowPage />} />
             <Route path="/bankbook" element={<BankBookPage />} />
             <Route path="/masterbankbook" element={<MasterBankBookPage />} />
             <Route path="/pinpassword" element={<PinPassword />} />
             <Route path="/pinpasswordconfirm" element={<PinPasswordConfirm />} />
             <Route path="/pinpasswordcheck" element={<PinPasswordCheckPage />} />
-            <Route path="/notification" element={<NotificationPage />}/>
+            <Route path="/notification" element={<NotificationPage />} />
 
-            <Route path="/fcmtest" element={<FCMtestPage />}/>
+            <Route path="/fcmtest" element={<FCMtestPage />} />
           </>
         })
       </Routes>
