@@ -17,6 +17,7 @@ public class GetLoanOppResponseDto {
     private String fromUser;
     private String profileImg;
     private Long principal;
+    private Long restMoney;
     private LocalDateTime startDate;
     private LocalDateTime redemptionDate;
     private char status;
