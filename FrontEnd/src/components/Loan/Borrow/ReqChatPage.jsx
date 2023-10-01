@@ -120,7 +120,7 @@ const ReqChatPage = () => {
         <>
           <div className={style.chatDiv}>
             <div>
-              <img src="/images/GappaChat.png" alt="" style={{height: "80px"}}/>
+              <img src="/images/GappaChat.png" alt="" style={{height: "70px"}}/>
             </div>
             <div className={style.chatContent}>
               얼마를 빌릴거에요?

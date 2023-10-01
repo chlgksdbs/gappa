@@ -193,7 +193,8 @@
   align-items: center;
   width: fit-content;
   height: 30px;
-  background-color: whitesmoke;
+  /* background-color: whitesmoke; */
+  border: solid 1px #80CEBE;
   border-radius: 15px;
   padding: 5px 15px 5px 15px;
   margin: 10px;
@@ -208,6 +209,7 @@
   width: fit-content;
   height: 30px;
   background-color: #80CEBE;
+  border: solid 1px #80CEBE;
   border-radius: 15px;
   padding: 5px 15px 5px 15px;
   margin: 10px;
