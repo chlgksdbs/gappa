@@ -38,6 +38,10 @@ import NotificationPage from './components/Notification/NotificationPage';
 import FCMtestPage from './components/Notification/FCMtestPage';
 import LendCompletePage from './components/Loan/Lend/LendCompletePage';
 import Branding from './components/Auth/branding';
+import FindCheck from './components/Auth/FindCheck';
+import FindId from './components/Auth/FindId';
+import FindPassword from './components/Auth/FindPassword';
+import NotFound from './components/404/NotFound';
 
 function App() {
   // vw, vh를 보이는 화면의 %로 계산하는 식
@@ -79,6 +83,10 @@ function App() {
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/agreement" element={<AgreementPage />} />
             <Route path="/branding" element={<Branding/>}/>
+            <Route path="/find" element={<FindCheck/>}/>
+            <Route path="/find/id" element={<FindId/>}/>
+            <Route path="/find/password" element={<FindPassword/>}/>
+            <Route path="/*" element={<NotFound/>}/>
           </>
           :
           <>
@@ -112,8 +120,8 @@ function App() {
             <Route path="/pinpasswordconfirm" element={<PinPasswordConfirm />} />
             <Route path="/pinpasswordcheck" element={<PinPasswordCheckPage />} />
             <Route path="/notification" element={<NotificationPage />} />
-
             <Route path="/fcmtest" element={<FCMtestPage />} />
+            <Route path="/*" element={<NotFound/>}/>
           </>
         })
       </Routes>
