@@ -60,7 +60,8 @@ const HistoryBorrowPage = () => {
           id: borrow.loanSeq,
           name: borrow.toUser,
           img: `/images/${borrow.profileImg}`,
-          balance: borrow.principal,
+          restMoney: borrow.restMoney,
+          principal: borrow.principal,
           startdate: borrow.startDate,
           enddate: borrow.redemptionDate,
           isStatus: borrow.status,
@@ -95,7 +96,9 @@ const HistoryBorrowPage = () => {
                   <img src={borrow.img} alt="" className={style.columnImg}/>
                   <div>
                     <p className={style.columnName}>{borrow.name}</p>
-                    <p>{formatBalance(borrow.balance)}원</p>
+                    <span style={{fontSize: "18px"}}>{formatBalance(borrow.restMoney)} 원</span>
+                    <span> / </span><br/>
+                    <span style={{fontSize: "14px"}}>{formatBalance(borrow.principal)} 원</span>
                   </div>
                 </div>
               </div>

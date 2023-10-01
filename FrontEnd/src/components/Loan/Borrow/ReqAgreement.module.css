@@ -6,9 +6,10 @@
 }
 
 .body {
-  width: 90%;
+  width: 95%;
   max-height: 78vh;
   /* min-height: 70vh; */
+  margin-left: 5%;
   overflow-y: scroll; /* 스크롤이 필요한 경우에만 스크롤 바 표시 */
   scrollbar-width: none; /* Firefox에서 스크롤 바 숨기기 */
   -ms-overflow-style: none; /* Internet Explorer에서 스크롤 바 숨기기 */

@@ -55,7 +55,8 @@
 
 .columnName {
   font-size: 20px;
-  margin-bottom: 0;
+  margin-top: 15px;
+  margin-bottom: 5px;
 }
 
 .lendStatus {
