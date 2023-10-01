@@ -18,7 +18,7 @@ const PinPasswordVerify = ( props ) => {
     const body = {
       pinPassword: pin
     };
-    customAxios.post('/users/pin/check', body)
+    customAxios.post('/users/pin/validate', body)
     .then((res)=>{
       console.log(res);
       if (props.result) {

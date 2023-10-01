@@ -31,13 +31,13 @@ import FriendsAddPage from './components/Friends/FriendsAddPage';
 import FriendsReqPage from './components/Friends/FriendsReqPage';
 import ReqFriendsPage from './components/Loan/Borrow/ReqFriendsPage';
 import ReqBorrowPage from './components/Loan/Borrow/ReqBorrowPage';
-import LendRefusePage from './components/Loan/Lend/LendRefusePage';
 import LendCheckPage from './components/Loan/Lend/LendCheckPage';
 import LendSendPage from './components/Loan/Lend/LendSendPage';
 import NotificationPage from './components/Notification/NotificationPage';
 import FCMtestPage from './components/Notification/FCMtestPage';
 import LendCompletePage from './components/Loan/Lend/LendCompletePage';
 import RepaymentPage from './components/Loan/Repayment/RepaymentPage';
+import LendListPage from './components/Loan/Lend/LendListPage';
 
 
 function App() {
@@ -79,8 +79,8 @@ function App() {
             <Route path="/" element={<HomePage />}/>
             <Route path="/borrow" element={<BorrowPage />}/>
             <Route path="/lend" element={<LendPage />}/>
+            <Route path="/lend/list" element={<LendListPage />}/>
             <Route path="/lend/check" element={<LendCheckPage />}/>
-            <Route path="/lend/refuse" element={<LendRefusePage />}/>
             <Route path="/lend/send" element={<LendSendPage />}/>
             <Route path="/lend/complete" element={<LendCompletePage />}/>
             <Route path="/historyborrow" element={<HistoryBorrowPage />}/>
