@@ -61,7 +61,8 @@ const HistoryLendPage = () => {
           id: lend.loanSeq,
           name: lend.fromUser,
           img: `/images/${lend.profileImg}`,
-          balance: lend.principal,
+          restMoney: lend.restMoney,
+          principal: lend.principal,
           startdate: lend.startDate,
           enddate: lend.redemptionDate,
           isStatus: lend.status,
@@ -96,7 +97,10 @@ const HistoryLendPage = () => {
                 <img src={lend.img} alt="" className={style.columnImg}/>
                 <div>
                   <p className={style.columnName}>{lend.name}</p>
-                  <p>{formatBalance(lend.balance)}원</p>
+                  {/* <p>{formatBalance(lend.balance)}원 / {formatBalance(lend.principal)}원</p> */}
+                  <span style={{fontSize: "18px"}}>{formatBalance(lend.restMoney)}원</span>
+                  <span> / </span><br/>
+                  <span style={{fontSize: "14px"}}>{formatBalance(lend.principal)}원</span>
                 </div>
               </div>
             </div>
