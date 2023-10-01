@@ -1,55 +1,105 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './AccountDetail.module.css';
 import Footer from '../Common/Footer';
 import HeaderSub from '../Common/HeaderSub';
 import { useLocation } from 'react-router-dom';
+import { customAxios } from '../api/customAxios';
 
 const AccountDetail = () => {
-  const myAccount = "카카오 3333-033-757-283";
-  const money = 2500;
-
-  /////////////// 이렇게 써라 동익아~~
   const location = useLocation();
-  const data = location.state;
-  /////////////// data를 가져다 쓰세요~~~
+  const accSeq = location.state;
 
-  const transactions = [
-    { 형태: "입금", 얼마: 11000, 잔액: 11123, description: "월급", time: "2023-09-18 10:00" },
-    { 형태: "입금", 얼마: 5000, 잔액: 16123, description: "용돈", time: "2023-09-19 14:30" },
-    { 형태: "출금", 얼마: 3000, 잔액: 13123, description: "식비", time: "2023-09-20 12:15" }
-  ];
+  const [account, setAccount] = useState("");
+  const [bank, setBank] = useState("");
+  const [money, setMoney] = useState(0);
 
-  const [filter, setFilter] = useState("전체");
+  const [transaction, setTransaction] = useState([]);
 
-  const filteredTransactions = filter === "전체"
-    ? transactions
-    : transactions.filter(transaction => transaction.형태 === filter);
+  useEffect(() => {
+    getMyAcc();
+    getTransaction();
+  }, []);
+
+  const getMyAcc = () => {
+    customAxios.get(`/accounts/primary`)
+    .then((res)=>{
+      console.log(res);
+      setAccount(res.data.accountNumber);
+      setBank(res.data.bank);
+      setMoney(res.data.balance);
+    })
+    .catch((res)=>{
+      console.log(res);
+    })
+  }
+
+  const getTransaction = () => {
+    const body = {
+      accountSeq : accSeq
+    }
+    customAxios.post('/accounts/history/detail', body)
+    .then((res)=>{
+      console.log(res);
+      setTransaction(res.data);
+    })
+    .catch((res)=>{
+      console.log(res);
+    })
+  }
+
+  //false 입금, true 출금
+  const [filter, setFilter] = useState("all");
+
+  const filteredTransaction = filter === "all"
+    ? transaction.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    : transaction.filter(transaction => {
+        return transaction.accountType === (filter === "true" ? true : false);
+  }).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+  function formatDate(dateString) {
+    const options = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+    };
+  
+    return new Date(dateString).toLocaleString('ko-KR', options);
+  }
 
   return (
     <div className={style.body}>
       <HeaderSub title={"내 계좌"} />
 
       <div className={style.info}>
-        <p className={style.title}>{myAccount}</p>
-        <p className={style.title}>{money.toLocaleString()}원</p>
+        <p className={style.bank}>{bank + " " + account}</p>
+        <p className={style.money}>{money.toLocaleString()}원</p>
       </div>
 
       <div className={style.filter}>
         <select value={filter} onChange={e => setFilter(e.target.value)}>
-          <option value="전체">전체</option>
-          <option value="입금">입금</option>
-          <option value="출금">출금</option>
+          <option value="all">전체</option>
+          <option value="false">입금</option>
+          <option value="true">출금</option>
         </select>
       </div>
 
-      <div>
-        {filteredTransactions.map((transaction, index) => (
+      <div className={style.transactionContainer}>
+        {filteredTransaction.map((transaction, index) => (
           <div key={index} className={style.transactionBox}>
-            <p className={style.transactionType}>형태: {transaction.형태}</p>
-            <p className={style.transactionAmount + (transaction.형태 === '출금' ? ' ' + style.negative : '')}>얼마: {transaction.얼마}원</p>
-            <p>{transaction.description}</p>
-            <p>시간: {transaction.time}</p>
-            <p>잔액: {transaction.잔액}원</p>
+            <div className={style.date}>{formatDate(transaction.createdAt)}</div>
+            <div className={style.detailBox}>
+              <div className={style.name}>{transaction.toUser}</div>
+              <div className={style.tranMoney}>
+                <div className={style.transactionAmount + (transaction.accountType === true ? ' ' + style.negative : '')}>
+                  {transaction.accountType ? "-":"+"}{transaction.amount.toLocaleString()} 원
+                </div>
+                <div>
+                  {transaction.newBalance.toLocaleString()} 원
+                </div>
+              </div>
+            </div>
           </div>
         ))}
       </div>
