@@ -9,6 +9,16 @@ const NotificationPage = () => {
   const navigate = useNavigate();
 
   const [notis, setNotis] = useState([]);
+  const [condition, setCondition] = useState(true);
+  
+  useEffect(() => {
+    for (var i = 0 ; i < notis.length ; i++){
+      if(notis[i].read === false) {
+        setCondition(false);
+        break;
+      }
+    }
+  }, [notis]);
 
   const category = {
     "A" : "대출 신청",
@@ -82,9 +92,15 @@ const NotificationPage = () => {
   return (
     <div className={style.body}>
       <Header title={"알림함"} />
-      <div onClick={deleteAll} className={style.deleteBtnBox}>
+      {condition ? (
+        <div className={style.noneAccountDiv}>
+        <img src="/images/GappaMascot.png" alt="" style={{width: "150px"}}/>
+        <p>텅 비어 있어요..</p>
+      </div>
+      ):(<div onClick={deleteAll} className={style.deleteBtnBox}>
         <button>알림함 비우기</button>
       </div>
+      )}
       <div className={style.notiBox}>
         {notis.map((item, index) => (
           // item.read 값이 false인 경우에만 알림 출력
