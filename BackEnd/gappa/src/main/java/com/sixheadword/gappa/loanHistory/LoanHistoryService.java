@@ -14,6 +14,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,15 +30,23 @@ public class LoanHistoryService {
     // 대출 및 대금 이력 상세조회
     public GetLoanHistoryResponseDto getLoanHistory(Long loanSeq, Authentication authentication) {
         Loan loan = loanRepository.findById(loanSeq).orElse(null);
+        Long lateDate = 0L;
+        // 연체일 계산
+        if(LocalDateTime.now().isAfter(loan.getRedemptionDate())){
+            lateDate = ChronoUnit.DAYS.between(loan.getRedemptionDate(), LocalDateTime.now());
+        }
         // type = 0 : 대출
         if((loan != null) && (Long.parseLong(authentication.getName()) == loan.getFromUser().getUserSeq())){
             return GetLoanHistoryResponseDto.builder()
+                    .loanSeq(loanSeq)
                     .toUserName(loan.getToUser().getName())
                     .fromUserName(loan.getFromUser().getName())
+                    .fromUserSeq(loan.getFromUser().getUserSeq())
                     .profileImg(loan.getToUser().getProfileImg())
                     .startDate(loan.getStartDate())
                     .redemptionDate(loan.getRedemptionDate())
                     .expiredDate(loan.getExpiredDate())
+                    .lateDate(lateDate)
                     .principal(loan.getPrincipal())
                     .balance(loan.getPrincipal() - loan.getRedemptionMoney() + loan.getInterest())
                     .interest(loan.getInterest())
@@ -47,12 +57,15 @@ public class LoanHistoryService {
             // type = 1 : 대금
         }else if((loan != null) && (Long.parseLong(authentication.getName()) == loan.getToUser().getUserSeq())){
             return GetLoanHistoryResponseDto.builder()
+                    .loanSeq(loanSeq)
                     .toUserName(loan.getToUser().getName())
                     .fromUserName(loan.getFromUser().getName())
+                    .fromUserSeq(loan.getFromUser().getUserSeq())
                     .profileImg(loan.getFromUser().getProfileImg())
                     .startDate(loan.getStartDate())
                     .redemptionDate(loan.getRedemptionDate())
                     .expiredDate(loan.getExpiredDate())
+                    .lateDate(lateDate)
                     .principal(loan.getPrincipal())
                     .balance(loan.getPrincipal() - loan.getRedemptionMoney() + loan.getInterest())
                     .interest(loan.getInterest())
