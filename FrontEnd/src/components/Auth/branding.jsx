@@ -1,27 +1,32 @@
-import React from 'react';
-
+import React,{useState} from 'react';
+import { useNavigate } from 'react-router-dom';
+import style from './branding.module.css';
 const Branding = () => {
+  const [checkIMG, setCheckIMG] = useState(1);
+
+  const navigate = useNavigate();
+
+  const moveToLogin = () => {
+    navigate('/');
+  }
   return (
     <div>
-      {/* <div>
-        <img src={"branding.png"} alt="" />
-        <br />
-        <span>친구와 돈거래</span>
-        <br />
-        <span>저희 GAPPA가 해드립니다.</span> */}
-      {/* </div> */}
-      <div>
-        <img src={"branding1.png"} alt="" />
-        <br />
-        <span>어려운 친구와의 대출</span>
-        <br />
-        <span>간단하고 안전하게!</span>
-      </div>
-      <div>
-        <img src={"branding2.png"} alt="" />
-        <span>어려운 대출과정? NONO</span>
-        <br />
-        <span>보안은 철저 못받을 걱정하지마세요! </span>
+      <div className={style.body}>
+        <div>
+          <img
+            src={`branding_${checkIMG}.png`}
+            alt="branding"
+          />
+        </div>
+        {checkIMG !== 3 ? (
+          <div>
+            <button onClick={() => setCheckIMG(checkIMG + 1)} className={style.btn}>다음으로</button>
+          </div>
+        ) : (
+          <div>
+            <button onClick={() => moveToLogin()} className={style.btn}>함께하기</button>
+          </div>
+        )}
       </div>
     </div>
   );
