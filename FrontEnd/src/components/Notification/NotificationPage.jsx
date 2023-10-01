@@ -59,6 +59,8 @@ const NotificationPage = () => {
         navigate('/');
       } else if(category === "C") {
         navigate('/historyborrow');
+      } else if(category === "P") {
+        navigate('/historyborrow');
       } else if(category === "F") {
         navigate('/friends');
       }

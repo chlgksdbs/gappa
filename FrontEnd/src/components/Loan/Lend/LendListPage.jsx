@@ -3,6 +3,7 @@ import style from './LendListPage.module.css';
 import Header from '../../Common/Header';
 import { customAxios } from '../../api/customAxios';
 import { useNavigate  } from 'react-router-dom';
+import Footer from '../../Common/Footer';
 
 const LendListPage = () => {
   const navigate = useNavigate();
@@ -58,6 +59,7 @@ const LendListPage = () => {
           </div>
         ))}
       </div>
+      <Footer />
     </div>
   );
 };
