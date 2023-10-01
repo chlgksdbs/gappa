@@ -5,11 +5,11 @@ const LandingPage = () => {
 
   const navigate = useNavigate();
   useEffect(()=>{
-    // const storedIsNewUser = localStorage.getItem("isNewUser");
-    // if (storedIsNewUser !== "true") {
-    //   localStorage.setItem("isNewUser", "true");
-    //   navigate("/branding");
-    // }
+    const storedIsNewUser = localStorage.getItem("isNewUser");
+    if (storedIsNewUser !== "true") {
+      localStorage.setItem("isNewUser", "true");
+      navigate("/branding");
+    }
   },[])
   return (
     <div className={style.main}>
