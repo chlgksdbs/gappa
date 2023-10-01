@@ -16,9 +16,15 @@ const ReqBorrowPage = () => {
   const [bank, setBank] = useState(""); // 내 은행
   const [accountNumber, setAccountNumber] = useState(""); // 내 계좌
 
-  const formattedStartDate = data.startDate.split(" ")[0];
-  const formattedRedemptionDate = data.redemptionDate.split(" ")[0];
+  // const formattedStartDate = data.startDate.split(" ")[0];
+  // const formattedRedemptionDate = data.redemptionDate.split(" ")[0];
 
+  const formattedStartDate2 = new Date(data.startDate).getFullYear()+"년 "
+                              + String(new Date(data.startDate).getMonth() + 1).padStart(2, '0')+"월 "
+                              + String(new Date(data.startDate).getDate()).padStart(2, '0')+"일";
+  const formattedRedemptionDate2 = new Date(data.redemptionDate).getFullYear()+"년 "
+                                  + String(new Date(data.redemptionDate).getMonth() + 1).padStart(2, '0')+"월 "
+                                  + String(new Date(data.redemptionDate).getDate()).padStart(2, '0')+"일";
 
   useEffect(() => {
     // 토큰 가져오기
@@ -103,12 +109,12 @@ const ReqBorrowPage = () => {
           </div>
           <div className={style.detail}>
             <div className={style.detailKey}>신청일자</div>
-            <div className={style.detailValue}>{formattedStartDate}</div>
+            <div className={style.detailValue}>{formattedStartDate2}</div>
           </div>
           <div className={style.title}>요청 상환일</div>
           <div className={style.detail}>
             <div className={style.detailKey}>상환일</div>
-            <div className={style.detailValue}>{formattedRedemptionDate}</div>
+            <div className={style.detailValue}>{formattedRedemptionDate2}</div>
           </div>
           <div className={style.title}>대표 계좌</div>
           <div className={style.detail}>

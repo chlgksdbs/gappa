@@ -90,14 +90,14 @@ const ProfilePage = () => {
 
   // 친구 삭제
   const handleDelete = () => {
-    const body = { list: locdata };
+    const body = { list: [{ user_seq: locdata }]};
     customAxios.put("/friends", body)
     .then((res)=>{
       toast.success("친구를 삭제했습니다!", {
         duration: 1000,
       });
       setTimeout(() => {
-        window.location.replace("/profile");
+        window.location.replace("/friends");
       }, 1000);
       console.log(res);
     })

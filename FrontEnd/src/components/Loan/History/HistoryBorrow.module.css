@@ -26,8 +26,6 @@
 
 .borrowDiv {
   width: 100%;
-  
-  /* margin-top: 20px; */
 }
 
 .columnDiv {
@@ -38,7 +36,6 @@
   border-radius: 30px;
   margin-bottom: 5px;
   padding: 15px 15px 0px 15px;
-  
 }
 
 .columnDate {
