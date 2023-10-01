@@ -47,10 +47,7 @@
 .form{
   margin-top: 5vh;
 }
-.form span{
-  margin-bottom: 2vh;
-  color: lightgray;
-}
+
 
 .center{
   height: 80vh;
@@ -82,4 +79,58 @@
   color:white;
   margin-top: 10vh;
   /* margin-bottom: 7vh; */
+}
+
+.blue{
+  color: blue;
+  margin-bottom: 2vh;
+}
+
+.gray{
+  color: lightgray;
+  margin-bottom: 2vh;
+}
+
+.formbtn{
+  background-color: #B3BAF5;
+  border: 0;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.phonecheckform{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* margin-top: 2vh; */
+  /* margin-bottom: 1vh; */
+}
+
+.phoneforms{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 100fr 1fr;
+}
+
+.phonecheckform{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2vh;
+  /* margin-bottom: 1vh; */
+}
+
+.inputs{
+  border-width: 0 0 1px;
+  border-color: lightgray;
+  width: 100%;
+}
+
+.phoneformss{
+  width: 70%;
+  display: grid;
+  grid-template-columns: 100fr 1fr;
+  margin-top: 1vh;
 }
