@@ -93,3 +93,11 @@
   transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out;
   border-radius: 5px;
 }
+
+.noneAccountDiv {
+  text-align: center;
+}
+
+.noneAccountDiv p {
+  color: rgb(128, 206, 190);
+}
