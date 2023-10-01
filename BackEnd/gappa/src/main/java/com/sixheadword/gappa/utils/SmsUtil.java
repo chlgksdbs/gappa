@@ -14,7 +14,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Base64;
+import java.util.Optional;
 
 @Component
 public class SmsUtil {
@@ -33,18 +36,19 @@ public class SmsUtil {
     private String from;
 
     public void sendSMS(String to, String content) throws IOException, NoSuchAlgorithmException, InvalidKeyException {
+        sendSMS(to, content, Optional.empty());
+    }
 
+    public void sendSMS(String to, String content, Optional<LocalDateTime> reserveTime) throws IOException, NoSuchAlgorithmException, InvalidKeyException {
         String hostNameUrl = "https://sens.apigw.ntruss.com";
         String requestUrl = "/sms/v2/services/" + serviceId + "/messages";
+        String apiUrl = hostNameUrl + requestUrl;
         String method = "POST";
         String timestamp = Long.toString(System.currentTimeMillis());
-        String apiUrl = hostNameUrl + requestUrl;
 
-
-        JSONObject bodyJson = createBodyJson(from, to, content);
+        JSONObject bodyJson = createBodyJson(from, to, content, reserveTime.isPresent(), reserveTime.orElse(null));
 
         String body = bodyJson.toJSONString();
-
         logger.info("Request body: {}", body);
 
         HttpURLConnection con = openConnection(requestUrl, apiUrl, timestamp, method);
@@ -52,7 +56,7 @@ public class SmsUtil {
         handleResponse(con);
     }
 
-    private JSONObject createBodyJson(String from, String to, String content) {
+    private JSONObject createBodyJson(String from, String to, String content, boolean reserve, LocalDateTime reserveTime) {
         JSONObject toJson = new JSONObject();
         toJson.put("content", content);
         toJson.put("to", to);
@@ -67,6 +71,10 @@ public class SmsUtil {
         bodyJson.put("from", from);
         bodyJson.put("content", content);
         bodyJson.put("messages", toArr);
+        if (reserve && reserveTime != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            bodyJson.put("reserveTime", reserveTime.format(formatter));
+        }
 
         return bodyJson;
     }
