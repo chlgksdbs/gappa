@@ -621,7 +621,7 @@ public class UserService {
         Long webAlarmSeq = Long.parseLong(request.get("webAlarmSeq"));
         try {
             WebAlarm webAlarm = em.find(WebAlarm.class, webAlarmSeq);
-            if (webAlarm.getFromUser().getUserSeq().equals(userSeq)) {
+            if (webAlarm.getToUser().getUserSeq().equals(userSeq)) {
                 webAlarm.setRead(true);
                 status = HttpStatus.OK;
             } else {
@@ -644,7 +644,7 @@ public class UserService {
 
         try {
             User user = em.find(User.class, userSeq);
-            List<WebAlarm> webAlarms = webAlarmRepository.findAllByFromUser(user);
+            List<WebAlarm> webAlarms = webAlarmRepository.findAllByToUser(user);
             webAlarms.forEach(webAlarm -> {
                 if (!webAlarm.isRead()) webAlarm.setRead(true);
             });
