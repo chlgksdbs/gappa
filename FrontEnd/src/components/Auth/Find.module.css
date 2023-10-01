@@ -4,13 +4,14 @@
   width: 100%;
   align-items: center;
   justify-content: center;
+  /* height: 100vh; */
 }
 
 .idpassword{
   display: flex;
   flex-direction: column;
   width: 90%;
-  height: 89vh;
+  height: 80vh;
   align-items: center;
 }
 
@@ -23,4 +24,62 @@
   margin-top: 3vh;
   margin-bottom: 3vh;
   border-radius: 5vw;
+}
+
+.input{
+  border-width: 0 0 1px;
+  border-color: lightgray;
+  width: 100%;
+}
+
+.input:focus{
+  outline: none;
+}
+
+.form{
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  font-size: 13px;
+  /* height: 20vh; */
+}
+
+.form{
+  margin-top: 5vh;
+}
+.form span{
+  margin-bottom: 2vh;
+  color: lightgray;
+}
+
+.center{
+  height: 80vh;
+}
+
+.btndiv{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20vh;
+}
+.btn{
+  width: 70%;
+  height: 50px;
+  border:0;
+  border-radius: 10px;
+  background-color: #80CEBE;
+  color:white;
+  margin-top: 10vh;
+  /* margin-bottom: 10vh; */
+}
+
+.notbtn{
+  width: 70%;
+  height: 50px;
+  border:0;
+  border-radius: 10px;
+  background-color: lightgray;
+  color:white;
+  margin-top: 10vh;
+  /* margin-bottom: 7vh; */
 }
