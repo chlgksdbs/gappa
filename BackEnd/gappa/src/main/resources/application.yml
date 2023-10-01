@@ -1,4 +1,7 @@
 spring:
+  # 로그파일 설정
+  application:
+    name: svc1-accounts
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://j9B206.p.ssafy.io:2231/gappa?serverTimezone=UTC&characterEncoding=UTF-8
