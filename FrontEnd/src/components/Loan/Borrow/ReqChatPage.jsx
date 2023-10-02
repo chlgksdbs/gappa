@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import style from './ReqChat.module.css';
 import HeaderSub from '../../Common/HeaderSub';
 import { useNavigate } from 'react-router-dom';
@@ -24,6 +24,7 @@ const ReqChatPage = () => {
   const month = String(dateValue.getMonth() + 1).padStart(2, '0'); // 월 (0부터 시작하므로 +1 필요)
   const day = String(dateValue.getDate()).padStart(2, '0'); // 날짜
   const dateAsString = `${year}-${month}-${day}`;
+  const dateAsString2 = `${year}년 ${month}월 ${day}일`;
 
   const formatBalance = (balance) => {
     // balance를 1,000 단위로 포맷팅하여 반환합니다.
@@ -101,69 +102,110 @@ const ReqChatPage = () => {
     navigate("/reqfriends", { state: data });
   }
 
+  // const [messages, setMessages] = useState([]);
+  const messageContainerRef = useRef(null);
+
+  useEffect(() => {
+    // 스크롤을 최하단으로 이동
+    if (messageContainerRef.current) {
+      messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
+    }
+  }, [reqStep, balance, dateAsString, reason, reasonText]);
+
   return (
     <div className={style.main}>
       <HeaderSub title={"대출 신청"} />
-      {reqStep >= 1 ?
-      <>
-        <div className={style.chatDiv}>
-          <img src="/images/GappaChat.png" alt="" style={{height: "80px"}}/>
-          <div className={style.chatContent}>
-            얼마를 빌릴거에요?
-          </div>
-        </div>
-        <div className={style.chatBalance}>
-          {formatBalance(balance)}원
-        </div>
-      </>
-      : null}
-      {reqStep >= 2 ?
-      <>
-        <div className={style.chatDiv}>
-          <img src="/images/GappaChat.png" alt="" style={{height: "80px"}}/>
-          <div className={style.chatContent}>
-            상환일자는 언제로 할까요?
-          </div>
-        </div>
-        
-        {dateAsString !== currentDateString && dateValue > currentDate ? 
-          <div className={style.chatBalance}>
-            {dateAsString}
-          </div>
-        : null}
-      </>
-      : null}
-      {reqStep >= 3 ?
-      <>
-        <div className={style.chatDiv}>
-          <img src="/images/GappaChat.png" alt="" style={{height: "80px"}}/>
-          <div className={style.chatContent}>
-            이용 카테고리를 선택해주세요!
-          </div>
-        </div>
-        {reason === "" ? null
-        : 
-          <>
-            <div className={style.chatBalance}>
-              {reason}
+      <div className={style.body} ref={messageContainerRef}>
+        {reqStep >= 1 ?
+        <>
+          <div className={style.chatDiv}>
+            <div>
+              <img src="/images/GappaChat.png" alt="" style={{height: "70px"}}/>
             </div>
-          </>
-        }
-      </>
-      : null}
-      {reqStep >= 4 ?
-      <>
-        <div className={style.chatDiv}>
-          <img src="/images/GappaChat.png" alt="" style={{height: "80px"}}/>
-          <div className={style.chatContent}>
-            대출 사유는 뭐에요?
+            <div className={style.chatContent}>
+              얼마를 빌릴거에요?
+            </div>
           </div>
-        </div>
-        <div className={style.chatBalance}>
-          <input type="text" className={style.input} value={reasonText} onChange={reasonHandleChange} placeholder='대출 사유를 입력하세요'/>
-        </div>
-      </>
-      : null}
+          <div className={style.chatBalance}>
+            <div>{formatBalance(balance)}원</div>
+          </div>
+        </>
+        : null}
+        {reqStep >= 2 ?
+        <>
+          <div className={style.chatDiv}>
+            <img src="/images/GappaChat.png" alt="" style={{height: "80px"}}/>
+            <div className={style.chatContent}>
+              상환일자는 언제로 할까요?
+            </div>
+          </div>
+          
+          {dateAsString !== currentDateString && dateValue > currentDate ? 
+            <div className={style.chatBalance}>
+              <div>{dateAsString2}</div>
+            </div>
+          : null}
+        </>
+        : null}
+        {reqStep >= 3 ?
+        <>
+          <div className={style.chatDiv}>
+            <img src="/images/GappaChat.png" alt="" style={{height: "80px"}}/>
+            <div className={style.chatContent}>
+              이용 카테고리를 
+              <br/>
+              선택해주세요!
+            </div>
+          </div>
+          {/* {reason === "" ? null
+          : 
+            <>
+              <div className={style.chatBalance}>
+                <div>{reason}</div>
+              </div>
+            </>
+          } */}
+          <div className={style.reason}>
+            <div onClick={() => reasonClickHandler("월세 대출", 1)}
+            className={1 === selectedReasonIndex ? style.selectedReason : style.reasonItem}>
+              월세 대출</div>
+            <div onClick={() => reasonClickHandler("관리비 대출", 2)}
+            className={2 === selectedReasonIndex ? style.selectedReason : style.reasonItem}>
+              관리비 대출</div>
+            <div onClick={() => reasonClickHandler("생활비 대출", 3)}
+            className={3 === selectedReasonIndex ? style.selectedReason : style.reasonItem}>
+              생활비 대출</div>
+            <div onClick={() => reasonClickHandler("비상금 대출", 4)}
+            className={4 === selectedReasonIndex ? style.selectedReason : style.reasonItem}>
+              비상금 대출</div>
+            <div onClick={() => reasonClickHandler("취미 생활 대출", 5)}
+            className={5 === selectedReasonIndex ? style.selectedReason : style.reasonItem}>
+              취미 생활 대출</div>
+            <div onClick={() => reasonClickHandler("경조사비 대출", 6)}
+            className={6 === selectedReasonIndex ? style.selectedReason : style.reasonItem}>
+              경조사비 대출</div>
+            <div onClick={() => reasonClickHandler("기타 사유", 7)}
+            className={7 === selectedReasonIndex ? style.selectedReason : style.reasonItem}>
+              기타 사유</div>
+          </div>
+        </>
+        : null}
+        {reqStep >= 4 ?
+        <>
+          <div className={style.chatDiv}>
+            <img src="/images/GappaChat.png" alt="" style={{height: "80px"}}/>
+            <div className={style.chatContent}>
+              친구에게 요청할 대출사유를
+              <br/>
+              적어주세요!
+            </div>
+          </div>
+          <div className={style.chatBalance}>
+            <div style={{width: "205px"}}><input type="text" className={style.input} value={reasonText} onChange={reasonHandleChange} placeholder='대출 사유를 입력하세요'/></div>
+          </div>
+        </>
+        : null}
+      </div>
       {reqStep === 1 ?
       <div className={style.inputDiv}>
         <div>
@@ -220,7 +262,7 @@ const ReqChatPage = () => {
         </div>
       </div>
       : reqStep === 3 ?
-      <div className={style.inputDiv}>
+      <div className={style.inputDiv} style={{height: "10%"}}>
         <div>
           {reason === "" ? 
             <div className={style.notbtn}>다음</div>
@@ -229,37 +271,6 @@ const ReqChatPage = () => {
               다음
             </div>
           }
-          <div className={style.reason}>
-            <div>
-              <div onClick={() => reasonClickHandler("월세 대출", 1)}
-              className={1 === selectedReasonIndex ? style.selectedReason : style.reasonItem}>
-                월세 대출</div>
-              <div onClick={() => reasonClickHandler("관리비 대출", 2)}
-              className={2 === selectedReasonIndex ? style.selectedReason : style.reasonItem}>
-                관리비 대출</div>
-            </div>
-            <div>
-              <div onClick={() => reasonClickHandler("생활비 대출", 3)}
-              className={3 === selectedReasonIndex ? style.selectedReason : style.reasonItem}>
-                생활비 대출</div>
-              <div onClick={() => reasonClickHandler("비상금 대출", 4)}
-              className={4 === selectedReasonIndex ? style.selectedReason : style.reasonItem}>
-                비상금 대출</div>
-            </div>
-            <div>
-              <div onClick={() => reasonClickHandler("취미 생활 대출", 5)}
-              className={5 === selectedReasonIndex ? style.selectedReason : style.reasonItem}>
-                취미 생활 대출</div>
-              <div onClick={() => reasonClickHandler("경조사비 대출", 6)}
-              className={6 === selectedReasonIndex ? style.selectedReason : style.reasonItem}>
-                경조사비 대출</div>
-            </div>
-            <div>
-              <div onClick={() => reasonClickHandler("기타 사유", 7)}
-              className={7 === selectedReasonIndex ? style.selectedReason : style.reasonItem}>
-                기타 사유</div>
-            </div>
-          </div>
         </div>
       </div>
       : reqStep === 4 ?

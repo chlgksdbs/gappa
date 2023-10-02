@@ -8,7 +8,7 @@
 }
 
 .container {
-  height: 85%;
+  height: 75%;
   width: 90%;
   display: flex;
   align-items: flex-start;
@@ -16,29 +16,30 @@
   flex-direction: column;
 }
 
-.messageBox {
-  height: 15%;
+.complete {
   width: 100%;
+  height: 30%;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-end;
   flex-direction: column;
 }
 
-.message {
+.msg {
   font-family: 'TheJamsil3Regular';
-  font-size: 20px;
+  font-size: 18px;
   margin-bottom: 1vh;
 }
 
-.bold {
-  font-family: 'TheJamsil5Bold';
-  font-size: 22px;
+.money {
+  font-size: 32px;
+  margin-bottom: 1vh;
 }
 
-.detailBox {
-  height: 80%;
+.account {
   width: 100%;
+  border-bottom: 2px solid #808080;
+  margin-bottom: 2vh;
 }
 
 .title {
@@ -47,6 +48,7 @@
 }
 
 .detail {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -60,22 +62,33 @@
 .detailValue {
   font-size: 20px;
   font-family: 'TheJamsil3Regular';
+  line-height: 1.4;
 }
 
-.inputDiv {
-  display: flex;
-  justify-content: center; 
+
+.btnBox {
+  height: 10%;
   width: 100%;
-  margin-top: auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
 }
 
-.nextBtn {
-  display: flex;
-  width: 390px;
-  height: 50px;
-  justify-content: center;
-  align-items: center;
-  font-size: 25px;
-  background: #80CEBE;
-  margin-bottom: 20px;
+.btnBox button {
+  /* 주의요함 */
+  position:fixed;
+  bottom:0;
+  left: 0;
+  right: 0;
+
+  background-color: #AFEBDF;
+  font-family: 'TheJamsil5Bold';
+  font-size: 24px;
+  padding: 20px 40px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out;
+  border-radius: 5px;
+  width: 100%;
 }

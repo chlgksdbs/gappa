@@ -49,9 +49,16 @@
   align-items: flex-start;
   display: flex;
   flex-direction: column;
-  height: 95%;
+  height: 90%;
   margin-bottom: 3vh;
-  overflow-y: auto;
+  overflow-y: scroll; /* 스크롤이 필요한 경우에만 스크롤 바 표시 */
+  scrollbar-width: none; /* Firefox에서 스크롤 바 숨기기 */
+  -ms-overflow-style: none;
+}
+
+.friendsList::-webkit-scrollbar {
+  width: 0; /* Webkit 기반 브라우저(Chrome, Safari)에서 스크롤 바 숨기기 */
+  display: none; /* Safari에서 스크롤 바 숨기기 */
 }
 
 .friendItem {
@@ -59,7 +66,7 @@
   align-items: center;
   display: flex;
   flex-direction: row;
-  height: 14%;
+  height: 50px;
   margin-bottom: 5px;
 }
 
@@ -76,6 +83,7 @@
 }
 
 .friendText {
+  min-width: 74px;
   font-size: 20px;
   margin-right: 20px;
 }
@@ -86,23 +94,30 @@
 
 .inputDiv {
   display: flex;
-  height: 56%;
-  position: fixed;
+  height: 9%;
   justify-content: center; 
   width: 100%;
-  bottom:0;
-  left: 0;
-  right: 0;
-  /* background-color: #979999; */
+  margin-top: auto;
 }
 
 .nextBtn {
   display: flex;
-  width: 390px;
+  width: 90%;
   height: 50px;
   justify-content: center;
   align-items: center;
   font-size: 25px;
-  background-color: rgba(128, 206, 190, 0.2);
+  background: #80CEBE;
+  margin-bottom: 20px;
+}
+
+.notBtn {
+  display: flex;
+  width: 90%;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  background: lightgray;
   margin-bottom: 20px;
 }

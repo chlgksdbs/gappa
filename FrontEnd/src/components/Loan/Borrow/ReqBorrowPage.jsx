@@ -4,6 +4,7 @@ import HeaderSub from '../../Common/HeaderSub';
 import style from './ReqBorrow.module.css';
 import { customAxios } from '../../api/customAxios';
 import { useLocation } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 
 const ReqBorrowPage = () => {
   // const navigate = useNavigate();
@@ -15,9 +16,15 @@ const ReqBorrowPage = () => {
   const [bank, setBank] = useState(""); // 내 은행
   const [accountNumber, setAccountNumber] = useState(""); // 내 계좌
 
-  const formattedStartDate = data.startDate.split(" ")[0];
-  const formattedRedemptionDate = data.redemptionDate.split(" ")[0];
+  // const formattedStartDate = data.startDate.split(" ")[0];
+  // const formattedRedemptionDate = data.redemptionDate.split(" ")[0];
 
+  const formattedStartDate2 = new Date(data.startDate).getFullYear()+"년 "
+                              + String(new Date(data.startDate).getMonth() + 1).padStart(2, '0')+"월 "
+                              + String(new Date(data.startDate).getDate()).padStart(2, '0')+"일";
+  const formattedRedemptionDate2 = new Date(data.redemptionDate).getFullYear()+"년 "
+                                  + String(new Date(data.redemptionDate).getMonth() + 1).padStart(2, '0')+"월 "
+                                  + String(new Date(data.redemptionDate).getDate()).padStart(2, '0')+"일";
 
   useEffect(() => {
     // 토큰 가져오기
@@ -59,16 +66,27 @@ const ReqBorrowPage = () => {
     } else {
       // 토큰이 없는 경우 처리
     }
-  }, []);
+  }, [data.toUser]);
 
   const nextHandler = () => {
     console.log(data);
     customAxios.post("/loan/regist", data)
     .then((res)=>{
       console.log(res);
+      toast.success("대출을 신청했습니다!", {
+        duration: 1000,
+      });
+      setTimeout(() => {
+        window.location.replace("/");
+      }, 1000);
     })
     .catch((res)=>{
-      console.log(res);
+      toast.error("대출 신청에 실패했습니다.", {
+        duration: 1000,
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     })
   };
 
@@ -77,6 +95,7 @@ const ReqBorrowPage = () => {
   return (
     <div className={style.body}>
       <HeaderSub title={"대출 신청"} />
+      <div><Toaster /></div>
       <div className={style.container}>
         <div className={style.messageBox}>
           <div className={style.message}><span className={style.bold}>{name}</span> 님이 <span className={style.bold}>{name2}</span> 님에게</div>
@@ -90,12 +109,12 @@ const ReqBorrowPage = () => {
           </div>
           <div className={style.detail}>
             <div className={style.detailKey}>신청일자</div>
-            <div className={style.detailValue}>{formattedStartDate}</div>
+            <div className={style.detailValue}>{formattedStartDate2}</div>
           </div>
           <div className={style.title}>요청 상환일</div>
           <div className={style.detail}>
             <div className={style.detailKey}>상환일</div>
-            <div className={style.detailValue}>{formattedRedemptionDate}</div>
+            <div className={style.detailValue}>{formattedRedemptionDate2}</div>
           </div>
           <div className={style.title}>대표 계좌</div>
           <div className={style.detail}>
@@ -111,8 +130,10 @@ const ReqBorrowPage = () => {
             <div className={style.detailValue}>{name}</div>
           </div>
         </div>
-        <div className={style.nextBtn} onClick={nextHandler}>
-          신청
+        <div className={style.inputDiv}>
+          <div className={style.nextBtn} onClick={nextHandler}>
+            신청
+          </div>
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Footer = () => {
   const navigate = useNavigate();
-
+  
   return (
     <div className={style.footer}>
       <img src="/images/FooterHome.png" alt="" onClick={() => { navigate("/") }}/>

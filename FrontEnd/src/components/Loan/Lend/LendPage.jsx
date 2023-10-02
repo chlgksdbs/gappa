@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import HeaderSub from '../../Common/HeaderSub';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation  } from 'react-router-dom';
 import style from './LendPage.module.css';
 import { customAxios } from '../../api/customAxios';
 
 const LendPage = () => {
   const navigate = useNavigate();
 
-  const loanSeq = 16;
+  const location = useLocation();
+  const loanSeq = location.state.loanSeq;
 
   const [toUser, setToUser] = useState("");
   const [fromUser, setFromUser] = useState("");
   const [principal, setPrincipal] = useState(0);
   const [startDate, setStartDate] = useState("");
   const [redemptionDate, setRedemptionDate] = useState("");
+  const [isRefuseOpen, setIsRefuseOpen] = useState(false);
 
   useEffect(() => {
     getApply();
@@ -44,6 +46,29 @@ const LendPage = () => {
     return formattedDate;
   }
 
+  const refuseClick = () => {
+    setIsRefuseOpen(true);
+  }
+
+  const toggleSearch = () => {
+    setIsRefuseOpen(!isRefuseOpen);
+  };
+
+  const refuse = () => {
+    const body = {
+      loanSeq : loanSeq
+    };
+
+    customAxios.post('/loan/money/fail', body)
+    .then((res)=>{
+      console.log(res);
+      navigate('/lend/list');
+    })
+    .catch((res)=>{
+      console.log(res);
+    });
+  }
+
   return (
     <div className={style.body}>
       <HeaderSub title={"대금 신청"} />
@@ -70,10 +95,26 @@ const LendPage = () => {
           
         </div>
         <div className={style.btnBox}>
-          <button onClick={()=> navigate('/lend/refuse')}>거절</button>
-          <button onClick={()=> navigate('/lend/check')}>승인</button>
+          <button onClick={refuseClick}>거절</button>
+          <button onClick={()=> navigate('/lend/check', { state: { loanSeq: loanSeq}})}>승인</button>
         </div>
       </div>
+      {isRefuseOpen && (
+        <div className={style.overlay} onClick={toggleSearch}></div>
+      )}
+      {isRefuseOpen && (
+        <div className={style.resultBox}>
+          <div className={style.infoBox}>
+            해당 대출 요청을 거절하시겠습니까?
+          </div>
+          <div className={style.resultBtnBox}>
+              <div className={style.resultBtn}>
+                <button onClick={toggleSearch}>취소</button>
+                <button onClick={refuse}>확인</button>
+              </div>
+            </div>
+        </div>
+      )}
     </div>
   );
 };

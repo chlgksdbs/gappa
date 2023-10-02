@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import style from './LendCheckPage.module.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation  } from 'react-router-dom';
 import HeaderSub from '../../Common/HeaderSub';
 import { customAxios } from '../../api/customAxios';
 
 
 const LendCheckPage = () => {
   const navigate = useNavigate();
-
-  const loanSeq = 16;
+  
+  const location = useLocation();
+  const loanSeq = location.state.loanSeq;
 
   const [toUser, setToUser] = useState("");
   const [fromUser, setFromUser] = useState("");
@@ -112,7 +113,7 @@ const LendCheckPage = () => {
         </div>
       </div>
       <div className={style.btnBox}>
-          <button onClick={()=> navigate('/lend/send')}>다음</button>
+          <button onClick={()=> navigate('/lend/send', { state: { loanSeq: loanSeq}})}>다음</button>
       </div>
     </div>
   );

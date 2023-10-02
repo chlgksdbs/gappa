@@ -7,7 +7,7 @@
   font-size: 24px;
 }
 
-.notiBox {
+.container {
   height: 75%;
   width: 90%;
   display: flex;
@@ -20,6 +20,7 @@
 .item {
   background-color: rgb(234, 233, 233);
   border-radius: 20px;
+  height: 22%;
   width: 100%;
   margin-bottom: 2vh;
   display: flex;
@@ -73,31 +74,4 @@
   cursor: pointer;
   transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out;
   border-radius: 5px;
-}
-
-.deleteBtnBox {
-  width: 90%;
-  display: flex;
-  justify-content: flex-end;
-  font-size: 20px;
-  margin-bottom: 1vh;
-}
-
-.deleteBtnBox button {
-  background-color: rgb(242, 180, 201);
-  font-family: 'TheJamsil5Bold';
-  font-size: 18px;
-  padding: 5px 10px;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out;
-  border-radius: 5px;
-}
-
-.noneAccountDiv {
-  text-align: center;
-}
-
-.noneAccountDiv p {
-  color: rgb(128, 206, 190);
 }

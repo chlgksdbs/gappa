@@ -5,6 +5,20 @@
   align-items: center;
 }
 
+.body {
+  width: 95%;
+  max-height: 78vh;
+  /* min-height: 70vh; */
+  margin-left: 5%;
+  overflow-y: scroll; /* 스크롤이 필요한 경우에만 스크롤 바 표시 */
+  scrollbar-width: none; /* Firefox에서 스크롤 바 숨기기 */
+  -ms-overflow-style: none; /* Internet Explorer에서 스크롤 바 숨기기 */
+}
+.body::-webkit-scrollbar {
+  width: 0; /* Webkit 기반 브라우저(Chrome, Safari)에서 스크롤 바 숨기기 */
+  display: none; /* Safari에서 스크롤 바 숨기기 */
+}
+
 .agreeCheckDiv1 {
   width: 90%;
 }
@@ -27,8 +41,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 5vh;
-  width: 100%;
+  margin-top: 13px;
+  width: 90%;
   height: 7vh;
   background: #80CEBE;
   border: 0;
@@ -95,6 +109,13 @@
   height: auto;
   zoom:1.5;
   accent-color: #80CEBE;
+}
+
+.fakeAgree {
+  margin-top: 20px;
+  padding: 0 5px 0 5px;
+  font-size: 13px;
+  color: red;
 }
 
 .goodbtn{

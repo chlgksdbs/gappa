@@ -5,6 +5,7 @@ import DaumPostcode from 'react-daum-postcode';
 import Modal from 'react-modal';
 import { useNavigate } from 'react-router-dom';
 import { customAxios } from '../api/customAxios';
+import toast, { Toaster } from 'react-hot-toast';
 
 const ProfileEditPage = () => {
   const navigate = useNavigate();
@@ -115,12 +116,21 @@ const ProfileEditPage = () => {
     .then((res) => {
       // 성공적으로 업데이트된 경우 처리
       console.log("프로필 정보가 성공적으로 업데이트되었습니다.");
-      alert("프로필 업데이트 완료"); // 일단 alert로 해놨음. 바꿀 예정
-      navigate("/profile");
+      toast.success("프로필 업데이트 성공!", {
+        duration: 1000,
+      });
+      setTimeout(() => {
+        navigate("/profile");
+      }, 1000);
     })
     .catch((error) => {
       // 오류 발생 시 처리
-      alert("프로필 업데이트 실패"); // 일단 alert로 해놨음. 바꿀 예정
+      toast.error("프로필 업데이트 실패!", {
+        duration: 1000,
+      });
+      setTimeout(() => {
+        navigate("/profile");
+      }, 1000);
       console.error("프로필 정보 업데이트 오류:", error);
     });
   }
@@ -128,35 +138,38 @@ const ProfileEditPage = () => {
   return (
     <div className={style.main}>
       <HeaderSub title={"내 프로필 수정"}/>
+      <div><Toaster /></div>
       <div className={style.profileImg}>
           <img src={`/images/${profileImg}`} alt="" />
       </div>
       <div className={style.profileEdit}>
-        <p>이름</p>
-        <input type="text" value={name} className={style.input} onChange={handleNameChange}/>
-        <div className={style.line} />
-        <p>휴대폰 번호</p>
+        <p className={style.detailtitle}>이름</p>
+        <input type="text" value={name} className={style.input} onChange={handleNameChange} readOnly/>
+        {/* <div className={style.line} /> */}
+        <p className={style.detailtitle}>휴대폰 번호</p>
         <input type="text" value={phone} className={style.input} onChange={handlePhoneChange}/>
-        <div className={style.line} />
-        <p>주소</p>
-        <input type="text" value={address} className={style.input} readOnly/>
-        <button onClick={handleAddress.clickButton} className={style.formbtn}>주소 검색</button>
-        {openPostcode &&
-          <Modal
-            isOpen={openPostcode}
-            onRequestClose={() => setOpenPostcode(false)}
-            className={style.modal}
-          >
-            <DaumPostcode
-              onComplete={handleAddress.selectAddress}  // 값을 선택할 경우 실행되는 이벤트
-              autoClose={false} // 값을 선택할 경우 사용되는 DOM을 제거하여 자동 닫힘 설정
-              defaultQuery='' // 팝업을 열때 기본적으로 입력되는 검색어
-            />
-          </Modal>}
-        <div className={style.line} />
-        <p>상세 주소</p>
+        {/* <div className={style.line} /> */}
+        <div style={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
+          <p className={style.detailtitle}>주소</p>
+          <button onClick={handleAddress.clickButton} className={style.formbtn}>주소 검색</button>
+        </div>
+          <input type="text" value={address} className={style.input} readOnly/>
+          {openPostcode &&
+            <Modal
+              isOpen={openPostcode}
+              onRequestClose={() => setOpenPostcode(false)}
+              className={style.modal}
+            >
+              <DaumPostcode
+                onComplete={handleAddress.selectAddress}  // 값을 선택할 경우 실행되는 이벤트
+                autoClose={false} // 값을 선택할 경우 사용되는 DOM을 제거하여 자동 닫힘 설정
+                defaultQuery='' // 팝업을 열때 기본적으로 입력되는 검색어
+              />
+            </Modal>}
+        {/* <div className={style.line} /> */}
+        <p className={style.detailtitle}>상세 주소</p>
         <input type="text" value={detailAddress} className={style.input} onChange={onChangeDetailAddress}/>
-        <div className={style.line} />
+        {/* <div className={style.line} /> */}
       </div>
       <button className={style.editConfirm} onClick={modUserInfo}>확인</button>
     </div>

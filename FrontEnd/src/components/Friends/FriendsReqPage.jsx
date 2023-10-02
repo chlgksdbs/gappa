@@ -54,8 +54,8 @@ const FriendsReqPage = () => {
               <div className={style.reqNum}>{request.phone}</div>
             </div>
             <div className={style.reqBtn}>
-              <button onClick={() => friendsRes(request.request_seq, "T")}>수락</button>
               <button onClick={() => friendsRes(request.request_seq, "F")}>거절</button>
+              <button onClick={() => friendsRes(request.request_seq, "T")}>수락</button>
             </div>
           </div>          
         </div>

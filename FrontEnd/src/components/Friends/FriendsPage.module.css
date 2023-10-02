@@ -44,7 +44,14 @@
   flex-direction: column;
   height: 80%;
   margin-bottom: 3vh;
-  overflow-y: auto;
+  overflow-y: scroll; /* 스크롤이 필요한 경우에만 스크롤 바 표시 */
+  scrollbar-width: none; /* Firefox에서 스크롤 바 숨기기 */
+  -ms-overflow-style: none;
+}
+
+.friendsList::-webkit-scrollbar {
+  width: 0; /* Webkit 기반 브라우저(Chrome, Safari)에서 스크롤 바 숨기기 */
+  display: none; /* Safari에서 스크롤 바 숨기기 */
 }
 
 .friendItem {
@@ -52,7 +59,7 @@
   align-items: center;
   display: flex;
   flex-direction: row;
-  height: 10%;
+  height: 50px;
   margin-bottom: 3px;
 }
 
@@ -69,6 +76,7 @@
 }
 
 .friendText {
+  min-width: 74px;
   font-size: 20px;
   margin-right: 20px;
 }

@@ -31,7 +31,6 @@ import FriendsAddPage from './components/Friends/FriendsAddPage';
 import FriendsReqPage from './components/Friends/FriendsReqPage';
 import ReqFriendsPage from './components/Loan/Borrow/ReqFriendsPage';
 import ReqBorrowPage from './components/Loan/Borrow/ReqBorrowPage';
-import LendRefusePage from './components/Loan/Lend/LendRefusePage';
 import LendCheckPage from './components/Loan/Lend/LendCheckPage';
 import LendSendPage from './components/Loan/Lend/LendSendPage';
 import NotificationPage from './components/Notification/NotificationPage';
@@ -42,6 +41,9 @@ import FindCheck from './components/Auth/FindCheck';
 import FindId from './components/Auth/FindId';
 import FindPassword from './components/Auth/FindPassword';
 import NotFound from './components/404/NotFound';
+import RepaymentPage from './components/Loan/Repayment/RepaymentPage';
+import LendListPage from './components/Loan/Lend/LendListPage';
+
 
 function App() {
   // vw, vh를 보이는 화면의 %로 계산하는 식
@@ -114,6 +116,30 @@ function App() {
             <Route path="/reqchat" element={<ReqChatPage />} />
             <Route path="/reqfriends" element={<ReqFriendsPage />} />
             <Route path="/reqBorrow" element={<ReqBorrowPage />} />
+            <Route path="/" element={<HomePage />}/>
+            <Route path="/borrow" element={<BorrowPage />}/>
+            <Route path="/lend" element={<LendPage />}/>
+            <Route path="/lend/list" element={<LendListPage />}/>
+            <Route path="/lend/check" element={<LendCheckPage />}/>
+            <Route path="/lend/send" element={<LendSendPage />}/>
+            <Route path="/lend/complete" element={<LendCompletePage />}/>
+            <Route path="/historyborrow" element={<HistoryBorrowPage />}/>
+            <Route path="/historylend" element={<HistoryLendPage />}/>
+            <Route path="/historydetail" element={<HistoryDetailPage />}/>
+            <Route path="/friends" element={<FriendsPage />}/>
+            <Route path="/friends/add" element={<FriendsAddPage />}/>
+            <Route path="/friends/req" element={<FriendsReqPage />}/>
+            <Route path="/profile" element={<ProfilePage />}/>
+            <Route path="/account" element={<AccountDetail />}/>
+            <Route path="/profile/edit" element={<ProfileEditPage />}/>
+            <Route path="/profile/accountedit" element={<MainAccountEditPage />}/>
+            <Route path="/notice" element={<NoticePage />}/>
+            <Route path="/qna" element={<QnAPage />}/>
+            <Route path="/customerservice" element={<CustomerServicePage />}/>
+            <Route path="/reqagreement" element={<ReqAgreementPage />}/>
+            <Route path="/reqchat" element={<ReqChatPage />}/>
+            <Route path="/reqfriends" element={<ReqFriendsPage />}/>
+            <Route path="/reqBorrow" element={<ReqBorrowPage />}/>
             <Route path="/bankbook" element={<BankBookPage />} />
             <Route path="/masterbankbook" element={<MasterBankBookPage />} />
             <Route path="/pinpassword" element={<PinPassword />} />
@@ -122,6 +148,10 @@ function App() {
             <Route path="/notification" element={<NotificationPage />} />
             <Route path="/fcmtest" element={<FCMtestPage />} />
             <Route path="/*" element={<NotFound/>}/>
+            <Route path="/notification" element={<NotificationPage />}/>
+            <Route path="/repayment" element={<RepaymentPage />}/>
+
+            <Route path="/fcmtest" element={<FCMtestPage />}/>
           </>
         })
       </Routes>

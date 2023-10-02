@@ -54,6 +54,9 @@ const FriendsPage = () => {
       } else {
         setSelectedFriends([...selectedFriends, friend]);
       }
+    } else {
+      const data = friend.user_seq;
+      navigate("/profile",  { state: data });
     }
   };
   
