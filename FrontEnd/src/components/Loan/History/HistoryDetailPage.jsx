@@ -21,6 +21,7 @@ const HistoryDetailPage = (props) => {
   const [interest, setInterest] = useState(0); // 이자
   const [redemptionMoney, setRedemptionMoney] = useState(0); // 중도상환금
   const [lateDate, setLateDate] = useState(0); // 연체일
+  const [status ,setStatus] = useState(''); // 상태
 
   const location = useLocation();
   const loanSeq = location.state.loanId;
@@ -87,6 +88,7 @@ const HistoryDetailPage = (props) => {
 		    setInterest(res.data.interest);
 		    setRedemptionMoney(res.data.redemptionMoney);
         setLateDate(res.data.lateDate);
+        setStatus(res.data.status);
       })
       .catch((res)=>{
         console.log(res);
@@ -116,11 +118,20 @@ const HistoryDetailPage = (props) => {
                 <img src={imgURL} alt="" className={style.div1Img}/>
                 <p className={style.div1Name}>{username}</p>
               </div>
+            </div>
+            <div>
+              <p className={style.div1Status}>
+              {
+                status === 'O' ? '대출 중' :
+                status === 'D' ? <span style={{ color: 'red' }}>연체 중</span> :
+                status === 'C' ? <span style={{ color: 'blue' }}>상환 완료</span> :
+                null
+              }
+              </p>
               <p className={style.div1Balance}>{formatBalance(balance)}원</p>
             </div>
-            <p className={style.div1Status}>연체 중</p>
           </div>
-          <div className={style.line} />
+          {/* <div className={style.line} />
           <div>
             {isGappa ? 
             <>
@@ -144,7 +155,7 @@ const HistoryDetailPage = (props) => {
                 <span>{myname}</span>
               </div>
             </> }
-          </div>
+          </div> */}
           <div className={style.line} />
           <div>
             <div className={style.div2}>
@@ -167,16 +178,18 @@ const HistoryDetailPage = (props) => {
               <span>{formatPrincipal(principal)} 원</span>
             </div>
             <div className={style.div2}>
-              <span>대출 잔액</span>
-              <span>{formatBalance(balance)} 원</span>
+              <span>중도 상환금</span>
+              <span>(-) {formatRedemptionMoney(redemptionMoney)} 원</span>
             </div>
             <div className={style.div2}>
               <span>대출 이자</span>
-              <span>{formatInterest(interest)} 원</span>
+              <span>(+) {formatInterest(interest)} 원</span>
             </div>
+            <div className={style.line} />
+            <p></p>
             <div className={style.div2}>
-              <span>중도 상환금</span>
-              <span>{formatRedemptionMoney(redemptionMoney)} 원</span>
+              <span>대출 잔액</span>
+              <span>{formatBalance(balance)} 원</span>
             </div>
             {!isGappa ? (
               <button className={style.btnStyle} onClick={goToRepayment}>상환하기</button>
