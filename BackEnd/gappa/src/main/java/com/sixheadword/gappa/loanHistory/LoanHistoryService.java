@@ -35,6 +35,11 @@ public class LoanHistoryService {
         if(LocalDateTime.now().isAfter(loan.getRedemptionDate())){
             lateDate = ChronoUnit.DAYS.between(loan.getRedemptionDate(), LocalDateTime.now());
         }
+        Long interest = 0L;
+        // 이자 계산
+        if(lateDate != 0){
+            interest = loan.getInterest() * lateDate;
+        }
         // type = 0 : 대출
         if((loan != null) && (Long.parseLong(authentication.getName()) == loan.getFromUser().getUserSeq())){
             return GetLoanHistoryResponseDto.builder()
@@ -48,8 +53,8 @@ public class LoanHistoryService {
                     .expiredDate(loan.getExpiredDate())
                     .lateDate(lateDate)
                     .principal(loan.getPrincipal())
-                    .balance(loan.getPrincipal() - loan.getRedemptionMoney() + loan.getInterest())
-                    .interest(loan.getInterest())
+                    .balance(loan.getPrincipal() - loan.getRedemptionMoney() + interest)
+                    .interest(interest)
                     .redemptionMoney(loan.getRedemptionMoney())
                     .status(loan.getStatus())
                     .isGappa('X')
@@ -67,8 +72,8 @@ public class LoanHistoryService {
                     .expiredDate(loan.getExpiredDate())
                     .lateDate(lateDate)
                     .principal(loan.getPrincipal())
-                    .balance(loan.getPrincipal() - loan.getRedemptionMoney() + loan.getInterest())
-                    .interest(loan.getInterest())
+                    .balance(loan.getPrincipal() - loan.getRedemptionMoney() + interest)
+                    .interest(interest)
                     .redemptionMoney(loan.getRedemptionMoney())
                     .status(loan.getStatus())
                     .isGappa('O')
