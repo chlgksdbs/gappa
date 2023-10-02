@@ -53,6 +53,17 @@ public class AfterPeriodLoanProcessorCustom implements ItemProcessor<AfterPeriod
             // (6) redemption_money 값에 remainingAmount 값을 추가
             afterPeriodLoanDto.getLoan().setRedemptionMoney(oldRedemptionMoney + remainingAmount);
 
+            // (7) 강제 이체 건에 대한 SMS 문자 발송
+            String message = "[Gappa] "
+                    + afterPeriodLoanDto.getLoan().getFromUser().getName()
+                    + "님 "
+                    + afterPeriodLoanDto.getLoan().getToUser().getName()
+                    + "님과의 대출 건이 연체됨에 따라 대출금액 "
+                    + remainingAmount
+                    + "(원)이 강제 상환되었습니다. "
+                    + "고객님의 대표계좌 잔액 확인 바랍니다.";
+            smsUtil.sendSMS(afterPeriodLoanDto.getFromUserAccount().getUser().getPhone(), message, Optional.of(LocalDateTime.now().plusMinutes(0)));
+
         } else { // 잔액이 상환금보다 작은 경우, 날짜 계산 후 미납 SMS 문자 발송
             String message = "[Gappa] "
                     + afterPeriodLoanDto.getLoan().getFromUser().getName()
