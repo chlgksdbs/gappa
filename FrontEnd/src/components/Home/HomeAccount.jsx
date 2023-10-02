@@ -40,12 +40,12 @@ const HomeAccount = () => {
       {isExistAccount ? (
         <div className={style.myAcc}>
           <div>
-            <span className={style.titleText} style={{paddingTop: "10px"}}>계좌번호</span>
+            <span className={style.titleText} style={{paddingTop: "10px"}}>대표계좌</span>
             <span className={style.titleText} style={{paddingTop: "10px"}}>{bank}</span>
-            </div>
+          </div>
           <div className={style.contentText}>{account}<p></p></div>
           <div className={style.titleText}>잔액</div>
-          <div className={style.contentText}>{money.toLocaleString()}원</div>
+          <div className={style.contentText} style={{fontSize: "1.8rem"}}>{money.toLocaleString()}원</div>
         </div>
       ) : (
         <div className={style.myAcc}>
