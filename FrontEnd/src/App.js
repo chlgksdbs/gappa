@@ -44,7 +44,9 @@ import NotFound from './components/404/NotFound';
 import RepaymentPage from './components/Loan/Repayment/RepaymentPage';
 import LendListPage from './components/Loan/Lend/LendListPage';
 import FindPasswordChange from './components/Auth/FindPasswordChange';
-import CertificatePage from './components/Profile/CertificatePage';
+import MyCertificatePage from './components/Profile/MyCertificatePage';
+import CertificatePage from './components/Certificate/CertificatePage';
+
 // import LendRefusePage
 
 function App() {
@@ -112,7 +114,7 @@ function App() {
             <Route path="/account" element={<AccountDetail />} />
             <Route path="/profile/edit" element={<ProfileEditPage />} />
             <Route path="/profile/accountedit" element={<MainAccountEditPage />} />
-            <Route path="/profile/certificate" element={<CertificatePage />} />
+            <Route path="/profile/mycertificate" element={<MyCertificatePage />} />
             <Route path="/notice" element={<NoticePage />} />
             <Route path="/qna" element={<QnAPage />} />
             <Route path="/customerservice" element={<CustomerServicePage />} />
@@ -154,6 +156,7 @@ function App() {
             <Route path="/*" element={<NotFound/>}/>
             <Route path="/notification" element={<NotificationPage />}/>
             <Route path="/repayment" element={<RepaymentPage />}/>
+            <Route path="/certificate" element={<CertificatePage />}/>
 
             <Route path="/fcmtest" element={<FCMtestPage />}/>
           </>

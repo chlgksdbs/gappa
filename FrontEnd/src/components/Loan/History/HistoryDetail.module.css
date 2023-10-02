@@ -81,7 +81,23 @@
   font-size: 20px;
 }
 
-.btnStyle {
+.btnStyle1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 40px;
+  background-color: rgba(128, 206, 190, 0.5);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  margin: 0 auto 0 10px;
+  border: none;
+}
+
+.btnStyle2 {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -94,6 +110,5 @@
   font-weight: bold;
   color: white;
   margin: 0 10px 0 auto;
-
   border: none;
 }
