@@ -20,7 +20,7 @@ const HomePage = () => {
             <img src="./images/HomeDivBtn2.png" alt="" onClick={() => navigate("/historylend")}/>
             <img src="./images/HomeDivBtn3.png" alt="" onClick={() => navigate("/historyborrow")}/>
             <img src="./images/HomeDivBtn4.png" alt="" onClick={() => navigate("/historyborrow")}/>
-            <img src="./images/HomeDivBtn5.png" alt="" onClick={() => navigate("/friends")}/>
+            <img src="./images/HomeDivBtn5.png" alt="" onClick={() => navigate("/profile/certificate")}/>
             <img src="./images/HomeDivBtn6.png" alt="" onClick={() => navigate("/lend/list")}/>
           </div>
         </div>
