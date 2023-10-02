@@ -169,11 +169,12 @@
 }
 
 .keyboardsetitem{
-  width: 9.091vw;
+  width: 8.8vw;
   height: 6vh;
   background-color: silver;
   border: 0.1px solid silver;
   padding: 0;
+  margin-left: 0.25vw;
   /* margin: 0; */
 }
 
@@ -190,10 +191,11 @@
 
 
 .keyboardsetitemlast{
-  width: 25vw;
+  width: 24vw;
   height: 7vh;
   border: 0.1px solid silver;
   padding: 0;
+  margin-left: 0.2vw;
 }
 
 .keyboardsetitemlast:active{

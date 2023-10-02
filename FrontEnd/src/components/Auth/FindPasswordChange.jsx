@@ -584,7 +584,7 @@ const FindPasswordChange = () => {
   const getItemStyle = (item) => {
     if (item === '/words/90.png' || item === '/words/91.png' || item === "/words/99.png") {
       return {
-        width: '18.1vw',
+        width: '17.2vw',
         height: '6vh',
       };
     }
