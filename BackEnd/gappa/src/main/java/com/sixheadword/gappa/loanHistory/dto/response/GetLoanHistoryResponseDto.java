@@ -22,6 +22,8 @@ public class GetLoanHistoryResponseDto {
     private String fromUserName;
     // 채권자 seq
     private Long toUserSeq;
+    // 채무자 seq
+    private Long fromUserSeq;
     // 이미지
     private String profileImg;
     // 대출 실행일
