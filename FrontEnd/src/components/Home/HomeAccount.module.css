@@ -1,0 +1,54 @@
+.accBox {
+  background-color: white;
+  height: 25vh;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2vh;
+}
+
+.title {
+  width: 90%;
+  align-items: self-start;
+  font-size: 26px;
+  margin-bottom: 1vh;
+}
+
+.myAcc {
+  background-color: rgba(128, 206, 190, 0.5);
+  height: 85%;
+  width: 90%;
+  border-radius: 30px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.myAcc > div {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: gray;
+}
+
+.myAcc > div:nth-child(even) {
+  border-radius: 5px;
+  padding: 5px 10px;
+  justify-content: right;
+  align-items: center;
+  display: flex;
+  color:black;
+}
+
+.titleText {
+  font-size: 18px;
+}
+
+.contentText {
+  font-size: 23px;
+}

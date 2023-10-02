@@ -1,0 +1,69 @@
+.bankbook{
+  display: flex;
+  /* justify-content: center; */
+  flex-direction: column;
+  align-items: center;
+  /* border: 1px solid black; */
+  height: 100vh;
+}
+
+/* .all{
+  width: 90%;
+} */
+
+.bankbookstyle{
+  margin-top: 8vh;
+  display: flex;
+  /* justify-content: center; */
+  flex-direction: column;
+  align-items: center;
+  /* border: 1px solid black; */
+  height: 60vh;
+  width: 100%;
+}
+
+/* .bankbook hr{
+  width: 90%;
+} */
+
+.bankbooklist{
+  display: grid;
+  grid-template-columns: 2fr 5fr 3fr;
+  /* height: 60vh; */
+}
+
+.imgstyle{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imgstyle img{
+  width: 50px;
+}
+
+.bankcolor{
+  color:lightgrey;
+}
+
+.btn{
+  width: 70%;
+  height: 50px;
+  border:0;
+  border-radius: 10px;
+  background-color: #80CEBE;
+  color:white;
+  margin-top: 10vh;
+  /* margin-bottom: 10vh; */
+}
+
+.notbtn{
+  width: 70%;
+  height: 50px;
+  border:0;
+  border-radius: 10px;
+  background-color: lightgray;
+  color:white;
+  margin-top: 10vh;
+  /* margin-bottom: 10vh; */
+}

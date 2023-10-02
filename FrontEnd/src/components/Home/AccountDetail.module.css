@@ -1,0 +1,98 @@
+.body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info {
+  width: 80%;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.bank {
+  font-family: 'TheJamsil3Regular';
+  text-align: center;
+  width: 100%;
+  font-size: 16px;
+}
+
+.money {
+  text-align: center;
+  width: 100%;
+  font-size: 22px;
+}
+
+.filter {
+  width: 80%;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+  border-bottom: 1px solid #ccc;
+}
+
+.filter select {
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  font-family: 'TheJamsil3Regular';
+}
+
+.transactionContainer {
+  width: 80%;
+  font-family: 'TheJamsil3Regular';
+  overflow-y: scroll;
+}
+
+.transactionBox {
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  margin-top: 10px;
+  background-color: #fff;
+}
+
+.date {
+  font-size: 12px;
+  margin-bottom: 1vh;
+}
+
+.detailBox {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: row;
+}
+
+.name {
+  width: 40%;
+  font-size: 22px;
+}
+
+.tranMoney {
+  width: 60%;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-direction: column;
+  margin-bottom: 1vh;
+}
+
+.transactionType {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.transactionAmount {
+  color: #009900; /* 초록색 입금 금액 */
+  font-size: 20px;
+  margin-bottom: 1vh;
+}
+
+.transactionAmount.negative {
+  color: #ff0000; /* 빨간색 출금 금액 */
+  margin-bottom: 1vh;
+}

@@ -1,0 +1,143 @@
+.main {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.body {
+  width: 95%;
+  max-height: 78vh;
+  /* min-height: 70vh; */
+  margin-left: 5%;
+  overflow-y: scroll; /* 스크롤이 필요한 경우에만 스크롤 바 표시 */
+  scrollbar-width: none; /* Firefox에서 스크롤 바 숨기기 */
+  -ms-overflow-style: none; /* Internet Explorer에서 스크롤 바 숨기기 */
+}
+.body::-webkit-scrollbar {
+  width: 0; /* Webkit 기반 브라우저(Chrome, Safari)에서 스크롤 바 숨기기 */
+  display: none; /* Safari에서 스크롤 바 숨기기 */
+}
+
+.agreeCheckDiv1 {
+  width: 90%;
+}
+
+.span1 {
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+.span2 {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.span3 {
+  font-size: 12px;
+}
+
+.nextBtn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 13px;
+  width: 90%;
+  height: 7vh;
+  background: #80CEBE;
+  border: 0;
+  font-size: 20px;
+}
+
+.agreement{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gappalogo{
+  width: 150px;
+  height: auto;
+}
+
+.agree{
+  width: 90%;
+  height: 35vh;
+  margin-top: 3vh;
+}
+
+.agree img{
+  width: 7px;
+  padding: 1px 1px 0px 1px;
+}
+
+.agreeone{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.agreeone input{
+  width:15px;
+  height: auto;
+  zoom:1.5;
+}
+
+.agreeone input:checked{
+  width:15px;
+  height: auto;
+  zoom:1.5;
+  accent-color: #80CEBE;
+}
+
+.agreeall{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 5vh;
+  font-size: 20px;
+}
+
+.agreeall input{
+  width:15px;
+  height: auto;
+  zoom:1.5;
+}
+
+.agreeall input:checked{
+  width:15px;
+  height: auto;
+  zoom:1.5;
+  accent-color: #80CEBE;
+}
+
+.fakeAgree {
+  margin-top: 20px;
+  padding: 0 5px 0 5px;
+  font-size: 13px;
+  color: red;
+}
+
+.goodbtn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5vh;
+  width: 100%;
+  height: 7vh;
+  background: #80CEBE;
+  border: 0;
+  font-size: 20px;
+}
+
+.notbtn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5vh;
+  width: 100%;
+  height: 7vh;
+  background: lightgray;
+  border: 0;
+  font-size: 20px;
+}

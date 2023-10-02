@@ -1,0 +1,72 @@
+.body {
+  height: 100vh;
+  justify-content: flex-start;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-size: 24px;
+}
+
+.reqList {
+  height: 70%;
+  width: 90%;
+}
+
+.requestItem {
+  height: 20%;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1vh;
+  
+}
+
+.requestItem img{
+  height: 80%;
+  border-radius: 50%;
+  margin-right: 3vw;
+}
+
+.infoBox {
+  width: 100%;
+}
+
+.reqInfo {
+  width: 70%;
+  font-family: 'TheJamsil3Regular';
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 1vh;
+}
+
+.reqNum {
+  color:rgb(91, 90, 90);
+  font-size: 18px;
+}
+
+.reqBtn {
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.reqBtn button{
+  background-color: #AFEBDF;
+  font-family: 'TheJamsil5Bold';
+  font-size: 18px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out;
+  border-radius: 5px;
+  margin-left: 1vw;
+}
+
+.reqBtn button:first-child{
+  background-color: #ccc;
+}

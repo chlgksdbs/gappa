@@ -1,0 +1,28 @@
+.main {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+}
+
+.qnaTitle {
+  margin-left: 15px;
+}
+
+.qnaList {
+  display: grid;
+  grid-template-columns: 1fr 7fr 1fr;
+  height: 9%;
+  width: 92%;
+  align-items: center;
+  padding: 0 15px 0 15px;
+  background-color: whitesmoke;
+  font-size: 17px;
+}
+
+.qnaContent {
+  display: block;
+  width: 80%;
+  margin: 0;
+  padding: 15px 15px 15px 15px;
+}
