@@ -153,10 +153,9 @@ function App() {
             <Route path="/pinpasswordcheck" element={<PinPasswordCheckPage />} />
             <Route path="/notification" element={<NotificationPage />} />
             <Route path="/fcmtest" element={<FCMtestPage />} />
-            <Route path="/*" element={<NotFound/>}/>
-            <Route path="/notification" element={<NotificationPage />}/>
             <Route path="/repayment" element={<RepaymentPage />}/>
             <Route path="/certificate" element={<CertificatePage />}/>
+            {/* <Route path="/*" element={<NotFound/>}/> */}
 
             <Route path="/fcmtest" element={<FCMtestPage />}/>
           </>
