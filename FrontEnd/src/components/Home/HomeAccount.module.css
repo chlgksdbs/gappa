@@ -1,6 +1,6 @@
 .accBox {
   /* background-color: white; */
-  height: 25vh;
+  height: 35vh;
   width: 100%;
   justify-content: center;
   align-items: center;
@@ -21,7 +21,7 @@
   /* background-color: rgba(128, 206, 190, 0.3); */
   background-color: white;
   /* border: solid 2px rgba(128, 206, 190); */
-  height: 85%;
+  height: 80%;
   width: 90%;
   border-radius: 15px;
   box-shadow: 0px 0px 3px 2px rgba(200, 200, 200, 0.3);
@@ -46,6 +46,24 @@
   align-items: center;
   display: flex;
   color:black;
+}
+
+.myAcc > div:nth-child(5){
+  color:black;
+  font-size: 20px;
+  justify-content: space-around;
+  border-top: 1px solid lightgray;
+  margin-top: 10px;
+  padding: 15px 0;
+  color: rgb(83, 175, 157);
+}
+
+.myAcc > div:nth-child(5) > div:nth-child(2){
+  color:black;
+  font-size: 25px;
+  justify-content: space-around;
+  border: 1px solid lightgray;
+  padding: 10px 0;
 }
 
 .titleText {
