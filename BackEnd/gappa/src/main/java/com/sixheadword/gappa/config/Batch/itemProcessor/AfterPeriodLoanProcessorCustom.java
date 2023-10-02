@@ -1,22 +1,22 @@
 package com.sixheadword.gappa.config.Batch.itemProcessor;
 
-import com.sixheadword.gappa.account.Account;
 import com.sixheadword.gappa.config.Batch.dto.AfterPeriodLoanDto;
 import com.sixheadword.gappa.loanHistory.entity.LoanHistory;
+import com.sixheadword.gappa.utils.SmsUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.ExitStatus;
-import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.item.ItemProcessor;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
 public class AfterPeriodLoanProcessorCustom implements ItemProcessor<AfterPeriodLoanDto, AfterPeriodLoanDto> {
 
-    private final StepExecution stepExecution;
+    private final SmsUtil smsUtil;
 
     @Override
     public AfterPeriodLoanDto process(AfterPeriodLoanDto afterPeriodLoanDto) throws Exception {
@@ -54,8 +54,17 @@ public class AfterPeriodLoanProcessorCustom implements ItemProcessor<AfterPeriod
             // (6) redemption_money 값에 remainingAmount 값을 추가
             afterPeriodLoanDto.getLoan().setRedemptionMoney(oldRedemptionMoney + remainingAmount);
 
-        } else { // 잔액이 상환금보다 작은 경우, ExitStatus.FAILED로 수정하고 failAfterPeriodLoanStep() 수행
-            stepExecution.setExitStatus(ExitStatus.FAILED);
+        } else { // 잔액이 상환금보다 작은 경우, 날짜 계산 후 미납 SMS 문자 발송
+            String message = afterPeriodLoanDto.getLoan().getFromUser().getName()
+                    + "님 "
+                    + afterPeriodLoanDto.getLoan().getToUser().getName()
+                    + "님에게 대출금액 "
+                    + remainingAmount
+                    + "(원)이 "
+                    + ChronoUnit.DAYS.between(afterPeriodLoanDto.getLoan().getRedemptionDate(), LocalDateTime.now())
+                    + "일 연체되었습니다. "
+                    + "고객님의 대표계좌 잔액 확인 후, 즉시 상환을 요청합니다.";
+            smsUtil.sendSMS(afterPeriodLoanDto.getFromUserAccount().getUser().getPhone(), message, Optional.of(LocalDateTime.now().plusMinutes(270)));
         }
 
         return afterPeriodLoanDto;

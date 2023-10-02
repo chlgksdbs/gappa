@@ -23,9 +23,9 @@ import java.util.List;
 @Configuration
 public class StepConfig {
 
-    private final UserRepository userRepository;
-
     private final StepBuilderFactory stepBuilderFactory;
+
+    private final UserRepository userRepository;
 
     private final ItemReader<AfterPeriodLoanDto> afterPeriodLoanReader;
     private final ItemProcessor<AfterPeriodLoanDto, AfterPeriodLoanDto> afterPeriodLoanProcessor;
@@ -42,15 +42,6 @@ public class StepConfig {
                 .reader(afterPeriodLoanReader)
                 .processor(afterPeriodLoanProcessor)
                 .writer(afterPeriodLoanWriter)
-                .build();
-    }
-
-    @Bean
-    public Step failAfterPeriodLoanStep() {
-        return stepBuilderFactory.get("failAfterPeriodLoanStep")
-                .tasklet((contribution, chunkContext) -> {
-                    return RepeatStatus.FINISHED;
-                })
                 .build();
     }
 
