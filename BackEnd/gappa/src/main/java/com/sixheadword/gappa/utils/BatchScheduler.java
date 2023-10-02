@@ -1,6 +1,6 @@
 package com.sixheadword.gappa.utils;
 
-import com.sixheadword.gappa.config.Batch.Job.JobConfig;
+import com.sixheadword.gappa.config.Batch.job.JobConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.JobParameter;

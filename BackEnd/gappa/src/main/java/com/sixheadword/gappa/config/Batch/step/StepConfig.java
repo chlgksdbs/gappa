@@ -1,12 +1,11 @@
-package com.sixheadword.gappa.config.Batch.Step;
+package com.sixheadword.gappa.config.Batch.step;
 
+import com.sixheadword.gappa.config.Batch.dto.AfterPeriodLoanDto;
 import com.sixheadword.gappa.loan.Loan;
-import com.sixheadword.gappa.loan.repository.LoanRepository;
 import com.sixheadword.gappa.user.User;
 import com.sixheadword.gappa.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.item.ItemProcessor;
@@ -28,17 +27,18 @@ public class StepConfig {
 
     private final StepBuilderFactory stepBuilderFactory;
 
-    private final ItemReader<Loan> afterPeriodLoanReader;
+    private final ItemReader<AfterPeriodLoanDto> afterPeriodLoanReader;
+    private final ItemProcessor<AfterPeriodLoanDto, AfterPeriodLoanDto> afterPeriodLoanProcessor;
+    private final ItemWriter<AfterPeriodLoanDto> afterPeriodLoanWriter;
+
     private final ItemReader<Loan> beforePeriodLoanReader;
-    private final ItemProcessor<Loan, Loan> afterPeriodLoanProcessor;
     private final ItemProcessor<Loan, Loan> beforePeriodLoanProcessor;
-    private final ItemWriter<Loan> afterPeriodLoanWriter;
     private final ItemWriter<Loan> beforePeriodLoanWriter;
 
     @Bean
     public Step afterPeriodLoanStep() {
         return stepBuilderFactory.get("afterPeriodLoanStep")
-                .<Loan, Loan> chunk(10)
+                .<AfterPeriodLoanDto, AfterPeriodLoanDto> chunk(1)
                 .reader(afterPeriodLoanReader)
                 .processor(afterPeriodLoanProcessor)
                 .writer(afterPeriodLoanWriter)

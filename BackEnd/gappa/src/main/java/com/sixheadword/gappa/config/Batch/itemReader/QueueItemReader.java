@@ -1,4 +1,4 @@
-package com.sixheadword.gappa.config.Batch.ItemReader;
+package com.sixheadword.gappa.config.Batch.itemReader;
 
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.NonTransientResourceException;
