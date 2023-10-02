@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import style from './LandingPage.module.css';
 import { useNavigate } from 'react-router-dom';
 const LandingPage = () => {
 
   const navigate = useNavigate();
-
+  useEffect(()=>{
+    const storedIsNewUser = localStorage.getItem("isNewUser");
+    if (storedIsNewUser !== "true") {
+      localStorage.setItem("isNewUser", "true");
+      navigate("/branding");
+    }
+    // eslint-disable-next-line
+  },[])
   return (
     <div className={style.main}>
       <img src="./images/gappalogo.png" alt="" className={style.logo}/>

@@ -405,7 +405,7 @@ const LoginPage = () => {
             <input type="checkbox" name="" id="" />
             <span>자동 로그인</span>
           </div>
-          <div className={style.findidpassword}>
+          <div className={style.findidpassword} onClick={()=>{navigate("/find")}}>
             <span>아이디/비밀번호 찾기</span>
           </div>
         </div>

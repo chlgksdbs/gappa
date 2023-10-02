@@ -1,83 +1,70 @@
-.signuppage{
-  display: flex;
+.body{
+  display:flex;
   flex-direction: column;
+  width: 100%;
   align-items: center;
-  height: 100vh;
-
+  justify-content: center;
+  /* height: 100vh; */
 }
 
-.ex{
-  width: 90%;
-  margin-bottom: 2vh;
-}
-
-.ex img{
-  width: 25px;
-}
-.ex span{
-  font-size: 20px;
-}
-
-.form{
+.idpassword{
   display: flex;
   flex-direction: column;
   width: 90%;
-  font-size: 13px;
-  height: 60vh;
+  height: 83vh;
+  align-items: center;
 }
 
-.form span{
-  margin-top: 2vh;
+.btns{
+  /* width: 100%; */
+  width: 50%;
+  height: 70px;
+  border: 0;
+  background-color: #80CEBE;
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+  border-radius: 5vw;
 }
 
-.adresstop{
-  margin-top: 2vh;
-}
 .input{
   border-width: 0 0 1px;
   border-color: lightgray;
-  width: 10;
+  width: 100%;
 }
 
 .input:focus{
   outline: none;
 }
 
-.idform{
-  width:100%;
-  display: grid;
-  grid-template-columns: 8fr 2fr;
+.form{
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  font-size: 13px;
+  /* height: 20vh; */
+  margin-top: 5vh;
+
 }
 
 
-.phoneform{
+
+.center{
+  height: 50vh;
+}
+.centers{
+  height: 49vh;
+}
+
+.centerss{
+  height: 60vh;
+}
+
+.btndiv{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10vh;
   width: 100%;
-  display: grid;
-  grid-template-columns: 7fr 3fr;
-}
-
-.forminput{
-  border-width: 0 0 1px;
-  border-color: lightgray;
-  font-size: 15px;
-}
-
-.forminput:focus{
-  outline: none;
-}
-
-.formbtn{
-  background-color: #B3BAF5;
-  border: 0;
-  border-radius: 4px;
-  font-size: 12px;
-}
-
-.frombtnx{
-  background-color: lightgray;
-  border: 0;
-  border-radius: 4px;
-  font-size: 12px;
 }
 
 .btn{
@@ -102,32 +89,31 @@
   /* margin-bottom: 7vh; */
 }
 
-.address{
-  display: grid;
-  grid-template-columns: 2fr 6fr;
-}
-
-.inputaddress{
-  border-width: 0 0 1px;
-  border-color: lightgray;
-  width: 50%;
-}
-
-.modal{
-  width: 300px;
-  margin: 0 auto;
-  left: 0;
-  right: 0;
-  border: 1px solid black;
-  margin-top: 40%;
-}
-
-.colorred{
-  color: red;
-}
-
-.colorblue{
+.blue{
   color: blue;
+  margin-bottom: 2vh;
+}
+.red{
+  color: red;
+  margin-bottom: 2vh;
+}
+.gray{
+  color: lightgray;
+  margin-bottom: 2vh;
+}
+
+.formbtn{
+  background-color: #B3BAF5;
+  border: 0;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+
+.phoneforms{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 100fr 1fr;
 }
 
 .phonecheckform{
@@ -135,29 +121,41 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* margin-top: 2vh; */
+  margin-top: 2vh;
   /* margin-bottom: 1vh; */
-}
-
-.phonecheckform span{
-  margin-bottom: 1vh;
-}
-
-.phoneforms{
-  width: 70%;
-  display: grid;
-  grid-template-columns: 100fr 1fr;
 }
 
 .inputs{
   border-width: 0 0 1px;
   border-color: lightgray;
-  width: 5;
+  width: 100%;
 }
 
-.inputs:focus{
-  outline: none;
+.phoneformss{
+  width: 70%;
+  display: grid;
+  grid-template-columns: 10fr 5fr;
+  margin-top: 1vh;
 }
+
+.word{
+  display:flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1vh;
+  /* height: 100vh; */
+}
+
+.wordcolor{
+  color:blue;
+}
+
+.colors{
+  color:red;
+}
+
 
 
 .keyboard{
