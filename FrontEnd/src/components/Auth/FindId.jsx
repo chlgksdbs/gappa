@@ -7,7 +7,8 @@ const FindId = () => {
   const [check, setCheck] = useState(false);
   const [id, setId] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-
+  const [answer,setAnswer] = useState("");
+  const [answers,setAnswers] = useState("");
   const confirmId = (e) => {
     const currentId = e.target.value;
     console.log(currentId);
@@ -38,6 +39,8 @@ const FindId = () => {
   useEffect(() => {
     if (id && phoneNumber) {
       setCheck(true)
+    } else{
+      setCheck(false)
     }
   }, [id, phoneNumber])
   const getId = () => {
@@ -46,20 +49,22 @@ const FindId = () => {
       "name": id,
       "phone": phoneNumbers,
     }
-    console.log(body)
     authAxios.post("/users/findid", body)
       .then((res) => {
-        console.log(res)
+        setAnswer(res.data.data["login_id"])
+        setAnswers(res.data["message"])
+        console.log(res.data.data)
       })
       .catch((res) => {
-        console.log(res)
+        const data = res.response.data;
+        setAnswer(data.message);
       })
   }
   return (
     <div className={style.body}>
       <Headers title={"아이디 찾기"} />
       <span>회원정보에 등록된 이름과 전화번호를 입력해주세요. </span>
-      <div className={style.center}>
+      <div className={style.centers}>
         <div className={style.form}>
           <span className={style.gray}>이름</span>
           <input type="text" className={style.input} value={id} onChange={(e) => { confirmId(e) }} />
@@ -74,6 +79,12 @@ const FindId = () => {
           <span className={style.blue}>-를 제외하고 입력해주세요.</span>
 
         </div>
+        <div className={style.word}>
+          <h3>{answers}</h3>
+          <br />
+          <span className={style.wordcolor}>{answer}</span>
+        </div>
+      </div>
         <div className={style.btndiv}>
           {check
             ?
@@ -82,7 +93,6 @@ const FindId = () => {
             <input type="button" value="확인" className={style.notbtn} />
           }
         </div>
-      </div>
     </div>
   );
 }

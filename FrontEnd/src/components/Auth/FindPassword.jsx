@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Headers from './Headers';
 import style from './Find.module.css';
 import { authAxios } from '../api/customAxios';
+import { useNavigate } from 'react-router-dom';
 const FindPassword = () => {
   // eslint-disable-next-line 
   const [check, setCheck] = useState(false);
@@ -10,12 +11,15 @@ const FindPassword = () => {
   const [checkPhone, setCheckPhone] = useState(false);
   const [phoneMessage, setPhonemessage] = useState("");
   const [phoneCheckNumber, setPhoneCheckNumber] = useState("");
+  // eslint-disable-next-line
   const [checkPhoneNumber, setCheckPhoneNumber] = useState(null);
   const [phone, setPhone] = useState("");
   // eslint-disable-next-line
   const [timeAttack, setTimeAttack] = useState(true);
   const [last, setLast] = useState("");
 
+
+  const navigate = useNavigate();
   const confirmId = (e) => {
     const currentId = e.target.value;
     console.log(currentId);
@@ -67,18 +71,15 @@ const FindPassword = () => {
       code: phoneCheckNumber,
     }
     authAxios.post("/users/findpw", body)
-      .then((res) => {
-        console.log(res)
+      .then(() => {
+        navigate("/find/passwordchange")
       })
       .catch((res) => {
         const data = res.response.data
-        // const key ="message";
-
-        // console.log(res)
-        // console.log(data.slice(12,-2),"문자열로 짤랐을 때")
-        console.log(data.message,"key, value로 했을 때")
+        setLast(data.message)
       })
   }
+
   const confirmPhoneNumber = (e) => {
     const inputPhoneNumber = e.target.value;
     // 숫자와 '-' 문자만 남기고 나머지 문자 제거
@@ -146,17 +147,19 @@ const FindPassword = () => {
             :
             null
         }
-        <div>
-          {last}
+        <div className={style.word}>
+          <span className={style.colors}>{last}</span>
         </div>
-        <div className={style.btndiv}>
-          {checkPhoneNumber
+      </div>
+      <div className={style.btndiv}>
+        {/* {checkPhoneNumber
             ?
             <input type="button" value="확인" className={style.btn} onClick={findPassword} />
             :
             <input type="button" value="확인" className={style.notbtn} />
-          }
-        </div>
+          } */}
+        <input type="button" value="확인" className={style.btn} onClick={findPassword} />
+
       </div>
     </div>
   );
