@@ -104,7 +104,6 @@ const BankBookPage = () => {
           clickedItems={clickedItems} // 클릭 상태 배열 전달
           onClick={handleItemClick} // 클릭 이벤트 핸들러 전달
         />))}
-        <span>다음에 하기</span>
       </div>
       {pass
         ?

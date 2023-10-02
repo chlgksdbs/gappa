@@ -42,7 +42,11 @@ const authSlice = createSlice({
     updatedUserPin(state,action){
       const newItem = action.payload;
       state.pin_Password = newItem.pin_Password;
-    }
+    },
+    updatedId(state,action){
+      const newItem = action.payload;
+      state.login_Id = newItem.login_Id;
+    },
   }
 });
 

@@ -6,7 +6,7 @@ const Headers = (props) => {
   return (
     <div className={style.header}>
       <div className={style.back}>
-        <img src="images/BackBtn.png" alt="" onClick={()=>{navigate(-1)}}/>
+        <img src="/images/BackBtn.png" alt="" onClick={()=>{navigate(-1)}}/>
       </div>
       <div className={style.middle}>
       <h2>{props.title}</h2>

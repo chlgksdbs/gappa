@@ -12,7 +12,7 @@ const HomePage = () => {
     <div className={style.main}>
       <Header />
       <div className={style.body}>
-        <HomeAccount />
+        <HomeAccount/>
         <div className={style.loan}>
           <div className={style.quickMenu}>퀵메뉴</div>
           <div className={style.imgDiv}>
