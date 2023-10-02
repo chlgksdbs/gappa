@@ -93,6 +93,7 @@ public class MoneyService {
                 loanHistory.setOldRedemptionMoney(loan.getRedemptionMoney());
                 loanHistory.setNewRedemptionMoney(loan.getRedemptionMoney() + redemptionRequestDto.getAmount());
                 loanHistory.setTransactionDate(LocalDateTime.now());
+                loanHistory.setLoan(loan);
                 loanHistoryRepository.save(loanHistory);
                 // 대출 내역의 상환금 업데이트
                 Long totalRedemptionMoney = loan.getRedemptionMoney() + redemptionRequestDto.getAmount();
