@@ -120,7 +120,7 @@ const ReqChatPage = () => {
         <>
           <div className={style.chatDiv}>
             <div>
-              <img src="/images/GappaChat.png" alt="" style={{height: "70px"}}/>
+              <img src="/images/GappaChat.png" alt="" style={{height: "60px"}}/>
             </div>
             <div className={style.chatContent}>
               얼마를 빌릴거에요?
@@ -134,7 +134,7 @@ const ReqChatPage = () => {
         {reqStep >= 2 ?
         <>
           <div className={style.chatDiv}>
-            <img src="/images/GappaChat.png" alt="" style={{height: "80px"}}/>
+            <img src="/images/GappaChat.png" alt="" style={{height: "60px"}}/>
             <div className={style.chatContent}>
               상환일자는 언제로 할까요?
             </div>
@@ -150,10 +150,10 @@ const ReqChatPage = () => {
         {reqStep >= 3 ?
         <>
           <div className={style.chatDiv}>
-            <img src="/images/GappaChat.png" alt="" style={{height: "80px"}}/>
+            <img src="/images/GappaChat.png" alt="" style={{height: "60px"}}/>
             <div className={style.chatContent}>
-              이용 카테고리를 
-              <br/>
+              이용 카테고리를&nbsp;
+              {/* <br/> */}
               선택해주세요!
             </div>
           </div>
