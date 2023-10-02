@@ -43,7 +43,8 @@ import FindPassword from './components/Auth/FindPassword';
 import NotFound from './components/404/NotFound';
 import RepaymentPage from './components/Loan/Repayment/RepaymentPage';
 import LendListPage from './components/Loan/Lend/LendListPage';
-
+import FindPasswordChange from './components/Auth/FindPasswordChange';
+// import LendRefusePage
 
 function App() {
   // vw, vh를 보이는 화면의 %로 계산하는 식
@@ -88,6 +89,7 @@ function App() {
             <Route path="/find" element={<FindCheck/>}/>
             <Route path="/find/id" element={<FindId/>}/>
             <Route path="/find/password" element={<FindPassword/>}/>
+            <Route path="/find/passwordchange" element={<FindPasswordChange/>}/>
             <Route path="/*" element={<NotFound/>}/>
           </>
           :
@@ -96,7 +98,7 @@ function App() {
             <Route path="/borrow" element={<BorrowPage />} />
             <Route path="/lend" element={<LendPage />} />
             <Route path="/lend/check" element={<LendCheckPage />} />
-            <Route path="/lend/refuse" element={<LendRefusePage />} />
+            {/* <Route path="/lend/refuse" element={<LendRefusePage />} /> */}
             <Route path="/lend/send" element={<LendSendPage />} />
             <Route path="/lend/complete" element={<LendCompletePage />} />
             <Route path="/historyborrow" element={<HistoryBorrowPage />} />
