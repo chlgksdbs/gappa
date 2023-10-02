@@ -33,7 +33,7 @@ const HomeAccount = () => {
   })
 
   return (
-    <div className={style.accBox} onClick={accountDetailHandler}>
+    <div className={style.accBox}>
       <div className={style.title}>
         내 계좌
       </div>
@@ -46,6 +46,15 @@ const HomeAccount = () => {
           <div className={style.contentText}>{account}<p></p></div>
           <div className={style.titleText}>잔액</div>
           <div className={style.contentText} style={{fontSize: "1.8rem"}}>{money.toLocaleString()}원</div>
+          <div className={style.subTitles} style={{display:'flex'}}>
+            <div className={style.accountHistory} onClick={accountDetailHandler}>
+              계좌이용내역
+            </div>
+            <div></div>
+            <div className={style.accountChange} onClick={() => navigate("/profile/accountedit")}>
+              대표계좌변경
+            </div>
+          </div>
         </div>
       ) : (
         <div className={style.myAcc}>
