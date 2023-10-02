@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import HeaderSub from '../Common/HeaderSub';
 import style from './FCMPage.module.css';
 import { customAxios } from '../api/customAxios';
@@ -36,6 +36,7 @@ const FCMtestPage = () => {
   const app = initializeApp(firebaseConfig);
   const messaging = getMessaging(app);
 
+
   const hideOnPush = async () => {
     // 1. 알림 설정 허용인지 체크
     const permission = await subs();
@@ -68,11 +69,7 @@ const FCMtestPage = () => {
       if (token) {
         console.log("token: ", token);
         localStorage.setItem("fcmToken", token);
-        if(token !== null){
-          console.log("토큰이 왔다면!~@!@");
-          setting(token);
-        }
-        return token;
+        setting(token);
       } else {
         setPushEnabled(false);
         alert("잘못됐어요!토큰가져오는게실패");
@@ -98,7 +95,6 @@ const FCMtestPage = () => {
     .catch((res)=>{
       console.log(res);
       setPushEnabled(false);
-      alert("잘못됐어요!토큰등록하는게실패");
     })
   }
 
