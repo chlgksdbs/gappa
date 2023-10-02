@@ -80,7 +80,7 @@ const HistoryDetailPage = (props) => {
           setIsGappa(true);
         }
 				setToUserSeq(res.data.toUserSeq);
-				// setFromUserSeq(res.data.fromUserSeq);
+				setFromUserSeq(res.data.fromUserSeq);
         setURL(`/images/${res.data.profileImg}`);
 		    setStartdate(res.data.startDate);
 		    SetEnddate(res.data.redemptionDate);
