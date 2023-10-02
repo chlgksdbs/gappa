@@ -12,6 +12,10 @@ spring:
     port: 9707
     password: gappa
 
+  batch:
+    jdbc:
+      initialize-schema: always
+
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL8Dialect

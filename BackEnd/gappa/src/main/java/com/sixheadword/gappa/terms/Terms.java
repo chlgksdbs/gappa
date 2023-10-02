@@ -2,6 +2,8 @@ package com.sixheadword.gappa.terms;
 
 import com.sixheadword.gappa.termsHistory.domain.TermsHistory;
 import lombok.Getter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ public class Terms {
 
     // termsHistories: 약관 동의이력
     @OneToMany(mappedBy = "terms", cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<TermsHistory> termsHistories = new ArrayList<>();
     
     // termsName: 약관명

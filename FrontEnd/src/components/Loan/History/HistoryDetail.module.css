@@ -1,0 +1,68 @@
+.main {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.detailDiv{
+  background-color: rgba(205, 205, 205, 0.2);
+  width: 100%;
+  height: 100%;
+}
+
+.line {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid #aaa;
+  line-height: 0.1em;
+  margin: 0;
+}
+
+.div1 {
+  display: grid;
+  grid-template-columns: 2.8fr 1fr;
+  padding-left: 20px;
+  margin-bottom: 10px;
+}
+
+.div1Date {
+  color: #aaa;
+  font-size: 13px;
+}
+
+.imgDiv {
+  display: flex;
+}
+
+.div1Img {
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  margin: 0 20px 0 5px;
+}
+
+.div1Name {
+  font-size: 25px;
+  margin: 15px 0 12px 0;
+  padding-left: 5px;
+}
+
+.div1Balance {
+  font-size: 30px;
+  margin: 15px 0 0 5px;
+}
+
+.div1Status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+}
+
+.div2 {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 10px 12px 20px;
+  font-size: 20px;
+}
