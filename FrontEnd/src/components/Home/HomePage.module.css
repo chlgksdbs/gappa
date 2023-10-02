@@ -5,6 +5,7 @@
   display: flex;
   flex-direction: column;
   font-size: 24px;
+  background-color: rgba(128, 206, 190, 0.1);
 }
 
 .body {
@@ -21,7 +22,7 @@
 }
 
 .loan {
-  background-color: rgba(128, 206, 190, 0.2);
+  /* background-color: rgba(128, 206, 190, 0.1); */
   /* height: 33vh; */
   width: 100%;
   /* justify-content: center;
@@ -50,7 +51,7 @@
 }
 
 .historyBox {
-  background-color: rgba(128, 206, 190, 0.2);
+  /* background-color: rgba(128, 206, 190, 0.2); */
   height: 22vh;
   width: 100%;
   justify-content: center;
@@ -60,7 +61,8 @@
 }
 
 .history {
-  background-color: rgba(128, 206, 190, 0.5);
+  /* background-color: rgba(128, 206, 190, 0.3); */
+  background-color: white;
   height: 85%;
   width: 90%;
   border-radius: 30px;
