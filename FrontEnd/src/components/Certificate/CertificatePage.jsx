@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import html2pdf from 'html2pdf.js';
+import style from './Certificate.module.css';
 
 
 const CertificatePage = () => {
@@ -13,12 +14,14 @@ const CertificatePage = () => {
     }
   };
 
+
   return (
     <div>
       <div ref={contentRef}>
         {/* PDF로 저장할 내용 */}
-        <h1>Hello, this will be saved as PDF!</h1>
-        <p>Some content here...</p>
+        <div className={style.line} />
+        <h1>차 용 증</h1>
+        <p>내용이 들어갈거임</p>
       </div>
       <button onClick={handleGeneratePdf}>Generate PDF</button>
     </div>

@@ -1,0 +1,7 @@
+.line {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid #aaa;
+  line-height: 0.1em;
+  margin: 0;
+}
