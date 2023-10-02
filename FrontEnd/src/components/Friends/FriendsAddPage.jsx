@@ -92,7 +92,7 @@ const FriendsAdd = () => {
         <input type="text" placeholder="이름" value={name} onChange={handleNameChange}/>
       </div>
       <div className={style.inputBox}>
-        <input type="text" placeholder="휴대폰 번호" value={phoneNumber} onChange={handlePhoneNumberChange}/>
+        <input type="tel" placeholder="휴대폰 번호" value={phoneNumber} onChange={handlePhoneNumberChange}/>
       </div>
       <div className={style.underText}>
         - 없이 숫자만 입력해주세요.
