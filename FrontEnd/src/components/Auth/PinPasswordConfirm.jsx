@@ -41,6 +41,7 @@ const PinPasswordConfirm = () => {
       customAxios.post("/users/pin/check", body)
         .then((res) => {
           console.log(res.message);
+          setAlert("비밀번호 확인되었습니다.");
           setTimeout(() => {
             navigate("/pinpasswordcheck");
           }, 700);
@@ -59,7 +60,7 @@ const PinPasswordConfirm = () => {
       <span>다시 한번 입력하세요.</span>
       <span>숫자 6자리</span>
       <div className={style.checkmessage}>
-        <h3>{alert}</h3>
+        <span>{alert}</span>
       </div>
       <div className={style.pininputcontainer}>
         <div className={style.pindisplay}>

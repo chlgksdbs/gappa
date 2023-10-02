@@ -39,8 +39,9 @@ const SignupForm = (props) => {
   const [checkPhone, setCheckPhone] = useState(false);
   // const [isPhone,setIsPhone] = useState(false);
   const [pass, setPass] = useState(false);
-  const [checkPhoneNumber, setCheckPhoneNumber] = useState(false);
-
+      // eslint-disable-next-line
+  const [checkPhoneNumber, setCheckPhoneNumber] = useState(null);
+  const [timeAttack,setTimeAttack] = useState(true);
 
   // 보안 키패드 관련 상태관리
   const [modalCheck, setModalCheck] = useState(false);
@@ -237,7 +238,11 @@ const SignupForm = (props) => {
       phoneNumber: phone,
     }
     authAxios.post("/users/phone/send", phoneNumber)
-      .then((response) => {
+    .then((response) => {
+        setTimeAttack(false);
+        setTimeout(() => {
+          setTimeAttack(true);
+        }, 5000);
         setCheckPhone(true);
         setPhonemessage("5분 안에 입력해주세요.")
       })
@@ -255,9 +260,11 @@ const SignupForm = (props) => {
     authAxios.post("/users/phone/check", confirmData)
       .then(() => {
         setCheckPhoneNumber(true);
+        setPhonemessage("인증되었습니다.")
       })
       .catch(() => {
-        setCheckPhoneNumber(false);
+        // setCheckPhoneNumber(false);
+        setPhonemessage("인증 실패했습니다.")
       })
   }
   useEffect(() => {
@@ -875,13 +882,18 @@ const SignupForm = (props) => {
         <span>휴대폰 번호</span>
         <br />
         {phoneIsValid()}
-        <input type="button" value="인증번호 발송" className={style.formbtn} onClick={phoneCheck} />
+        { timeAttack
+        ?
+          <input type="button" value="인증번호 발송" className={style.formbtn} onClick={phoneCheck} />
+          :
+          <input type="button" value="인증번호 발송" className={style.frombtnx}/>
+        }
       </div>
       {
         checkPhone
           ?
           <div className={style.phonecheckform}>
-            <h4>{phoneMessage}</h4>
+            <span>{phoneMessage}</span>
             {phoneMessage === "5분 안에 입력해주세요."
               ?
               <div className={style.phoneforms}>
@@ -890,15 +902,6 @@ const SignupForm = (props) => {
               </div>
               :
               null
-            }
-            {
-              checkPhoneNumber
-                ?
-                <div>
-                  인증되었습니다.
-                </div>
-                :
-                null
             }
           </div>
           :
