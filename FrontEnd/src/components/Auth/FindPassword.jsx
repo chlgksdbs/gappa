@@ -3,6 +3,8 @@ import Headers from './Headers';
 import style from './Find.module.css';
 import { authAxios } from '../api/customAxios';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { authActions } from '../../store/authslice';
 const FindPassword = () => {
   // eslint-disable-next-line 
   const [check, setCheck] = useState(false);
@@ -17,6 +19,8 @@ const FindPassword = () => {
   // eslint-disable-next-line
   const [timeAttack, setTimeAttack] = useState(true);
   const [last, setLast] = useState("");
+
+  const dispatch = useDispatch();
 
 
   const navigate = useNavigate();
@@ -70,12 +74,18 @@ const FindPassword = () => {
       phone: phone,
       code: phoneCheckNumber,
     }
+    const userInfo = {
+      login_Id: id,
+    }
     authAxios.post("/users/findpw", body)
       .then(() => {
+        dispatch(authActions.updatedId(userInfo));
+        console.log(userInfo);
         navigate("/find/passwordchange")
       })
       .catch((res) => {
         const data = res.response.data
+        console.log(res)
         setLast(data.message)
       })
   }
@@ -148,7 +158,9 @@ const FindPassword = () => {
             null
         }
         <div className={style.word}>
+
           <span className={style.colors}>{last}</span>
+
         </div>
       </div>
       <div className={style.btndiv}>
