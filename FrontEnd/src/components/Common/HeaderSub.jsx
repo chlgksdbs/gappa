@@ -8,6 +8,7 @@ const HeaderSub = ( props ) => {
   let title = props.title;
   
   const headerStyle = {
+    height: '7vh',
     marginTop: '10px',
     display: 'grid',
     gridTemplateColumns: '1fr 3fr 1fr',

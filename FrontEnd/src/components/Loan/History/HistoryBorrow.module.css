@@ -7,7 +7,7 @@
 
 .body {
   width: 90%;
-  max-height: 78vh;
+  max-height: 71vh;
   /* min-height: 70vh; */
   overflow-y: scroll; /* 스크롤이 필요한 경우에만 스크롤 바 표시 */
   scrollbar-width: none; /* Firefox에서 스크롤 바 숨기기 */

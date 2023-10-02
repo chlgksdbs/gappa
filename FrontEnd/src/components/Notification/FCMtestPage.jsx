@@ -49,7 +49,7 @@ const FCMtestPage = () => {
     } else {
       // 알림 권한이 허용된 경우의 동작
       console.log("알림 권한이 허용됨");
-      getFirebaseToken();
+      setTimeout(getFirebaseToken(), 1000);
     }
   }
 
@@ -96,18 +96,7 @@ const FCMtestPage = () => {
       console.log(res);
       setPushEnabled(false);
     })
-  }
-
-  const reload = () => {
-    window.location.reload();
-  }
-
-  const logout = () => {
-    window.localStorage.removeItem("token");
-    window.localStorage.removeItem("fcmToken");
-  }
-
-  
+  }  
 
   const send = () => {
     customAxios.post("/fcm/push")
@@ -144,11 +133,6 @@ const FCMtestPage = () => {
       </div>
       <button onClick={send }>보내기</button>
       <div>Fcmtoken: {fcmToken}</div>
-      <button onClick={setting }>fcm토큰보내기</button>
-      <button onClick={subs }>알림 권한 허용 요청</button>
-      <button onClick={getFirebaseToken }>Firebase 토큰 가져오기</button>
-      <button onClick={reload }>새로고침</button>
-      <button onClick={logout }>로그아웃</button>
     </div>
   );
 };

@@ -151,18 +151,23 @@ const ProfilePage = () => {
       {myProfile ? (
         <>
           <button className={style.modBtn} onClick={() => { navigate("/profile/edit") }}>프로필 수정</button>
-          <div className={style.borrowList} onClick={() => { navigate("/historyborrow") }}>
+          <div className={style.listDiv} onClick={() => { navigate("/historyborrow") }}>
             <p>대출 이력 {borrowCnt}건</p>
             <img src="./images/NextBtn.png" alt="" />
           </div>
           <div className={style.line} />
-          <div className={style.lendList} onClick={() => { navigate("/historylend") }}>
+          <div className={style.listDiv} onClick={() => { navigate("/historylend") }}>
             <p>대금 이력 {lendCnt}건</p>
             <img src="./images/NextBtn.png" alt="" />
           </div>
           <div className={style.line} />
-          <div className={style.changeAccount} onClick={() => { navigate("/profile/accountedit") }}>
+          <div className={style.listDiv} onClick={() => { navigate("/profile/accountedit") }}>
             <p>대표 계좌 변경</p>
+            <img src="./images/NextBtn.png" alt="" />
+          </div>
+          <div className={style.line} />
+          <div className={style.listDiv} onClick={() => { navigate("/profile/certificate") }}>
+            <p>GAP PASS 관리</p>
             <img src="./images/NextBtn.png" alt="" />
           </div>
         </>

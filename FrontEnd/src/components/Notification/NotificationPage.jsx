@@ -66,7 +66,7 @@ const NotificationPage = () => {
       if(category === "A"){
         navigate('/lend/list');
       } else if(category === "R") {
-        navigate('/');
+        window.location.reload();
       } else if(category === "C") {
         navigate('/historyborrow');
       } else if(category === "P") {
