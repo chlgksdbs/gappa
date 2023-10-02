@@ -1,5 +1,5 @@
 .accBox {
-  background-color: white;
+  /* background-color: white; */
   height: 25vh;
   width: 100%;
   justify-content: center;
@@ -17,11 +17,13 @@
 }
 
 .myAcc {
-  background-color: rgba(128, 206, 190, 0.5);
+  /* background-color: rgba(128, 206, 190, 0.3); */
+  background-color: white;
+  /* border: solid 2px rgba(128, 206, 190); */
   height: 85%;
   width: 90%;
-  border-radius: 30px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
   justify-content: center;
   align-items: center;
   display: flex;
