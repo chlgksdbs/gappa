@@ -124,7 +124,7 @@ const FCMtestPage = () => {
   }
 
   const hideOffPush = () => {
-    customAxios.delete("/fcm", body)
+    customAxios.delete("/fcm")
     .then((res)=>{
       console.log(res);
       window.localStorage.removeItem("fcmToken");
