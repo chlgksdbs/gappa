@@ -16,6 +16,7 @@ public class JobConfig {
     private final JobBuilderFactory jobBuilderFactory;
 
     private final Step afterPeriodLoanStep;
+    private final Step failAfterPeriodLoanStep;
     private final Step beforePeriodLoanStep;
     private final Step inactiveUserStep;
 
@@ -24,6 +25,11 @@ public class JobConfig {
     public Job afterPeriodLoanJob() {
         return jobBuilderFactory.get("afterPeriodLoanJob")
                 .start(afterPeriodLoanStep)
+                    .on("FAILED")
+                    .to(failAfterPeriodLoanStep)
+                    .on("*")
+                    .end()
+                .end()
                 .build();
     }
 

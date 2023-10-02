@@ -25,26 +25,25 @@ public class AccountRepositoryImpl implements AccountRepositoryCustom{
 
     // 현재 대표 계좌 해제
     @Override
-    public void unsetPrimaryAccount(Long userSeq, Long accountSeq) {
+    public void unsetPrimaryAccount(Long userSeq) {
 
-        String jpql = "UPDATE account a SET a.repAccount = FALSE WHERE a.userSeq = :userSeq AND a.accountSeq = :accountSeq";
+        String jpql = "UPDATE Account a SET a.repAccount = FALSE WHERE a.user.userSeq = :userSeq AND a.repAccount = TRUE";
 
         em.createQuery(jpql)
                 .setParameter("userSeq", userSeq)
-                .setParameter("accountSeq", accountSeq)
                 .executeUpdate();
     }
 
     // 대표 계좌 조회
-//    @Override
-//    public Account findPrimaryByUserSeq(Long userSeq) {
-//
-//        String jpql = "SELECT a FROM account a WHERE a.userSeq = :userSeq AND a.repAccount = TRUE";
-//
-//        return em.createQuery(jpql, Account.class)
-//                .setParameter("userSeq", userSeq)
-//                .getSingleResult();
-//    }
+    @Override
+    public Account findPrimaryByUserSeq(Long userSeq) {
+
+        String jpql = "SELECT a FROM Account a WHERE a.user.userSeq = :userSeq AND a.repAccount = true";
+
+        return em.createQuery(jpql, Account.class)
+                .setParameter("userSeq", userSeq)
+                .getSingleResult();
+    }
 
     // 전체 계좌 조회
 //    @Override

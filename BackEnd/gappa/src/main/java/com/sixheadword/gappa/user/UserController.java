@@ -105,4 +105,23 @@ public class UserController {
     public ResponseEntity<?> checkVerificationPw(@RequestBody CheckPwRequestDto checkPwRequestDto){
         return userService.checkVerificationPw(checkPwRequestDto);
     }
+
+    // API 16. 간편 비밀번호 유효성 검증
+    @PostMapping("/pin/validate")
+    public ResponseEntity<?> checkValidatePinPassword(@RequestBody Map<String, String> request, Authentication authentication) {
+        return userService.checkValidatePinPassword(request, Long.parseLong(authentication.getName()));
+    }
+
+    // API 17. 알림 확인
+    @PutMapping("/alarm/single")
+    public ResponseEntity<?> checkSingleAlarm(@RequestBody Map<String, String> request, Authentication authentication) {
+        return userService.checkSingleAlarm(request, Long.parseLong(authentication.getName()));
+
+    }
+
+    // API 18. 알림 전체 확인
+    @PutMapping("/alarm/all")
+    public ResponseEntity<?> checkAllAlarm(Authentication authentication) {
+        return userService.checkAllAlarm(Long.parseLong(authentication.getName()));
+    }
 }

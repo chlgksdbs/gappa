@@ -14,9 +14,12 @@ import java.time.LocalDateTime;
 public class GetLoanOppResponseDto {
 
     private Long loanSeq;
-    private Long fromUser;
+    private String fromUser;
+    private String profileImg;
     private Long principal;
+    private Long restMoney;
     private LocalDateTime startDate;
+    private LocalDateTime redemptionDate;
     private char status;
 
 }

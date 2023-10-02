@@ -14,12 +14,15 @@ public class ItemWriterConfig {
 
     @Bean
     public ItemWriter<Loan> afterPeriodLoanWriter() {
+        log.info(">>>>> Spring Batch With AfterPeriodLoanWriter was Executed");
 
         return null;
     }
 
     @Bean
     public ItemWriter<Loan> beforePeriodLoanWriter() {
+        log.info(">>>>> Spring Batch With AfterPeriodLoanWriter was Executed");
+
         return null;
     }
 

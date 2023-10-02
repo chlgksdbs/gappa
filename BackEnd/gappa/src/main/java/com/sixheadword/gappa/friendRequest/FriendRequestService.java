@@ -1,5 +1,6 @@
 package com.sixheadword.gappa.friendRequest;
 
+import com.sixheadword.gappa.FCM.FCMService;
 import com.sixheadword.gappa.friendList.FriendList;
 import com.sixheadword.gappa.friendList.FriendListRepository;
 import com.sixheadword.gappa.friendList.response.FriendListResponseDto;
@@ -28,6 +29,7 @@ public class FriendRequestService {
     private final UserRepository userRepository;
     private final UserCustomRepository userCustomRepository;
     private final WebAlarmRepository webAlarmRepository;
+    private final FCMService fcmService;
 
     // 친구 요청 보내기
     @Transactional
@@ -35,18 +37,15 @@ public class FriendRequestService {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
         try {
-            Long to_user_seq = Long.parseLong(request.get("to_user"));
             User from_user = userRepository.findById(member_id).orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
-            User to_user = userRepository.findById(to_user_seq).orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
+            User to_user = userRepository.findById(Long.parseLong(request.get("to_user"))).orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
             FriendRequest friendRequest = new FriendRequest(from_user, to_user);
             friendRequestRepository.save(friendRequest);
             //알림 만드는 로직
-            String alarmContent = to_user.getName() + "님에게 친구 신청이 왔어요!";
-            WebAlarm webAlarm = new WebAlarm(to_user, from_user, 'F', alarmContent);
-            webAlarmRepository.save(webAlarm);
-
+            String alarmContent = from_user.getName() + "님이 친구 신청을 했어요!";
+            webAlarmRepository.save(new WebAlarm(to_user, from_user, 'F', alarmContent));
             //푸시 알림 보내기
-
+            fcmService.pushNotification(to_user.getUserSeq(), alarmContent);
             status = HttpStatus.OK;
             resultMap.put("message", "요청성공");
         } catch (Exception e) {
@@ -65,15 +64,32 @@ public class FriendRequestService {
 
         Long id = Long.parseLong(request.get("request_seq"));
         String res = request.get("response");
+
+        String alarmContent;
         try {
             FriendRequest friendRequest = friendRequestRepository.findById(id);
+            if(friendRequest.getToUser().getUserSeq()!=member_id) throw new IllegalArgumentException("권한이 허용되지 않은 요청입니다.");
+            // 친구 신청을 받은 회원
+            User to_user = friendRequest.getToUser();
+            // 친구 신청을 보낸 회원
+            User from_user = friendRequest.getFromUser();
             if (res.equals("T")) {
                 friendListRepository.save(new FriendList(friendRequest));
                 friendRequest.updateState('A');
+                // 알림 생성
+                alarmContent = to_user.getName() + "님이 친구요청을 승인했어요!";
+                webAlarmRepository.save(new WebAlarm(from_user, to_user, 'F', alarmContent));
+                // push 알림
+                fcmService.pushNotification(from_user.getUserSeq(), alarmContent);
                 resultMap.put("message", "친구요청 승인 성공");
                 status = HttpStatus.OK;
             } else if (res.equals("F")) {
                 friendRequest.updateState('R');
+                // 알림 생성
+                alarmContent = from_user.getName() + "님이 친구요청을 거절했어요";
+                webAlarmRepository.save(new WebAlarm(from_user, to_user, 'F', alarmContent));
+                // push 알림
+                fcmService.pushNotification(from_user.getUserSeq(), alarmContent);
                 resultMap.put("message", "친구요청 거절 성공");
                 status = HttpStatus.OK;
             } else {
@@ -126,16 +142,7 @@ public class FriendRequestService {
         if(user == null) {
             resultMap.put("status", "N");
             resultMap.put("message", "검색한 사람이 존재하지 않습니다.");
-        } else if(friendListRepository.findByUserSeqs(member_id, user.getUserSeq()).orElse(null) != null) {
-            resultMap.put("status", "A");
-            resultMap.put("message", "이미 친구입니다.");
-        } else if( friendRequestRepository.existsByUserSeqs(member_id, user.getUserSeq()) ) {
-            resultMap.put("status", "R");
-            resultMap.put("message", "이미 친구 신청을 했습니다.");
-        } else if( friendRequestRepository.existsByUserSeqs(user.getUserSeq(), member_id)  ) {
-            resultMap.put("status", "P");
-            resultMap.put("message", "친구 신청을 이미 받았습니다.");
-        } else { // 친구신청 가능 유저
+        } else {
             FriendListResponseDto friendListResponseDto = FriendListResponseDto.builder()
                     .profile_img(user.getProfileImg())
                     .user_name(user.getName())
@@ -143,8 +150,19 @@ public class FriendRequestService {
                     .phone(user.getPhone())
                     .build();
             resultMap.put("user", friendListResponseDto);
-            resultMap.put("status", "C");
-            resultMap.put("message", "친구 신청이 가능합니다.");
+            if(friendListRepository.findByUserSeqs(member_id, user.getUserSeq()).orElse(null) != null) {
+                resultMap.put("status", "A");
+                resultMap.put("message", "이미 친구입니다.");
+            } else if( friendRequestRepository.existsByUserSeqs(member_id, user.getUserSeq()) ) {
+                resultMap.put("status", "R");
+                resultMap.put("message", "이미 친구 신청을 했습니다.");
+            } else if( friendRequestRepository.existsByUserSeqs(user.getUserSeq(), member_id)  ) {
+                resultMap.put("status", "P");
+                resultMap.put("message", "친구 신청을 이미 받았습니다.");
+            } else { // 친구신청 가능 유저
+                resultMap.put("status", "C");
+                resultMap.put("message", "친구 신청이 가능합니다.");
+            }
         }
         status = HttpStatus.OK;
         return new ResponseEntity<>(resultMap, status);

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +22,7 @@ import java.util.List;
 public class AccountService {
 
     private final AccountRepository accountRepository;
+    private final UserRepository userRepository;
     private final EntityManager em;
 
     // 대표 계좌 설정
@@ -45,7 +45,7 @@ public class AccountService {
         Long accountSeq = setPrimaryReqeustDto.getAccountSeq();
 
         // 현재 대표 계좌 해제
-        accountRepository.unsetPrimaryAccount(userSeq, accountSeq);
+        accountRepository.unsetPrimaryAccount(userSeq);
         // 대표 계좌 설정
         Account account = accountRepository.findById(accountSeq).orElse(null);
         if(account != null){
@@ -57,18 +57,17 @@ public class AccountService {
     }
 
     // 대표 계좌 조회
-    public GetAccountResponseDto getPrimaryAccount(Long userSeq){
-        Account account = accountRepository.findById(userSeq).orElse(null);
+    public GetAccountResponseDto getPrimaryAccount(Authentication authentication){
+        Account account = accountRepository.findPrimaryByUserSeq(Long.parseLong(authentication.getName()));
 
         if(account != null){
-            GetAccountResponseDto result = GetAccountResponseDto.builder()
+            return GetAccountResponseDto.builder()
                     .accountSeq(account.getAccountSeq())
                     .accountNumber(account.getAccountNumber())
                     .bank(account.getBank())
                     .balance(account.getBalance())
                     .build();
 
-            return result;
         }else{
             throw new IllegalArgumentException("계좌를 찾을 수 없습니다");
 
@@ -76,8 +75,8 @@ public class AccountService {
     }
 
     // 전체 계좌 조회
-    public List<GetAccountResponseDto> getAllAcount(Long userSeq){
-        User user = em.find(User.class, userSeq);
+    public List<GetAccountResponseDto> getAllAcount(Authentication authentication){
+        User user = em.find(User.class, Long.parseLong(authentication.getName()));
         List<Account> accounts = accountRepository.findByUser(user);
 
         if(accounts.size() != 0){
@@ -88,6 +87,7 @@ public class AccountService {
                         .accountNumber(account.getAccountNumber())
                         .bank(account.getBank())
                         .balance(account.getBalance())
+                        .repAccount(account.isRepAccount())
                         .build();
                 getAccountResponseDtos.add(getAccountResponseDto);
             }

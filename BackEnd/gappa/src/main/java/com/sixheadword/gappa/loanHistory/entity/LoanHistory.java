@@ -1,13 +1,17 @@
-package com.sixheadword.gappa.loanHistory;
+package com.sixheadword.gappa.loanHistory.entity;
 
 import com.sixheadword.gappa.loan.Loan;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 // LoanHistory: 대출 내역 테이블
-@Getter
+@Getter @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "LOAN_HISTORY")
 public class LoanHistory {
@@ -24,8 +28,10 @@ public class LoanHistory {
     private Loan loan;
     
     // type: 타입
-    @Column(length = 20, nullable = false)
-    private String type;
+//    @Column(length = 20, nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Type type = Type.REDEMPTION;
     
     // amount: 거래금액
     @Column(nullable = false)
@@ -42,4 +48,13 @@ public class LoanHistory {
     // transactionDate: 거래일시
     @Column(nullable = false)
     private LocalDateTime transactionDate;
+
+    @Builder
+    public LoanHistory(Type type, Long amount, Long oldRedemptionMoney, Long newRedemptionMoney, LocalDateTime transactionDate ){
+        this.type = type;
+        this.amount = amount;
+        this.oldRedemptionMoney = oldRedemptionMoney;
+        this.newRedemptionMoney = newRedemptionMoney;
+        this.transactionDate = transactionDate;
+    }
 }

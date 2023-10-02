@@ -14,11 +14,15 @@ public class ItemProcessorConfig {
 
     @Bean
     public ItemProcessor<Loan, Loan> afterPeriodLoanProcessor() {
-        return null;
+        log.info(">>>>> Spring Batch With AfterPeriodLoanProcessor was Executed");
+
+        return
     }
 
     @Bean
     public ItemProcessor<Loan, Loan> beforePeriodLoanProcessor() {
+        log.info(">>>>> Spring Batch With AfterPeriodLoanProcessor was Executed");
+
         return null;
     }
 

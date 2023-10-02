@@ -46,6 +46,15 @@ public class StepConfig {
     }
 
     @Bean
+    public Step failAfterPeriodLoanStep() {
+        return stepBuilderFactory.get("failAfterPeriodLoanStep")
+                .tasklet((contribution, chunkContext) -> {
+                    return RepeatStatus.FINISHED;
+                })
+                .build();
+    }
+
+    @Bean
     public Step beforePeriodLoanStep() {
         return stepBuilderFactory.get("beforePeriodLoanStep")
                 .<Loan, Loan>chunk(10)

@@ -15,5 +15,6 @@ public class GetAccountResponseDto {
     private String accountNumber;
     private String bank;
     private Long balance;
+    private boolean repAccount;
 
 }

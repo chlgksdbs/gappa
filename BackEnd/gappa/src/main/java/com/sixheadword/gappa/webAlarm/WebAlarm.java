@@ -3,12 +3,13 @@ package com.sixheadword.gappa.webAlarm;
 import com.sixheadword.gappa.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 // WebAlarm: 알림 테이블
-@Getter
+@Getter @Setter
 @Entity
 @NoArgsConstructor
 @Table(name = "WEB_ALARM")
@@ -20,12 +21,12 @@ public class WebAlarm {
     @Column(name = "web_alarm_seq", unique = true, nullable = false)
     private Long webAlarmSeq;
 
-    // toUser: 알림을 보내는 사용자 일련번호
+    // toUser: 알림을 받는 사용자 일련번호
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "to_user", nullable = false)
     private User toUser;
 
-    // fromUser: 알림을 받는 사용자 일련번호
+    // fromUser: 알림을 보내는 사용자 일련번호
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "from_user", nullable = false)
     private User fromUser;

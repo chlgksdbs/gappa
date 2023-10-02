@@ -381,11 +381,22 @@ public class UserService {
             Map<String, Object> data = new HashMap<>();
             User user = userRepository.findByUserSeq(userSeq);
             if (userSeq.equals(loginUserSeq)) { // 자기 자신의 유저 정보 조회
-                Long borrowCnt = loanRepository.countLoanByToUser(user);
-                Long lendCnt = loanRepository.countLoanByFromUser(user);
+                List<Loan> borrowLoan = loanRepository.findByFromUser(user);
+                int borrowCnt = 0;
+                for (int i = 0; i < borrowLoan.size(); i++) {
+                    if (borrowLoan.get(i).getStatus() == 'W' || borrowLoan.get(i).getStatus() == 'F') continue;
+                    borrowCnt++;
+                }
+
+                List<Loan> lendLoan = loanRepository.findByToUser(user);
+                int lendCnt = 0;
+                for (int i = 0; i < lendLoan.size(); i++) {
+                    if (lendLoan.get(i).getStatus() == 'W' || lendLoan.get(i).getStatus() == 'F') continue;
+                    lendCnt++;
+                }
+
                 List<Loan> loans = loanRepository.findByFromUser(user);
                 char loanStatus = 0;
-
                 for (int i = 0; i < loans.size(); i++) {
                     if (loans.get(i).getStatus() == 'D') {          // 연체중
                         loanStatus = 'D';
@@ -394,6 +405,7 @@ public class UserService {
                         loanStatus = 'O';
                     }
                 }
+
                 data.put("profileImg", user.getProfileImg());
                 data.put("name", user.getName());
                 data.put("phone", user.getPhone());
@@ -484,8 +496,9 @@ public class UserService {
 
             webAlarms.forEach(webAlarm -> {
                 WebAlarmResponseDto webAlarmResponseDto = WebAlarmResponseDto.builder()
-                        .toUserName(webAlarm.getToUser().getName())
-                        .toUserProfileImg(webAlarm.getToUser().getProfileImg())
+                        .webAlarmSeq(webAlarm.getWebAlarmSeq())
+                        .fromUserName(webAlarm.getFromUser().getName())
+                        .fromUserProfileImg(webAlarm.getFromUser().getProfileImg())
                         .regDate(webAlarm.getRegDate())
                         .isRead(webAlarm.isRead())
                         .readDate(webAlarm.getReadDate())
@@ -574,6 +587,76 @@ public class UserService {
             resultMap.put("message", "인증번호 시간이 만료되었습니다.");
             status = HttpStatus.BAD_REQUEST;
         }
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    // 간편 비밀번호 유효성 검증
+    public ResponseEntity<?> checkValidatePinPassword(Map<String, String> request, Long userSeq) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+
+        String pinPassword = request.get("pinPassword");
+        try {
+            User user = em.find(User.class, userSeq);
+            if (encoder.matches(pinPassword, user.getPinPassword())) {
+                resultMap.put("message", "간편 비밀번호 확인 성공");
+                status = HttpStatus.OK;
+            } else {
+                resultMap.put("message", "간편 비밀번호가 일치하지 않습니다.");
+                status = HttpStatus.BAD_REQUEST;
+            }
+        } catch (Exception e) {
+            resultMap.put("message", "간편 비밀번호 유효성 검증 중 에러 발생");
+            resultMap.put("error", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    public ResponseEntity<?> checkSingleAlarm(Map<String, String> request, Long userSeq) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+
+        Long webAlarmSeq = Long.parseLong(request.get("webAlarmSeq"));
+        try {
+            WebAlarm webAlarm = em.find(WebAlarm.class, webAlarmSeq);
+            if (webAlarm.getToUser().getUserSeq().equals(userSeq)) {
+                webAlarm.setRead(true);
+                status = HttpStatus.OK;
+            } else {
+                status = HttpStatus.BAD_REQUEST;
+            }
+            resultMap.put("message", "알림 확인 완료");
+        } catch (Exception e) {
+
+            resultMap.put("message", "알림 확인 중, 에러 발생");
+            resultMap.put("error", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    public ResponseEntity<?> checkAllAlarm(Long userSeq) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+
+        try {
+            User user = em.find(User.class, userSeq);
+            List<WebAlarm> webAlarms = webAlarmRepository.findAllByToUser(user);
+            webAlarms.forEach(webAlarm -> {
+                if (!webAlarm.isRead()) webAlarm.setRead(true);
+            });
+            resultMap.put("message", "알림 확인 완료");
+            status = HttpStatus.OK;
+        } catch (Exception e) {
+
+            resultMap.put("message", "알림 전체 확인 중, 에러 발생");
+            resultMap.put("error", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
         return new ResponseEntity<>(resultMap, status);
     }
 }
