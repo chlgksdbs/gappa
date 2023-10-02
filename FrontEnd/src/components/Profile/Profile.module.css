@@ -131,44 +131,14 @@
   font-weight: bold; /* 굵은 글꼴 설정 */
 }
 
-.borrowList {
+.listDiv {
   display: grid;
   grid-template-columns: 4fr 1fr;
   width: 90%;
   font-size: 20px;
 }
 
-.borrowList img {
-  display: flex;
-  justify-content: center; 
-  align-items: center;
-  width: 20px;
-  margin: auto;
-}
-
-.lendList {
-  display: grid;
-  grid-template-columns: 4fr 1fr;
-  width: 90%;
-  font-size: 20px;
-}
-
-.lendList img {
-  display: flex;
-  justify-content: center; 
-  align-items: center;
-  width: 20px;
-  margin: auto;
-}
-
-.changeAccount {
-  display: grid;
-  grid-template-columns: 4fr 1fr;
-  width: 90%;
-  font-size: 20px;
-}
-
-.changeAccount img {
+.listDiv img {
   display: flex;
   justify-content: center; 
   align-items: center;

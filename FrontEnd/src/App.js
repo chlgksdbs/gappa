@@ -44,6 +44,7 @@ import NotFound from './components/404/NotFound';
 import RepaymentPage from './components/Loan/Repayment/RepaymentPage';
 import LendListPage from './components/Loan/Lend/LendListPage';
 import FindPasswordChange from './components/Auth/FindPasswordChange';
+import CertificatePage from './components/Profile/CertificatePage';
 // import LendRefusePage
 
 function App() {
@@ -111,6 +112,7 @@ function App() {
             <Route path="/account" element={<AccountDetail />} />
             <Route path="/profile/edit" element={<ProfileEditPage />} />
             <Route path="/profile/accountedit" element={<MainAccountEditPage />} />
+            <Route path="/profile/certificate" element={<CertificatePage />} />
             <Route path="/notice" element={<NoticePage />} />
             <Route path="/qna" element={<QnAPage />} />
             <Route path="/customerservice" element={<CustomerServicePage />} />
