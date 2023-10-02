@@ -1,9 +1,13 @@
 package com.sixheadword.gappa.config.Batch.step;
 
+import com.sixheadword.gappa.FCM.FCMService;
 import com.sixheadword.gappa.config.Batch.dto.AfterPeriodLoanDto;
 import com.sixheadword.gappa.loan.Loan;
+import com.sixheadword.gappa.loan.repository.LoanRepository;
 import com.sixheadword.gappa.user.User;
 import com.sixheadword.gappa.user.UserRepository;
+import com.sixheadword.gappa.webAlarm.WebAlarm;
+import com.sixheadword.gappa.webAlarm.WebAlarmRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Step;
@@ -16,6 +20,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Slf4j
@@ -26,14 +31,14 @@ public class StepConfig {
     private final StepBuilderFactory stepBuilderFactory;
 
     private final UserRepository userRepository;
+    private final LoanRepository loanRepository;
+    private final WebAlarmRepository webAlarmRepository;
+
+    private final FCMService fcmService;
 
     private final ItemReader<AfterPeriodLoanDto> afterPeriodLoanReader;
     private final ItemProcessor<AfterPeriodLoanDto, AfterPeriodLoanDto> afterPeriodLoanProcessor;
     private final ItemWriter<AfterPeriodLoanDto> afterPeriodLoanWriter;
-
-    private final ItemReader<Loan> beforePeriodLoanReader;
-    private final ItemProcessor<Loan, Loan> beforePeriodLoanProcessor;
-    private final ItemWriter<Loan> beforePeriodLoanWriter;
 
     @Bean
     public Step afterPeriodLoanStep() {
@@ -48,10 +53,30 @@ public class StepConfig {
     @Bean
     public Step beforePeriodLoanStep() {
         return stepBuilderFactory.get("beforePeriodLoanStep")
-                .<Loan, Loan>chunk(10)
-                .reader(beforePeriodLoanReader)
-                .processor(beforePeriodLoanProcessor)
-                .writer(beforePeriodLoanWriter)
+                .tasklet((contribution, chunkContext) -> {
+                    // Loan 테이블의 대출 마감기한이 1주일 이내로 남은 진행중인 대출 건 읽기
+                    List<Loan> upcomingDeadlineLoans =
+                            loanRepository.findByStatusEqualsAndRedemptionDateBetween(
+                                    'O',
+                                    LocalDateTime.now().minusWeeks(1),
+                                    LocalDateTime.now()
+                            );
+
+                    upcomingDeadlineLoans.forEach(loan -> {
+                        Long remainingAmount = loan.getPrincipal() - loan.getRedemptionMoney();
+                        String message = loan.getToUser().getName()
+                                + "님과의 대출 기간이 "
+                                + ChronoUnit.DAYS.between(loan.getRedemptionDate(), LocalDateTime.now())
+                                + "일 남았습니다. "
+                                + remainingAmount
+                                + "(원)에 대한 상환이 필요합니다!";
+                        fcmService.pushNotification(loan.getFromUser().getUserSeq(), message);
+
+                        webAlarmRepository.save(new WebAlarm(loan.getFromUser(), loan.getToUser(), 'P', message));
+                    });
+
+                    return RepeatStatus.FINISHED;
+                })
                 .build();
     }
 

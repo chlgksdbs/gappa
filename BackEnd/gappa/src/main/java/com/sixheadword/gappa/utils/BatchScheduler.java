@@ -25,8 +25,8 @@ public class BatchScheduler {
     private final JobLauncher jobLauncher;
     private final JobConfig jobConfig;
 
-    // 매일 오전 4시 30분 실행 스케줄러 (강제 이체)
-    @Scheduled(cron = "0 30 4 * * *")
+    // 매일 오전 9시 00분 실행 스케줄러 (강제 이체)
+    @Scheduled(cron = "0 0 9 * * *")
     public void runAfterPeriodLoanJob() {
 
         // JobParameter 설정

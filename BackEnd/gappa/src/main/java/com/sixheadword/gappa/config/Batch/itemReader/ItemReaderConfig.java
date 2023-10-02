@@ -1,7 +1,7 @@
 package com.sixheadword.gappa.config.Batch.itemReader;
 
 import com.sixheadword.gappa.account.Account;
-import com.sixheadword.gappa.account.repository.AccountRepositoryCustom;
+import com.sixheadword.gappa.account.repository.AccountRepository;
 import com.sixheadword.gappa.config.Batch.dto.AfterPeriodLoanDto;
 import com.sixheadword.gappa.loan.Loan;
 import com.sixheadword.gappa.loan.repository.LoanRepository;
@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +21,7 @@ import java.util.List;
 public class ItemReaderConfig {
 
     private final LoanRepository loanRepository;
-    private final AccountRepositoryCustom accountRepositoryCustom;
+    private final AccountRepository accountRepository;
 
     @Bean
     public QueueItemReader<AfterPeriodLoanDto> afterPeriodLoanReader() {
@@ -39,8 +38,8 @@ public class ItemReaderConfig {
             LoanHistory loanHistory = new LoanHistory();
             User fromUser = loan.getFromUser();
             User toUser = loan.getToUser();
-            Account fromUserRepAccount = accountRepositoryCustom.findPrimaryByUserSeq(fromUser.getUserSeq());
-            Account toUserRepAccount = accountRepositoryCustom.findPrimaryByUserSeq(toUser.getUserSeq());
+            Account fromUserRepAccount = accountRepository.findPrimaryByUserSeq(fromUser.getUserSeq());
+            Account toUserRepAccount = accountRepository.findPrimaryByUserSeq(toUser.getUserSeq());
 
             // AfterPeriodLoanDto 추가
             AfterPeriodLoanDto afterPeriodLoanDto = new AfterPeriodLoanDto(loan, loanHistory, fromUserRepAccount, toUserRepAccount);
@@ -48,21 +47,6 @@ public class ItemReaderConfig {
         });
 
         return new QueueItemReader<>(afterPeriodLoanDtos);
-    }
-
-    @Bean
-    public QueueItemReader<Loan> beforePeriodLoanReader() {
-        log.info(">>>>> Spring Batch With BeforePeriodLoanReader was Executed");
-
-        // Loan 테이블의 대출 마감기한이 1주일 이내로 남은 진행중인 대출 건 읽기
-        List<Loan> upcomingDeadlineLoans =
-                loanRepository.findByStatusEqualsAndRedemptionDateBetween(
-                  'O',
-                        LocalDateTime.now().minusWeeks(1),
-                        LocalDateTime.now()
-                );
-
-        return new QueueItemReader<>(upcomingDeadlineLoans);
     }
 
 }

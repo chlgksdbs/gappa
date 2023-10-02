@@ -2,7 +2,6 @@ package com.sixheadword.gappa.config.Batch.itemWriter;
 
 import com.sixheadword.gappa.account.repository.AccountRepository;
 import com.sixheadword.gappa.config.Batch.dto.AfterPeriodLoanDto;
-import com.sixheadword.gappa.loan.Loan;
 import com.sixheadword.gappa.loan.repository.LoanRepository;
 import com.sixheadword.gappa.loanHistory.repository.LoanHistoryRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,13 +23,6 @@ public class ItemWriterConfig {
     public ItemWriter<AfterPeriodLoanDto> afterPeriodLoanWriter() {
         // AfterPeriodLoanWriterCustom을 사용하는 ItemWriter 설정
         return new AfterPeriodLoanWriterCustom(loanRepository, loanHistoryRepository, accountRepository);
-    }
-
-    @Bean
-    public ItemWriter<Loan> beforePeriodLoanWriter() {
-        log.info(">>>>> Spring Batch With AfterPeriodLoanWriter was Executed");
-
-        return null;
     }
 
 }

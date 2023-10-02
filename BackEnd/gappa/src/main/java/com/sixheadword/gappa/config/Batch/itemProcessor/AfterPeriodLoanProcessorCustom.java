@@ -5,7 +5,6 @@ import com.sixheadword.gappa.loanHistory.entity.LoanHistory;
 import com.sixheadword.gappa.utils.SmsUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.item.ItemProcessor;
 
 import java.time.LocalDateTime;
@@ -55,7 +54,8 @@ public class AfterPeriodLoanProcessorCustom implements ItemProcessor<AfterPeriod
             afterPeriodLoanDto.getLoan().setRedemptionMoney(oldRedemptionMoney + remainingAmount);
 
         } else { // 잔액이 상환금보다 작은 경우, 날짜 계산 후 미납 SMS 문자 발송
-            String message = afterPeriodLoanDto.getLoan().getFromUser().getName()
+            String message = "[Gappa] "
+                    + afterPeriodLoanDto.getLoan().getFromUser().getName()
                     + "님 "
                     + afterPeriodLoanDto.getLoan().getToUser().getName()
                     + "님에게 대출금액 "
@@ -64,7 +64,7 @@ public class AfterPeriodLoanProcessorCustom implements ItemProcessor<AfterPeriod
                     + ChronoUnit.DAYS.between(afterPeriodLoanDto.getLoan().getRedemptionDate(), LocalDateTime.now())
                     + "일 연체되었습니다. "
                     + "고객님의 대표계좌 잔액 확인 후, 즉시 상환을 요청합니다.";
-            smsUtil.sendSMS(afterPeriodLoanDto.getFromUserAccount().getUser().getPhone(), message, Optional.of(LocalDateTime.now().plusMinutes(270)));
+            smsUtil.sendSMS(afterPeriodLoanDto.getFromUserAccount().getUser().getPhone(), message, Optional.of(LocalDateTime.now().plusMinutes(0)));
         }
 
         return afterPeriodLoanDto;
