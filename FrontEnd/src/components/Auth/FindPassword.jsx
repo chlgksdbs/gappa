@@ -71,9 +71,11 @@ const FindPassword = () => {
         console.log(res)
       })
       .catch((res) => {
-        const data = res.request.response
+        const data = res.response.data
         // const key ="message";
-        console.log(data.slice(12,-2),"문자열로 짤랐을 때")
+
+        // console.log(res)
+        // console.log(data.slice(12,-2),"문자열로 짤랐을 때")
         console.log(data.message,"key, value로 했을 때")
       })
   }

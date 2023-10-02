@@ -10,6 +10,7 @@ const LandingPage = () => {
       localStorage.setItem("isNewUser", "true");
       navigate("/branding");
     }
+    // eslint-disable-next-line
   },[])
   return (
     <div className={style.main}>
