@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import HeaderSub from '../Common/HeaderSub';
 import style from './FCMPage.module.css';
 import { customAxios } from '../api/customAxios';
@@ -36,6 +36,7 @@ const FCMtestPage = () => {
   const app = initializeApp(firebaseConfig);
   const messaging = getMessaging(app);
 
+
   const hideOnPush = async () => {
     // 1. 알림 설정 허용인지 체크
     const permission = await subs();
@@ -48,11 +49,7 @@ const FCMtestPage = () => {
     } else {
       // 알림 권한이 허용된 경우의 동작
       console.log("알림 권한이 허용됨");
-      const getToken = getFirebaseToken();
-      if(getToken !== null){
-        console.log("토큰이 왔다면!~@!@");
-        setting(getToken);
-      }
+      getFirebaseToken();
     }
   }
 
@@ -72,8 +69,7 @@ const FCMtestPage = () => {
       if (token) {
         console.log("token: ", token);
         localStorage.setItem("fcmToken", token);
-        alert("토큰을 성공적으로 가져왔습니다!");
-        return token;
+        setting(token);
       } else {
         setPushEnabled(false);
         alert("잘못됐어요!토큰가져오는게실패");
@@ -91,7 +87,7 @@ const FCMtestPage = () => {
     const body = {
       token : token
     };
-    customAxios.post("/fcm/login", body)
+    customAxios.post("/fcm", body)
     .then((res)=>{
       console.log(res);
       setFcmToken(token);
@@ -99,12 +95,7 @@ const FCMtestPage = () => {
     .catch((res)=>{
       console.log(res);
       setPushEnabled(false);
-      alert("잘못됐어요!토큰등록하는게실패");
     })
-  }
-
-  const hideOffPush = () => {
-    console.log("아놔 동현이가 아직도 안만들어버렸넹~!")
   }
 
   const reload = () => {
@@ -128,7 +119,16 @@ const FCMtestPage = () => {
     })
   }
 
-  
+  const hideOffPush = () => {
+    customAxios.delete("/fcm")
+    .then((res)=>{
+      console.log(res);
+      window.localStorage.removeItem("fcmToken");
+    })
+    .catch((res)=>{
+      console.log(res);
+    })
+  }
 
   return (
     <div className={style.body}>
