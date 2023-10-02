@@ -1,11 +1,11 @@
 // import React, { useState, useEffect } from 'react';
 import React from 'react';
-import style from './Certificate.module.css';
+import style from './MyCertificate.module.css';
 import HeaderSub from '../Common/HeaderSub';
 // import { customAxios } from '../api/customAxios';
 // import toast, { Toaster } from 'react-hot-toast';
 
-const CertificatePage = () => {
+const MyCertificatePage = () => {
   
 
   return (
@@ -15,4 +15,4 @@ const CertificatePage = () => {
   );
 };
 
-export default CertificatePage;
+export default MyCertificatePage;

@@ -16,6 +16,7 @@ const HistoryDetailPage = (props) => {
   const [myname, setMyname] = useState("");
   const [username, setUsername] = useState("");
   const [toUserSeq, setToUserSeq] = useState(0);
+  const [fromUserSeq, setFromUserSeq] = useState(0);
   const [principal, setPrincipal] = useState(0); // 원금
   const [balance, setBalance] = useState(0); // 잔액
   const [interest, setInterest] = useState(0); // 이자
@@ -79,6 +80,7 @@ const HistoryDetailPage = (props) => {
           setIsGappa(true);
         }
 				setToUserSeq(res.data.toUserSeq);
+				// setFromUserSeq(res.data.fromUserSeq);
         setURL(`/images/${res.data.profileImg}`);
 		    setStartdate(res.data.startDate);
 		    SetEnddate(res.data.redemptionDate);
@@ -103,6 +105,15 @@ const HistoryDetailPage = (props) => {
       lateDate: lateDate
     };
     navigate("/repayment", { state: data });
+  }
+
+  const goToCertificate = () => {
+    const data = {
+      loanSeq: loanSeq,
+      toUserSeq: toUserSeq,
+      fromUserSeq: fromUserSeq
+    };
+    navigate("/certificate", { state: data });
   }
 
   return (
@@ -191,13 +202,14 @@ const HistoryDetailPage = (props) => {
               <span>대출 잔액</span>
               <span>{formatBalance(balance)} 원</span>
             </div>
-            {!isGappa ? (
-              <button className={style.btnStyle} onClick={goToRepayment}>상환하기</button>
-              // <button>상환하기</button>
-            ) : (
-              null
-            )}
-            
+            <div style={{display: "flex"}}>
+              <button className={style.btnStyle1} onClick={goToCertificate}>차용증 생성</button>
+              {!isGappa ? (
+                <button className={style.btnStyle2} onClick={goToRepayment}>상환하기</button>
+              ) : (
+                null
+              )}
+            </div>
           </div>
         </div>
       </div>
