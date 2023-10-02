@@ -155,7 +155,7 @@ function App() {
             <Route path="/fcmtest" element={<FCMtestPage />} />
             <Route path="/repayment" element={<RepaymentPage />}/>
             <Route path="/certificate" element={<CertificatePage />}/>
-            {/* <Route path="/*" element={<NotFound/>}/> */}
+            <Route path="/*" element={<NotFound/>}/>
 
             <Route path="/fcmtest" element={<FCMtestPage />}/>
           </>

@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import html2pdf from 'html2pdf.js';
+// import html2pdf from 'html2pdf.js';
 import style from './Certificate.module.css';
 
 
@@ -10,7 +10,7 @@ const CertificatePage = () => {
     const content = contentRef.current;
 
     if (content) {
-      html2pdf(content);
+      // html2pdf(content);
     }
   };
 

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import HomeAccount from './HomeAccount';
 import Header from '../Common/Header';
 import Footer from '../Common/Footer';
+import NowTransaction from './NowTransaction';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const HomePage = () => {
 
         <div className={style.historyBox}>
           <div className={style.history}>
-            현재 거래중인 친구가 없어요!
+            <NowTransaction/>
           </div>
         </div>
       </div>
