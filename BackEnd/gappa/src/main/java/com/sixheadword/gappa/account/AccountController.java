@@ -1,5 +1,6 @@
 package com.sixheadword.gappa.account;
 
+import com.sixheadword.gappa.account.dto.request.SetOthersPrimaryRequestDto;
 import com.sixheadword.gappa.account.dto.request.SetPrimaryReqeustDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,17 +39,26 @@ public class AccountController {
         }
     }
 
-    // API 3. 대표 계좌 조회
+    // API 3. 대표 계좌 조회 (본인)
     @GetMapping("/primary")
     public ResponseEntity<?> showPrimaryAccount(Authentication authentication) {
         try{
             return ResponseEntity.ok(accountService.getPrimaryAccount(authentication));
         }catch (IllegalArgumentException e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("전체 계좌 조회 실패");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("대표 계좌 조회 실패");
         }
     }
 
-    // API 4. 전체 계좌 조회
+    // API 4. 대표 계좌 조회 (타인)
+    public ResponseEntity<?> showOthersPrimaryAccount(@RequestBody SetOthersPrimaryRequestDto setOthersPrimaryRequestDto ){
+        try{
+            return ResponseEntity.ok(accountService.getOthersPrimaryAccount(setOthersPrimaryRequestDto));
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("대표 계좌 조회 실패");
+        }
+    }
+
+    // API 5. 전체 계좌 조회
     @GetMapping
     public ResponseEntity<?> showAllAccount(Authentication authentication){
         try{
