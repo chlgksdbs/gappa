@@ -18,7 +18,8 @@ const LendListPage = () => {
     customAxios.get('/loan/apply')
     .then((res)=>{
       console.log(res);
-      setApplyList(res.data);
+      const sortedList = res.data.sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
+      setApplyList(sortedList);
     })
     .catch((res)=>{
       console.log(res);
@@ -39,7 +40,7 @@ const LendListPage = () => {
 
   return (
     <div className={style.body}>
-      <Header title={'내게 온 대출 요청 (' + applyList.length + '건)'}/>
+      <Header title={'대출 요청 확인 (' + applyList.length + '건)'}/>
       <div className={style.container}>
         {applyList.map((item, index) => (
           <div className={style.item} key={index}>
@@ -52,7 +53,7 @@ const LendListPage = () => {
               <div className={style.detailKey}>{item.principal}</div>
               <div className={style.detailValue}>원의 대출 신청이 들어왔어요!</div>
             </div>
-            
+
             <div className={style.btnBox}>
               <button className={style.selectBtn} onClick={() => handleItemClick(item.loanSeq)}>자세히 보기</button>
             </div>
