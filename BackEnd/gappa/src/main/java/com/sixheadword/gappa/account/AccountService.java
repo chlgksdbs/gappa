@@ -1,7 +1,9 @@
 package com.sixheadword.gappa.account;
 
+import com.sixheadword.gappa.account.dto.request.SetOthersPrimaryRequestDto;
 import com.sixheadword.gappa.account.dto.request.SetPrimaryReqeustDto;
 import com.sixheadword.gappa.account.dto.response.GetAccountResponseDto;
+import com.sixheadword.gappa.account.dto.response.GetOthersAccountResponseDto;
 import com.sixheadword.gappa.account.repository.AccountRepository;
 import com.sixheadword.gappa.user.User;
 import com.sixheadword.gappa.user.UserRepository;
@@ -56,7 +58,7 @@ public class AccountService {
         }
     }
 
-    // 대표 계좌 조회
+    // 대표 계좌 조회 (본인)
     public GetAccountResponseDto getPrimaryAccount(Authentication authentication){
         Account account = accountRepository.findPrimaryByUserSeq(Long.parseLong(authentication.getName()));
 
@@ -69,8 +71,21 @@ public class AccountService {
                     .build();
 
         }else{
-            throw new IllegalArgumentException("계좌를 찾을 수 없습니다");
+            throw new IllegalArgumentException("대표 계좌를 찾을 수 없습니다");
 
+        }
+    }
+    // 대표 계좌 조회 (타인)
+    public GetOthersAccountResponseDto getOthersPrimaryAccount(SetOthersPrimaryRequestDto getOthersPrimaryAccount){
+        Account account = accountRepository.findPrimaryByUserSeq(getOthersPrimaryAccount.getUserSeq());
+
+        if(account != null){
+            return GetOthersAccountResponseDto.builder()
+                    .accountNumber(account.getAccountNumber())
+                    .bank(account.getBank())
+                    .build();
+        }else{
+            throw new IllegalArgumentException("대표 계좌를 찾을 수 없습니다.");
         }
     }
 
