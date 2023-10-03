@@ -40,7 +40,7 @@ const LendListPage = () => {
 
   return (
     <div className={style.body}>
-      <Header title={'내게 온 대출 요청 (' + applyList.length + '건)'}/>
+      <Header title={'대출 요청 확인 (' + applyList.length + '건)'}/>
       <div className={style.container}>
         {applyList.map((item, index) => (
           <div className={style.item} key={index}>

@@ -7,12 +7,12 @@
   flex-direction: column;
   font-size: 24px;
   /* background-color: rgba(128, 206, 190, 0.13); */
-  background: linear-gradient(rgb(128, 206, 190, 0), rgb(128, 206, 190, 0.2), rgb(128, 206, 190, 0.3));
+  /* background: linear-gradient(rgb(128, 206, 190, 0), rgb(128, 206, 190, 0.2), rgb(128, 206, 190, 0.3)); */
 }
 
 .body {
   width: 100%;
-  background: linear-gradient(rgb(128, 206, 190, 0.01), rgb(128, 206, 190, 0.2), rgb(128, 206, 190, 0.3));
+  background: linear-gradient(rgb(128, 206, 190, 0.02), rgb(128, 206, 190, 0.3), rgb(128, 206, 190, 0.5));
   max-height: 82vh;
   /* min-height: 70vh; */
   overflow-y: scroll; /* 스크롤이 필요한 경우에만 스크롤 바 표시 */
