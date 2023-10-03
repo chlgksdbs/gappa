@@ -18,8 +18,8 @@ public class CertificateController {
 
     // API 1. 공인인증서 발급
     @PostMapping("/issuance")
-    public ResponseEntity<?> issuanceCertificate(Authentication authentication) {
-        return certificateService.issuanceCertificate(Long.parseLong(authentication.getName()));
+    public ResponseEntity<?> issuanceCertificate(@RequestBody CertificatePwDto certificatePwDto, Authentication authentication) {
+        return certificateService.issuanceCertificate(Long.parseLong(authentication.getName()), certificatePwDto);
     }
 
     // API 2. 공인인증서 비밀번호 설정
