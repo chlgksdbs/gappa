@@ -58,12 +58,16 @@
 
 .dateStyle {
   text-align: center;
-  margin: 30px 0 30px 0;
+  margin: 30px 0 20px 0;
 }
 
 .whoDiv {
   display: grid;
   grid-template-columns: 1fr 4fr;
+}
+
+.whoDiv p {
+  margin: 10px 0 10px 0;
 }
 
 .btnStyle {
