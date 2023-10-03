@@ -11,6 +11,8 @@ const ReqBorrowPage = () => {
   const location = useLocation();
   const data = location.state;
 
+  const [isCertOpen, setIsCertOpen] = useState(false);
+
   const [name, setName] = useState(""); // 내 이름
   const [name2, setName2] = useState(""); // 상대 이름
   const [bank, setBank] = useState(""); // 내 은행
@@ -68,8 +70,41 @@ const ReqBorrowPage = () => {
     }
   }, [data.toUser]);
 
+  const toggleCert = () => {
+    setIsCertOpen(!isCertOpen);
+  }
+
+  const [certName, setCertName] = useState("");
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      var base64Url = token.split(".")[1];
+      var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+      var jwtPayload = decodeURIComponent(
+        atob(base64)
+          .split("")
+          .map(function (c) {
+            return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+          })
+          .join("")
+      );
+      const JsonPayload = JSON.parse(jwtPayload);
+      const userSeq = JsonPayload.userSeq;
+    
+      customAxios.get(`/users/${userSeq}`)
+      .then((res)=>{
+        setCertName(res.data.data.name);
+      })
+      .catch((res)=>{
+        console.log(res);
+      })
+    } else {
+      // 토큰이 없는 경우 처리
+    }
+  }, []);
+
+  // 대출 신청 실행 로직(일단 빼둠)
   const nextHandler = () => {
-    console.log(data);
     customAxios.post("/loan/regist", data)
     .then((res)=>{
       console.log(res);
@@ -89,8 +124,6 @@ const ReqBorrowPage = () => {
       }, 1000);
     })
   };
-
-  console.log(data);
 
   return (
     <div className={style.body}>
@@ -131,8 +164,28 @@ const ReqBorrowPage = () => {
           </div>
         </div>
         <div className={style.inputDiv}>
-          <div className={style.nextBtn} onClick={nextHandler}>
+          <div className={style.nextBtn} onClick={toggleCert}>
             신청
+          </div>
+        </div>
+        {/* 인증서 올라오는 부분 */}
+        <div className={`${style.cert} ${isCertOpen ? style.open : ''}`}>
+          <div className={style.certHeader}>
+            <p>인증서를 선택하세요.</p>
+            <p style={{marginTop: "5px"}}onClick={toggleCert}>✖</p>
+          </div>
+          <div className={style.mycert}>
+            <div className={style.subImgBox}>
+              <img src="/images/GapPassCert.png" alt="" />
+            </div>
+            <div className={style.certlogoBox}>
+              <img src="/images/GAPPASS.png" alt="" />
+            </div>
+            <div className={style.textBox}>
+              <div className={style.name}>{certName}</div>
+              <div className={style.detail}>이 기기에 인증서 보관중</div>
+              <div className={style.detail}>2025.01.24 만료</div>
+            </div>
           </div>
         </div>
       </div>

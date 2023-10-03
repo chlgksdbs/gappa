@@ -166,7 +166,7 @@ const ProfilePage = () => {
             <img src="./images/NextBtn.png" alt="" />
           </div>
           <div className={style.line} />
-          <div className={style.listDiv} onClick={() => { navigate("/profile/certificate") }}>
+          <div className={style.listDiv} onClick={() => { navigate("/mycertificate") }}>
             <p>GAP PASS 관리</p>
             <img src="./images/NextBtn.png" alt="" />
           </div>
