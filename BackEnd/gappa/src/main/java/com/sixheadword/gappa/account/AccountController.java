@@ -50,7 +50,7 @@ public class AccountController {
     }
 
     // API 4. 대표 계좌 조회 (타인)
-    @PostMapping("/primary")
+    @PostMapping("/others/primary")
     public ResponseEntity<?> showOthersPrimaryAccount(@RequestBody SetOthersPrimaryRequestDto setOthersPrimaryRequestDto ){
         try{
             return ResponseEntity.ok(accountService.getOthersPrimaryAccount(setOthersPrimaryRequestDto));
