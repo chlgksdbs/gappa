@@ -35,13 +35,11 @@ const Header = ( props ) => {
     
       customAxios.get(`/users/${userSeq}`)
       .then((res)=>{
-        console.log(res);
         setProfileImg(res.data.data.profileImg);
         setName(res.data.data.name);
         setPhone(formatPhoneNumber(res.data.data.phone));
       })
-      .catch((res)=>{
-        console.log(res);
+      .catch((res)=>{s
       })
     } else {
       // 토큰이 없는 경우 처리

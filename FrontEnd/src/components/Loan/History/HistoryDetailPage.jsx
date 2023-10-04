@@ -14,6 +14,7 @@ const HistoryDetailPage = (props) => {
   const [finishdate, setFinishdate] = useState("");
   const [imgURL, setURL] = useState("");
   const [myname, setMyname] = useState("");
+  console.log(myname);
   const [username, setUsername] = useState("");
   const [toUserSeq, setToUserSeq] = useState(0);
   const [fromUserSeq, setFromUserSeq] = useState(0);
@@ -68,8 +69,6 @@ const HistoryDetailPage = (props) => {
   useEffect(() => {
     customAxios.get(`/loan/history/${loanSeq}`)
       .then((res)=>{
-        console.log(res);
-
         if (res.data.isGappa === 'X') {
           setMyname(res.data.fromUserName);
 		      setUsername(res.data.toUserName);
@@ -93,7 +92,6 @@ const HistoryDetailPage = (props) => {
         setStatus(res.data.status);
       })
       .catch((res)=>{
-        console.log(res);
       })
   }, []);
 

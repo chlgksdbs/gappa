@@ -37,17 +37,14 @@ const PinPasswordConfirm = () => {
   useEffect(() => {
     if (pin.length > 5) {
       const body = { 'pinPassword': pin }
-      console.log(body);
       customAxios.post("/users/pin/check", body)
         .then((res) => {
-          console.log(res.message);
           setAlert("비밀번호 확인되었습니다.");
           setTimeout(() => {
             navigate("/pinpasswordcheck");
           }, 700);
         })
         .catch((e) => {
-          console.log(e.message);
           setAlert("비밀번호가 일치하지 않습니다");
           setPin("");
           setIsAlert(false);

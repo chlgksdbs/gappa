@@ -48,15 +48,12 @@ const HistoryLendPage = () => {
   });
 
   const goToHistoryDetail = (loan) => {
-    console.log(loan);
     navigate("/historydetail", { state: { loanId: loan.id } });
   };
 
   useEffect(() => {    
     customAxios.get(`/loan/opp`)
       .then((res)=>{
-        console.log(res);
-
         const updatedLends = res.data.map((lend) => ({
           id: lend.loanSeq,
           name: lend.fromUser,
@@ -70,7 +67,6 @@ const HistoryLendPage = () => {
         setLends(updatedLends);
       })
       .catch((res)=>{
-        console.log(res);
       })
   }, []);
 

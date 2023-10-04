@@ -10,4 +10,5 @@
   margin: auto;
   border: 0;
   overflow-x: hidden;
+  user-select: none;
 }

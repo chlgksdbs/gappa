@@ -83,7 +83,6 @@ const ReqBorrowPage = () => {
         setName(res.data.data.name);
       })
       .catch((res)=>{
-        console.log(res);
       })
 
       customAxios.get(`/users/${data.toUser}`)
@@ -128,7 +127,6 @@ const ReqBorrowPage = () => {
         setCertName(res.data.data.name);
       })
       .catch((res)=>{
-        console.log(res);
       })
     } else {
       // 토큰이 없는 경우 처리
@@ -146,7 +144,6 @@ const ReqBorrowPage = () => {
     }
     customAxios.post("/certificate/encode", body)
     .then((res)=>{
-      console.log(res);
       const encryptedKey = res.data.encrypted
 
       customAxios.post("/certificate/validate", {pw:encryptedKey})
@@ -170,7 +167,6 @@ const ReqBorrowPage = () => {
       })
     })
     .catch((res)=>{
-      console.log(res);
     })
   }
 
@@ -178,7 +174,6 @@ const ReqBorrowPage = () => {
   const nextHandler = () => {
     customAxios.post("/loan/regist", data)
     .then((res)=>{
-      console.log(res);
       toast.success("대출을 신청했습니다!", {
         duration: 1000,
       });

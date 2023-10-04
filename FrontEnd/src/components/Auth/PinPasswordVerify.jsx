@@ -20,13 +20,11 @@ const PinPasswordVerify = ( props ) => {
     };
     customAxios.post('/users/pin/validate', body)
     .then((res)=>{
-      console.log(res);
       if (props.result) {
         props.result(true);
       }
     })
     .catch((res)=>{
-      console.log(res);
       setMessage("잘못된 비밀번호 입니다.")
       setPin("");
     })

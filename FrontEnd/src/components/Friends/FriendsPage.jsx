@@ -29,7 +29,6 @@ const FriendsPage = () => {
       setPhoneBook(res.data.list);
     })
     .catch((res)=>{
-      console.log(res)
     })
   }
 
@@ -41,11 +40,9 @@ const FriendsPage = () => {
   const getRequest = () => {
     customAxios.get("/friends/request")
     .then((res)=>{
-      console.log(res)
       setFriendsReq(res.data.list);
     })
     .catch((res)=>{
-      console.log(res)
     })
   }
 
@@ -101,7 +98,6 @@ const FriendsPage = () => {
 
     })
     .catch((res)=>{
-      console.log(res)
     })
   }
 
@@ -137,7 +133,6 @@ const FriendsPage = () => {
       getRequest();
     })
     .catch((res)=>{
-      console.log(res);
     })
   }
 

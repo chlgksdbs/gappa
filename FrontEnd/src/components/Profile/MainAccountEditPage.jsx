@@ -25,7 +25,6 @@ const MainAccountEditPage = () => {
       accountSeq: selectedAccount,
     };
     
-    console.log(requestData);
     customAxios.put(`/accounts/primary`, requestData)
     .then((res)=>{
       toast.success("대표 계좌 변경 성공!", {
@@ -54,10 +53,8 @@ const MainAccountEditPage = () => {
         isRepresentative: account.repAccount,
       }));
       setAccounts(updatedAccounts);
-      console.log(res);
     })
     .catch((res)=>{
-      console.log(res);
     })
   }, []);
 

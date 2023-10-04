@@ -625,7 +625,6 @@ const FindPasswordChange = () => {
       loginId: userInfo.login_Id,
       loginPassword: password,
     }
-    console.log(body)
     authAxios.put("/users/setpw", body)
       .then((res) => {
         setAnswer(res.data.message)
@@ -634,7 +633,6 @@ const FindPasswordChange = () => {
         }, 500);
       })
       .catch((res) => {
-        console.log(res)
       })
 
   }

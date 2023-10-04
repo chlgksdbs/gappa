@@ -26,7 +26,6 @@ const FindPassword = () => {
   const navigate = useNavigate();
   const confirmId = (e) => {
     const currentId = e.target.value;
-    console.log(currentId);
     setId(currentId);
 
   }
@@ -61,7 +60,6 @@ const FindPassword = () => {
         }, 5000);
         setCheckPhone(true);
         setPhonemessage("5분 안에 입력해주세요.")
-        console.log(response)
       })
       .catch((response) => {
         setCheckPhone(true);
@@ -80,12 +78,10 @@ const FindPassword = () => {
     authAxios.post("/users/findpw", body)
       .then(() => {
         dispatch(authActions.updatedId(userInfo));
-        console.log(userInfo);
         navigate("/find/passwordchange")
       })
       .catch((res) => {
         const data = res.response.data
-        console.log(res)
         setLast(data.message)
       })
   }
@@ -107,7 +103,6 @@ const FindPassword = () => {
       finalPhoneNumber += strippedPhoneNumber[i];
     }
     setPhoneNumber(finalPhoneNumber)
-    console.log(phoneNumber)
   }
   useEffect(() => {
     if (id && phoneNumber) {
