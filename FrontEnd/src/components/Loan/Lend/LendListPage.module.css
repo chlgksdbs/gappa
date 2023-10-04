@@ -27,7 +27,8 @@
 }
 
 .subTitle {
-  color: rgb(128, 206, 190);
+  font-family: 'LINESeedKR-Bd';
+  color: rgb(96, 207, 185);
   font-size: 17px;
   margin: auto;
 }
@@ -39,10 +40,10 @@
   /* background: radial-gradient(circle, rgba(128, 206, 190, 0.1), rgba(128, 206, 190, 0.25)); */
   border: 1px solid #e2e2e2;
   border-radius: 5px;
-  height: 18%;
+  height: 20%;
   width: 90%;
   /* margin-bottom: 1vh; */
-  margin: 5px auto 1vh auto;
+  margin: 1rem auto 1vh auto;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -71,7 +72,7 @@
   font-family: 'LINESeedKR-Rg';
   font-size: 15px;
   /* padding-top: 2px; */
-  color: grey;
+  color: rgb(113, 113, 113);
 }
 
 .date {
