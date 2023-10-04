@@ -2,6 +2,7 @@ package com.sixheadword.gappa.config.Batch.itemProcessor;
 
 import com.sixheadword.gappa.config.Batch.dto.AfterPeriodLoanDto;
 import com.sixheadword.gappa.loanHistory.entity.LoanHistory;
+import com.sixheadword.gappa.user.User;
 import com.sixheadword.gappa.utils.SmsUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,9 @@ public class AfterPeriodLoanProcessorCustom implements ItemProcessor<AfterPeriod
         Long remainingAmount = afterPeriodLoanDto.getLoan().getPrincipal()
                 + (afterPeriodLoanDto.getLoan().getInterest() * ChronoUnit.DAYS.between(afterPeriodLoanDto.getLoan().getRedemptionDate(), LocalDateTime.now()))
                 - afterPeriodLoanDto.getLoan().getRedemptionMoney();
+
+        User fromUser = afterPeriodLoanDto.getFromUser();
+        User toUser = afterPeriodLoanDto.getToUser();
 
         // 대출 건의 from_user의 Account 테이블의 대표 계좌 잔액 확인
         if (afterPeriodLoanDto.getFromUserAccount().getBalance() >= remainingAmount) { // 잔액이 상환금보다 큰 경우, to_user에게 이체 수행
@@ -55,27 +59,21 @@ public class AfterPeriodLoanProcessorCustom implements ItemProcessor<AfterPeriod
 
             // (7) 강제 이체 건에 대한 SMS 문자 발송
             String message = "[Gappa] "
-                    + afterPeriodLoanDto.getLoan().getFromUser().getName()
-                    + "님 "
-                    + afterPeriodLoanDto.getLoan().getToUser().getName()
-                    + "님과의 대출 건이 연체됨에 따라 대출금액 "
+                    + toUser.getName()
+                    + "님과의 대출 건이 연체됨에 따라 "
                     + remainingAmount
-                    + "(원)이 강제 상환되었습니다. "
-                    + "고객님의 대표계좌 잔액 확인 바랍니다.";
-            smsUtil.sendSMS(afterPeriodLoanDto.getFromUserAccount().getUser().getPhone(), message, Optional.of(LocalDateTime.now().plusMinutes(0)));
+                    + "(원)이 강제 상환되었습니다. ";
+            smsUtil.sendSMS(fromUser.getPhone(), message, Optional.of(LocalDateTime.now().plusMinutes(270)));
 
         } else { // 잔액이 상환금보다 작은 경우, 날짜 계산 후 미납 SMS 문자 발송
             String message = "[Gappa] "
-                    + afterPeriodLoanDto.getLoan().getFromUser().getName()
-                    + "님 "
-                    + afterPeriodLoanDto.getLoan().getToUser().getName()
+                    + toUser.getName()
                     + "님에게 대출금액 "
                     + remainingAmount
                     + "(원)이 "
                     + ChronoUnit.DAYS.between(afterPeriodLoanDto.getLoan().getRedemptionDate(), LocalDateTime.now())
-                    + "일 연체되었습니다. "
-                    + "고객님의 대표계좌 잔액 확인 후, 즉시 상환을 요청합니다.";
-            smsUtil.sendSMS(afterPeriodLoanDto.getFromUserAccount().getUser().getPhone(), message, Optional.of(LocalDateTime.now().plusMinutes(0)));
+                    + "일 연체되었습니다. ";
+            smsUtil.sendSMS(fromUser.getPhone(), message, Optional.of(LocalDateTime.now().plusMinutes(270)));
         }
 
         return afterPeriodLoanDto;
