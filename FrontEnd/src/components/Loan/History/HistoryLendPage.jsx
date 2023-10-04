@@ -80,11 +80,11 @@ const HistoryLendPage = () => {
       <div className={style.body}>
         <div style={{fontSize: "20px", textAlign: "center", marginTop: ".6rem", marginBottom:".5rem"}}>
           <span onClick={() => handleFilterChange(1)} style={lendFilter === 1 ? {color: 'rgb(96, 207, 185)', fontWeight:'bolder'} : {color: '#737373'}}>전체</span>
-          <span>&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;</span>
+          <span>&nbsp;&nbsp; | &nbsp;&nbsp;</span>
           <span onClick={() => handleFilterChange(2)} style={lendFilter === 2 ? {color: 'rgb(96, 207, 185)', fontWeight:'bolder'} : {color: '#737373'}}>상환완료</span>
-          <span>&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;</span>
+          <span>&nbsp;&nbsp; | &nbsp;&nbsp;</span>
           <span onClick={() => handleFilterChange(3)} style={lendFilter === 3 ? {color: 'rgb(96, 207, 185)', fontWeight:'bolder'} : {color: '#737373'}}>대출중</span>
-          <span>&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;</span>
+          <span>&nbsp;&nbsp; | &nbsp;&nbsp;</span>
           <span onClick={() => handleFilterChange(4)} style={lendFilter === 4 ? {color: 'rgb(96, 207, 185)', fontWeight:'bolder'} : {color: '#737373'}}>연체중</span>
         </div>
         <p className={style.totalCnt}>총 {filteredLends.length} 건</p>
