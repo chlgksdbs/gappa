@@ -26,6 +26,39 @@
   font-size: 16px;
 }
 
+.phoneform {
+  height: 10%;
+  margin-top: 5vh;
+  width: 90%;
+}
+
+
+
+.forminput{
+  width: 60%;
+  border:none;
+  border-bottom: 2px solid #ccc;
+  font-size: 20px;
+}
+
+.formbtn {
+  font-family: "LINESeedKR-Br";
+  font-size: 16px;
+  border-radius: 5px;
+  border: 2px solid #ccc;
+  background-color: #AFEBDF;
+}
+
+.phonecheckform {
+  height: 10%;
+  margin: 5vh 0 5vh 0;
+  width: 90%;
+}
+
+.phoneforms {
+  width: 100%;
+}
+
 .agree{
   font-family: "LINESeedKR-Bd";
   width: 90%;
@@ -130,12 +163,6 @@
   height: 80%;
 }
 
-.passwordBox {
-  height: 40%;
-  width: 100%;
-}
-
-
 .input{
   border-width: 0 0 1px;
   border-color: lightgray;
@@ -156,13 +183,41 @@
   margin-top: 40%;
 }
 
+.passwordBox {
+  width: 90%;
+  height: 40%;
+}
+
+.pwform {
+  margin-bottom: 5vh;
+  height: 15%;
+  width: 100%;
+}
+
+.pwtitle {
+  margin-top: 3vh;
+}
+
+
+
+.pwinput {
+  border: none;
+  font-size: 20px;
+  border-bottom: 2px solid #ccc;
+  width: 80%;
+}
+
 .colorred{
-  font-size: 18px;
+  width: 80%;
+  font-family: "LINESeedKR-Br";
+  font-size: 14px;
   color: red;
 }
 
 .colorblue{
-  font-size: 18px;
+  width: 80%;
+  font-family: "LINESeedKR-Br";
+  font-size: 14px;
   color: blue;
 }
 
