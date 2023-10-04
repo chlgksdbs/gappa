@@ -15,9 +15,18 @@ public class JobConfig {
 
     private final JobBuilderFactory jobBuilderFactory;
 
+    private final Step changeLoanStatusStep;
     private final Step afterPeriodLoanStep;
     private final Step beforePeriodLoanStep;
     private final Step inactiveUserStep;
+
+    // changeLoanStatusJob: 기한이 된 대출 건에 대한 Job (status 값 변경)
+    @Bean
+    public Job changeLoanStatusJob() {
+        return jobBuilderFactory.get("changeLoanStatusJob")
+                .start(changeLoanStatusStep)
+                .build();
+    }
 
     // afterPeriodLoanJob: 기한이 지난 대출 건에 대한 Job (강제 이체)
     @Bean
