@@ -1,5 +1,5 @@
-.body {
-  height: 100vh;
+.main {
+  height: 100%;
   justify-content: flex-start;
   align-items: center;
   display: flex;
@@ -7,9 +7,17 @@
   font-size: 24px;
 }
 
-.friendsBox {
-  height: 70%;
-  width: 90%;
+.body {
+  max-height: 82%;
+  min-height: 80%;
+  width: 100%;
+  overflow-y: scroll; /* 스크롤이 필요한 경우에만 스크롤 바 표시 */
+  scrollbar-width: none; /* Firefox에서 스크롤 바 숨기기 */
+  -ms-overflow-style: none;
+}
+.body::-webkit-scrollbar {
+  width: 0; /* Webkit 기반 브라우저(Chrome, Safari)에서 스크롤 바 숨기기 */
+  display: none; /* Safari에서 스크롤 바 숨기기 */
 }
 
 .editBtn {
@@ -42,7 +50,7 @@
   align-items: flex-start;
   display: flex;
   flex-direction: column;
-  height: 80%;
+  height: 75%;
   margin-bottom: 3vh;
   overflow-y: scroll; /* 스크롤이 필요한 경우에만 스크롤 바 표시 */
   scrollbar-width: none; /* Firefox에서 스크롤 바 숨기기 */
