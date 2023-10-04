@@ -1,6 +1,19 @@
 package com.sixheadword.gappa.utils;
 
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.test.context.junit4.SpringRunner;
+
+@SpringBootTest
+@RunWith(SpringRunner.class)
 class RSAUtilTest {
+
+    @Autowired BCryptPasswordEncoder encoder;
+    @Autowired
+    RSAUtil rsaUtil;
+
 //    @Test
 //    public void RSA_Base64_암복호화_테스트()
 //            throws NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException,
@@ -51,5 +64,11 @@ class RSAUtilTest {
 //        System.out.println("decryptedReRe = " + decryptedReRe);
 //
 //        Assert.assertEquals(decrypted, decryptedReRe);
+//    }
+
+//    @Test
+//    public void test() throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, IllegalBlockSizeException, UnsupportedEncodingException, BadPaddingException, InvalidKeyException, InvalidKeyException {
+//        PrivateKey privateKey = rsaUtil.getPrivateKeyFromBase64Encrypted("MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAJcM6eZ2p5c1h9z0OxUMWiMEwMA7kMhhLTf4/tEfSNsD5NwDK+9U0rZ71K15s5Y642UNpcxMwdK1d1uFBu8tzL6/gSI/A7xnyYKuIx5OlBU+r1A/6jB2WlmmCdN3leG0szku8/YAD96HQZ4qVDPkd4zNM6LuNRl5b0u0rkqctSitAgMBAAECgYA9E9ewfOIfXmHlkkwhorD/3/ggwvU0UTb7nw9KeB/5j4WHATFOwTnC2CeTTda0NHOmdPJJve/Rx9bPhuba5+YVx2XP5o4RELt5Qy+LBnQeCVTDhpPLJ4Hr2GbBv5gbFdtPUJrmMUJ+UV2sGWxLb5HKi8JVYEjTQoBgPOvV0ONxgQJBAPvZYoJHFtQ1LaL5/1ZEsx47sNV0/Z//9cGcG98Y9ex5MAtAf6msRXgKAhWQs+bmfTFoaZiCfnjTJovKt7z3ERUCQQCZijvPxKY000KMGX0K8Y6W0nq2eOQ1ZptvtMIVXALe7L3KEenppS02XHWkPFzAMSvDZJTGH4pQ1U7hSRjgMa85AkEAu52oCxFWamPrSXwfwW6QWTdydrIetvEBbWgUQ1De83kcV2WHNSlG3zPldZdEzgBqx0HXWGvuN6hlEMLFuhn8OQJAdPA9YZ6KX81O79kxzTXwvZoM8BDe7nT5iXiIITB010hDvDUsjFDLQI3m43E9yvsoM6bVUJgRBkOP0jGUCpyMsQJBANrMBqpTJKq8dtElhsrtJYNF3oj/9ikY7rncuwFND9YZ8Q+9fdKbzl96J369nyPhHTnfahMGVkpeGa9PQevRzqU=");
+//        String decryptRSA = rsaUtil.decryptRSA("ENZr7hTw2gdKWmDC0H/X5OjgDe+zM7T+luyhRMdjgsrYMj1Ifnq3Gne4Gf1jnKrV/c1udWpaN2toBys8Ov7s73FZ6bjvwmxmVdxRlv6IiPHU2eYu+38Rgas3LUfRcoY+M4Qt/CEi52DZ5s6X2iu0MkgovT1y/3cwHqSs6fCNSN8=", privateKey);
 //    }
 }

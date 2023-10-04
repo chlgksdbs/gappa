@@ -86,7 +86,7 @@ public class CertificateService {
             String base64PrivateKey = redisUtil.getData(user.getPhone() + "PK");
             PrivateKey privateKey = rsaUtil.getPrivateKeyFromBase64Encrypted(base64PrivateKey);
             String pw = rsaUtil.decryptRSA(certificatePwDto.getPw(), privateKey);
-            if(encoder.matches(pw, redisUtil.getData(user.getPhone()) + "PW")){
+            if(encoder.matches(pw, redisUtil.getData(user.getPhone()+ "PW") )){
                 resultMap.put("message", "인증 성공");
                 status = HttpStatus.OK;
             } else {
