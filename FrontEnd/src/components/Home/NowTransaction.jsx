@@ -78,7 +78,7 @@ const NowTransaction = () => {
                   <img src={`images/${item.profileImg}`} alt="" className={style.img} />
                 </div>
                 <div className={style.detail}>
-                  <div className={style.mb}>
+                  <div className={style.mb} style={{fontFamily: 'LINESeedKR-Bd', fontSize: '18px', marginBottom: '.5rem'}}>
                     <span>{item.toUser}님과 거래중입니다.</span>
                   </div>
                   <div className={style.mb}>
