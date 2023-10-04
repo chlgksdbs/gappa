@@ -100,10 +100,12 @@ const FriendsPage = () => {
         <div className={style.search}>
           <input type="text" placeholder="친구 검색" value={searchTerm} onChange={handleSearch} />
         </div>
-        <div className={style.editBtn} onClick={toggleEditMode}>
-          {phoneBook.length > 0 && (
-            isEditMode ? '취소' : '편집'
-          )}
+        <div className={style.editBtn}>
+          <div onClick={toggleEditMode}>
+            {phoneBook.length > 0 && (
+              isEditMode ? '취소' : '편집'
+            )}
+          </div>
         </div>
 
         <div className={style.friendsList}>

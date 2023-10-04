@@ -10,11 +10,13 @@
 
 .menuIcon {
   margin-left: 20px;
+  height: 30px;
   grid:1;
 }
 
 .notIcon {
   margin-right: 20px;
+  height: 35px;
   grid:3;
 }
 

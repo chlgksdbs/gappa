@@ -10,7 +10,7 @@
 .body {
   max-height: 82%;
   min-height: 80%;
-  width: 100%;
+  width: 90%;
   overflow-y: scroll; /* 스크롤이 필요한 경우에만 스크롤 바 표시 */
   scrollbar-width: none; /* Firefox에서 스크롤 바 숨기기 */
   -ms-overflow-style: none;
