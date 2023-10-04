@@ -2,6 +2,7 @@ package com.sixheadword.gappa.config.Batch.itemWriter;
 
 import com.sixheadword.gappa.account.Account;
 import com.sixheadword.gappa.account.repository.AccountRepository;
+import com.sixheadword.gappa.accountHistory.AccountHistory;
 import com.sixheadword.gappa.accountHistory.repository.AccountHistoryRepository;
 import com.sixheadword.gappa.config.Batch.dto.AfterPeriodLoanDto;
 import com.sixheadword.gappa.loan.Loan;
@@ -32,11 +33,15 @@ public class AfterPeriodLoanWriterCustom implements ItemWriter<AfterPeriodLoanDt
             LoanHistory loanHistory = afterPeriodLoanDto.getLoanHistory();
             Account fromUserAccount = afterPeriodLoanDto.getFromUserAccount();
             Account toUserAccount = afterPeriodLoanDto.getToUserAccount();
+            AccountHistory fromUserAccountHistory = afterPeriodLoanDto.getFromUserAccountHistory();
+            AccountHistory toUserAccountHistory = afterPeriodLoanDto.getToUserAccountHistory();
 
             loanRepository.save(loan);
             loanHistoryRepository.save(loanHistory);
             accountRepository.save(fromUserAccount);
             accountRepository.save(toUserAccount);
+            accountHistoryRepository.save(fromUserAccountHistory);
+            accountHistoryRepository.save(toUserAccountHistory);
         });
     }
 }
