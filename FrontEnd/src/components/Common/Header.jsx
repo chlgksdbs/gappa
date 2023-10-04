@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import style from './Header.module.css';
 import { useNavigate } from 'react-router-dom';
 import { customAxios } from '../api/customAxios';
+import FCM from '../Notification/FCM';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Header = ( props ) => {
   const navigate = useNavigate();
@@ -52,6 +54,18 @@ const Header = ( props ) => {
     return formattedNumber;
   };
 
+  const logout = () => {
+    localStorage.removeItem("token");
+    window.location.reload();
+    toast.error("접속종료", {
+      duration: 1000,
+    });
+    setTimeout(() => {
+      localStorage.removeItem("token");
+      window.location.reload();
+    }, 1000);
+  };
+
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
@@ -59,6 +73,7 @@ const Header = ( props ) => {
 
   return (
     <div className={style.header}>
+      <Toaster />
       <div className="menuIcon" onClick={toggleSidebar} >
         <img src="/images/Menu.png" alt="" className={style.menuIcon} />
       </div>
@@ -77,8 +92,12 @@ const Header = ( props ) => {
         <div className={style.menus} onClick={() => { navigate("/notice") }} >공지사항</div>
         <div className={style.menus} onClick={() => { navigate("/customerservice") }} >고객센터</div>
         <div className={style.menus} onClick={() => { navigate("/qna") }} >자주묻는 질문</div>
-        <div className={style.menus} onClick={() => { navigate("/fcmtest") }} >푸시알림</div>
-        <div className={style.menus}>로그아웃</div>
+        <hr />
+        <div className={style.push} >푸시알림 설정
+          <FCM />
+        </div>
+        <hr />
+        <div className={style.menus} onClick={() => logout() }>로그아웃</div>
       </div>
         {isSidebarOpen && (
           <div className={style.overlay} onClick={toggleSidebar}></div>

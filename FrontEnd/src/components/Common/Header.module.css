@@ -10,11 +10,13 @@
 
 .menuIcon {
   margin-left: 20px;
+  height: 30px;
   grid:1;
 }
 
 .notIcon {
   margin-right: 20px;
+  height: 35px;
   grid:3;
 }
 
@@ -76,4 +78,13 @@
 .menus {
   color: rgb(57, 57, 57);
   margin-bottom: 3vh;
+}
+
+.push {
+  color: rgb(57, 57, 57);
+  height: 8vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
