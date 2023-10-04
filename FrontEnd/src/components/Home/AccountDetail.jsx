@@ -103,7 +103,7 @@ const AccountDetail = () => {
           </div>
         ))}
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };
