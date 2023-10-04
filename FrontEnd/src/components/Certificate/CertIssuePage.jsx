@@ -3,7 +3,8 @@ import style from './CertIssuePage.module.css';
 import HeaderSub from '../Common/HeaderSub';
 import Footer from '../Common/Footer';
 import { useNavigate } from 'react-router-dom';
-import { authAxios } from '../api/customAxios';
+import { authAxios, customAxios } from '../api/customAxios';
+import Keyboard from '../Auth/Keyboard';
 
 const CertIssuePage = () => {
   const [step, setStep] = useState(1);
@@ -139,7 +140,7 @@ const Step1 = ( props ) => {
 
           <div className={style.agreeone}>
             <div>
-              <span>통신사, 본인확인 휴대폰 인증 약관(필수)</span>
+              <span>본인확인 휴대폰 인증 약관(필수)</span>
               <img src="/images/NextBtn.png" alt="" />
             </div>
             <input
@@ -298,23 +299,163 @@ const Step2 = ( props ) => {
           null
       }
       <div className={style.btnBox}>
-          {
-            checkPhoneNumber
-              ?
-              <div className={style.goodbtn} onClick={() => props.nextStep()}>다음</div>
-              :
-              <div className={style.notbtn}>다음</div>
-          }
-        </div>
+        {
+          checkPhoneNumber
+            ?
+            <div className={style.goodbtn} onClick={() => props.nextStep()}>다음</div>
+            :
+            <div className={style.notbtn}>다음</div>
+        }
+      </div>
     </div>
   );
 };
 
-const Step3 = () => {
+const Step3 = ( props ) => {
+
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [isPassword, setIsPassword] = useState(false);
+  const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
+  const [passwordMessage, setPasswordMessage] = useState("");
+  const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
+  
+  const [modalCheck, setModalCheck] = useState(false);
+  const [check, setCheck] = useState("");
+
+  const onClickPassword = (e) => {
+    setModalCheck(true);
+    setCheck(e);
+  }
+
+  const inputHandler = (inputValue) => {
+    if(check === "Pw"){
+      setPassword(inputValue);
+    } else if(check === "PwC"){
+      setPasswordConfirm(inputValue);
+    }
+  }
+
+  const modalHandelr = (inputValue) => {
+    setModalCheck(inputValue);
+  }
+
+  useEffect(() => {
+    const passwordRegExp =
+      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+    if (!passwordRegExp.test(password)) {
+      setPasswordMessage(
+        "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!"
+      );
+      setIsPassword(false);
+      if (isPassword) {
+        if (password !== passwordConfirm) {
+          setPasswordConfirmMessage("비밀번호가 일치하지 않습니다.");
+          setIsPasswordConfirm(false);
+        } else {
+          setPasswordConfirmMessage("비밀번호가 일치합니다.");
+          setIsPasswordConfirm(true);
+        }
+      }
+    } else {
+      setPasswordMessage("안전한 비밀번호 입니다.");
+      setIsPassword(true);
+      if (isPassword) {
+        if (password !== passwordConfirm) {
+          setPasswordConfirmMessage("비밀번호가 일치하지 않습니다.");
+          setIsPasswordConfirm(false);
+        } else {
+          setPasswordConfirmMessage("비밀번호가 일치합니다.");
+          setIsPasswordConfirm(true);
+        }
+      }
+    }
+
+    setPasswordConfirm(passwordConfirm);
+    if (isPassword) {
+      if (password !== passwordConfirm) {
+        setPasswordConfirmMessage("비밀번호가 일치하지 않습니다.");
+        setIsPasswordConfirm(false);
+      } else {
+        setPasswordConfirmMessage("비밀번호가 일치합니다.");
+        setIsPasswordConfirm(true);
+      }
+
+    };
+    // eslint-disable-next-line
+  }, [password, passwordConfirm]);
+
+  const navigate = useNavigate();
+
+  const certIssuance = () => {
+    const body = {
+      pw : password
+    }
+    console.log(password);
+    customAxios.post('/certificate/issuance', body)
+    .then((res)=>{
+      console.log(res);
+      localStorage.setItem("CPK", res.data.publicKey);
+      const today = new Date();
+      const twoYearsLater = new Date(today);
+      twoYearsLater.setFullYear(today.getFullYear() + 2);
+      localStorage.setItem("expire", twoYearsLater);
+      navigate("/mycertificate");
+    })
+    .catch((res)=>{
+      console.log(res)
+    })
+  }
+
   return (
-    <div>
-      <h2>세번째 단계: 비밀번호 설정</h2>
-      {/* 비밀번호 설정 컴포넌트를 여기에 추가 */}
+    <div className={style.stepBox}>
+      <div className={style.title}>
+        인증서 비밀번호 설정
+      </div>
+      <div className={style.explanation}>
+        인증에 사용할 비밀번호를 설정하세요
+      </div>
+      <div className={style.passwordBox}>
+        <div>
+          비밀번호
+        </div>
+        <div>
+        <input type="password" className={style.input} name="password" value={password} onClick={() => onClickPassword("Pw")} readOnly />
+        <br/>
+        {isPassword
+          ?
+          <span className={style.colorblue}>{passwordMessage}</span>
+          :
+          <span className={style.colorred}>{passwordMessage}</span>
+        }
+        </div>
+        <div>
+          비밀번호확인
+        </div>
+        <div>
+        <input type="password" className={style.input} name="passwordcheck" value={passwordConfirm} onClick={() => onClickPassword("PwC")} readOnly />
+        <br/>
+        {isPasswordConfirm
+          ?
+          <span className={style.colorblue}>{passwordConfirmMessage}</span>
+          :
+          <span className={style.colorred}>{passwordConfirmMessage}</span>
+        }
+        </div>
+      </div>
+      <div className={style.btnBox}>
+        {
+          isPasswordConfirm
+            ?
+            <div className={style.goodbtn} onClick={() => certIssuance()}>다음</div>
+            :
+            <div className={style.notbtn}>다음</div>
+        }
+      </div>
+      {
+        modalCheck && 
+        <Keyboard inputHandler={inputHandler} modalCheck={modalCheck} modalHandelr={modalHandelr}/> 
+      }
     </div>
   );
 };

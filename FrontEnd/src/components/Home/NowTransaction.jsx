@@ -75,7 +75,7 @@ const NowTransaction = () => {
             <div key={item.loanSeq} className={style.map}>
               <div className={style.map} >
                 <div>
-                  <img src={`images/${item.profileImg}`} alt="" className={style.img} style={{marginRight: '.9rem'}}/>
+                  <img src={`images/${item.profileImg}`} alt="" className={style.img} />
                 </div>
                 <div className={style.detail}>
                   <div className={style.mb}>
