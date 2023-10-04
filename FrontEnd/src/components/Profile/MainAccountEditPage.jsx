@@ -87,7 +87,7 @@ const MainAccountEditPage = () => {
                 </div>
                 <div className={style.accountDetail2}>
                   {account.accountNumber}
-                  <p>{formatBalance(account.balance)}원</p>
+                  <p>잔액 {formatBalance(account.balance)}원</p>
                 </div>
                 <div className={style.line} />
               </div>
@@ -103,11 +103,11 @@ const MainAccountEditPage = () => {
                 onClick={() => setAsRepresentative(account.id)}
               >
                 <div className={style.accountDetail1}>
-                  <p>{account.bank}</p>
+                  <p style={{fontSize:'.9rem', color:'gray'}}>{account.bank}</p>
                 </div>
-                <div className={style.accountDetail2}>
+                <div className={style.accountDetail2} style={{fontSize:'.9rem', color:'gray'}}>
                   {account.accountNumber}
-                  <p>{formatBalance(account.balance)}원</p>
+                  <p style={{fontSize:'.9rem', color:'gray'}}>잔액 {formatBalance(account.balance)}원</p>
                 </div>
                 <div className={style.line} />
               </div>
