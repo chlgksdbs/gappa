@@ -10,7 +10,6 @@ const MyCertificatePage = () => {
   const navigate = useNavigate();
 
   const [isCert, setIsCert] = useState(false);
-
   const expire = localStorage.getItem("expire");  
 
   const formattDate = (date) => {
