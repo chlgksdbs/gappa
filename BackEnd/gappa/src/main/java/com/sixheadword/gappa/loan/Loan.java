@@ -31,12 +31,12 @@ public class Loan {
     private List<LoanHistory> loanHistories = new ArrayList<>();
 
     // fromUser: 돈을 보낸 사용자 일련번호
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "from_user")
     private User fromUser;
     
     // toUser: 돈을 받는 사용자 일련번호
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "to_user")
     private User toUser;
 
