@@ -63,8 +63,7 @@ public class AfterPeriodLoanProcessorCustom implements ItemProcessor<AfterPeriod
                     + "님과의 대출 건이 연체됨에 따라 "
                     + remainingAmount
                     + "(원)이 강제 상환되었습니다. ";
-//            smsUtil.sendSMS(fromUser.getPhone(), message, Optional.of(LocalDateTime.now().plusMinutes(0)));
-            smsUtil.sendSMS(fromUser.getPhone(), message);
+            smsUtil.sendSMS(fromUser.getPhone(), message, Optional.of(LocalDateTime.now().plusMinutes(270)));
 
         } else { // 잔액이 상환금보다 작은 경우, 날짜 계산 후 미납 SMS 문자 발송
             String message = "[Gappa] "
@@ -74,8 +73,7 @@ public class AfterPeriodLoanProcessorCustom implements ItemProcessor<AfterPeriod
                     + "(원)이 "
                     + ChronoUnit.DAYS.between(afterPeriodLoanDto.getLoan().getRedemptionDate(), LocalDateTime.now())
                     + "일 연체되었습니다. ";
-//            smsUtil.sendSMS(fromUser.getPhone(), message, Optional.of(LocalDateTime.now().plusMinutes(0)));
-            smsUtil.sendSMS(fromUser.getPhone(), message);
+            smsUtil.sendSMS(fromUser.getPhone(), message, Optional.of(LocalDateTime.now().plusMinutes(270)));
         }
 
         return afterPeriodLoanDto;
