@@ -26,6 +26,7 @@ const NotificationPage = () => {
     "C" : "대출 상환 완료",
     "P" : "대출 상환",
     "F" : "친구",
+    "Q" : "친구요청",
   }
 
   useEffect(() => {
@@ -73,6 +74,8 @@ const NotificationPage = () => {
         navigate('/historyborrow');
       } else if(category === "F") {
         navigate('/friends');
+      } else if(category === "Q") {
+        navigate('/friends/req');
       }
     })
     .catch((res) => { 

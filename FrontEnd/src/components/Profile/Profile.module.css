@@ -1,21 +1,9 @@
 .main {
   /* background-color: #80CEBE; */
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.header {
-  margin-top: 10px;
-  display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
-  align-items: center;
-  width: 100%;
-}
-
-.header img{
-  margin-left: 20px;
 }
 
 .title {
@@ -23,13 +11,14 @@
   width: 100%;
   font-size: 22px;
   font-weight: bold;
+  margin: 0;
 }
 
 .profile {
   display: grid;
   grid-template-columns: 1fr 2.5fr;
   width: 85%;
-  margin: 20px 0px 20px 0px;
+  margin: 10px 0px 10px 0px;
 }
 
 .profileImg {
@@ -151,7 +140,7 @@
   text-align: center;
   border-bottom: 1px solid #aaa;
   line-height: 0.1em;
-  margin: 10px 0 10px;
+  margin: 5px 0 5px;
 }
 
 .profileCnt {
