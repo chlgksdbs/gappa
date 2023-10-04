@@ -1,5 +1,6 @@
 package com.sixheadword.gappa.certificate;
 
+import com.sixheadword.gappa.certificate.request.CertificateEncodeDto;
 import com.sixheadword.gappa.certificate.request.CertificatePwDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -32,5 +33,11 @@ public class CertificateController {
     @PostMapping("/validate")
     public ResponseEntity<?> validateCertificatePw(@RequestBody CertificatePwDto certificatePwDto, Authentication authentication){
         return certificateService.validateCertificatePw(Long.parseLong(authentication.getName()), certificatePwDto);
+    }
+
+    // API 4. 공인인증서 비밀번호 암호화
+    @PostMapping("/encode")
+    public ResponseEntity<?> encodeCertificatePw(@RequestBody CertificateEncodeDto certificateEncodeDto){
+        return certificateService.encodeCertificatePw(certificateEncodeDto);
     }
 }
