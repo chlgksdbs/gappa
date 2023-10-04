@@ -1,4 +1,5 @@
 .main {
+  font-family: 'LINESeedKR-Rg';
   height: 100%;
   justify-content: flex-start;
   align-items: center;
@@ -24,17 +25,22 @@
   color:gray;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-}
+  justify-content: space-between;
+} 
 
 .search {
   display: flex;
   align-items: center;
+  height: 30px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 8px;
   margin-bottom: 3vh;
+}
+
+.search input::placeholder {
+  font-size: 16px;
 }
 
 .search input[type="text"] {
@@ -68,7 +74,6 @@
   display: flex;
   flex-direction: row;
   height: 50px;
-  margin-bottom: 3px;
 }
 
 .friendImage {
@@ -84,8 +89,18 @@
 }
 
 .friendText {
+  font-family: 'LINESeedKR-Bd';
+  display: flex;
+  align-items: center;
   min-width: 74px;
   font-size: 20px;
+  margin-right: 10px;
+}
+
+.friendphone {
+  min-width: 74px;
+  /* color: #aaa; */
+  font-size: 16px;
   margin-right: 20px;
 }
 
@@ -93,7 +108,17 @@
   color:red;
 }
 
-.friendsIcon {
-  width: 60px;
-  height: 60px;
+.friendsResBtn {
+  font-size: 17px;
+  color: #80CEBE;
+  font-weight: bold;
+  
+}
+
+.line {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid #aaa;
+  line-height: 0.1em;
+  margin: 20px 0 5px 0;
 }

@@ -4,6 +4,8 @@ import style from './FriendsPage.module.css';
 import Header from '../Common/Header';
 import Footer from '../Common/Footer';
 import { customAxios } from '../api/customAxios';
+import toast, { Toaster } from 'react-hot-toast';
+import { BsPersonPlus } from "react-icons/bs"; 
 
 const FriendsPage = () => {
   const navigate = useNavigate();
@@ -12,6 +14,9 @@ const FriendsPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isEditMode, setIsEditMode] = useState(false);
   const [selectedFriends, setSelectedFriends] = useState([]);
+
+  // 친구신청
+  const [friendsReq, setFriendsReq] = useState([]);
 
   useEffect(() => {
     getFriends();
@@ -22,6 +27,22 @@ const FriendsPage = () => {
     customAxios.get("/friends")
     .then((res)=>{
       setPhoneBook(res.data.list);
+    })
+    .catch((res)=>{
+      console.log(res)
+    })
+  }
+
+  // 친구 신청 목록 조회
+  useEffect(() => {
+    getRequest();
+  }, []);
+
+  const getRequest = () => {
+    customAxios.get("/friends/request")
+    .then((res)=>{
+      console.log(res)
+      setFriendsReq(res.data.list);
     })
     .catch((res)=>{
       console.log(res)
@@ -91,12 +112,41 @@ const FriendsPage = () => {
     return nameMatch || phoneMatch;
   });
 
+  const friendsRes = (seq, resType) => {
+    const body ={
+      request_seq : seq,
+      response : resType, 
+    };
+    customAxios.post("/friends/response",body)
+    .then((res)=>{
+      if (body.response === 'T'){
+        toast.success("친구 신청을 수락했어요", {
+          duration: 1000,
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      } else if (body.response === 'F'){
+        toast.error("친구 신청을 거절했어요.", {
+          duration: 1000,
+        });
+        setTimeout(() => {
+        }, 1000);
+      }
+
+      getRequest();
+    })
+    .catch((res)=>{
+      console.log(res);
+    })
+  }
+
+
   return (
     <div className={style.main}>
       <Header title={"친구 목록"}/>
-
+      <div><Toaster /></div>
       <div className={style.body}>
-
         <div className={style.search}>
           <input type="text" placeholder="친구 검색" value={searchTerm} onChange={handleSearch} />
         </div>
@@ -106,26 +156,45 @@ const FriendsPage = () => {
               isEditMode ? '취소' : '편집'
             )}
           </div>
+          <div style={{paddingTop: "5px", marginRight: "5px"}}>
+            <BsPersonPlus size="30px" color="gray" onClick={() => { navigate("/friends/add") }}/>
+          </div>
         </div>
-
         <div className={style.friendsList}>
+          {/* 친구 요청 */}
+          {/* friendsReq */}
+          {friendsReq.length > 0 ? 
+          <>
+            <p style={{fontSize: "20px", margin: "10px 0 5px 0", color: "#80CEBE", fontFamily: 'LINESeedKR-Bd'}}>친구 요청</p>
+            {friendsReq.map((friendReq, index) => (
+              <div key={index} className={style.friendItem}>
+                <img src={"/images/" + friendReq.profile_img} alt="" className={style.friendImage}/>
+                <div className={style.friendText}>{friendReq.to_user_name}</div>
+                <div className={style.friendphone}>{formatPhoneNumber(friendReq.phone)}</div>
+                <div className={style.friendsResBtn} onClick={() => friendsRes(friendReq.request_seq, "T")}>수락</div>
+                <div className={style.friendsResBtn} onClick={() => friendsRes(friendReq.request_seq, "F")} style={{marginLeft: "8px"}}>거절</div>
+              </div>
+            ))}
+            <div className={style.line} />
+          </> : null}
+          {/* 친구 리스트 */}
+          <p style={{fontSize: "20px", margin: "10px 0 5px 0", color: "#80CEBE", fontFamily: 'LINESeedKR-Bd'}}>친구</p>
           {filteredFriends.map((friend, index) => (
             <div
               key={index}
               className={`${style.friendItem} ${selectedFriends.some(selectedFriend => selectedFriend.user_seq === friend.user_seq) ? style.selectedFriend : ''}`}
               onClick={() => handleFriendClick(friend)}
             >
-              
               <img src={"/images/" + friend.profile_img} alt={friend.user_name} className={style.friendImage} />  
               <div className={style.friendText}>{friend.user_name}</div>
-              <div className={style.friendText}>{formatPhoneNumber(friend.phone)}</div>
+              <div className={style.friendphone}>{formatPhoneNumber(friend.phone)}</div>
               {isEditMode && (
                 <input
                   type="checkbox"
                   className={style.checkbox}
                   checked={selectedFriends.some(selectedFriend => selectedFriend.user_seq === friend.user_seq)}
                   onChange={(event) => handleCheckboxClick(event, friend)}
-                />              
+                />
               )}
             </div>
           ))}
@@ -135,10 +204,7 @@ const FriendsPage = () => {
           {isEditMode ? (
             <div className={style.deleteBtn} onClick={() => handleDelete()}>삭제</div>
           ) : (
-            <div>
-              <img src="/images/FriendsNoti.png" alt="" className={style.friendsIcon} onClick={() => { navigate("/friends/req") }}/>
-              <img src="/images/addFriend.png" alt="" className={style.friendsIcon} onClick={() => { navigate("/friends/add") }}/>
-            </div>
+            null
           )}
         </div>
       </div>
