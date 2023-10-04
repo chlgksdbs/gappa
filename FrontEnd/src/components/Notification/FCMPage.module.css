@@ -1,11 +1,13 @@
 .btnBox {
-  height: 60px;
-  margin-top: 2vh;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .pushSwitch {
-  width: 100px;
-  height: 45px;
+  width: 66px;
+  height: 30px;
   background-color: #ccc;
   border-radius: 25px;
   display: flex;
@@ -14,8 +16,8 @@
 }
 
 .switchButton {
-  width: 50px;
-  height: 50px;
+  width: 33px;
+  height: 33px;
   background-color: #fff;
   border: #ccc 3px solid;
   border-radius: 50%;
@@ -28,6 +30,6 @@
 }
 
 .pushEnabled .switchButton {
-  transform: translateX(50px);
+  transform: translateX(33px);
   border: #AFEBDF 3px solid;
 }
