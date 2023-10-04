@@ -4,8 +4,7 @@ import Header from '../Common/Header';
 import Footer from '../Common/Footer';
 import { useNavigate  } from 'react-router-dom';
 import { customAxios } from '../api/customAxios';
-import {AiOutlineDelete} from 'react-icons/ai'
-import {BiRightArrowAlt} from "react-icons/bi";
+import { BiRightArrowAlt } from "react-icons/bi";
 
 const NotificationPage = () => {
   const navigate = useNavigate();
@@ -38,25 +37,21 @@ const NotificationPage = () => {
   const getNoti = () => {
     customAxios.get('/users/alarm')
     .then((res) => {
-      console.log(res);
       const sortedData = res.data.data.sort((a, b) => {
         return new Date(b.regDate) - new Date(a.regDate);
       });
       setNotis(sortedData);
     })
     .catch((res) => {
-      console.log(res);
     });
   };
 
   const deleteAll = () => {
     customAxios.put('/users/alarm/all')
     .then((res) => {
-      console.log(res);
       window.location.reload();
     })
     .catch((res) => {
-      console.log(res);
       window.location.reload();
     });
   };
@@ -68,7 +63,6 @@ const NotificationPage = () => {
 
     customAxios.put('/users/alarm/single', body)
     .then((res) => {
-      console.log(res);
       if(category === "A"){
         navigate('/lend/list');
       } else if(category === "R") {
@@ -84,7 +78,6 @@ const NotificationPage = () => {
       }
     })
     .catch((res) => {
-      console.log(res);
       window.location.reload();
     });
   }

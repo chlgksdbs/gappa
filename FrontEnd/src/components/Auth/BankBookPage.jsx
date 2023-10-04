@@ -50,7 +50,6 @@ const BankBookPage = () => {
   useEffect(() => {
     customAxios.get("/accounts")
       .then((res) => {
-        console.log(res.data[0])
         setBankBookData(res.data)
       })
   }, [])
@@ -69,7 +68,6 @@ const BankBookPage = () => {
     // redux에 저장
     dispatch(authActions.updatedUserBank(bankBookData[index]))
     dispatch(authActions.updatedUserBankImg({bankImg:bankImg[index]}))
-    console.log(userInfo)
 
     // 클릭된 항목의 개수를 세기
     const clickedCount = updatedClickedItems.filter((item) => item).length;
@@ -80,10 +78,8 @@ const BankBookPage = () => {
   const dataRequest = () => {
     customAxios.post("/accounts/primary",{accountSeq:userInfo.accountSeq})
     .then((res)=>{
-      console.log(res)
     })
     .catch((res)=>{
-
     })
     navigate("/masterbankbook");
   }

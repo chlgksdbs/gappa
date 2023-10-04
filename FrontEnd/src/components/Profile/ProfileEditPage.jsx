@@ -18,6 +18,7 @@ const ProfileEditPage = () => {
   const [addressNumber, setAddressNumber] = useState("");
   const [detailAddress, setDetailAdress] = useState("");
   const [finalAddress, setFinalAddress] = useState("");
+  console.log(finalAddress);
   // const [isFinalAddress, setIsFinalAddress] = useState(false);
   const [openPostcode, setOpenPostcode] = useState(false);
 
@@ -52,10 +53,8 @@ const ProfileEditPage = () => {
         setPhone(formatPhoneNumber(res.data.data.phone));
         setAddress(res.data.data.address);
         setDetailAdress(res.data.data.addressDetail);
-        console.log(res);
       })
       .catch((res)=>{
-        console.log(res);
       })
     } else {
       // 토큰이 없는 경우 처리
@@ -80,10 +79,6 @@ const ProfileEditPage = () => {
 
     // 주소 선택 이벤트
     selectAddress: (data) => {
-      console.log(`
-      주소: ${data.address},
-      우편번호: ${data.zonecode}
-      `)
       setAddress(data.address);
       setAddressNumber(data.zonecode);
       setOpenPostcode(false);
@@ -97,7 +92,6 @@ const ProfileEditPage = () => {
     if (detailAddress && address && addressNumber) {
       setFinalAddress(`${address} ${addressNumber} ${detailAddress}`);
       // setIsFinalAddress(true);
-      console.log(finalAddress);
     } else {
       // setIsFinalAddress(false);
     }
@@ -115,7 +109,6 @@ const ProfileEditPage = () => {
     customAxios.put(`/users`, requestData)
     .then((res) => {
       // 성공적으로 업데이트된 경우 처리
-      console.log("프로필 정보가 성공적으로 업데이트되었습니다.");
       toast.success("프로필 업데이트 성공!", {
         duration: 1000,
       });

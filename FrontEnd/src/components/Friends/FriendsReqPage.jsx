@@ -19,11 +19,9 @@ const FriendsReqPage = () => {
   const getRequest = () => {
     customAxios.get("/friends/request")
     .then((res)=>{
-      console.log(res)
       setFriendsReq(res.data.list);
     })
     .catch((res)=>{
-      console.log(res)
     })
   }
 
@@ -52,7 +50,6 @@ const FriendsReqPage = () => {
       getRequest();
     })
     .catch((res)=>{
-      console.log(res);
     })
   }
 

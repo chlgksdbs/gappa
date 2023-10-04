@@ -53,7 +53,6 @@ const ProfilePage = () => {
       
         customAxios.get(`/users/${userSeq}`)
         .then((res)=>{
-          console.log(res);
           setProfileImg(res.data.data.profileImg);
           setName(res.data.data.name);
           setPhone(formatPhoneNumber(res.data.data.phone));
@@ -63,7 +62,6 @@ const ProfilePage = () => {
           setLendCnt(res.data.data.lendCnt);
         })
         .catch((res)=>{
-          console.log(res);
         })
   
       } else {
@@ -72,7 +70,6 @@ const ProfilePage = () => {
     } else { // 남 일 경우
       customAxios.get(`/users/${locdata}`)
       .then((res)=>{
-        console.log(res);
         setProfileImg(res.data.data.profileImg);
         setName(res.data.data.name);
         setPhone(formatPhoneNumber(res.data.data.phone));
@@ -83,7 +80,6 @@ const ProfilePage = () => {
         setStatus(res.data.data.status);
       })
       .catch((res)=>{
-        console.log(res);
       })
     }
   }, [locdata]);
@@ -99,7 +95,6 @@ const ProfilePage = () => {
       setTimeout(() => {
         window.location.replace("/friends");
       }, 1000);
-      console.log(res);
     })
     .catch((res)=>{
       toast.error("친구삭제에 실패했습니다.", {
@@ -108,7 +103,6 @@ const ProfilePage = () => {
       setTimeout(() => {
         window.location.replace("/profile");
       }, 1000);
-      console.log(res);
     })
   }
   

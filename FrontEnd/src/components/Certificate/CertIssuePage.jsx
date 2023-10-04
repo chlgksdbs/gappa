@@ -393,10 +393,8 @@ const Step3 = ( props ) => {
     const body = {
       pw : password
     }
-    console.log(password);
     customAxios.post('/certificate/issuance', body)
     .then((res)=>{
-      console.log(res);
       localStorage.setItem("CPK", res.data.publicKey);
       const today = new Date();
       const twoYearsLater = new Date(today);
@@ -412,7 +410,6 @@ const Step3 = ( props ) => {
       
     })
     .catch((res)=>{
-      console.log(res)
     })
   }
 

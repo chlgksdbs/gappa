@@ -11,7 +11,6 @@ const FindId = () => {
   const [answers,setAnswers] = useState("");
   const confirmId = (e) => {
     const currentId = e.target.value;
-    console.log(currentId);
     setId(currentId);
 
   }
@@ -33,7 +32,6 @@ const FindId = () => {
       finalPhoneNumber += strippedPhoneNumber[i];
     }
     setPhoneNumber(finalPhoneNumber)
-    console.log(phoneNumber)
 
   }
   useEffect(() => {
@@ -53,7 +51,6 @@ const FindId = () => {
       .then((res) => {
         setAnswer(res.data.data["login_id"])
         setAnswers(res.data["message"])
-        console.log(res.data.data)
       })
       .catch((res) => {
         const data = res.response.data;

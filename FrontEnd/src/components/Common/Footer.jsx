@@ -9,9 +9,6 @@ const Footer = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const isHomePage = location.pathname === '/';
-
-  // console.log(location);
-  console.log(isHomePage);
   
   return (
     <div className={style.footer}>
