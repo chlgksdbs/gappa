@@ -11,6 +11,7 @@ const LendListPage = () => {
   const navigate = useNavigate();
 
   const [applyList, setApplyList] = useState([]);
+  const [isEmpty, setIsEmpty] = useState(true);
 
   useEffect(() => {
     getApplyList();
@@ -22,9 +23,11 @@ const LendListPage = () => {
       console.log(res);
       const sortedList = res.data.sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
       setApplyList(sortedList);
+      setIsEmpty(false);
     })
     .catch((res)=>{
       console.log(res);
+      setIsEmpty(true);
     })
   }
 
@@ -43,32 +46,34 @@ const LendListPage = () => {
   return (
     <div className={style.body}>
       <Header title={'대출 요청 확인 (' + applyList.length + '건)'}/>
-      <div className={style.container}>
+      { isEmpty ? (
+        <div className={style.container}>
+          <div className={style.noneAccountDiv}>
+            <img src="/images/GappaMascot.png" alt="" style={{width: "150px"}}/>
+            <p>텅 비어 있어요..</p>
+          </div>
+        </div>
+      ) : (
+        <div className={style.container}>
         {applyList.map((item, index) => (
-          <div className={style.item} key={index}>
+          <div className={style.item} key={index} onClick={() => handleItemClick(item.loanSeq)}>
             <div style={{display:'flex', justifyContent:'flex-start', padding:'auto 0'}}>
               <AiOutlineMail />
               <div className={style.subTitle}>&nbsp; 대출 신청이 들어왔어요</div>
             </div>
-            {/* <div className={style.infoBox}>
-              <div className={style.detailKey}>{item.fromUser}</div>
-              <div className={style.detailValue}>님에게서</div>
-            </div>
             <div className={style.infoBox}>
-              <div className={style.detailKey}>{item.principal}</div>
-              <div className={style.detailValue}>원의 대출 신청이 들어왔어요!</div>
-            </div> */}
-            <div className={style.infoBox}>
-              <div className={style.detailKey}>{item.fromUser}님이 {item.principal}원을 대출 신청 했어요!</div>
+              <div className={style.detailKey}>{item.fromUser}님이 {item.principal.toLocaleString()}원을 대출 신청 했어요!</div>
             </div>
             <div className={style.btnBox}>
               <div className={style.date}>{formattingDate(item.startDate)}</div>
               {/* <button className={style.selectBtn} onClick={() => handleItemClick(item.loanSeq)}>자세히 보기</button> */}
-            <div onClick={() => handleItemClick(item.loanSeq)} style={{alignItems:'right'}}>< BiRightArrowAlt /></div>
+            <div style={{alignItems:'right'}}>< BiRightArrowAlt /></div>
             </div>
           </div>
         ))}
       </div>
+      )}
+      
       <Footer />
     </div>
   );
