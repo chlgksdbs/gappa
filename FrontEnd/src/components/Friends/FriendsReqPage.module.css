@@ -12,6 +12,15 @@
   width: 90%;
 }
 
+.noneFriends {
+  text-align: center;
+}
+
+.noneFriends p {
+  color: #80CEBE;
+  font-size: 20px;
+}
+
 .requestItem {
   height: 20%;
   width: 100%;
