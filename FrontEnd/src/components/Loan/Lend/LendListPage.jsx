@@ -48,7 +48,7 @@ const LendListPage = () => {
           <div className={style.item} key={index}>
             <div style={{display:'flex', justifyContent:'flex-start', padding:'auto 0'}}>
               <AiOutlineMail />
-              <div className={style.subTitle}>&nbsp; 대출 신청이 들어왔어요!</div>
+              <div className={style.subTitle}>&nbsp; 대출 신청이 들어왔어요</div>
             </div>
             {/* <div className={style.infoBox}>
               <div className={style.detailKey}>{item.fromUser}</div>

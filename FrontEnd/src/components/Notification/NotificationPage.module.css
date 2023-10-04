@@ -18,10 +18,12 @@
 }
 
 .item {
-  background-color: rgb(234, 233, 233);
-  border-radius: 20px;
-  width: 100%;
-  margin-bottom: 2vh;
+  /* background-color: rgb(234, 233, 233); */
+  border: 1px solid #e2e2e2;
+  border-radius: 5px;
+  height: 20%;
+  width: 90%;
+  margin: 0 auto 2vh;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -40,21 +42,32 @@
 }
 
 .detailKey {
+  font-family: 'LINESeedKR-Bd';
   margin-right: 1vw;
-  font-size: 20px;
+  font-size: 15px;
+  background: #c3faef;
+  padding: .2rem .4rem;
+  border-radius: .5rem;
 }
 
 .detailValue {
-  font-size: 20px;
-  font-family: 'TheJamsil3Regular';
+  font-family: 'LINESeedKR-Rg';
+  font-size: 15px;
+  padding: 0 .2rem;
+  color: rgb(113, 113, 113);
+  /* font-family: 'TheJamsil3Regular'; */
 }
 
 .date {
-  width: 100%;
-  display: flex;
-  justify-content: end;
-  font-size: 16px;
-  font-family: 'TheJamsil3Regular';
+  padding: 0 .2rem;
+  font-family: 'LINESeedKR-Rg';
+  /* width: 100%; */
+  /* display: flex;
+  justify-content: start; */
+  font-size: 12px;
+  margin: auto 0;
+  /* font-family: 'TheJamsil3Regular'; */
+  color: grey;
 }
 
 .btnBox {
@@ -66,7 +79,7 @@
 
 .selectBtn {
   background-color: #AFEBDF;
-  font-family: 'TheJamsil5Bold';
+  /* font-family: 'TheJamsil5Bold'; */
   font-size: 20px;
   padding: 5px 10px;
   border: none;
@@ -76,16 +89,18 @@
 }
 
 .deleteBtnBox {
+  font-family: 'LINESeedKR-Rg';
+  color :rgb(238, 48, 60);
   width: 90%;
   display: flex;
   justify-content: flex-end;
-  font-size: 20px;
+  font-size: 15px;
   margin-bottom: 1vh;
 }
 
 .deleteBtnBox button {
   background-color: rgb(242, 180, 201);
-  font-family: 'TheJamsil5Bold';
+  /* font-family: 'TheJamsil5Bold'; */
   font-size: 18px;
   padding: 5px 10px;
   border: none;

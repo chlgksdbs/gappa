@@ -96,7 +96,7 @@
   /* background-color: rgb(205, 205, 205, 0.6);0 */
   /* background: linear-gradient(to right, rgba(205, 205, 205, 0.2), rgba(205, 205, 205, 0.6)); */
   background: radial-gradient(circle, rgba(128, 206, 190, 0.3), rgba(128, 206, 190, 0.01));
-  font-family: 'TheJamsil5Bold';
+  /* font-family: 'TheJamsil5Bold'; */
   font-size: 18px;
   padding: 5px 10px;
   width: 130px;
