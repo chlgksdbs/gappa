@@ -1,6 +1,7 @@
 package com.sixheadword.gappa.config.Batch.itemWriter;
 
 import com.sixheadword.gappa.account.repository.AccountRepository;
+import com.sixheadword.gappa.accountHistory.repository.AccountHistoryRepository;
 import com.sixheadword.gappa.config.Batch.dto.AfterPeriodLoanDto;
 import com.sixheadword.gappa.loan.repository.LoanRepository;
 import com.sixheadword.gappa.loanHistory.repository.LoanHistoryRepository;
@@ -18,11 +19,12 @@ public class ItemWriterConfig {
     private final LoanRepository loanRepository;
     private final LoanHistoryRepository loanHistoryRepository;
     private final AccountRepository accountRepository;
+    private final AccountHistoryRepository accountHistoryRepository;
 
     @Bean
     public ItemWriter<AfterPeriodLoanDto> afterPeriodLoanWriter() {
         // AfterPeriodLoanWriterCustom을 사용하는 ItemWriter 설정
-        return new AfterPeriodLoanWriterCustom(loanRepository, loanHistoryRepository, accountRepository);
+        return new AfterPeriodLoanWriterCustom(loanRepository, loanHistoryRepository, accountRepository, accountHistoryRepository);
     }
 
 }
