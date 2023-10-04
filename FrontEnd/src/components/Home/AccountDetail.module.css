@@ -9,17 +9,18 @@
   width: 80%;
   background-color: #f5f5f5;
   border-radius: 5px;
-  margin: .7rem 0;
+  margin: 1rem 0;
 }
 
 .bank {
-  font-family: 'TheJamsil3Regular';
+  font-family: 'LINESeedKR-Rg';
   text-align: center;
   width: 100%;
   font-size: 16px;
 }
 
 .money {
+  font-family: 'LINESeedKR-Bd';
   text-align: center;
   width: 100%;
   font-size: 22px;
@@ -30,6 +31,7 @@
   display: flex;
   justify-content: flex-end;
   flex-direction: row;
+  padding: .5rem 0;
   border-bottom: 1px solid #eaeaea;
 }
 
@@ -37,7 +39,7 @@
   padding: 5px;
   border-radius: 5px;
   border: none;
-  font-family: 'TheJamsil3Regular';
+  font-family: 'LINESeedKR-Rg';
   font-size: 15px;
 }
 
@@ -69,7 +71,7 @@
 }
 
 .name {
-  font-family: 'LINESeedKR-Bd';
+  font-family: 'LINESeedKR-Rg';
   width: 40%;
   font-size: 17px;
 }
@@ -91,13 +93,13 @@
 }
 
 .transactionAmount {
-  font-family: 'LINESeedKR-Bd';
-  color: #2ec42e; /* 초록색 입금 금액 */
+  font-family: 'LINESeedKR-Rg';
+  color: rgb(0, 94, 161); /* 초록색 입금 금액 */
   font-size: 20px;
   margin-bottom: 1vh;
 }
 
 .transactionAmount.negative {
-  color: #e12b2b; /* 빨간색 출금 금액 */
+  color: rgb(238, 48, 60); /* 빨간색 출금 금액 */
   margin-bottom: 1vh;
 }
