@@ -3,6 +3,7 @@ import HeaderSub from '../../Common/HeaderSub';
 import { useNavigate, useLocation  } from 'react-router-dom';
 import style from './LendPage.module.css';
 import { customAxios } from '../../api/customAxios';
+import toast, { Toaster } from 'react-hot-toast';
 
 const LendPage = () => {
   const navigate = useNavigate();
@@ -54,6 +55,21 @@ const LendPage = () => {
     setIsRefuseOpen(!isRefuseOpen);
   };
 
+  const checkCert = (loanSeq) => {
+    const isCPK = localStorage.getItem("CPK");
+    const isExpire = localStorage.getItem("expire");
+    if(isCPK === null || isExpire === null){
+      toast.error("인증서 발급이 필요합니다", {
+        duration: 1000,
+      });
+      setTimeout(() => {
+        navigate("/mycertificate")
+      }, 1000);
+    } else {
+      navigate('/lend/check', { state: { loanSeq: loanSeq}})
+    }
+  }
+
   const refuse = () => {
     const body = {
       loanSeq : loanSeq
@@ -72,6 +88,7 @@ const LendPage = () => {
   return (
     <div className={style.body}>
       <HeaderSub title={"대금 신청"} />
+      <Toaster />
       <div className={style.container}>
         <div className={style.messageBox}>
           <div className={style.message}><span className={style.bold}>{fromUser}</span> 님이 <span className={style.bold}>{toUser}</span> 님에게</div>
@@ -96,7 +113,7 @@ const LendPage = () => {
         </div>
         <div className={style.btnBox}>
           <button onClick={refuseClick}>거절</button>
-          <button onClick={()=> navigate('/lend/check', { state: { loanSeq: loanSeq}})}>승인</button>
+          <button onClick={() => checkCert(loanSeq) }>승인</button>
         </div>
       </div>
       {isRefuseOpen && (
