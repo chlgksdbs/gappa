@@ -50,7 +50,7 @@
   align-items: flex-start;
   display: flex;
   flex-direction: column;
-  height: 75%;
+  height: 72%;
   margin-bottom: 3vh;
   overflow-y: scroll; /* 스크롤이 필요한 경우에만 스크롤 바 표시 */
   scrollbar-width: none; /* Firefox에서 스크롤 바 숨기기 */
