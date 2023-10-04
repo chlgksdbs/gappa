@@ -98,7 +98,7 @@ const HistoryBorrowPage = () => {
                     <p className={style.columnName} style={{fontFamily: 'LINESeedKR-Bd'}}>{borrow.name}</p>
                     <span style={{fontSize: "15px"}}>{formatBalance(borrow.restMoney)}</span>
                     <span> / </span>
-                    <span style={{fontSize: "15px", color: "gray"}}>{formatBalance(borrow.principal)} 원</span>
+                    <span style={{fontSize: "13px", color: "gray"}}>{formatBalance(borrow.principal)} 원</span>
                   </div>
                 </div>
               </div>
