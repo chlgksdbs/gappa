@@ -11,9 +11,62 @@
   height: 85%;
   width: 90%;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.containerPW {
+  height: 85%;
+  width: 90%;
+  display: flex;
   align-items: flex-start;
   justify-content: flex-start;
   flex-direction: column;
+}
+
+.explanation {
+  margin: 3vh 0 3vh 0;
+  width: 80%;
+  font-size: 20px;
+}
+
+.passwordBox {
+  height: 10%;
+  width: 80%;
+  margin-bottom: 3vh;
+}
+
+
+.input{
+  border-width: 0 0 1px;
+  border-color: lightgray;
+  width: 100%;
+}
+
+.input:focus{
+  outline: none;
+}
+
+.btnBox {
+  height: 10%;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.btnBox div {
+  background-color: #AFEBDF;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 5px;
+  width: 40%;
+  height: 80%;
 }
 
 .messageBox {
@@ -80,6 +133,17 @@
   margin-bottom: 20px;
 }
 
+.completeBtn {
+  display: flex;
+  width: 390px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  background: #988dde;
+  margin-bottom: 20px;
+}
+
 .cert {
   max-width: 415px;
   position: fixed;
@@ -114,19 +178,22 @@
 .mycert {
   margin: 0 auto 0 auto;
   height: 45%;
-  width: 50%;
+  width: 75%;
   background: linear-gradient(#5462f8, #2a2adf);
   border-radius: 7%;
 }
+
 .subImgBox {
   height: 40%;
   overflow: hidden;
   position: absolute;
 }
+
 .subImgBox img {
   height: 35%;
   opacity: 50%;
 }
+
 .certlogoBox {
   height: 50%;
   display: flex;
