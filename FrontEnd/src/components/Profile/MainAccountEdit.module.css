@@ -13,7 +13,7 @@
   overflow-y: scroll; /* 스크롤이 필요한 경우에만 스크롤 바 표시 */
   scrollbar-width: none; /* Firefox에서 스크롤 바 숨기기 */
   -ms-overflow-style: none; /* Internet Explorer에서 스크롤 바 숨기기 */
-  padding-bottom: 10px;
+  padding-bottom: 3rem;
 }
 .body::-webkit-scrollbar {
   width: 0; /* Webkit 기반 브라우저(Chrome, Safari)에서 스크롤 바 숨기기 */
@@ -29,8 +29,9 @@
 }
 
 .accountDiv {
-  /* height: 10%; */
-  padding: 15px 0 0 0;
+  /* height: 15%; */
+  /* padding: 15px 0 0 0; */
+  margin: 0 .9rem;
 }
 
 .selected {
@@ -39,23 +40,26 @@
 
 
 .accountDetail1 {
+  height: 3rem;
   display: flex;
   align-items: center;
-  margin: 10px 0 10px 15px;
+  margin: 0 15px;
+  padding: 0;
 }
 
 .accountDetail2 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 10px 15px 5px 15px;
+  padding: 0;
+  margin: 0 15px;
 }
 
 .line {
   width: 100%;
   text-align: center;
-  border-bottom: 1px solid #aaa;
-  line-height: 0.1em;
+  border-bottom: 1px solid #eaeaea;
+  /* line-height: 0.1em; */
   /* margin: 10px 0 10px; */
 }
 

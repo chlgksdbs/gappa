@@ -28,7 +28,7 @@
   border: 1px solid #e2e2e2;
   border-radius: 5px;
   height: 20%;
-  width: 90%;
+  width: 100%;
   margin: 0 auto 2vh;
   display: flex;
   align-items: flex-start;
@@ -97,7 +97,7 @@
 .deleteBtnBox {
   font-family: 'LINESeedKR-Rg';
   color :rgb(238, 48, 60);
-  width: 80%;
+  width: 90%;
   display: flex;
   justify-content: flex-end;
   font-size: 15px;
