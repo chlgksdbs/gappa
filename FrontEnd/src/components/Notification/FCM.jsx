@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import HeaderSub from '../Common/HeaderSub';
+import React, { useState } from 'react';
 import style from './FCMPage.module.css';
 import { customAxios } from '../api/customAxios';
 import { getToken, getMessaging } from 'firebase/messaging';
 import { initializeApp } from "firebase/app";
 
-const FCMtestPage = () => {
+const FCM = () => {
 
   // 버튼 토글
   const [isPushEnabled, setPushEnabled] = useState(false);
@@ -45,7 +44,6 @@ const FCMtestPage = () => {
       // 알림 권한이 거부된 경우의 동작
       console.log("알림 권한이 허용되지 않음");
       setPushEnabled(false);
-      alert("잘못됐어요!권한허용에서실패");
     } else {
       // 알림 권한이 허용된 경우의 동작
       console.log("알림 권한이 허용됨");
@@ -72,13 +70,11 @@ const FCMtestPage = () => {
         setting(token);
       } else {
         setPushEnabled(false);
-        alert("잘못됐어요!토큰가져오는게실패");
         return null;
       }
     } catch (error) {
       console.error("Error getting token: ", error);
       setPushEnabled(false);
-      alert("잘못됐어요!토큰가져오는게에러뜸");
       return null;
     }
   }
@@ -98,15 +94,16 @@ const FCMtestPage = () => {
     })
   }  
 
-  const send = () => {
-    customAxios.post("/fcm/push")
-    .then((res)=>{
-      console.log(res);
-    })
-    .catch((res)=>{
-      console.log(res);
-    })
-  }
+  // 테스트 메시지 보내는 메서드
+  // const send = () => {
+  //   customAxios.post("/fcm/push")
+  //   .then((res)=>{
+  //     console.log(res);
+  //   })
+  //   .catch((res)=>{
+  //     console.log(res);
+  //   })
+  // };
 
   const hideOffPush = () => {
     customAxios.delete("/fcm")
@@ -120,21 +117,13 @@ const FCMtestPage = () => {
   }
 
   return (
-    <div className={style.body}>
-      <HeaderSub title={"FCM"} />
-      <div className={style.btnBox}>
-        <div className={style.pushSwitch + (isPushEnabled ? ' ' + style.pushEnabled : '')}>
-          <div className={style.switchButton} onClick={togglePushNotification} />
-        </div>
+    <div className={style.btnBox}>
+      <div className={style.pushSwitch + (isPushEnabled ? ' ' + style.pushEnabled : '')} onClick={togglePushNotification} >
+        <div className={style.switchButton}/>
       </div>
       
-      <div>
-        버튼만들기
-      </div>
-      <button onClick={send }>보내기</button>
-      <div>Fcmtoken: {fcmToken}</div>
     </div>
   );
 };
 
-export default FCMtestPage;
+export default FCM;
