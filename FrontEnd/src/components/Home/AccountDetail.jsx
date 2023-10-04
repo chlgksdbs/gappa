@@ -96,7 +96,7 @@ const AccountDetail = () => {
                   {transaction.accountType ? "-":"+"}{transaction.amount.toLocaleString()} 원
                 </div>
                 <div>
-                  {transaction.newBalance.toLocaleString()} 원
+                  잔액 {transaction.newBalance.toLocaleString()} 원
                 </div>
               </div>
             </div>
