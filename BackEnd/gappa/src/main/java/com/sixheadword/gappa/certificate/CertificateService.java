@@ -1,5 +1,6 @@
 package com.sixheadword.gappa.certificate;
 
+import com.sixheadword.gappa.certificate.request.CertificateEncodeDto;
 import com.sixheadword.gappa.certificate.request.CertificatePwDto;
 import com.sixheadword.gappa.user.User;
 import com.sixheadword.gappa.user.UserRepository;
@@ -37,7 +38,6 @@ public class CertificateService {
             User user = userRepository.findById(member_id).orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
             String pw = certificatePwDto.getPw();
             redisUtil.save(user.getPhone() + "PW", encoder.encode(pw));
-
             // RSA 키쌍을 생성
             KeyPair keyPair = rsaUtil.genRSAKeyPair();
             PublicKey publicKey = keyPair.getPublic();
@@ -64,8 +64,8 @@ public class CertificateService {
         try {
             User user = userRepository.findById(member_id).orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
             String base64PrivateKey = redisUtil.getData(user.getPhone() + "PK");
-            PrivateKey privateKey = RSAUtil.getPrivateKeyFromBase64Encrypted(base64PrivateKey);
-            String pw = RSAUtil.decryptRSA(certificatePwDto.getPw(), privateKey);
+            PrivateKey privateKey = rsaUtil.getPrivateKeyFromBase64Encrypted(base64PrivateKey);
+            String pw = rsaUtil.decryptRSA(certificatePwDto.getPw(), privateKey);
             redisUtil.save(user.getPhone() + "PW", encoder.encode(pw));
             resultMap.put("message", "요청 성공");
             status = HttpStatus.OK;
@@ -84,8 +84,8 @@ public class CertificateService {
         try {
             User user = userRepository.findById(member_id).orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
             String base64PrivateKey = redisUtil.getData(user.getPhone() + "PK");
-            PrivateKey privateKey = RSAUtil.getPrivateKeyFromBase64Encrypted(base64PrivateKey);
-            String pw = RSAUtil.decryptRSA(certificatePwDto.getPw(), privateKey);
+            PrivateKey privateKey = rsaUtil.getPrivateKeyFromBase64Encrypted(base64PrivateKey);
+            String pw = rsaUtil.decryptRSA(certificatePwDto.getPw(), privateKey);
             if(encoder.matches(pw, redisUtil.getData(user.getPhone()) + "PW")){
                 resultMap.put("message", "인증 성공");
                 status = HttpStatus.OK;
@@ -93,6 +93,24 @@ public class CertificateService {
                 resultMap.put("message", "인증 실패");
                 status = HttpStatus.BAD_REQUEST;
             }
+        }   catch (Exception e) {
+            resultMap.put("message", "요청 실패");
+            resultMap.put("exception", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    // 공인인증서 비밀번호 암호화
+    public ResponseEntity<?> encodeCertificatePw(CertificateEncodeDto certificateEncodeDto) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+        try{
+            PublicKey publicKey = rsaUtil.getPublicKeyFromBase64Encrypted(certificateEncodeDto.getPublic_key());
+            String encrypted = rsaUtil.encryptRSA(certificateEncodeDto.getPw(), publicKey);
+            resultMap.put("encrypted", encrypted);
+            resultMap.put("message", "요청 성공");
+            status = HttpStatus.OK;
         }   catch (Exception e) {
             resultMap.put("message", "요청 실패");
             resultMap.put("exception", e.getMessage());
