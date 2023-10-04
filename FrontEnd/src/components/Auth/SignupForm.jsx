@@ -849,9 +849,9 @@ const SignupForm = (props) => {
         <input type="button" value="중복확인" className={style.formbtn} onClick={onChangeIdOverlap} />
         {isId
           ?
-          <span className={style.colorblue}>{idMessage}</span>
+          <span className={style.colorblue} style={{fontSize:'15px'}}>{idMessage}</span>
           :
-          <span className={style.colorred}>{idMessage}</span>
+          <span className={style.colorred} style={{fontSize:'15px'}}>{idMessage}</span>
         }
       </div>
       <>
@@ -863,9 +863,9 @@ const SignupForm = (props) => {
         <input type="password" className={style.input} name="password" value={password} onClick={() => onClickPassword("Pw")} readOnly />
         {isPassword
           ?
-          <span className={style.colorblue}>{passwordMessage}</span>
+          <span className={style.colorblue} style={{fontSize:'15px'}}>{passwordMessage}</span>
           :
-          <span className={style.colorred}>{passwordMessage}</span>
+          <span className={style.colorred} style={{fontSize:'15px'}}>{passwordMessage}</span>
         }
       </>
       <>
@@ -873,9 +873,9 @@ const SignupForm = (props) => {
         <input type="password" className={style.input} name="passwordcheck" value={passwordConfirm} onClick={() => onClickPassword("PwC")} readOnly />
         {isPasswordConfirm
           ?
-          <span className={style.colorblue}>{passwordConfirmMessage}</span>
+          <span className={style.colorblue} style={{fontSize:'15px'}}>{passwordConfirmMessage}</span>
           :
-          <span className={style.colorred}>{passwordConfirmMessage}</span>
+          <span className={style.colorred} style={{fontSize:'15px'}}>{passwordConfirmMessage}</span>
         }
       </>
       <div className={style.phoneform}>
