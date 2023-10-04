@@ -5,6 +5,7 @@ import Footer from '../Common/Footer';
 import { useNavigate } from 'react-router-dom';
 import { authAxios, customAxios } from '../api/customAxios';
 import Keyboard from '../Auth/Keyboard';
+import toast, { Toaster } from 'react-hot-toast';
 
 const CertIssuePage = () => {
   const [step, setStep] = useState(1);
@@ -16,6 +17,7 @@ const CertIssuePage = () => {
   return (
     <div className={style.body}>
       <HeaderSub title={"인증서 발급"} />
+      <Toaster />
       {step === 1 && <Step1 nextStep={nextStep}/>}
       {step === 2 && <Step2 nextStep={nextStep}/>}
       {step === 3 && <Step3 nextStep={nextStep}/>}
@@ -400,7 +402,14 @@ const Step3 = ( props ) => {
       const twoYearsLater = new Date(today);
       twoYearsLater.setFullYear(today.getFullYear() + 2);
       localStorage.setItem("expire", twoYearsLater);
-      navigate("/mycertificate");
+
+      toast.success("성공", {
+        duration: 1000
+      });
+      setTimeout(() => {
+        navigate("/mycertificate");      
+      }, 1000);
+      
     })
     .catch((res)=>{
       console.log(res)
@@ -447,9 +456,9 @@ const Step3 = ( props ) => {
         {
           isPasswordConfirm
             ?
-            <div className={style.goodbtn} onClick={() => certIssuance()}>다음</div>
+            <div className={style.goodbtn} onClick={() => certIssuance()}>완료</div>
             :
-            <div className={style.notbtn}>다음</div>
+            <div className={style.notbtn}>완료</div>
         }
       </div>
       {
