@@ -12,7 +12,7 @@ const NotificationPage = () => {
 
   const [notis, setNotis] = useState([]);
   const [condition, setCondition] = useState(true);
-  
+
   useEffect(() => {
     for (var i = 0 ; i < notis.length ; i++){
       if(notis[i].read === false) {
@@ -39,9 +39,12 @@ const NotificationPage = () => {
     customAxios.get('/users/alarm')
     .then((res) => {
       console.log(res);
-      setNotis(res.data.data);
+      const sortedData = res.data.data.sort((a, b) => {
+        return new Date(b.regDate) - new Date(a.regDate);
+      });
+      setNotis(sortedData);
     })
-    .catch((res) => { 
+    .catch((res) => {
       console.log(res);
     });
   };
@@ -52,7 +55,7 @@ const NotificationPage = () => {
       console.log(res);
       window.location.reload();
     })
-    .catch((res) => { 
+    .catch((res) => {
       console.log(res);
       window.location.reload();
     });
@@ -80,7 +83,7 @@ const NotificationPage = () => {
         navigate('/friends/req');
       }
     })
-    .catch((res) => { 
+    .catch((res) => {
       console.log(res);
       window.location.reload();
     });
@@ -92,7 +95,7 @@ const NotificationPage = () => {
     var formattedDate = inputDate.toLocaleDateString('ko-KR', options);
     return formattedDate;
   };
-  
+
 
   return (
     <div className={style.body}>
@@ -128,7 +131,7 @@ const NotificationPage = () => {
               {/* <div className={style.btnBox}>
                 <button className={style.selectBtn}>확인</button>
               </div> */}
-              
+
               </div>
             </div>
           )
