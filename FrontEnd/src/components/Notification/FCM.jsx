@@ -3,6 +3,7 @@ import style from './FCMPage.module.css';
 import { customAxios } from '../api/customAxios';
 import { getToken, getMessaging } from 'firebase/messaging';
 import { initializeApp } from "firebase/app";
+import toast from 'react-hot-toast';
 
 const FCM = () => {
 
@@ -87,6 +88,11 @@ const FCM = () => {
     .then((res)=>{
       console.log(res);
       setFcmToken(token);
+      toast.success("푸시 알림을 받습니다", {
+        duration: 1000,
+      });
+      setTimeout(() => {
+      }, 1000);
     })
     .catch((res)=>{
       console.log(res);
