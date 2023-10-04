@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './FCMPage.module.css';
 import { customAxios } from '../api/customAxios';
 import { getToken, getMessaging } from 'firebase/messaging';
@@ -9,6 +9,16 @@ const FCM = () => {
 
   // 버튼 토글
   const [isPushEnabled, setPushEnabled] = useState(false);
+
+  
+
+  useEffect(() => {
+    const isFCM = localStorage.getItem("fcmToken");  
+    if( isFCM !== null ){
+      setPushEnabled(true);
+    }
+  }, []);
+
 
   const togglePushNotification = () => {
     if(isPushEnabled === false){
