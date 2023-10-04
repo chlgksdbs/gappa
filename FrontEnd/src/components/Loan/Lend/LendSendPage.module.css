@@ -215,11 +215,9 @@
 
 
 .cert {
-  max-width: 415px;
+  max-width: 400px;
   position: fixed;
   bottom: -100%;
-  left: calc(50%-207.5px);
-  /* margin: 0 auto 0 auto; */
   margin: auto;
   width: 80%;
   height: 75%;
