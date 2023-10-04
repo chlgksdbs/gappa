@@ -17,14 +17,14 @@ import java.util.Base64;
 public class RSAUtil {
 
     // 1024비트 RSA 키쌍을 생성
-    public static KeyPair genRSAKeyPair() throws NoSuchAlgorithmException {
+    public KeyPair genRSAKeyPair() throws NoSuchAlgorithmException {
         KeyPairGenerator gen = KeyPairGenerator.getInstance("RSA");
         gen.initialize(1024, new SecureRandom());
         return gen.genKeyPair();
     }
 
     // Public Key로 RSA 암호화를 수행
-    public static String encryptRSA(String plainText, PublicKey publicKey)
+    public String encryptRSA(String plainText, PublicKey publicKey)
             throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException,
             BadPaddingException, IllegalBlockSizeException {
         Cipher cipher = Cipher.getInstance("RSA");
@@ -35,7 +35,7 @@ public class RSAUtil {
     }
 
     // Private Key로 RSA 복호화를 수행
-    public static String decryptRSA(String encrypted, PrivateKey privateKey)
+    public String decryptRSA(String encrypted, PrivateKey privateKey)
             throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException,
             BadPaddingException, IllegalBlockSizeException, UnsupportedEncodingException {
         Cipher cipher = Cipher.getInstance("RSA");
@@ -47,7 +47,7 @@ public class RSAUtil {
     }
 
     // Base64로 인코딩된 Public Key를 디코딩하고 객체로 변환
-    public static PublicKey getPublicKeyFromBase64Encrypted(String base64PublicKey)
+    public PublicKey getPublicKeyFromBase64Encrypted(String base64PublicKey)
             throws NoSuchAlgorithmException, InvalidKeySpecException {
         byte[] decodedBase64PubKey = Base64.getDecoder().decode(base64PublicKey);
 
@@ -56,7 +56,7 @@ public class RSAUtil {
     }
 
     // Base64로 인코딩된 Private Key를 디코딩하고 객체로 변환
-    public static PrivateKey getPrivateKeyFromBase64Encrypted(String base64PrivateKey)
+    public PrivateKey getPrivateKeyFromBase64Encrypted(String base64PrivateKey)
             throws NoSuchAlgorithmException, InvalidKeySpecException {
         byte[] decodedBase64PrivateKey = Base64.getDecoder().decode(base64PrivateKey);
 
