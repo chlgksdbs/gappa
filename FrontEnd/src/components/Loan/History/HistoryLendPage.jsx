@@ -77,49 +77,49 @@ const HistoryLendPage = () => {
   return (
     <div className={style.main}>
       <HeaderSub title={"대금 이력"}/>
-      <div style={{fontSize: "20px"}}>
-        <span onClick={() => handleFilterChange(1)} style={lendFilter === 1 ? {color: 'black'} : {color: '#737373'}}>전체 내역</span>
-        <span> | </span>
-        <span onClick={() => handleFilterChange(2)} style={lendFilter === 2 ? {color: 'black'} : {color: '#737373'}}>상환 완료</span>
-        <span> | </span>
-        <span onClick={() => handleFilterChange(3)} style={lendFilter === 3 ? {color: 'black'} : {color: '#737373'}}>대출 중</span>
-        <span> | </span>
-        <span onClick={() => handleFilterChange(4)} style={lendFilter === 4 ? {color: 'black'} : {color: '#737373'}}>연체 중</span>
-      </div>
-      <p className={style.totalCnt}>총 {filteredLends.length} 건</p>
       <div className={style.body}>
-      <div className={style.lendDiv}>
-        {filteredLends.map((lend) => (
-          <div className={style.columnDiv} key={lend.id} onClick={() => goToHistoryDetail(lend)}>
-            <div>
-              <p className={style.columnDate}>{formatStartdate(lend.startdate)} ~ {formatStartdate(lend.enddate)}</p>
-              <div className={style.columnDiv2}>
-                <img src={lend.img} alt="" className={style.columnImg}/>
-                <div>
-                  <p className={style.columnName}>{lend.name}</p>
-                  {/* <p>{formatBalance(lend.balance)}원 / {formatBalance(lend.principal)}원</p> */}
-                  <span style={{fontSize: "18px"}}>{formatBalance(lend.restMoney)}원</span>
-                  <span> / </span><br/>
-                  <span style={{fontSize: "14px"}}>{formatBalance(lend.principal)}원</span>
+        <div style={{fontSize: "20px", textAlign: "center"}}>
+          <span onClick={() => handleFilterChange(1)} style={lendFilter === 1 ? {color: 'black'} : {color: '#737373'}}>전체 내역</span>
+          <span> | </span>
+          <span onClick={() => handleFilterChange(2)} style={lendFilter === 2 ? {color: 'black'} : {color: '#737373'}}>상환 완료</span>
+          <span> | </span>
+          <span onClick={() => handleFilterChange(3)} style={lendFilter === 3 ? {color: 'black'} : {color: '#737373'}}>대출 중</span>
+          <span> | </span>
+          <span onClick={() => handleFilterChange(4)} style={lendFilter === 4 ? {color: 'black'} : {color: '#737373'}}>연체 중</span>
+        </div>
+        <p className={style.totalCnt}>총 {filteredLends.length} 건</p>
+        <div className={style.lendDiv}>
+          {filteredLends.map((lend) => (
+            <div className={style.columnDiv} key={lend.id} onClick={() => goToHistoryDetail(lend)}>
+              <div>
+                <p className={style.columnDate}>{formatStartdate(lend.startdate)} ~ {formatStartdate(lend.enddate)}</p>
+                <div className={style.columnDiv2}>
+                  <img src={lend.img} alt="" className={style.columnImg}/>
+                  <div>
+                    <p className={style.columnName}>{lend.name}</p>
+                    {/* <p>{formatBalance(lend.balance)}원 / {formatBalance(lend.principal)}원</p> */}
+                    <span style={{fontSize: "18px"}}>{formatBalance(lend.restMoney)}원</span>
+                    <span> / </span><br/>
+                    <span style={{fontSize: "14px"}}>{formatBalance(lend.principal)}원</span>
+                  </div>
                 </div>
               </div>
+              {lend.isStatus === 'C' ? (
+                <div className={style.lendStatus} style={{color: "blue"}}>
+                  상환 완료
+                </div>
+              ) : lend.isStatus === 'D' ? (
+                <div className={style.lendStatus} style={{color: "red"}}>
+                  연체 중
+                </div>
+              ) : lend.isStatus === 'O' ? (
+                <div className={style.lendStatus} style={{color: "black"}}>
+                  대출 중
+                </div>
+              ) : null}
             </div>
-            {lend.isStatus === 'C' ? (
-              <div className={style.lendStatus} style={{color: "blue"}}>
-                상환 완료
-              </div>
-            ) : lend.isStatus === 'D' ? (
-              <div className={style.lendStatus} style={{color: "red"}}>
-                연체 중
-              </div>
-            ) : lend.isStatus === 'O' ? (
-              <div className={style.lendStatus} style={{color: "black"}}>
-                대출 중
-              </div>
-            ) : null}
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
       </div>
       <Footer />
     </div>

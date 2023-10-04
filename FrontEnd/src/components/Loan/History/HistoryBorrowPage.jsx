@@ -76,17 +76,17 @@ const HistoryBorrowPage = () => {
   return (
     <div className={style.main}>
       <HeaderSub title={"대출 이력"}/>
-      <div style={{fontSize: "20px"}}>
-        <span onClick={() => handleFilterChange(1)} style={borrowFilter === 1 ? {color: 'black'} : {color: '#737373'}}>전체 내역</span>
-        <span> | </span>
-        <span onClick={() => handleFilterChange(2)} style={borrowFilter === 2 ? {color: 'black'} : {color: '#737373'}}>상환 완료</span>
-        <span> | </span>
-        <span onClick={() => handleFilterChange(3)} style={borrowFilter === 3 ? {color: 'black'} : {color: '#737373'}}>대출 중</span>
-        <span> | </span>
-        <span onClick={() => handleFilterChange(4)} style={borrowFilter === 4 ? {color: 'black'} : {color: '#737373'}}>연체 중</span>
-      </div>
-      <p className={style.totalCnt}>총 {filteredBorrows.length} 건</p>
       <div className={style.body}>
+        <div style={{fontSize: "20px", textAlign: "center"}}>
+          <span onClick={() => handleFilterChange(1)} style={borrowFilter === 1 ? {color: 'black'} : {color: '#737373'}}>전체 내역</span>
+          <span> | </span>
+          <span onClick={() => handleFilterChange(2)} style={borrowFilter === 2 ? {color: 'black'} : {color: '#737373'}}>상환 완료</span>
+          <span> | </span>
+          <span onClick={() => handleFilterChange(3)} style={borrowFilter === 3 ? {color: 'black'} : {color: '#737373'}}>대출 중</span>
+          <span> | </span>
+          <span onClick={() => handleFilterChange(4)} style={borrowFilter === 4 ? {color: 'black'} : {color: '#737373'}}>연체 중</span>
+        </div>
+        <p className={style.totalCnt}>총 {filteredBorrows.length} 건</p>
         <div className={style.borrowDiv}>
           {filteredBorrows.map((borrow) => (
             <div className={style.columnDiv} key={borrow.id} onClick={() => goToHistoryDetail(borrow)}>

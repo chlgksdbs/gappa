@@ -1,6 +1,6 @@
 .main {
   font-family: 'LINESeedKR-Bd';
-  height: 100vh;
+  height: 100%;
   justify-content: flex-start;
   align-items: center;
   display: flex;
@@ -13,7 +13,7 @@
 .body {
   width: 100%;
   background: linear-gradient(rgb(128, 206, 190, 0), rgb(128, 206, 190, 0.1), rgb(128, 206, 190, 0.2));
-  max-height: 82vh;
+  max-height: 82%;
   /* min-height: 70vh; */
   overflow-y: scroll; /* 스크롤이 필요한 경우에만 스크롤 바 표시 */
   scrollbar-width: none; /* Firefox에서 스크롤 바 숨기기 */

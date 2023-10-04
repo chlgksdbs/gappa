@@ -9,11 +9,12 @@ const HeaderSub = ( props ) => {
   
   const headerStyle = {
     height: '7vh',
-    marginTop: '10px',
+    width: '100%',
     display: 'grid',
     gridTemplateColumns: '1fr 3fr 1fr',
     alignItems: 'center',
-    width: '100%',
+    marginTop: '3%',
+    marginBottom: '3%',
   };
 
   const imgStyle = {
@@ -25,6 +26,7 @@ const HeaderSub = ( props ) => {
     width: '100%',
     fontSize: '22px',
     fontWeight: 'bold',
+    margin: '5px 0 0 0',
   };
 
   return (

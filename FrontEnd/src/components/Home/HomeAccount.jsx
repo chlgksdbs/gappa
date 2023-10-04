@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom';
 const HomeAccount = () => {
   const navigate = useNavigate();
 
-  let isExistAccount = true;
-  let [accountSeq, setAccountSeq] = useState("");
+  let [isExistAccount, setIsExistAccount] = useState(false);
+  let [accountSeq, setAccountSeq] = useState(0);
   let [account, setAccount] = useState("");
   let [bank, setBank] = useState("");
   let [money, setMoney] = useState(0);
@@ -15,11 +15,13 @@ const HomeAccount = () => {
   useEffect(() => {
     customAxios.get(`/accounts/primary`)
       .then((res)=>{
-        console.log(res);
-        setAccountSeq(res.data.accountSeq);
-        setAccount(res.data.accountNumber);
-        setBank(res.data.bank);
-        setMoney(res.data.balance);
+        if (res.data.accountSeq > 0) {
+          setAccountSeq(res.data.accountSeq);
+          setAccount(res.data.accountNumber);
+          setBank(res.data.bank);
+          setMoney(res.data.balance);
+          setIsExistAccount(true);
+        }
       })
       .catch((res)=>{
         console.log(res);
@@ -59,7 +61,7 @@ const HomeAccount = () => {
       ) : (
         <div className={style.myAcc}>
           <img src="./images/Add.png" alt="" />
-          계좌 등록하기
+          <p style={{marginBottom: "0", fontSize: "20px"}}>계좌 등록하기</p>
         </div>
       )}
     </div>

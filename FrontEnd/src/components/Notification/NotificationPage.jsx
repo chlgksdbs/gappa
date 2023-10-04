@@ -4,6 +4,8 @@ import Header from '../Common/Header';
 import Footer from '../Common/Footer';
 import { useNavigate  } from 'react-router-dom';
 import { customAxios } from '../api/customAxios';
+import {AiOutlineDelete} from 'react-icons/ai'
+import {BiRightArrowAlt} from "react-icons/bi";
 
 const NotificationPage = () => {
   const navigate = useNavigate();
@@ -26,6 +28,7 @@ const NotificationPage = () => {
     "C" : "대출 상환 완료",
     "P" : "대출 상환",
     "F" : "친구",
+    "Q" : "친구요청",
   }
 
   useEffect(() => {
@@ -73,6 +76,8 @@ const NotificationPage = () => {
         navigate('/historyborrow');
       } else if(category === "F") {
         navigate('/friends');
+      } else if(category === "Q") {
+        navigate('/friends/req');
       }
     })
     .catch((res) => { 
@@ -98,7 +103,9 @@ const NotificationPage = () => {
         <p>텅 비어 있어요..</p>
       </div>
       ):(<div onClick={deleteAll} className={style.deleteBtnBox}>
-        <button>알림함 비우기</button>
+        {/* <button>알림함 비우기</button> */}
+        {/* <AiOutlineDelete /> */}
+        모두 삭제
       </div>
       )}
       <div className={style.notiBox}>
@@ -106,17 +113,22 @@ const NotificationPage = () => {
           // item.read 값이 false인 경우에만 알림 출력
           !item.read && (
             <div key={index} className={style.item}>
-              <div className={style.date}>{formattingDate(item.regDate)}</div>
-              <div className={style.infoBox}>
+              {/* <div className={style.date}>{formattingDate(item.regDate)}</div> */}
                 <div className={style.detailKey}>{category[item.alarmCategory]}</div>
+              <div className={style.infoBox}>
                 <div className={style.detailValue}></div>
               </div>
               <div className={style.infoBox}>
-                <div className={style.detailKey}></div>
+                {/* <div className={style.detailKey}></div> */}
                 <div className={style.detailValue}>{item.alarmContent}</div>
               </div>
-              <div className={style.btnBox}>
-                <button className={style.selectBtn} onClick={() => readNoti(item.webAlarmSeq, item.alarmCategory)}>확인</button>
+              <div style={{width:'100%', display:'flex', justifyContent:'space-between'}}>
+                <div className={style.date}>{formattingDate(item.regDate)}</div>
+                <div onClick={() => readNoti(item.webAlarmSeq, item.alarmCategory)}>< BiRightArrowAlt /></div>
+              {/* <div className={style.btnBox}>
+                <button className={style.selectBtn}>확인</button>
+              </div> */}
+              
               </div>
             </div>
           )
