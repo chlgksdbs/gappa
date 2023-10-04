@@ -32,6 +32,7 @@ public class FCMService {
         try {
             User user = userRepository.findById(member_id).orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
             redisUtil.save(user.getPhone(), fcmTokenDto.getToken());
+            pushNotification(member_id, "Gappa 푸시알림을 허용했어요!");
             resultMap.put("message", "요청 성공");
             status = HttpStatus.OK;
         } catch (Exception e) {
