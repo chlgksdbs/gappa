@@ -1,4 +1,5 @@
 .main {
+  font-family: 'LINESeedKR-Rg';
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -19,7 +20,7 @@
 }
 
 .detailDiv{
-  background-color: rgba(205, 205, 205, 0.2);
+  /* background-color: rgba(205, 205, 205, 0.2); */
   width: 100%;
   padding-bottom: 10px;
 }
@@ -27,10 +28,18 @@
 .line {
   width: 100%;
   text-align: center;
-  border-bottom: 1px solid #aaa;
+  border-bottom: 1px solid #ddd;
   line-height: 0.1em;
   margin: 0;
 }
+
+.line2 {
+  width: 90%;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  margin: .5rem auto;
+}
+
 
 .div1 {
   display: grid;
@@ -41,7 +50,7 @@
 
 .div1Date {
   color: #aaa;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .imgDiv {
@@ -56,14 +65,15 @@
 }
 
 .div1Name {
-  font-size: 25px;
+  font-family: 'LINESeedKR-Bd';
+  font-size: 23px;
   margin: 15px 0 12px 0;
-  padding-left: 5px;
+  padding-left: 3px;
 }
 
 .div1Balance {
-  font-size: 25px;
-  margin: 0 15px 10px  0;
+  font-size: 24px;
+  margin: 0 10px 10px  0;
 }
 
 .div1Status {
@@ -75,9 +85,10 @@
 }
 
 .div2 {
+  width: 90%;
   display: flex;
   justify-content: space-between;
-  padding: 10px 10px 10px 20px;
+  padding: .7rem 1.2rem;
   font-size: 20px;
 }
 
@@ -85,15 +96,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 120px;
-  height: 40px;
-  background-color: rgba(128, 206, 190, 0.5);
+  width: 95%;
+  height: 45px;
+  background-color: rgba(128, 206, 190, 0.3);
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-  border-radius: 15px;
+  border-radius: 5px;
   font-size: 18px;
   font-weight: bold;
-  color: white;
-  margin: 0 auto 0 10px;
+  color: rgb(0, 0, 0);
+  margin: 2rem auto;
   border: none;
 }
 
