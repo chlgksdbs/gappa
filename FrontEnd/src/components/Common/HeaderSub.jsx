@@ -18,7 +18,8 @@ const HeaderSub = ( props ) => {
   };
 
   const imgStyle = {
-    marginLeft: '20px',
+    marginLeft: '15px',
+    height: '40px'
   };
 
   const titleStyle = {
