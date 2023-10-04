@@ -99,6 +99,8 @@ public class AfterPeriodLoanProcessorCustom implements ItemProcessor<AfterPeriod
                     + ChronoUnit.DAYS.between(afterPeriodLoanDto.getLoan().getRedemptionDate(), LocalDateTime.now())
                     + "일 연체되었습니다. ";
             smsUtil.sendSMS(fromUser.getPhone(), message, Optional.of(LocalDateTime.now().plusMinutes(270)));
+
+            return null;
         }
 
         return afterPeriodLoanDto;
