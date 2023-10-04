@@ -1,5 +1,7 @@
 .footer {
-  background-color: rgb(128, 206, 190, 0.6);
+  /* background-color: rgb(128, 206, 190, 0.6); */
+  background-color: #fff;
+  border-top: 1px solid lightgray;
   height: calc(10vh - 15px);
   /* position: fixed; */
   width: 100%;
@@ -7,6 +9,7 @@
   left: 0;
   right: 0; */
   margin-top: auto;
+  padding-bottom: .5rem;
   justify-content: space-around;
   /* align-items: center; */
   padding-top: 15px;
