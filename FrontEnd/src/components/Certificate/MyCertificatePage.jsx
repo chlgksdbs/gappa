@@ -4,7 +4,6 @@ import HeaderSub from '../Common/HeaderSub';
 import Footer from '../Common/Footer';
 import { useNavigate } from 'react-router-dom';
 import { customAxios } from '../api/customAxios';
-// import toast, { Toaster } from 'react-hot-toast';
 
 const MyCertificatePage = () => {
   const navigate = useNavigate();
