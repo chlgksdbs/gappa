@@ -100,7 +100,7 @@ const HistoryLendPage = () => {
                     {/* <p>{formatBalance(lend.balance)}원 / {formatBalance(lend.principal)}원</p> */}
                     <span style={{fontSize: "15px"}}>{formatBalance(lend.restMoney)}</span>
                     <span> / </span>
-                    <span style={{fontSize: "15px", color: "gray"}}>{formatBalance(lend.principal)}원</span>
+                    <span style={{fontSize: "13px", color: "gray"}}>{formatBalance(lend.principal)}원</span>
                   </div>
                 </div>
               </div>
