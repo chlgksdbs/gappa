@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import HomeAccount from './HomeAccount';
 import Header from '../Common/Header';
 import Footer from '../Common/Footer';
+import NowTransaction from './NowTransaction';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -20,14 +21,14 @@ const HomePage = () => {
             <img src="./images/HomeDivBtn2.png" alt="" onClick={() => navigate("/historylend")}/>
             <img src="./images/HomeDivBtn3.png" alt="" onClick={() => navigate("/historyborrow")}/>
             <img src="./images/HomeDivBtn4.png" alt="" onClick={() => navigate("/historyborrow")}/>
-            <img src="./images/HomeDivBtn5.png" alt="" onClick={() => navigate("/profile/certificate")}/>
+            <img src="./images/HomeDivBtn5.png" alt="" onClick={() => navigate("/mycertificate")}/>
             <img src="./images/HomeDivBtn6.png" alt="" onClick={() => navigate("/lend/list")}/>
           </div>
         </div>
 
         <div className={style.historyBox}>
           <div className={style.history}>
-            현재 거래중인 친구가 없어요!
+            <NowTransaction/>
           </div>
         </div>
       </div>

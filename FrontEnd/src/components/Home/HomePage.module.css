@@ -55,7 +55,7 @@
 
 .historyBox {
   /* background-color: rgba(128, 206, 190, 0.2); */
-  height: 22vh;
+  height: 29vh;
   width: 100%;
   justify-content: center;
   align-items: center;
@@ -66,7 +66,7 @@
 .history {
   /* background-color: rgba(128, 206, 190, 0.3); */
   background-color: white;
-  height: 85%;
+  height: 90%;
   width: 90%;
   border-radius: 30px;
   font-size: 18px;
@@ -75,4 +75,5 @@
   align-items: center;
   display: flex;
   flex-direction: column;
+  margin: 2.1rem 0;
 }

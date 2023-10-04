@@ -79,3 +79,79 @@
   background: #80CEBE;
   margin-bottom: 20px;
 }
+
+.cert {
+  max-width: 415px;
+  position: fixed;
+  bottom: -100%;
+  left: calc(50%-207.5px);
+  /* margin: 0 auto 0 auto; */
+  margin: auto;
+  width: 80%;
+  height: 75%;
+  box-sizing: border-box;
+  background-color: white;
+  border: solid 3px black;
+  border-radius: 20px;
+  color: black;
+  padding: 20px;
+  z-index: 1000;
+  transition: bottom 0.3s ease-in-out;
+}
+
+.cert.open {
+  bottom: -30%;
+}
+
+/* Certificate 올라오는 부분 */
+.certHeader {
+  display: flex;
+  justify-content: space-between;
+}
+.certHeader p {
+  margin: 10px 0 15px 0;
+}
+.mycert {
+  margin: 0 auto 0 auto;
+  height: 45%;
+  width: 50%;
+  background: linear-gradient(#5462f8, #2a2adf);
+  border-radius: 7%;
+}
+.subImgBox {
+  height: 40%;
+  overflow: hidden;
+  position: absolute;
+}
+.subImgBox img {
+  height: 35%;
+  opacity: 50%;
+}
+.certlogoBox {
+  height: 50%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: column;
+  
+}
+.certlogoBox img {
+  height: 70%;
+  z-index: 1;
+}
+.textBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'LINESeedKR-Rg';
+  color: #ffffff;
+}
+.name {
+  font-size: 20px;
+  margin: 2vh 0 2vh 0; 
+}
+.detail {
+  font-size: 15px;
+}
+/* Certificate 올라오는 부분 */
