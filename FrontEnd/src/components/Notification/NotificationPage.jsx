@@ -114,8 +114,8 @@ const NotificationPage = () => {
           !item.read && (
             <div key={index} className={style.item}>
               {/* <div className={style.date}>{formattingDate(item.regDate)}</div> */}
-                <div className={style.detailKey}>{category[item.alarmCategory]}</div>
               <div className={style.infoBox}>
+                <div className={style.detailKey}>{category[item.alarmCategory]}</div>
                 <div className={style.detailValue}></div>
               </div>
               <div className={style.infoBox}>
