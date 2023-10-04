@@ -79,7 +79,7 @@ const MyCertificatePage = () => {
       ):(
         <div className={style.addcert} onClick={() => { navigate("/cert/issue") }}>
           <img src="/images/Add.png" alt="" />
-          <div>인증서 발급하기</div>
+          <div style={{fontFamily: 'LINESeedKR-Bd', margin:'.5rem 0'}}>인증서 발급하기</div>
           <div className={style.sub}>한번 발급 받으면 유효기간 2년!</div>
         </div>
       )}
