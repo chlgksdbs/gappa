@@ -92,10 +92,10 @@ const FriendsPage = () => {
   });
 
   return (
-    <div className={style.body}>
+    <div className={style.main}>
       <Header title={"친구 목록"}/>
 
-      <div className={style.friendsBox}>
+      <div className={style.body}>
 
         <div className={style.search}>
           <input type="text" placeholder="친구 검색" value={searchTerm} onChange={handleSearch} />

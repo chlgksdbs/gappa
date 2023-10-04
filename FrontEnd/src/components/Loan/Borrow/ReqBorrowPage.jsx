@@ -164,7 +164,7 @@ const ReqBorrowPage = () => {
           </div>
         </div>
         <div className={style.inputDiv}>
-          <div className={style.nextBtn} onClick={toggleCert}>
+          <div className={style.nextBtn} onClick={nextHandler}>
             신청
           </div>
         </div>

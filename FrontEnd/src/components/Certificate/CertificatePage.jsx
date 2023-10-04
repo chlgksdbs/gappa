@@ -175,7 +175,7 @@ const CertificatePage = () => {
             </tr>
           </tbody>
         </table>
-        <p>3. 대출 상환이 상환예정일까지 이루어지지않았다면, 채무자의 대표계좌에서 자동 송금된다.</p>
+        <p>3. 대출 상환이 상환예정일까지 이루어지지 않았다면, 채무자의 대표계좌에서 자동 송금된다.</p>
         <p>4. 다음과 같은 경우에는 최고 없이 당연히 기한의 이익을 상실하고 잔존 채무금 전부를 즉시 지급한다.</p>
         <p>① 채무자 및 연대보증인이 타의 채권자로부터 가압류 강제집행을 받거나 파산 화해신청을 받을 때</p>
         <p>② 기타 이 약정 조항의 위반할 때</p>
@@ -200,6 +200,7 @@ const CertificatePage = () => {
           </div>
         </div>
         <div className={style.line} />
+        <img src="" alt="" className={style.waterMark}></img>
       </div>
       <button className={style.btnStyle} onClick={handleGeneratePdf}>PDF로 저장하기</button>
     </div>

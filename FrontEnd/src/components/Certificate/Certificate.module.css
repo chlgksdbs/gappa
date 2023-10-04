@@ -76,3 +76,10 @@
   height: 30px;
   background-color: antiquewhite;
 }
+
+
+.waterMark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
