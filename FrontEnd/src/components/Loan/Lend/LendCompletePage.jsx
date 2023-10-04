@@ -27,7 +27,6 @@ const LendCompletePage = () => {
   const getApply = () => {
     customAxios.get(`/loan/apply/${loanSeq}`)
     .then((res)=>{
-      console.log(res);
       setToUser(res.data.toUser);
       setFromUser(res.data.fromUser);
       setPrincipal(res.data.principal);
@@ -35,20 +34,17 @@ const LendCompletePage = () => {
       setYourAccountNumber(res.data.accountNumber);
     })
     .catch((res)=>{
-      console.log(res);
     })
   }
 
   const getMyAcc = () => {
     customAxios.get('/accounts/primary')
     .then((res)=>{
-      console.log(res);
       setMyAccountNumber(res.data.accountNumber);
       setMyBank(res.data.bank);
       setMyBalance(res.data.balance);
     })
     .catch((res)=>{
-      console.log(res);
     });
   }
 

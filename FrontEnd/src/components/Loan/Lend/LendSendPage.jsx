@@ -53,7 +53,6 @@ const LendSendPage = () => {
   const getApply = () => {
     customAxios.get(`/loan/apply/${loanSeq}`)
     .then((res)=>{
-      console.log(res);
       setToUser(res.data.toUser);
       setFromUser(res.data.fromUser);
       setPrincipal(res.data.principal);
@@ -62,19 +61,16 @@ const LendSendPage = () => {
       setYourAccountNumber(res.data.accountNumber);
     })
     .catch((res)=>{
-      console.log(res);
     })
   }
 
   const getMyAcc = () => {
     customAxios.get('/accounts/primary')
     .then((res)=>{
-      console.log(res);
       setMyAccountNumber(res.data.accountNumber);
       setMyBank(res.data.bank);
     })
     .catch((res)=>{
-      console.log(res);
     });
   }
 
@@ -92,11 +88,9 @@ const LendSendPage = () => {
     };
     customAxios.post('/loan/money/lend', body)
     .then((res)=>{
-      console.log(res);
       navigate('/lend/complete', { state: { loanSeq: loanSeq}});
     })
     .catch((res)=>{
-      console.log(res);
     });
   }
 
@@ -138,7 +132,6 @@ const LendSendPage = () => {
         setCertName(res.data.data.name);
       })
       .catch((res)=>{
-        console.log(res);
       })
     } else {
       // 토큰이 없는 경우 처리
@@ -152,7 +145,6 @@ const LendSendPage = () => {
     }
     customAxios.post("/certificate/encode", body)
     .then((res)=>{
-      console.log(res);
       const encryptedKey = res.data.encrypted
 
       customAxios.post("/certificate/validate", {pw:encryptedKey})
@@ -176,7 +168,6 @@ const LendSendPage = () => {
       })
     })
     .catch((res)=>{
-      console.log(res);
     })
   }
 

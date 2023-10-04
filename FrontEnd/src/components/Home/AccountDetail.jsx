@@ -23,13 +23,11 @@ const AccountDetail = () => {
   const getMyAcc = () => {
     customAxios.get(`/accounts/primary`)
     .then((res)=>{
-      console.log(res);
       setAccount(res.data.accountNumber);
       setBank(res.data.bank);
       setMoney(res.data.balance);
     })
     .catch((res)=>{
-      console.log(res);
     })
   }
 
@@ -39,11 +37,9 @@ const AccountDetail = () => {
     }
     customAxios.post('/accounts/history/detail', body)
     .then((res)=>{
-      console.log(res);
       setTransaction(res.data);
     })
     .catch((res)=>{
-      console.log(res);
     })
   }
 

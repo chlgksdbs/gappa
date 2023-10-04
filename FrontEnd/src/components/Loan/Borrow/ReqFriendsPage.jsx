@@ -31,7 +31,6 @@ const ReqFriendPages = () => {
       setPhoneBook(res.data.list);
     })
     .catch((res)=>{
-      console.log(res)
     })
   }
 
@@ -76,8 +75,6 @@ const ReqFriendPages = () => {
       );
       const JsonPayload = JSON.parse(jwtPayload);
       setFromUser(JsonPayload.userSeq);
-      console.log(JsonPayload.userSeq);
-      console.log(fromUser);
 
 
       const data = {

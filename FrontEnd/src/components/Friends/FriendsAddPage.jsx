@@ -31,7 +31,6 @@ const FriendsAdd = () => {
     };
     customAxios.post("/friends/user", body)
     .then((res)=>{
-      console.log(res);
       const resDataUser = res.data.user;
 
       if(res.data.status === "N"){
@@ -50,7 +49,6 @@ const FriendsAdd = () => {
       setIsResultOpen(true);
     })
     .catch((res)=>{
-      console.log(res);
     })
   };
 
@@ -61,7 +59,6 @@ const FriendsAdd = () => {
     };
     customAxios.post("/friends", body)
     .then((res)=>{
-      console.log(res);
       setIsResultOpen(false);
       setIsResult(false)
       setCanReq(false);
@@ -71,7 +68,6 @@ const FriendsAdd = () => {
       setPhoneNumber("");
     })
     .catch((res)=>{
-      console.log(res)
     })
   }
 

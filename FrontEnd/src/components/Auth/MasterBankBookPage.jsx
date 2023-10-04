@@ -17,7 +17,6 @@ const MasterBankBookPage = () => {
   useEffect(()=>{
     customAxios.get("/accounts/primary")
     .then((res)=>{
-      console.log(res)
       if(res.data.bank==="KB국민은행"){
         setImg("images/KB.png")
       }else if(res.data.bank ==="KEB하나은행"){
@@ -40,7 +39,6 @@ const MasterBankBookPage = () => {
       })
     })
     .catch((res)=>{
-      console.log(res)
     })
   },[img])
   return (

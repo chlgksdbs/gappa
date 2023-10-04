@@ -117,7 +117,6 @@ const LoginPage = () => {
   const handlerId = (e) => {
     setId(e.target.value);
     setPlaceholderId("");
-    console.log(id)
   }
 
   const login = () => {
@@ -127,7 +126,6 @@ const LoginPage = () => {
     }
     authAxios.post("/users/login", body)
       .then((res) => {
-        console.log(res)
         window.localStorage.setItem("token", res.data.data.token)
         // window.localStorage.setItem("is_autication",true)
         toast.success("로그인 성공!")
@@ -143,7 +141,6 @@ const LoginPage = () => {
       })
   }
   const keyboardOne = (e, index) => {
-    console.log(e)
     if (check === "Pw" && shift) {
       if (e === "words/62.png") {
         setPassword(password + "!")
@@ -306,7 +303,6 @@ const LoginPage = () => {
         }
       }
     } else if (check === "Pw" && !shift) {
-      console.log(password)
       if (e === "words/90.png") {
         setShift(!shift);
       } else if (e === "words/45.png") {

@@ -25,7 +25,6 @@ const LendPage = () => {
   const getApply = () => {
     customAxios.get(`/loan/apply/${loanSeq}`)
     .then((res)=>{
-      console.log(res);
       setToUser(res.data.toUser);
       setFromUser(res.data.fromUser);
       setPrincipal(res.data.principal);
@@ -33,7 +32,6 @@ const LendPage = () => {
       setRedemptionDate(res.data.redemptionDate);
     })
     .catch((res)=>{
-      console.log(res);
     })
   }
 
@@ -77,11 +75,9 @@ const LendPage = () => {
 
     customAxios.post('/loan/money/fail', body)
     .then((res)=>{
-      console.log(res);
       navigate('/lend/list');
     })
     .catch((res)=>{
-      console.log(res);
     });
   }
 

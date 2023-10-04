@@ -24,7 +24,6 @@ const HomeAccount = () => {
         }
       })
       .catch((res)=>{
-        console.log(res);
       })
 
   })
