@@ -19,7 +19,9 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -39,6 +41,30 @@ public class StepConfig {
     private final ItemReader<AfterPeriodLoanDto> afterPeriodLoanReader;
     private final ItemProcessor<AfterPeriodLoanDto, AfterPeriodLoanDto> afterPeriodLoanProcessor;
     private final ItemWriter<AfterPeriodLoanDto> afterPeriodLoanWriter;
+
+    @Bean
+    public Step changeLoanStatusStep() {
+        return stepBuilderFactory.get("changeLoanStatusStep")
+                .tasklet((contribution, chunkContext) -> {
+                    log.info(">>>>> Spring Batch With Changed Loan Status was Executed");
+
+                    LocalDateTime leftTime = LocalDateTime.of(LocalDate.now().minusDays(1), LocalTime.of(0, 0, 0));
+                    LocalDateTime rightTime = LocalDateTime.of(LocalDate.now().minusDays(1), LocalTime.of(23, 59, 59));
+
+                    // Loan 테이블에서 status가 'O'이며 redemption_date가 오늘인 대출 건 읽기
+                    List<Loan> redemptionDateLoans =
+                            loanRepository.findByStatusEqualsAndRedemptionDateBetween('O', leftTime, rightTime);
+
+                    // redemptionDateLoans에 대해 status 값을 'D'로 변경
+                    redemptionDateLoans.forEach(loan -> {
+                        loan.setStatus('D');
+                    });
+                    loanRepository.saveAll(redemptionDateLoans);
+                    
+                    return RepeatStatus.FINISHED;
+                })
+                .build();
+    }
 
     @Bean
     public Step afterPeriodLoanStep() {
