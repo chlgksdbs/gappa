@@ -279,7 +279,7 @@ const Step2 = ( props ) => {
         ?
           <input type="button" value="인증번호 발송" className={style.formbtn} onClick={phoneCheck} />
           :
-          <input type="button" value="인증번호 발송" className={style.frombtnx}/>
+          <input type="button" value="인증번호 발송" className={style.formbtn}/>
         }
       </div>
       {
@@ -290,7 +290,7 @@ const Step2 = ( props ) => {
             {phoneMessage === "5분 안에 입력해주세요."
               ?
               <div className={style.phoneforms}>
-                <input type="number" value={phoneCheckNumber} onChange={onChangePhoneCheckNumber} className={style.input} />
+                <input type="number" value={phoneCheckNumber} onChange={onChangePhoneCheckNumber} className={style.forminput} />
                 <input type="button" value="인증번호 확인" onClick={phoneCheckNumberConfirm} className={style.formbtn} />
               </div>
               :
@@ -425,31 +425,31 @@ const Step3 = ( props ) => {
         인증에 사용할 비밀번호를 설정하세요
       </div>
       <div className={style.passwordBox}>
-        <div>
+        <div className={style.pwtitle}>
           비밀번호
         </div>
-        <div>
-        <input type="password" className={style.input} name="password" value={password} onClick={() => onClickPassword("Pw")} readOnly />
+        <div className={style.pwform}>
+        <input type="password" className={style.pwinput} name="password" value={password} onClick={() => onClickPassword("Pw")} readOnly />
         <br/>
         {isPassword
           ?
-          <span className={style.colorblue}>{passwordMessage}</span>
+          <div className={style.colorblue}>{passwordMessage}</div>
           :
-          <span className={style.colorred}>{passwordMessage}</span>
+          <div className={style.colorred}>{passwordMessage}</div>
         }
         </div>
-        <div>
-          비밀번호확인
+        <div className={style.pwtitle}>
+          비밀번호 확인
         </div>
-        <div>
-        <input type="password" className={style.input} name="passwordcheck" value={passwordConfirm} onClick={() => onClickPassword("PwC")} readOnly />
-        <br/>
-        {isPasswordConfirm
-          ?
-          <span className={style.colorblue}>{passwordConfirmMessage}</span>
-          :
-          <span className={style.colorred}>{passwordConfirmMessage}</span>
-        }
+        <div className={style.pwform}>
+          <input type="password" className={style.pwinput} name="passwordcheck" value={passwordConfirm} onClick={() => onClickPassword("PwC")} readOnly />
+          <br/>
+          {isPasswordConfirm
+            ?
+            <div className={style.colorblue}>{passwordConfirmMessage}</div>
+            :
+            <div className={style.colorred}>{passwordConfirmMessage}</div>
+          }
         </div>
       </div>
       <div className={style.btnBox}>

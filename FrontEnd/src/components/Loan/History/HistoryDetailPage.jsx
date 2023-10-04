@@ -133,9 +133,9 @@ const HistoryDetailPage = (props) => {
             <div>
               <p className={style.div1Status}>
               {
-                status === 'O' ? '대출 중' :
-                status === 'D' ? <span style={{ color: 'red' }}>연체 중</span> :
-                status === 'C' ? <span style={{ color: 'blue' }}>상환 완료</span> :
+                status === 'O' ? <span style={{ color: 'blue' }}>대출중</span> :
+                status === 'D' ? <span style={{ color: 'red' }}>연체중</span> :
+                status === 'C' ? <span style={{ color: 'black' }}>상환완료</span> :
                 null
               }
               </p>
@@ -167,7 +167,7 @@ const HistoryDetailPage = (props) => {
               </div>
             </> }
           </div> */}
-          <div className={style.line} />
+          <div className={style.line2} />
           <div>
             <div className={style.div2}>
               <span>대출 실행일</span>
@@ -182,7 +182,7 @@ const HistoryDetailPage = (props) => {
               <span>{formatStartdate(finishdate)}</span>
             </div>
           </div>
-          <div className={style.line} />
+          <div className={style.line2} />
           <div>
             <div className={style.div2}>
               <span>대출 원금</span>
@@ -196,7 +196,7 @@ const HistoryDetailPage = (props) => {
               <span>대출 이자</span>
               <span>(+) {formatInterest(interest)} 원</span>
             </div>
-            <div className={style.line} />
+            <div className={style.line2} />
             <p></p>
             <div className={style.div2}>
               <span>대출 잔액</span>

@@ -1,4 +1,5 @@
 .main {
+  font-family: 'LINESeedKR-Rg';
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -21,7 +22,8 @@
 .totalCnt {
   margin-left: 80%;
   margin-bottom: 10px;
-  margin-right: 10px;
+  text-align: right;
+  /* margin-right: 10px; */
 }
 
 .lendDiv {
@@ -30,11 +32,12 @@
 
 .columnDiv {
   display: grid;
-  background-color: rgba(205, 205, 205, 0.2);
+  /* background-color: rgba(205, 205, 205, 0.2); */
+  background-color: rgba(128, 206, 190, 0.2);
   grid-template-columns: 3fr 1fr;
-  border: 1px solid #aaa;
-  border-radius: 30px;
-  margin-bottom: 5px;
+  border: 1px solid rgba(128, 206, 190, 0.5);
+  border-radius: 5px;
+  margin-bottom: .5rem;
   padding: 15px 15px 0px 15px;
 }
 
@@ -55,14 +58,16 @@
 
 .columnName {
   font-size: 20px;
-  margin-top: 15px;
+  margin-top: .1rem;
   margin-bottom: 5px;
 }
 
 .lendStatus {
+  width: 80px;
   display: flex;
   justify-content: center; 
   align-items: center;
+  text-align: center;
   font-size: 19px;
 }
 

@@ -1,4 +1,5 @@
 .main {
+  font-family: 'LINESeedKR-Rg';
   /* background-color: #80CEBE; */
   height: 100%;
   display: flex;
@@ -39,7 +40,7 @@
   align-items: center;
   font-size: 22px;
   font-weight: bold;
-  margin: 20px 0px 15px 15px;
+  margin: 30px 0px 10px 15px;
 }
 
 .statusBox {
@@ -55,16 +56,19 @@
 }
 
 .phone {
-  margin: 15px 0px 20px 15px;
+  color: #aeaeae;
+  margin: 10px 0px 20px 15px;
 }
 
 .modBtn {
+  font-family: 'LINESeedKR-Rg';
   width: 85%;
   height: 45px;
   font-size: 20px;
   border: 0px;
-  background-color: rgba(217, 217, 217, 0.35);
-  margin: 10px 0 20px 0;
+  /* background-color: rgba(217, 217, 217, 0.35); */
+  background-color: rgba(128, 206, 190, 0.2);;
+  margin: 10px 0 30px 0;
 }
 
 .modBtn:hover {
@@ -122,23 +126,23 @@
 
 .listDiv {
   display: grid;
-  grid-template-columns: 4fr 1fr;
-  width: 90%;
+  grid-template-columns: 6fr 1fr;
+  width: 85%;
   font-size: 20px;
 }
 
 .listDiv img {
-  display: flex;
-  justify-content: center; 
-  align-items: center;
-  width: 20px;
+  /* display: flex; */
+  /* justify-content: flex-end;  */
+  /* align-items: right; */
+  width: 13px;
   margin: auto;
 }
 
 .line {
-  width: 90%;
+  width: 85%;
   text-align: center;
-  border-bottom: 1px solid #aaa;
+  border-bottom: 1px solid #cbcbcb;
   line-height: 0.1em;
   margin: 5px 0 5px;
 }
