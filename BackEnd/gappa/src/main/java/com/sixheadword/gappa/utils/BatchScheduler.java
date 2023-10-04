@@ -67,9 +67,9 @@ public class BatchScheduler {
         }
     }
 
-    // 매일 오전 0시 실행 스케줄러 (휴먼계정 삭제)
+    // 매일 오전 0시 실행 스케줄러 (휴먼계정 삭제, status 값 변경)
     @Scheduled(cron = "0 0 0 * * *")
-    public void runInactiveUserJob() {
+    public void runInactiveUserAndChangeLoanStatusJob() {
 
         // JobParameter 설정
         Map<String, JobParameter> confMap = new HashMap<>();
@@ -80,6 +80,7 @@ public class BatchScheduler {
 
         try {
             jobLauncher.run(jobConfig.inactiveUserJob(), jobParameters);
+            jobLauncher.run(jobConfig.changeLoanStatusJob(), jobParameters);
         } catch (JobExecutionAlreadyRunningException
                 | JobInstanceAlreadyCompleteException
                 | JobParametersInvalidException
