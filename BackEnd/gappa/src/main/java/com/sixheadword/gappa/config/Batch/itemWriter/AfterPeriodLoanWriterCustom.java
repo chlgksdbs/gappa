@@ -2,6 +2,7 @@ package com.sixheadword.gappa.config.Batch.itemWriter;
 
 import com.sixheadword.gappa.account.Account;
 import com.sixheadword.gappa.account.repository.AccountRepository;
+import com.sixheadword.gappa.accountHistory.repository.AccountHistoryRepository;
 import com.sixheadword.gappa.config.Batch.dto.AfterPeriodLoanDto;
 import com.sixheadword.gappa.loan.Loan;
 import com.sixheadword.gappa.loan.repository.LoanRepository;
@@ -20,6 +21,7 @@ public class AfterPeriodLoanWriterCustom implements ItemWriter<AfterPeriodLoanDt
     private final LoanRepository loanRepository;
     private final LoanHistoryRepository loanHistoryRepository;
     private final AccountRepository accountRepository;
+    private final AccountHistoryRepository accountHistoryRepository;
 
     @Override
     public void write(List<? extends AfterPeriodLoanDto> items) throws Exception {
