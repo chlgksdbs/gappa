@@ -43,7 +43,7 @@ public class ItemReaderConfig {
             Account toUserRepAccount = accountRepository.findPrimaryByUserSeq(toUser.getUserSeq());
 
             // AfterPeriodLoanDto 추가
-            AfterPeriodLoanDto afterPeriodLoanDto = new AfterPeriodLoanDto(loan, loanHistory, fromUser, toUser, fromUserRepAccount, toUserRepAccount, null, null);
+            AfterPeriodLoanDto afterPeriodLoanDto = new AfterPeriodLoanDto(loan, loanHistory, fromUser, toUser, fromUserRepAccount, toUserRepAccount, null, null, null, null);
             afterPeriodLoanDtos.add(afterPeriodLoanDto);
         });
 

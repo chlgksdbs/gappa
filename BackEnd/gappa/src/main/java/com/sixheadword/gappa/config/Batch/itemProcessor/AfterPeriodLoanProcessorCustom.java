@@ -5,6 +5,7 @@ import com.sixheadword.gappa.config.Batch.dto.AfterPeriodLoanDto;
 import com.sixheadword.gappa.loanHistory.entity.LoanHistory;
 import com.sixheadword.gappa.user.User;
 import com.sixheadword.gappa.utils.SmsUtil;
+import com.sixheadword.gappa.webAlarm.WebAlarm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
@@ -51,10 +52,10 @@ public class AfterPeriodLoanProcessorCustom implements ItemProcessor<AfterPeriod
             afterPeriodLoanDto.getToUserAccount().setAddBalance(remainingAmount);
 
             fromUserAccountHistory.setNewBalance(afterPeriodLoanDto.getFromUserAccount().getBalance());
-            fromUserAccountHistory.setAccountType(false);
+            fromUserAccountHistory.setAccountType(true);
             fromUserAccountHistory.setAmount(remainingAmount);
             toUserAccountHistory.setNewBalance(afterPeriodLoanDto.getToUserAccount().getBalance());
-            toUserAccountHistory.setAccountType(true);
+            toUserAccountHistory.setAccountType(false);
             toUserAccountHistory.setAmount(remainingAmount);
 
             // (3) from_user, to_user AccountHistory를 DTO에 적재
@@ -83,13 +84,37 @@ public class AfterPeriodLoanProcessorCustom implements ItemProcessor<AfterPeriod
             afterPeriodLoanDto.getLoan().setRedemptionMoney(oldRedemptionMoney + remainingAmount);
 
             // (9) 강제 이체 건에 대한 SMS 문자 발송
-            String message = "[Gappa] "
+            String fromMessage = "[Gappa] "
                     + toUser.getName()
-                    + "님과의 대출 건이 연체됨에 따라 "
+                    + "님과의 대출 건이 연체되어 "
                     + remainingAmount
                     + "(원)이 강제 상환되었습니다. ";
-            smsUtil.sendSMS(fromUser.getPhone(), message, Optional.of(LocalDateTime.now().plusMinutes(270)));
+//            smsUtil.sendSMS(fromUser.getPhone(), message, Optional.of(LocalDateTime.now().plusMinutes(270)));
+            smsUtil.sendSMS(fromUser.getPhone(), fromMessage);
 
+            String toMessage = "[Gappa] "
+                    + fromUser.getName()
+                    + "님에게서 강제 상환되어 "
+                    + remainingAmount
+                    + "(원)이 입금되었습니다. ";
+            smsUtil.sendSMS(toUser.getPhone(), toMessage);
+            
+            // (10) 알림함에 내용 추가
+            String fromWebMessage =
+                    fromUser.getName()
+                    + "님에게 대출 금액 "
+                    + remainingAmount
+                    + "(원)이 입급 되었습니다.";
+            String toWebMessage =
+                    toUser.getName()
+                    + "님에게 대출 금액 "
+                    + remainingAmount
+                    + "(원)이 강제 상환 되었습니다.";
+
+            WebAlarm fromUserWebAlarm = new WebAlarm(fromUser, toUser, 'C', fromWebMessage); // (+)
+            WebAlarm toUserWebAlarm = new WebAlarm(toUser, fromUser, 'C', toWebMessage);     // (-)
+            afterPeriodLoanDto.setFromUserWebAlarm(fromUserWebAlarm);
+            afterPeriodLoanDto.setToUserWebAlarm(toUserWebAlarm);
         } else { // 잔액이 상환금보다 작은 경우, 날짜 계산 후 미납 SMS 문자 발송
             String message = "[Gappa] "
                     + toUser.getName()
@@ -98,8 +123,8 @@ public class AfterPeriodLoanProcessorCustom implements ItemProcessor<AfterPeriod
                     + "(원)이 "
                     + ChronoUnit.DAYS.between(afterPeriodLoanDto.getLoan().getRedemptionDate(), LocalDateTime.now())
                     + "일 연체되었습니다. ";
-            smsUtil.sendSMS(fromUser.getPhone(), message, Optional.of(LocalDateTime.now().plusMinutes(270)));
-
+//            smsUtil.sendSMS(fromUser.getPhone(), message, Optional.of(LocalDateTime.now().plusMinutes(270)));
+            smsUtil.sendSMS(fromUser.getPhone(), message);
             return null;
         }
 
