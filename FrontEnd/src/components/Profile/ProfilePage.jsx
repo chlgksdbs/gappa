@@ -138,7 +138,7 @@ const ProfilePage = () => {
           <p className={style.phone}>{phone}</p>
         </div>
       </div>
-      <p style={{width: '85%', fontWeight: 'bold', marginBottom: '30px'}}>신뢰도</p>
+      <p style={{width: '85%', fontSize:'18px', fontWeight: 'bold', marginBottom: '5px'}}>신뢰도</p>
       <div className={style.reliabilityTotalGauge}>
         <div className={style.reliabilityGauge} style={{ width: `${reliability}%` }}>
           <div className={style.gaugeContent}>
