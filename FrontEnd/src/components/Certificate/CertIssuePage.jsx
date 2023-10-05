@@ -275,7 +275,7 @@ const Step2 = ( props ) => {
         <div>휴대폰 번호</div>
         <div className={style.phoneNum}>
           <div className={style.phoneNumInput}>{phoneIsValid()}</div>
-          <button onClick={phoneCheck} className={style.formbtn}>인증번호 발송</button>
+          <div onClick={phoneCheck} className={style.formbtn}>인증번호 발송</div>
         </div>
       </div>
       {
@@ -287,7 +287,7 @@ const Step2 = ( props ) => {
               ?
               <div className={style.phoneNum}>
                 <div className={style.phoneNumInput}><input type="number" value={phoneCheckNumber} onChange={onChangePhoneCheckNumber} className={style.forminput} /></div>
-                <button onClick={phoneCheckNumberConfirm} className={style.formbtn}>인증번호 확인</button>
+                <div onClick={phoneCheckNumberConfirm} className={style.formbtn}>인증번호 확인</div>
               </div>
               :
               null
