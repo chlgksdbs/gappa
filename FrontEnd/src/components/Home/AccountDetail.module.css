@@ -5,52 +5,86 @@
   align-items: center;
 }
 
-.header {
-  margin-top: 10px;
-  display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
-  align-items: center;
+.info {
+  width: 80%;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  margin: 1rem 0;
+}
+
+.bank {
+  font-family: 'LINESeedKR-Rg';
+  text-align: center;
   width: 100%;
+  font-size: 16px;
 }
 
-.header img{
-  margin-left: 20px;
-}
-
-.title {
+.money {
+  font-family: 'LINESeedKR-Bd';
   text-align: center;
   width: 100%;
   font-size: 22px;
-  font-weight: bold;
-}
-
-.info {
-  background-color: #f5f5f5;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 20px;
 }
 
 .filter {
-  margin-bottom: 10px;
-}
-
-.filter label {
-  font-weight: bold;
+  width: 80%;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+  padding: .5rem 0;
+  border-bottom: 1px solid #eaeaea;
 }
 
 .filter select {
   padding: 5px;
   border-radius: 5px;
+  border: none;
+  font-family: 'LINESeedKR-Rg';
+  font-size: 15px;
+}
+
+.transactionContainer {
+  width: 80%;
+  overflow-y: scroll;
+  font-family: 'LINESeedKR-Rg';
 }
 
 .transactionBox {
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 5px;
+  width: 100%;
+  border-bottom: 1px solid #eaeaea;
+  margin-top: 10px;
   background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+.date {
+  font-size: 12px;
+  margin-bottom: 1vh;
+}
+
+.detailBox {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: row;
+}
+
+.name {
+  font-family: 'LINESeedKR-Rg';
+  width: 40%;
+  font-size: 17px;
+}
+
+.tranMoney {
+  color: #5c5c5c;
+  width: 60%;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-direction: column;
+  margin-bottom: 1vh;
 }
 
 .transactionType {
@@ -59,9 +93,13 @@
 }
 
 .transactionAmount {
-  color: #009900; /* 초록색 입금 금액 */
+  font-family: 'LINESeedKR-Rg';
+  color: rgb(0, 94, 161); /* 초록색 입금 금액 */
+  font-size: 20px;
+  margin-bottom: 1vh;
 }
 
 .transactionAmount.negative {
-  color: #ff0000; /* 빨간색 출금 금액 */
+  color: rgb(238, 48, 60); /* 빨간색 출금 금액 */
+  margin-bottom: 1vh;
 }

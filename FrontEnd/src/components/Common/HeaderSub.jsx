@@ -8,15 +8,18 @@ const HeaderSub = ( props ) => {
   let title = props.title;
   
   const headerStyle = {
-    marginTop: '10px',
+    height: '7vh',
+    width: '100%',
     display: 'grid',
     gridTemplateColumns: '1fr 3fr 1fr',
     alignItems: 'center',
-    width: '100%',
+    marginTop: '3%',
+    marginBottom: '3%',
   };
 
   const imgStyle = {
-    marginLeft: '20px',
+    marginLeft: '15px',
+    height: '40px'
   };
 
   const titleStyle = {
@@ -24,6 +27,7 @@ const HeaderSub = ( props ) => {
     width: '100%',
     fontSize: '22px',
     fontWeight: 'bold',
+    margin: '5px 0 0 0',
   };
 
   return (

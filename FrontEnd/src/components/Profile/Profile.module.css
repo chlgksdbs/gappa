@@ -1,21 +1,10 @@
 .main {
+  font-family: 'LINESeedKR-Rg';
   /* background-color: #80CEBE; */
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.header {
-  margin-top: 10px;
-  display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
-  align-items: center;
-  width: 100%;
-}
-
-.header img{
-  margin-left: 20px;
 }
 
 .title {
@@ -23,13 +12,14 @@
   width: 100%;
   font-size: 22px;
   font-weight: bold;
+  margin: 0;
 }
 
 .profile {
   display: grid;
   grid-template-columns: 1fr 2.5fr;
   width: 85%;
-  margin: 20px 0px 20px 0px;
+  margin: 10px 0px 10px 0px;
 }
 
 .profileImg {
@@ -45,22 +35,40 @@
 }
 
 .name {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   font-size: 22px;
   font-weight: bold;
-  margin: 20px 0px 15px 15px;
+  margin: 30px 0px 10px 15px;
+}
+
+.statusBox {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  width: 85px;
+  height: 30px;
+  font-size: 18px;
+  border-radius: 15px;
+  box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.2);
 }
 
 .phone {
-  margin: 15px 0px 20px 15px;
+  color: #aeaeae;
+  margin: 10px 0px 20px 15px;
 }
 
 .modBtn {
+  font-family: 'LINESeedKR-Rg';
   width: 85%;
   height: 45px;
   font-size: 20px;
   border: 0px;
-  background-color: rgba(217, 217, 217, 0.35);
-  margin: 10px 0 20px 0;
+  /* background-color: rgba(217, 217, 217, 0.35); */
+  background-color: rgba(128, 206, 190, 0.2);;
+  margin: 10px 0 30px 0;
 }
 
 .modBtn:hover {
@@ -116,57 +124,27 @@
   font-weight: bold; /* 굵은 글꼴 설정 */
 }
 
-.borrowList {
+.listDiv {
   display: grid;
-  grid-template-columns: 4fr 1fr;
-  width: 90%;
+  grid-template-columns: 6fr 1fr;
+  width: 85%;
   font-size: 20px;
 }
 
-.borrowList img {
-  display: flex;
-  justify-content: center; 
-  align-items: center;
-  width: 20px;
-  margin: auto;
-}
-
-.lendList {
-  display: grid;
-  grid-template-columns: 4fr 1fr;
-  width: 90%;
-  font-size: 20px;
-}
-
-.lendList img {
-  display: flex;
-  justify-content: center; 
-  align-items: center;
-  width: 20px;
-  margin: auto;
-}
-
-.changeAccount {
-  display: grid;
-  grid-template-columns: 4fr 1fr;
-  width: 90%;
-  font-size: 20px;
-}
-
-.changeAccount img {
-  display: flex;
-  justify-content: center; 
-  align-items: center;
-  width: 20px;
+.listDiv img {
+  /* display: flex; */
+  /* justify-content: flex-end;  */
+  /* align-items: right; */
+  width: 13px;
   margin: auto;
 }
 
 .line {
-  width: 90%;
+  width: 85%;
   text-align: center;
-  border-bottom: 1px solid #aaa;
+  border-bottom: 1px solid #cbcbcb;
   line-height: 0.1em;
-  margin: 10px 0 10px;
+  margin: 5px 0 5px;
 }
 
 .profileCnt {

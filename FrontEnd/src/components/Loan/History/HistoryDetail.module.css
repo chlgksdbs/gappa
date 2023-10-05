@@ -1,34 +1,56 @@
 .main {
+  font-family: 'LINESeedKR-Rg';
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.detailDiv{
-  background-color: rgba(205, 205, 205, 0.2);
+.body {
   width: 100%;
-  height: 100%;
+  max-height: 82vh;
+  /* min-height: 70vh; */
+  overflow-y: scroll; /* 스크롤이 필요한 경우에만 스크롤 바 표시 */
+  scrollbar-width: none; /* Firefox에서 스크롤 바 숨기기 */
+  -ms-overflow-style: none; /* Internet Explorer에서 스크롤 바 숨기기 */
+}
+.body::-webkit-scrollbar {
+  width: 0; /* Webkit 기반 브라우저(Chrome, Safari)에서 스크롤 바 숨기기 */
+  display: none; /* Safari에서 스크롤 바 숨기기 */
+}
+
+.detailDiv{
+  /* background-color: rgba(205, 205, 205, 0.2); */
+  width: 100%;
+  padding-bottom: 10px;
 }
 
 .line {
   width: 100%;
   text-align: center;
-  border-bottom: 1px solid #aaa;
+  border-bottom: 1px solid #ddd;
   line-height: 0.1em;
   margin: 0;
 }
 
+.line2 {
+  width: 90%;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  margin: .5rem auto;
+}
+
+
 .div1 {
   display: grid;
-  grid-template-columns: 2.8fr 1fr;
+  grid-template-columns: 2fr 1.2fr;
   padding-left: 20px;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
 }
 
 .div1Date {
   color: #aaa;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .imgDiv {
@@ -43,26 +65,84 @@
 }
 
 .div1Name {
-  font-size: 25px;
+  font-family: 'LINESeedKR-Bd';
+  font-size: 23px;
   margin: 15px 0 12px 0;
-  padding-left: 5px;
+  padding-left: 3px;
 }
 
 .div1Balance {
-  font-size: 30px;
-  margin: 15px 0 0 5px;
+  font-size: 25px;
+  margin: 0 15px 10px 0;
 }
 
 .div1Status {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 25px;
+  justify-content: end;
+  margin-right: 25px;
+  margin-top: 34px;
+  font-size: 20px;
 }
 
 .div2 {
+  width: 90%;
   display: flex;
   justify-content: space-between;
-  padding: 12px 10px 12px 20px;
+  padding: .7rem 1.2rem;
   font-size: 20px;
+}
+
+.btnStyle1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 95%;
+  height: 45px;
+  background-color: rgba(128, 206, 190, 0.3);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+  margin: 2rem auto;
+  border: none;
+}
+
+.btnDiv {
+  display: flex;
+  justify-content: space-around;
+  width: 99%;
+}
+
+.btnDiv .btnStyle1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 95%;
+  height: 45px;
+  background-color: rgba(128, 206, 190, 0.3);
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+  margin: 2rem auto;
+  border: none;
+}
+
+.btnDiv .btnStyle2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 45px;
+  background-color: rgba(128, 206, 190, 0.3);
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+  margin: 2rem auto;
+  border: none;
+  margin-left: 10px;
 }

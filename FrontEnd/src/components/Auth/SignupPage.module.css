@@ -1,7 +1,9 @@
 .signuppage{
+  font-family: 'LINESeedKR-Rg';
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100vh;
 }
 
 .ex{
@@ -13,6 +15,7 @@
   width: 25px;
 }
 .ex span{
+  font-family: 'LINESeedKR-Bd';
   font-size: 20px;
 }
 
@@ -21,10 +24,19 @@
   flex-direction: column;
   width: 90%;
   font-size: 13px;
+  height: 60vh;
+  overflow-y: scroll; /* 스크롤이 필요한 경우에만 스크롤 바 표시 */
+  scrollbar-width: none; /* Firefox에서 스크롤 바 숨기기 */
+  -ms-overflow-style: none; /* Internet Explorer에서 스크롤 바 숨기기 */
+}
+.form::-webkit-scrollbar {
+  width: 0; /* Webkit 기반 브라우저(Chrome, Safari)에서 스크롤 바 숨기기 */
+  display: none; /* Safari에서 스크롤 바 숨기기 */
 }
 
 .form span{
-  margin-top: 2vh;
+  font-size: 16px;
+  margin-top: 1vh;
 }
 
 .adresstop{
@@ -34,6 +46,7 @@
   border-width: 0 0 1px;
   border-color: lightgray;
   width: 10;
+  font-size: 15px;
 }
 
 .input:focus{
@@ -64,22 +77,43 @@
 }
 
 .formbtn{
-  background-color: #B3BAF5;
+  background-color: #80CEBE;
   border: 0;
-  border-radius: 4px;
-  margin-bottom: 1px;
-  font-size: 8px;
+  margin-left: .5rem;
+  padding: .5rem 0;
+  border-radius: 2px;
+  font-size: 12px;
+}
+
+.frombtnx{
+  background-color: lightgray;
+  border: 0;
+  padding: .5rem 0;
+  border-radius: 2px;
+  font-size: 12px;
 }
 
 .btn{
-  width: 70%;
+  width: 90%;
   height: 50px;
   border:0;
-  border-radius: 10px;
+  border-radius: 2px;
   background-color: #80CEBE;
   color:white;
-  margin-top: 5vh;
-  margin-bottom: 10vh;
+  margin-top: 8vh;
+  /* margin-bottom: 10vh; */
+}
+
+.notbtn{
+  width: 90%;
+  height: 50px;
+  border:0;
+  border-radius: 2px;
+  background-color: lightgray;
+  color:white;
+  font-size: 20px;
+  margin-top: 8vh;
+  /* margin-bottom: 7vh; */
 }
 
 .address{
@@ -108,4 +142,82 @@
 
 .colorblue{
   color: blue;
+}
+
+.phonecheckform{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* margin-top: 2vh; */
+  /* margin-bottom: 1vh; */
+}
+
+.phonecheckform span{
+  /* margin-bottom: 1vh; */
+}
+
+.phoneforms{
+  width: 70%;
+  display: grid;
+  grid-template-columns: 100fr 1fr;
+}
+
+.inputs{
+  border-width: 0 0 1px;
+  border-color: lightgray;
+  width: 5;
+}
+
+.inputs:focus{
+  outline: none;
+}
+
+
+.keyboard{
+  background-color: silver;
+  width: 100vw;
+  position: fixed;
+  bottom: 0;
+  height: 33vh;
+  display: flex;
+  
+}
+
+.keyboardsetitem{
+  width: 8.8vw;
+  height: 6vh;
+  background-color: silver;
+  border: 0.1px solid silver;
+  padding: 0;
+  margin-left: 0.25vw;
+  /* margin: 0; */
+}
+
+.keyboardsetitem:active{
+  border: 1px solid green;
+  background-color: green;
+}
+
+.keyboardsetitem img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+
+.keyboardsetitemlast{
+  width: 24vw;
+  height: 7vh;
+  border: 0.1px solid silver;
+  padding: 0;
+  margin-left: 0.2vw;
+}
+
+.keyboardsetitemlast:active{
+  border: 1px solid black;
+}
+.keyboardsetitemlast img{
+  width: 100%;
+  height: 100%;
 }
