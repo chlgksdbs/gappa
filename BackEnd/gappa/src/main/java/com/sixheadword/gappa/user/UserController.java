@@ -55,12 +55,8 @@ public class UserController {
 
     // API 7. 전화번호 중복확인
     @PostMapping("/checkphone")
-    public boolean checkPhoneDuplication(@RequestBody CheckPhoneRequestDto checkPhoneRequestDto) {
-        try{
-            return userService.checkIdDuplication(checkPhoneRequestDto);
-        }catch(IllegalArgumentException e){
-            return false;
-        }
+    public ResponseEntity<?> checkPhoneDuplication(@RequestBody CheckPhoneRequestDto checkPhoneRequestDto) {
+        return ResponseEntity.ok(userService.checkPhoneDuplication(checkPhoneRequestDto));
     }
 
     // API 8. 간편 비밀번호 설정
