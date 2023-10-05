@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import HeaderSub from '../Common/HeaderSub';
 import style from './PinPassword.module.css';
 import { customAxios } from '../api/customAxios';
+import toast, { Toaster } from 'react-hot-toast';
 
 const PinPasswordVerify = ( props ) => {
 
@@ -20,9 +21,14 @@ const PinPasswordVerify = ( props ) => {
     };
     customAxios.post('/users/pin/validate', body)
     .then((res)=>{
-      if (props.result) {
-        props.result(true);
-      }
+      toast.success("인증성공", {
+        duration: 1000,
+      });
+      setTimeout(() => {
+        if (props.result) {
+          props.result(true);
+        }
+      }, 1000);
     })
     .catch((res)=>{
       setMessage("잘못된 비밀번호 입니다.")
@@ -56,6 +62,7 @@ const PinPasswordVerify = ( props ) => {
   return (
     <div className={style.pinpassword}>
       <HeaderSub title={"간편 비밀번호 인증"} />
+      <Toaster />
       <span>비밀번호를 입력하세요.</span>
       <span>숫자 6자리</span>
       <div className={style.checkmessage}>
