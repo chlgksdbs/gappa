@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +33,13 @@ public class LoanHistoryService {
         Loan loan = loanRepository.findById(loanSeq).orElse(null);
         Long lateDate = 0L;
         // 연체일 계산
-        if(LocalDateTime.now().isAfter(loan.getRedemptionDate())){
-            lateDate = ChronoUnit.DAYS.between(loan.getRedemptionDate(), LocalDateTime.now());
+        if(LocalDateTime.now().atZone(ZoneId.of("Asia/Seoul")).toLocalDateTime().isAfter(loan.getRedemptionDate())){
+            lateDate = ChronoUnit.DAYS.between(loan.getRedemptionDate(), LocalDateTime.now().atZone(ZoneId.of("Asia/Seoul")).toLocalDateTime());
+        }
+        Long interest = 0L;
+        // 이자 계산
+        if(lateDate != 0){
+            interest = loan.getInterest() * lateDate;
         }
         // type = 0 : 대출
         if((loan != null) && (Long.parseLong(authentication.getName()) == loan.getFromUser().getUserSeq())){
@@ -42,14 +48,15 @@ public class LoanHistoryService {
                     .toUserName(loan.getToUser().getName())
                     .fromUserName(loan.getFromUser().getName())
                     .toUserSeq(loan.getToUser().getUserSeq())
+                    .fromUserSeq(loan.getFromUser().getUserSeq())
                     .profileImg(loan.getToUser().getProfileImg())
                     .startDate(loan.getStartDate())
                     .redemptionDate(loan.getRedemptionDate())
                     .expiredDate(loan.getExpiredDate())
                     .lateDate(lateDate)
                     .principal(loan.getPrincipal())
-                    .balance(loan.getPrincipal() - loan.getRedemptionMoney() + loan.getInterest())
-                    .interest(loan.getInterest())
+                    .balance(loan.getPrincipal() - loan.getRedemptionMoney() + interest)
+                    .interest(interest)
                     .redemptionMoney(loan.getRedemptionMoney())
                     .status(loan.getStatus())
                     .isGappa('X')
@@ -61,14 +68,15 @@ public class LoanHistoryService {
                     .toUserName(loan.getToUser().getName())
                     .fromUserName(loan.getFromUser().getName())
                     .toUserSeq(loan.getToUser().getUserSeq())
+                    .fromUserSeq(loan.getFromUser().getUserSeq())
                     .profileImg(loan.getFromUser().getProfileImg())
                     .startDate(loan.getStartDate())
                     .redemptionDate(loan.getRedemptionDate())
                     .expiredDate(loan.getExpiredDate())
                     .lateDate(lateDate)
                     .principal(loan.getPrincipal())
-                    .balance(loan.getPrincipal() - loan.getRedemptionMoney() + loan.getInterest())
-                    .interest(loan.getInterest())
+                    .balance(loan.getPrincipal() - loan.getRedemptionMoney() + interest)
+                    .interest(interest)
                     .redemptionMoney(loan.getRedemptionMoney())
                     .status(loan.getStatus())
                     .isGappa('O')

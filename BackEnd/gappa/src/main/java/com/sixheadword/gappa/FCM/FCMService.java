@@ -32,6 +32,7 @@ public class FCMService {
         try {
             User user = userRepository.findById(member_id).orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
             redisUtil.save(user.getPhone(), fcmTokenDto.getToken());
+            pushNotification(member_id, "Gappa 푸시알림을 허용했어요!");
             resultMap.put("message", "요청 성공");
             status = HttpStatus.OK;
         } catch (Exception e) {
@@ -74,4 +75,20 @@ public class FCMService {
         return new ResponseEntity<>(resultMap, status);
     }
 
+    // FireBase 토큰 redis에서 삭제
+    public ResponseEntity<?> deleteToken(long member_id) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+        try {
+            User user = userRepository.findById(member_id).orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
+            redisUtil.deleteData(user.getPhone());
+            resultMap.put("message", "요청 성공");
+            status = HttpStatus.OK;
+        } catch (Exception e) {
+            resultMap.put("message", "요청 실패");
+            resultMap.put("exception", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<>(resultMap, status);
+    }
 }

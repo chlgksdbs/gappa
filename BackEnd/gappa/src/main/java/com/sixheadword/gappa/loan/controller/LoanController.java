@@ -34,7 +34,7 @@ public class LoanController {
         try{
             return ResponseEntity.ok(loanService.getLoanRequest(loanSeq, authentication));
         }catch (IllegalArgumentException e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("대출 신청 조회 실패");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(false);
         }
     }
 

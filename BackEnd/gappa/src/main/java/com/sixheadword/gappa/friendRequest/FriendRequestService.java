@@ -43,7 +43,7 @@ public class FriendRequestService {
             friendRequestRepository.save(friendRequest);
             //알림 만드는 로직
             String alarmContent = from_user.getName() + "님이 친구 신청을 했어요!";
-            webAlarmRepository.save(new WebAlarm(to_user, from_user, 'F', alarmContent));
+            webAlarmRepository.save(new WebAlarm(to_user, from_user, 'Q', alarmContent));
             //푸시 알림 보내기
             fcmService.pushNotification(to_user.getUserSeq(), alarmContent);
             status = HttpStatus.OK;
@@ -86,7 +86,7 @@ public class FriendRequestService {
             } else if (res.equals("F")) {
                 friendRequest.updateState('R');
                 // 알림 생성
-                alarmContent = from_user.getName() + "님이 친구요청을 거절했어요";
+                alarmContent = to_user.getName() + "님이 친구요청을 거절했어요";
                 webAlarmRepository.save(new WebAlarm(from_user, to_user, 'F', alarmContent));
                 // push 알림
                 fcmService.pushNotification(from_user.getUserSeq(), alarmContent);
