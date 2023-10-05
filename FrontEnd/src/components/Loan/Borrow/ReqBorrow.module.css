@@ -1,4 +1,5 @@
 .body {
+  font-family: 'LINESeedKR-Rg';
   height: 100vh;
   justify-content: flex-start;
   align-items: center;
@@ -26,21 +27,24 @@
 }
 
 .explanation {
-  margin: 3vh 0 3vh 0;
-  width: 80%;
+  margin-top: 7vh;
+  width: 100%;
   font-size: 20px;
+  text-align: center;
 }
 
 .passwordBox {
   height: 10%;
   width: 80%;
-  margin-bottom: 3vh;
+  margin: 3vh auto;
 }
 
 .input{
   border-width: 0 0 1px;
   border-color: lightgray;
   width: 100%;
+  margin-top: 3vh;
+  align-items: center;
 }
 
 .input:focus{
@@ -54,18 +58,20 @@
   justify-content: center;
   align-items: center;
   flex-direction: row;
+  margin: 0 auto;
 }
 
 .btnBox div {
   background-color: #AFEBDF;
-  font-size: 24px;
+  font-size: 23px;
   display: flex;
   justify-content: center;
   align-items: center;
   border: none;
   border-radius: 5px;
-  width: 40%;
-  height: 80%;
+  width: 30%;
+  height: 75%;
+  margin: auto;
 }
 
 .messageBox {
@@ -78,13 +84,12 @@
 }
 
 .message {
-  font-family: 'TheJamsil3Regular';
   font-size: 20px;
   margin-bottom: 1vh;
 }
 
 .bold {
-  font-family: 'TheJamsil5Bold';
+  font-family: 'LINESeedKR-Bd';
   font-size: 22px;
 }
 
@@ -94,6 +99,8 @@
 }
 
 .title {
+  font-family: 'LINESeedKR-Bd';
+  font-size: 22px;
   color: #a1d9ce;
   margin: 5vh 0 2vh 0;
 }
@@ -111,7 +118,6 @@
 
 .detailValue {
   font-size: 20px;
-  font-family: 'TheJamsil3Regular';
 }
 
 .inputDiv {
@@ -139,7 +145,7 @@
   justify-content: center;
   align-items: center;
   font-size: 25px;
-  background: #988dde;
+  background: #80CEBE;
   margin-bottom: 20px;
 }
 
@@ -150,7 +156,6 @@
   margin: auto;
   width: 80%;
   height: 75%;
-
   box-sizing: border-box;
   background-color: white;
   border: solid 3px black;

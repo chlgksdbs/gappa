@@ -1,4 +1,5 @@
 .main {
+  font-family: 'LINESeedKR-Rg';
   height: 100vh;
   justify-content: flex-start;
   align-items: center;
@@ -20,6 +21,7 @@
 }
 
 .title {
+  font-family: 'LINESeedKR-Bd';
   font-size: 24px;
   margin: 10px 0 15px 15px;
 }
@@ -27,9 +29,9 @@
 .columnDiv {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
-  background-color: rgba(205, 205, 205, 0.2);
+  background-color: rgba(128, 206, 190, .2);
   align-items: center;
-  border: 1px solid #aaa;
+  border: 1px solid rgba(128, 206, 190, .2);
   margin-bottom: 5px;
   padding: 10px 15px 5px 15px;
 }
@@ -71,6 +73,7 @@
 
 .repaymentBtnDiv {
   display: flex;
+  justify-content: space-around;
   gap: 15px;
 }
 
@@ -78,8 +81,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 65px;
-  height: 45px;
+  width: 70px;
+  height: 40px;
   font-size: 15px;
   color: gray;
   border: solid 1px #aaa;

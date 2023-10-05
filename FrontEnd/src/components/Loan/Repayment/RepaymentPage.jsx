@@ -144,11 +144,11 @@ const RepaymentPage = () => {
         </div>
         <div className={style.repayment}>
           <div className={style.mainAccount}>
-            <div>내 대표계좌</div>
+            <div style={{fontFamily: 'LINESeedKR-Bd'}}>내 대표계좌</div>
             <p className={style.mainAccountDiv}>{bank} | 잔액 {formatBalance(money)} 원</p>
           </div>
           <div className={style.repaymentDiv}>
-            <div>
+            <div style={{fontFamily: 'LINESeedKR-Bd'}}>
               상환 금액
             </div>
             <div className={style.repaymentBtnDiv}>

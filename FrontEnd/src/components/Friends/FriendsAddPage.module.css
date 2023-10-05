@@ -49,6 +49,7 @@
 
 .inputBtn button{
   background-color: #AFEBDF;
+  font-family: 'LINESeedKR-Bd';
   font-size: 18px;
   padding: 10px 20px;
   border: none;
@@ -106,7 +107,7 @@
 }
 
 .infoNumber {
-  font-family: 'TheJamsil3Regular';
+  font-family: 'LINESeedKR-Bd';
   font-size: 16px;
 }
 
@@ -122,6 +123,7 @@
 
 .resultBtn button{
   background-color: #AFEBDF;
+  font-family: 'LINESeedKR-Bd';
   font-size: 18px;
   padding: 10px 20px;
   border: none;

@@ -212,7 +212,7 @@ const HistoryDetailPage = (props) => {
                 <div className={style.detailBox}>{loan.amount} 원</div>
               </div>
             ))}
-            <div style={{display: "flex"}}>
+            <div style={{display: "flex", justifyContent:'space-around'}}>
               {!isGappa ? ( status !== 'C' ? (
                 <div className={style.btnDiv}>
                   <button className={style.btnStyle1} onClick={goToCertificate}>차용증 생성</button>
