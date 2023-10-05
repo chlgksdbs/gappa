@@ -14,6 +14,17 @@ const Header = ( props ) => {
   const [profileImg, setProfileImg] = useState(""); // 프로필이미지
   const [name, setName] = useState(""); // 이름
   const [phone, setPhone] = useState(""); // 핸드폰번호
+  const [notis, setNotis] = useState([]);
+  const [condition, setCondition] = useState(true);
+
+  useEffect(() => {
+    for (var i = 0 ; i < notis.length ; i++){
+      if(notis[i].read === false) {
+        setCondition(false);
+        break;
+      }
+    }
+  }, [notis]);
 
   useEffect(() => {
     // 토큰 가져오기
@@ -45,6 +56,23 @@ const Header = ( props ) => {
       // 토큰이 없는 경우 처리
     }
   }, []);
+
+  useEffect(() => {
+    getNoti();
+  }, []);
+
+  const getNoti = () => {
+    customAxios.get('/users/alarm')
+    .then((res) => {
+      const sortedData = res.data.data.sort((a, b) => {
+        return new Date(b.regDate) - new Date(a.regDate);
+      });
+      setNotis(sortedData);
+    })
+    .catch((res) => {
+    });
+  };
+
 
   // 핸드폰 번호 포맷
   const formatPhoneNumber = (phoneNumber) => {
@@ -79,7 +107,11 @@ const Header = ( props ) => {
         <p className={style.title}>{title}</p>
       </div>
       <div className="notIcon">
-        <img src="/images/Notifications.png" alt="" className={style.notIcon} onClick={() => { navigate("/notification") }}/>
+        { condition ? (
+          <img src="/images/Notifications.png" alt="" className={style.notIcon} onClick={() => { navigate("/notification") }}/>
+        ) : (
+          <img src="/images/NotificationsRed.png" alt="" className={style.notIcon} onClick={() => { navigate("/notification") }}/>
+        )}
       </div>
       <div className={`${style.sidebar} ${isSidebarOpen ? style.open : ''}`}>
         <div className={style.sidebarLogo} onClick={() => { navigate("/profile") }}>
