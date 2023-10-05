@@ -34,11 +34,21 @@
   width: 90%;
 }
 
-.forminput{
+.phoneNum {
+  display: flex;
+  width : 100%;
+  flex-direction: row;
+}
+
+.phoneNumInput{
   width: 60%;
+}
+
+.forminput{
+  width: 100%;
   border:none;
   border-bottom: 2px solid #ccc;
-  font-size: 20px;
+  font-size: 22px;
 }
 
 .forminput:focus {
@@ -46,18 +56,23 @@
 }
 
 .formbtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
   font-family: "LINESeedKR-Br";
-  font-size: 16px;
-  border-radius: 2px;
-  border: 0;
+  font-size: 17px;
+  border-radius: 5px;
+  /* border: 2px solid #ccc; */
   background-color: #AFEBDF;
   padding: .3rem;
-  margin-left: .5rem;
+  margin-left: 1rem;
 }
 
 .phonecheckform {
+  font-size: 18px;
   height: 10%;
-  margin: 5vh 0 5vh 0;
+  margin: 2vh 0;
   width: 90%;
 }
 
@@ -194,7 +209,7 @@
 
 .passwordBox {
   width: 90%;
-  height: 40%;
+  height: 35%;
 }
 
 .pwform {
@@ -204,10 +219,9 @@
 }
 
 .pwtitle {
+  font-size: 20px;
   margin-top: 3vh;
 }
-
-
 
 .pwinput {
   border: none;

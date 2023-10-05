@@ -4,7 +4,6 @@ import { Routes, Route } from "react-router-dom";
 
 import LandingPage from './components/Auth/LandingPage';
 import HomePage from './components/Home/HomePage';
-import BorrowPage from './components/Loan/Borrow/BorrowPage';
 import LendPage from './components/Loan/Lend/LendPage';
 import FriendsPage from './components/Friends/FriendsPage';
 import ProfilePage from './components/Profile/ProfilePage';
@@ -46,6 +45,7 @@ import FindPasswordChange from './components/Auth/FindPasswordChange';
 import MyCertificatePage from './components/Certificate/MyCertificatePage';
 import CertificatePage from './components/Certificate/CertificatePage';
 import CertIssuePage from './components/Certificate/CertIssuePage';
+import GuidePage from './components/Sidebar/GuidePage';
 
 // import LendRefusePage
 
@@ -55,9 +55,7 @@ function App() {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty("--vh", `${vh}px`);
   }
-
-
-
+  
   const [isAuthenticated, setIsAuthenticated] = useState(false);  // useEffect로 실행될 때마다 작동 되게
   useEffect(() => {
     setScreenSize();
@@ -98,10 +96,9 @@ function App() {
           :
           <>
             <Route path="/" element={<HomePage />} />
-            <Route path="/borrow" element={<BorrowPage />} />
             <Route path="/lend" element={<LendPage />} />
+            <Route path="/lend/list" element={<LendListPage />}/>
             <Route path="/lend/check" element={<LendCheckPage />} />
-            {/* <Route path="/lend/refuse" element={<LendRefusePage />} /> */}
             <Route path="/lend/send" element={<LendSendPage />} />
             <Route path="/lend/complete" element={<LendCompletePage />} />
             <Route path="/historyborrow" element={<HistoryBorrowPage />} />
@@ -123,30 +120,7 @@ function App() {
             <Route path="/reqchat" element={<ReqChatPage />} />
             <Route path="/reqfriends" element={<ReqFriendsPage />} />
             <Route path="/reqBorrow" element={<ReqBorrowPage />} />
-            <Route path="/" element={<HomePage />}/>
-            <Route path="/borrow" element={<BorrowPage />}/>
-            <Route path="/lend" element={<LendPage />}/>
-            <Route path="/lend/list" element={<LendListPage />}/>
-            <Route path="/lend/check" element={<LendCheckPage />}/>
-            <Route path="/lend/send" element={<LendSendPage />}/>
-            <Route path="/lend/complete" element={<LendCompletePage />}/>
-            <Route path="/historyborrow" element={<HistoryBorrowPage />}/>
-            <Route path="/historylend" element={<HistoryLendPage />}/>
-            <Route path="/historydetail" element={<HistoryDetailPage />}/>
-            <Route path="/friends" element={<FriendsPage />}/>
-            <Route path="/friends/add" element={<FriendsAddPage />}/>
-            <Route path="/friends/req" element={<FriendsReqPage />}/>
-            <Route path="/profile" element={<ProfilePage />}/>
-            <Route path="/account" element={<AccountDetail />}/>
-            <Route path="/profile/edit" element={<ProfileEditPage />}/>
-            <Route path="/profile/accountedit" element={<MainAccountEditPage />}/>
-            <Route path="/notice" element={<NoticePage />}/>
-            <Route path="/qna" element={<QnAPage />}/>
-            <Route path="/customerservice" element={<CustomerServicePage />}/>
-            <Route path="/reqagreement" element={<ReqAgreementPage />}/>
-            <Route path="/reqchat" element={<ReqChatPage />}/>
-            <Route path="/reqfriends" element={<ReqFriendsPage />}/>
-            <Route path="/reqBorrow" element={<ReqBorrowPage />}/>
+            <Route path="/guide" element={<GuidePage />}/>
             <Route path="/bankbook" element={<BankBookPage />} />
             <Route path="/masterbankbook" element={<MasterBankBookPage />} />
             <Route path="/pinpassword" element={<PinPassword />} />

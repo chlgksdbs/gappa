@@ -4,6 +4,7 @@ import HeaderSub from '../../Common/HeaderSub';
 import { customAxios } from '../../api/customAxios';
 import { useLocation } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
+import PinPasswordVerify from '../../Auth/PinPasswordVerify';
 
 const RepaymentPage = () => {
   const location = useLocation();
@@ -17,6 +18,8 @@ const RepaymentPage = () => {
   const lateDate = data.lateDate;
   
   const [redemption, setRedemption] = useState(0);
+
+  const [showPin, setShowPin] = useState(false);
   
   const plus1Handler = (() => {
     setRedemption(balance);
@@ -36,6 +39,13 @@ const RepaymentPage = () => {
     const newRedemption = redemption + 10000;
     setRedemption(newRedemption > balance ? balance : newRedemption);
   };
+
+  const VerifyHandler = (status) => {
+    if(status === true){
+      setShowPin(false);
+      repayment();
+    }
+  }
 
   // const [accountSeq, setAccountSeq] = useState("");
   // const [account, setAccount] = useState("");
@@ -80,6 +90,10 @@ const RepaymentPage = () => {
   })
 
   const repaymentHandler = () => {
+    setShowPin(true);
+  }
+
+  const repayment = () => {
     const repaymentData = { 
       loanSeq: data.loanSeq,
       amount: redemption
@@ -104,7 +118,13 @@ const RepaymentPage = () => {
   }
 
   return (
-    <div className={style.main}>
+    <>
+      { showPin ? (
+        <div>
+          <PinPasswordVerify result={VerifyHandler}/>
+        </div>
+      ) : (
+      <div className={style.main}>
       <HeaderSub title={"대출 상환"}/>
       <div><Toaster /></div>
       <div className={style.body}>
@@ -150,6 +170,8 @@ const RepaymentPage = () => {
         </div>
       </div>
     </div>
+    )}
+  </>
   );
 };
 

@@ -88,6 +88,7 @@
   width: 90%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: .7rem 1.2rem;
   font-size: 20px;
 }
@@ -108,18 +109,65 @@
   border: none;
 }
 
-.btnStyle2 {
+.btnDiv {
+  display: flex;
+  justify-content: space-around;
+  width: 99%;
+}
+
+.btnDiv .btnStyle1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 120px;
-  height: 40px;
-  background-color: rgba(128, 206, 190, 0.5);
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-  border-radius: 15px;
+  width: 95%;
+  height: 45px;
+  background-color: rgba(128, 206, 190, 0.3);
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
   font-size: 18px;
   font-weight: bold;
-  color: white;
-  margin: 0 10px 0 auto;
+  color: rgb(0, 0, 0);
+  margin: 2rem auto;
   border: none;
+}
+
+.btnDiv .btnStyle2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 45px;
+  background-color: rgba(128, 206, 190, 0.3);
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+  margin: 2rem auto;
+  border: none;
+  margin-left: 10px;
+}
+
+.transactionBox {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  justify-content: center;
+  border-bottom: 1px solid #eaeaea;
+  margin-top: 10px;
+  background-color: #fff;
+}
+
+
+.date {
+  font-size: 15px;
+  margin-bottom: 1vh;
+  width: 40%;
+}
+
+.detailBox {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: row;
 }
