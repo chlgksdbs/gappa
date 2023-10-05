@@ -9,13 +9,15 @@
 
 .guide{
   display: inline;
-  width: 80%;
+  width: 90%;
   font-size: 20px;
   margin-bottom: .5rem;
+  margin-left: 0 ;
 }
 
 .inputdiv{
-  width: 80%;
+  width: 85%;
+  padding-right: 5%;
 }
 
 .input{
