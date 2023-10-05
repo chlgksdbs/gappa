@@ -91,7 +91,11 @@ const Header = ( props ) => {
         <div className={style.menus} onClick={() => { navigate("/customerservice") }} >고객센터</div>
         <div className={style.menus} onClick={() => { navigate("/qna") }} >자주묻는 질문</div>
         <hr />
-        <div className={style.push} >푸시알림 설정
+        <div className={style.push} >
+          <div className={style.push}>
+            <div>푸시알림 설정</div>
+            <img src="/images/QuestionMark.png" alt="" className={style.iconQ} onClick={() => { navigate("/guide") }} />
+          </div>
           <FCM />
         </div>
         <hr />

@@ -1,0 +1,32 @@
+.body {
+  height: 100vh;
+  justify-content: flex-start;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-size: 24px;
+}
+
+.pushguide {
+  width: 90%;
+  font-size: 18px;
+  overflow-y: scroll; /* 스크롤이 필요한 경우에만 스크롤 바 표시 */
+  scrollbar-width: none; /* Firefox에서 스크롤 바 숨기기 */
+  -ms-overflow-style: none; /* Internet Explorer에서 스크롤 바 숨기기 */
+}
+.pushguide::-webkit-scrollbar {
+  width: 0; /* Webkit 기반 브라우저(Chrome, Safari)에서 스크롤 바 숨기기 */
+  display: none; /* Safari에서 스크롤 바 숨기기 */
+}
+
+.sub {
+  margin-bottom: 1vh;
+}
+
+.guideImg {
+  width: 75%;
+}
+
+.blank {
+  height: 100px;
+}
