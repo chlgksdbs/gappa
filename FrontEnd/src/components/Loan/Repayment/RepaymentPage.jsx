@@ -40,6 +40,10 @@ const RepaymentPage = () => {
     setRedemption(newRedemption > balance ? balance : newRedemption);
   };
 
+  const resetHandler = () => {
+    setRedemption(0);
+  };
+
   const VerifyHandler = (status) => {
     if(status === true){
       setShowPin(false);
@@ -156,6 +160,7 @@ const RepaymentPage = () => {
               <div className={style.plusBtn} onClick={plus2Handler}>10만</div>
               <div className={style.plusBtn} onClick={plus3Handler}>5만</div>
               <div className={style.plusBtn} onClick={plus4Handler}>1만</div>
+              <div className={style.plusBtn} onClick={resetHandler}>초기화</div>
             </div>
             <div className={style.repaymentSpan}>
               <span>금액</span>
