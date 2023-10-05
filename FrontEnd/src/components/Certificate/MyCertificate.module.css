@@ -1,4 +1,5 @@
 .body {
+  font-family: 'LINESeedKR-Rg';
   height: 100vh;
   justify-content: flex-start;
   align-items: center;
@@ -57,7 +58,8 @@
 }
 
 .detail {
-  font-size: 22px;
+  color: #bcbcbc;
+  font-size: 20px;
 }
 
 

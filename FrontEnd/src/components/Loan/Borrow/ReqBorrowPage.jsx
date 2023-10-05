@@ -217,12 +217,12 @@ const ReqBorrowPage = () => {
             인증서 비밀번호를 입력하세요
           </div>
           <div className={style.passwordBox}>
-            <div>
+            {/* <div>
               비밀번호
-            </div>
-            <div>
+            </div> */}
+            {/* <div style={{width:'90vw', margin:'0 2rem'}}> */}
               <input type="password" className={style.input} name="password" value={certPW} onClick={() => onClickPassword("Pw")} readOnly />
-            </div>
+            {/* </div> */}
           </div>
           <div className={style.btnBox}>
               <div onClick={() => complete()}>완료</div>

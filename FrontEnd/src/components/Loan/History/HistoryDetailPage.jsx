@@ -200,7 +200,7 @@ const HistoryDetailPage = (props) => {
               <span>{formatBalance(balance)} 원</span>
             </div>
             <div className={style.haerin}>
-              <div className={style.div2}>
+              <div className={style.div2} style={{marginTop:'2rem'}}>
                 <span>상환 내역</span>
                 <img src="/images/FoldBtn.png" alt="" style={{height:"40px"}} onClick={toggleIsOpen}/>
               </div>
@@ -218,7 +218,7 @@ const HistoryDetailPage = (props) => {
                 ))}
               </> : null}
             </div>
-            <div style={{display: "flex"}}>
+            <div style={{display: "flex", justifyContent:'space-around'}}>
               {!isGappa ? ( status !== 'C' ? (
                 <div className={style.btnDiv}>
                   <button className={style.btnStyle1} onClick={goToCertificate}>차용증 생성</button>

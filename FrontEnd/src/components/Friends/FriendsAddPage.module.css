@@ -1,4 +1,5 @@
 .body {
+  font-family: "LINESeedKR-Rg";
   height: 100vh;
   justify-content: flex-start;
   align-items: center;
@@ -8,6 +9,7 @@
 }
 
 .inputBox {
+  font-family: "LINESeedKR-Rg";
   justify-content: flex-start;
   align-items: center;
   display: flex;
@@ -17,25 +19,26 @@
 }
 
 .inputBox input {
+  font-family: "LINESeedKR-Rg";
   outline: none;
   height: 70%;
   width: 100%;
   font-size: 18px;
   border: none;
   border-bottom: 1px solid #ccc;
-  font-family: 'LINESeedKR-Bd';
 }
 
 .underText {
+  font-family: "LINESeedKR-Rg";
   display: flex;
   align-items: flex-start;
   flex-direction: row;
-  font-family: 'LINESeedKR-Rg';
   font-size: 12px;
   width: 90%;
 }
 
 .inputBtn {
+  font-family: "LINESeedKR-Rg";
   width: 90%;
   height: 5vh;
   display: flex;
@@ -64,12 +67,12 @@
   position: fixed;
   top: 30vh;
   width: 70vw;
-  height: 20vh;
-  background-color: rgb(234, 233, 233);
+  height: 15vh;
+  background-color: rgb(242, 242, 242);
   color: black;
   padding: 20px;
   z-index: 1000;
-  border-radius: 20px;
+  border-radius: 10px;
   justify-content: center;
   align-items: center;
   display: flex;
@@ -77,6 +80,7 @@
 }
 
 .infoBox {
+  font-family: "LINESeedKR-Rg";
   height:60%;
   justify-content: center;
   align-items: center;
@@ -94,6 +98,7 @@
 }
 
 .infoUserBox {
+  font-family: "LINESeedKR-Rg";
   width: 65%;
 }
 
@@ -107,6 +112,7 @@
 }
 
 .resultBtnBox {
+  font-family: "LINESeedKR-Rg";
   height: 40%;
   width: 80%;
   justify-content: flex-end;

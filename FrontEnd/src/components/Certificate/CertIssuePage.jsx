@@ -272,7 +272,7 @@ const Step2 = ( props ) => {
       </div>
 
       <div className={style.phoneform}>
-        <div>휴대폰 번호</div>
+        {/* <div style={{fontSize: '20px'}}>휴대폰 번호</div> */}
         <div className={style.phoneNum}>
           <div className={style.phoneNumInput}>{phoneIsValid()}</div>
           <div onClick={phoneCheck} className={style.formbtn}>인증번호 발송</div>
@@ -282,7 +282,7 @@ const Step2 = ( props ) => {
         checkPhone
           ?
           <div className={style.phonecheckform}>
-            <div>{phoneMessage}</div>
+            <div style={{marginBottom:'.5rem', color:'#2a2adf'}}>{phoneMessage}</div>
             {phoneMessage === "5분 안에 입력해주세요."
               ?
               <div className={style.phoneNum}>
