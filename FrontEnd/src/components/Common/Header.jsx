@@ -39,7 +39,7 @@ const Header = ( props ) => {
         setName(res.data.data.name);
         setPhone(formatPhoneNumber(res.data.data.phone));
       })
-      .catch((res)=>{s
+      .catch((res)=>{
       })
     } else {
       // 토큰이 없는 경우 처리
