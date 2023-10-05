@@ -47,7 +47,7 @@ public class BatchScheduler {
     }
 
     // 매일 오전 9시 실행 스케줄러 (재촉 알림)
-    @Scheduled(cron = "0 47 10 * * *")
+    @Scheduled(cron = "0 0 9 * * *")
     public void runBeforePeriodLoanJob() {
 
         // JobParameter 설정
