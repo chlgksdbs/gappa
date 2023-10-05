@@ -1,8 +1,11 @@
 package com.sixheadword.gappa.config.Batch.itemProcessor;
 
+import com.sixheadword.gappa.accountHistory.AccountHistory;
 import com.sixheadword.gappa.config.Batch.dto.AfterPeriodLoanDto;
 import com.sixheadword.gappa.loanHistory.entity.LoanHistory;
+import com.sixheadword.gappa.user.User;
 import com.sixheadword.gappa.utils.SmsUtil;
+import com.sixheadword.gappa.webAlarm.WebAlarm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
@@ -25,23 +28,50 @@ public class AfterPeriodLoanProcessorCustom implements ItemProcessor<AfterPeriod
                 + (afterPeriodLoanDto.getLoan().getInterest() * ChronoUnit.DAYS.between(afterPeriodLoanDto.getLoan().getRedemptionDate(), LocalDateTime.now()))
                 - afterPeriodLoanDto.getLoan().getRedemptionMoney();
 
+        User fromUser = afterPeriodLoanDto.getFromUser();
+        User toUser = afterPeriodLoanDto.getToUser();
+
         // 대출 건의 from_user의 Account 테이블의 대표 계좌 잔액 확인
         if (afterPeriodLoanDto.getFromUserAccount().getBalance() >= remainingAmount) { // 잔액이 상환금보다 큰 경우, to_user에게 이체 수행
 
-            // (1) from_user 잔액 (-), to_user 잔액 (+)
+            // (1) from_user, to_user AccountHistory 칼럼 추가
+            AccountHistory fromUserAccountHistory = new AccountHistory();
+            fromUserAccountHistory.setAccount(afterPeriodLoanDto.getFromUserAccount());
+            fromUserAccountHistory.setToUser(afterPeriodLoanDto.getToUser());
+            fromUserAccountHistory.setOldBalance(afterPeriodLoanDto.getFromUserAccount().getBalance());
+            fromUserAccountHistory.setCreatedAt(LocalDateTime.now());
+
+            AccountHistory toUserAccountHistory = new AccountHistory();
+            toUserAccountHistory.setAccount(afterPeriodLoanDto.getToUserAccount());
+            toUserAccountHistory.setToUser(afterPeriodLoanDto.getFromUser());
+            toUserAccountHistory.setOldBalance(afterPeriodLoanDto.getToUserAccount().getBalance());
+            toUserAccountHistory.setCreatedAt(LocalDateTime.now());
+
+            // (2) from_user 잔액 (-), to_user 잔액 (+)
             afterPeriodLoanDto.getFromUserAccount().setMinusBalance(remainingAmount);
             afterPeriodLoanDto.getToUserAccount().setAddBalance(remainingAmount);
 
-            // (2) status 값을 'C'로 변경
+            fromUserAccountHistory.setNewBalance(afterPeriodLoanDto.getFromUserAccount().getBalance());
+            fromUserAccountHistory.setAccountType(true);
+            fromUserAccountHistory.setAmount(remainingAmount);
+            toUserAccountHistory.setNewBalance(afterPeriodLoanDto.getToUserAccount().getBalance());
+            toUserAccountHistory.setAccountType(false);
+            toUserAccountHistory.setAmount(remainingAmount);
+
+            // (3) from_user, to_user AccountHistory를 DTO에 적재
+            afterPeriodLoanDto.setFromUserAccountHistory(fromUserAccountHistory);
+            afterPeriodLoanDto.setToUserAccountHistory(toUserAccountHistory);
+
+            // (4) status 값을 'C'로 변경
             afterPeriodLoanDto.getLoan().setStatus('C');
 
-            // (3) expired_date 값을 now()로 추가
+            // (5) expired_date 값을 now()로 추가
             afterPeriodLoanDto.getLoan().setExpiredDate(LocalDateTime.now());
             
-            // (4) 기존 상환금 추출
+            // (6) 기존 상환금 추출
             Long oldRedemptionMoney = afterPeriodLoanDto.getLoan().getRedemptionMoney();
 
-            // (5) LoanHistory 테이블에 해당 대출 건에 대해 칼럼 추가
+            // (7) LoanHistory 테이블에 해당 대출 건에 대해 칼럼 추가
             LoanHistory loanHistory = afterPeriodLoanDto.getLoanHistory();
             loanHistory.setAmount(remainingAmount);
             loanHistory.setOldRedemptionMoney(oldRedemptionMoney);
@@ -50,32 +80,52 @@ public class AfterPeriodLoanProcessorCustom implements ItemProcessor<AfterPeriod
             loanHistory.setTransactionDate(LocalDateTime.now());
             afterPeriodLoanDto.setLoanHistory(loanHistory);
 
-            // (6) redemption_money 값에 remainingAmount 값을 추가
+            // (8) redemption_money 값에 remainingAmount 값을 추가
             afterPeriodLoanDto.getLoan().setRedemptionMoney(oldRedemptionMoney + remainingAmount);
 
-            // (7) 강제 이체 건에 대한 SMS 문자 발송
-            String message = "[Gappa] "
-                    + afterPeriodLoanDto.getLoan().getFromUser().getName()
-                    + "님 "
-                    + afterPeriodLoanDto.getLoan().getToUser().getName()
-                    + "님과의 대출 건이 연체됨에 따라 대출금액 "
+            // (9) 강제 이체 건에 대한 SMS 문자 발송
+            String fromMessage = "[Gappa] "
+                    + toUser.getName()
+                    + "님과의 대출 건이 연체되어 "
                     + remainingAmount
-                    + "(원)이 강제 상환되었습니다. "
-                    + "고객님의 대표계좌 잔액 확인 바랍니다.";
-            smsUtil.sendSMS(afterPeriodLoanDto.getFromUserAccount().getUser().getPhone(), message, Optional.of(LocalDateTime.now().plusMinutes(0)));
+                    + "(원)이 강제 상환되었습니다. ";
+//            smsUtil.sendSMS(fromUser.getPhone(), message, Optional.of(LocalDateTime.now().plusMinutes(270)));
+            smsUtil.sendSMS(fromUser.getPhone(), fromMessage);
 
+            String toMessage = "[Gappa] "
+                    + fromUser.getName()
+                    + "님에게서 강제 상환되어 "
+                    + remainingAmount
+                    + "(원)이 입금되었습니다. ";
+            smsUtil.sendSMS(toUser.getPhone(), toMessage);
+            
+            // (10) 알림함에 내용 추가
+            String fromWebMessage =
+                    fromUser.getName()
+                    + "님에게 대출 금액 "
+                    + remainingAmount
+                    + "(원)이 입급 되었습니다.";
+            String toWebMessage =
+                    toUser.getName()
+                    + "님에게 대출 금액 "
+                    + remainingAmount
+                    + "(원)이 강제 상환 되었습니다.";
+
+            WebAlarm fromUserWebAlarm = new WebAlarm(fromUser, toUser, 'C', fromWebMessage); // (+)
+            WebAlarm toUserWebAlarm = new WebAlarm(toUser, fromUser, 'C', toWebMessage);     // (-)
+            afterPeriodLoanDto.setFromUserWebAlarm(fromUserWebAlarm);
+            afterPeriodLoanDto.setToUserWebAlarm(toUserWebAlarm);
         } else { // 잔액이 상환금보다 작은 경우, 날짜 계산 후 미납 SMS 문자 발송
             String message = "[Gappa] "
-                    + afterPeriodLoanDto.getLoan().getFromUser().getName()
-                    + "님 "
-                    + afterPeriodLoanDto.getLoan().getToUser().getName()
+                    + toUser.getName()
                     + "님에게 대출금액 "
                     + remainingAmount
                     + "(원)이 "
                     + ChronoUnit.DAYS.between(afterPeriodLoanDto.getLoan().getRedemptionDate(), LocalDateTime.now())
-                    + "일 연체되었습니다. "
-                    + "고객님의 대표계좌 잔액 확인 후, 즉시 상환을 요청합니다.";
-            smsUtil.sendSMS(afterPeriodLoanDto.getFromUserAccount().getUser().getPhone(), message, Optional.of(LocalDateTime.now().plusMinutes(0)));
+                    + "일 연체되었습니다. ";
+//            smsUtil.sendSMS(fromUser.getPhone(), message, Optional.of(LocalDateTime.now().plusMinutes(270)));
+            smsUtil.sendSMS(fromUser.getPhone(), message);
+            return null;
         }
 
         return afterPeriodLoanDto;

@@ -133,6 +133,19 @@ public class User {
     @Column(name = "expired_at")
     private LocalDateTime expiredAt;
 
+    public User(String loginId, String loginPassword, String pinPassword, String phone, String name, String address, String addressDetail, String profileImg) {
+        this.loginId = loginId;
+        this.loginPassword = loginPassword;
+        this.pinPassword = pinPassword;
+        this.phone = phone;
+        this.name = name;
+        this.address = address;
+        this.addressDetail = addressDetail;
+        this.profileImg = profileImg;
+        this.state = true;
+        this.creditScore = 0;
+    }
+
     public User(String loginId, String loginPassword, String phone, String name, String address, String addressDetail, String profileImg) {
         this.loginId = loginId;
         this.loginPassword = loginPassword;

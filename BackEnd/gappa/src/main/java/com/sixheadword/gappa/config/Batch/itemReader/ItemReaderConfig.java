@@ -2,6 +2,7 @@ package com.sixheadword.gappa.config.Batch.itemReader;
 
 import com.sixheadword.gappa.account.Account;
 import com.sixheadword.gappa.account.repository.AccountRepository;
+import com.sixheadword.gappa.accountHistory.AccountHistory;
 import com.sixheadword.gappa.config.Batch.dto.AfterPeriodLoanDto;
 import com.sixheadword.gappa.loan.Loan;
 import com.sixheadword.gappa.loan.repository.LoanRepository;
@@ -42,7 +43,7 @@ public class ItemReaderConfig {
             Account toUserRepAccount = accountRepository.findPrimaryByUserSeq(toUser.getUserSeq());
 
             // AfterPeriodLoanDto 추가
-            AfterPeriodLoanDto afterPeriodLoanDto = new AfterPeriodLoanDto(loan, loanHistory, fromUserRepAccount, toUserRepAccount);
+            AfterPeriodLoanDto afterPeriodLoanDto = new AfterPeriodLoanDto(loan, loanHistory, fromUser, toUser, fromUserRepAccount, toUserRepAccount, null, null, null, null);
             afterPeriodLoanDtos.add(afterPeriodLoanDto);
         });
 
