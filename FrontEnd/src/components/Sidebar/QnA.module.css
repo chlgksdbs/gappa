@@ -5,6 +5,19 @@
   /* align-items: center; */
 }
 
+.body {
+  width: 100%;
+  max-height: 81%;
+  min-height: 81%;
+  overflow-y: scroll; /* 스크롤이 필요한 경우에만 스크롤 바 표시 */
+  scrollbar-width: none; /* Firefox에서 스크롤 바 숨기기 */
+  -ms-overflow-style: none; /* Internet Explorer에서 스크롤 바 숨기기 */
+}
+.body::-webkit-scrollbar {
+  width: 0; /* Webkit 기반 브라우저(Chrome, Safari)에서 스크롤 바 숨기기 */
+  display: none; /* Safari에서 스크롤 바 숨기기 */
+}
+
 .qnaTitle {
   margin-left: 15px;
 }

@@ -5,6 +5,7 @@ import Modal from 'react-modal';
 import { useDispatch } from 'react-redux';
 import { authActions } from '../../store/authslice';
 import { authAxios } from '../api/customAxios';
+import toast from 'react-hot-toast';
 const SignupForm = (props) => {
 
   //초기값 세팅
@@ -14,6 +15,8 @@ const SignupForm = (props) => {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [phoneCheckNumber, setPhoneCheckNumber] = useState("");
+
+  const [isPhoneCheck, setIsPhoneCheck] = useState(false); // true면 중복
 
   const [address, setAddress] = useState("");
   const [addressNumber, setAddressNumber] = useState("");
@@ -230,19 +233,37 @@ const SignupForm = (props) => {
     const phoneNumber = {
       phoneNumber: phone,
     }
-    authAxios.post("/users/phone/send", phoneNumber)
+
+    const data = {
+      phone: phone,
+    }
+
+    // 휴대폰 번호 중복체크 API
+    authAxios.post("/users/checkphone", data)
     .then((response) => {
-        setTimeAttack(false);
-        setTimeout(() => {
-          setTimeAttack(true);
-        }, 5000);
-        setCheckPhone(true);
-        setPhonemessage("5분 안에 입력해주세요.")
-      })
-      .catch((response) => {
-        setCheckPhone(true);
-        setPhonemessage("제대로 된 번호를 입력해주세요.")
-      })
+      if (response.data.result === true) {
+        setIsPhoneCheck(true);
+      } else {
+        setIsPhoneCheck(false);
+        authAxios.post("/users/phone/send", phoneNumber)
+        .then((response) => {
+          setTimeAttack(false);
+          setTimeout(() => {
+            setTimeAttack(true);
+          }, 5000);
+          setCheckPhone(true);
+          setPhonemessage("5분 안에 입력해주세요.")
+        })
+        .catch((response) => {
+          setCheckPhone(true);
+          setPhonemessage("제대로 된 번호를 입력해주세요.")
+        })
+      }
+    })
+    .catch((response) => {
+
+    })
+
   }
 
   const phoneCheckNumberConfirm = () => {
@@ -882,6 +903,10 @@ const SignupForm = (props) => {
           <input type="button" value="인증번호 발송" className={style.frombtnx}/>
         }
       </div>
+      { isPhoneCheck ? 
+      <>
+        <p style={{color: "red"}}>중복된 휴대폰 번호 입니다.</p>
+      </> : null}
       {
         checkPhone
           ?
