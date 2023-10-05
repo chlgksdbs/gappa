@@ -34,13 +34,13 @@
 }
 
 .detailKeyThin {
-  font-family: 'TheJamsil3Regular';
+  font-family: 'LINESeedKR-Rg';
   font-size: 20px;
 }
 
 .detailValue {
   font-size: 20px;
-  font-family: 'TheJamsil3Regular';
+  font-family: 'LINESeedKR-Rg';
   line-height: 1.4;
 }
 
@@ -61,7 +61,7 @@
   right: 0;
 
   background-color: #AFEBDF;
-  font-family: 'TheJamsil5Bold';
+  font-family: 'LINESeedKR-Bd';
   font-size: 24px;
   padding: 20px 40px;
   border: none;
