@@ -25,7 +25,7 @@ public interface LoanRepository extends JpaRepository<Loan, Long>, LoanRepositor
     Long countLoanByFromUser(User user);
 
     // 대출 연체 건수 조회 (현재 시점 기준)
-    Long countLoanByRedemptionDateGreaterThanAndFromUser(LocalDateTime now, User user);
+    Long countLoanByRedemptionDateBeforeAndAndFromUser(LocalDateTime now, User user);
 
     // 대출 정상 상환 건수 조회
     // "SELECT l FROM Loan l WHERE l.fromUser = :userSeq AND l.redemptionDate >= l.expiredDate"
