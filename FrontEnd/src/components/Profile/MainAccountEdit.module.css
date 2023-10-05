@@ -6,29 +6,92 @@
   /* align-items: center; */
 }
 
+.body {
+  flex-grow: 1;
+  min-height: 70vh;
+  overflow-y: auto; /* body가 길어질 때만 스크롤이 생깁니다. */
+  overflow-y: scroll; /* 스크롤이 필요한 경우에만 스크롤 바 표시 */
+  scrollbar-width: none; /* Firefox에서 스크롤 바 숨기기 */
+  -ms-overflow-style: none; /* Internet Explorer에서 스크롤 바 숨기기 */
+  padding-bottom: 3rem;
+  margin-top: 1rem;
+}
+.body::-webkit-scrollbar {
+  width: 0; /* Webkit 기반 브라우저(Chrome, Safari)에서 스크롤 바 숨기기 */
+  display: none; /* Safari에서 스크롤 바 숨기기 */
+}
+
+.noneAccountDiv {
+  text-align: center;
+}
+
+.noneAccountDiv p {
+  color: red;
+}
+
 .accountDiv {
-  height: 10%;
-  margin: 20px 0 10px 0;
+  /* height: 10%; */
+  padding: 15px 5px 0 5px;
+}
+
+.selected {
+  background-color: rgba(128, 206, 190, 0.2);
 }
 
 
 .accountDetail1 {
+  height: 3rem;
   display: flex;
   align-items: center;
-  margin: 10px 0 10px 15px;
+  margin: 0 15px;
+  padding: 0;
+  font-size: 1rem;
 }
 
 .accountDetail2 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 10px 15px 10px 15px;
+  padding: 0;
+  margin: 0 15px;
+  font-size: 1rem;
+
 }
 
 .line {
   width: 100%;
   text-align: center;
-  border-bottom: 1px solid #aaa;
-  line-height: 0.1em;
-  margin: 10px 0 10px;
+  border-bottom: 1px solid #eaeaea;
+  /* line-height: 0.1em; */
+  /* margin: 10px 0 10px; */
+}
+
+.inputDiv {
+  display: flex;
+  height: 10%;
+  justify-content: center; 
+  width: 100%;
+  margin-top: auto;
+}
+
+.nextBtn {
+  display: flex;
+  width: 360px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  background-color: #80CEBE;
+  margin-bottom: 20px;
+}
+
+.notbtn{
+  display: flex;
+  width: 360px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  background: lightgray;
+  margin-bottom: 20px;
 }

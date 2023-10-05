@@ -1,0 +1,123 @@
+.body {
+  height: 100vh;
+  justify-content: flex-start;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-size: 24px;
+}
+
+.headerStyle {
+  padding-left: 20px;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.friendsBox {
+  height: 70%;
+  width: 90%;
+}
+
+.editBtn {
+  color:gray;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 8px;
+  margin-bottom: 3vh;
+}
+
+.search input[type="text"] {
+  border: none;
+  flex: 1;
+  padding: 4px;
+  outline: none;
+}
+
+
+.friendsList {
+  justify-content: flex-start;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  height: 90%;
+  margin-bottom: 3vh;
+  overflow-y: scroll; /* 스크롤이 필요한 경우에만 스크롤 바 표시 */
+  scrollbar-width: none; /* Firefox에서 스크롤 바 숨기기 */
+  -ms-overflow-style: none;
+}
+
+.friendsList::-webkit-scrollbar {
+  width: 0; /* Webkit 기반 브라우저(Chrome, Safari)에서 스크롤 바 숨기기 */
+  display: none; /* Safari에서 스크롤 바 숨기기 */
+}
+
+.friendItem {
+  justify-content: flex-start;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+  margin-bottom: 5px;
+}
+
+.friendImage {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.selectedFriend {
+  background-color: #ccc;
+}
+
+.friendText {
+  min-width: 74px;
+  font-size: 20px;
+  margin-right: 20px;
+}
+
+.deleteBtn {
+  color:red;
+}
+
+.inputDiv {
+  display: flex;
+  height: 9%;
+  justify-content: center; 
+  width: 100%;
+  margin-top: auto;
+}
+
+.nextBtn {
+  display: flex;
+  width: 90%;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  background: #80CEBE;
+  margin-bottom: 20px;
+}
+
+.notBtn {
+  display: flex;
+  width: 90%;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  background: lightgray;
+  margin-bottom: 20px;
+}

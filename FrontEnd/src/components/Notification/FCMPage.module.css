@@ -1,0 +1,35 @@
+.btnBox {
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pushSwitch {
+  width: 66px;
+  height: 30px;
+  background-color: #ccc;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.switchButton {
+  width: 33px;
+  height: 33px;
+  background-color: #fff;
+  border: #ccc 3px solid;
+  border-radius: 50%;
+  position: absolute;
+  transition: transform 0.3s ease-in-out;
+}
+
+.pushEnabled {
+  background-color: #AFEBDF;
+}
+
+.pushEnabled .switchButton {
+  transform: translateX(33px);
+  border: #AFEBDF 3px solid;
+}

@@ -1,0 +1,283 @@
+.body {
+  height: 100vh;
+  justify-content: flex-start;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-size: 24px;
+}
+
+.stepBox {
+  width: 90%;
+  height: 80%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}
+
+.title {
+  width: 90%;
+  font-size: 28px;
+}
+
+.explanation {
+  width: 90%;
+  font-size: 16px;
+}
+
+.phoneform {
+  height: 10%;
+  margin-top: 5vh;
+  width: 90%;
+}
+
+
+
+.forminput{
+  width: 60%;
+  border:none;
+  border-bottom: 2px solid #ccc;
+  font-size: 20px;
+}
+
+.formbtn {
+  font-family: "LINESeedKR-Br";
+  font-size: 16px;
+  border-radius: 5px;
+  border: 2px solid #ccc;
+  background-color: #AFEBDF;
+}
+
+.phonecheckform {
+  height: 10%;
+  margin: 5vh 0 5vh 0;
+  width: 90%;
+}
+
+.phoneforms {
+  width: 100%;
+}
+
+.agree{
+  font-family: "LINESeedKR-Bd";
+  width: 90%;
+  margin-top: 3vh;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.agree img{
+  width: 7px;
+  padding: 1px 1px 0px 1px;
+}
+
+.agreeone{
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  margin-bottom: 1vh;
+}
+
+.agreeone input{
+  width:15px;
+  height: auto;
+  zoom:1.5;
+}
+
+.agreeone input:checked{
+  width:15px;
+  height: auto;
+  zoom:1.5;
+  accent-color: #80CEBE;
+}
+
+.agreeall{
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 5vh;
+  font-size: 20px;
+  margin-bottom: 2vh;
+  border-bottom: #ccc 1px solid;
+}
+
+.agreeall input{
+  width:15px;
+  height: auto;
+  zoom:1.5;
+}
+
+.agreeall input:checked{
+  width:15px;
+  height: auto;
+  zoom:1.5;
+  accent-color: #80CEBE;
+}
+
+.fakeAgree {
+  margin: 2vh 0 2vh 0;
+  padding: 0 5px 0 5px;
+  font-size: 13px;
+  color: red;
+}
+
+
+.btnBox {
+  height: 10%;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.goodbtn {
+  background-color: #AFEBDF;
+  font-size: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 5px;
+  width: 30%;
+  height: 80%;
+}
+
+.notbtn {
+  background-color: #ccc;
+  font-size: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 5px;
+  width: 30%;
+  height: 80%;
+}
+
+.input{
+  border-width: 0 0 1px;
+  border-color: lightgray;
+  width: 10;
+}
+
+.input:focus{
+  outline: none;
+}
+
+
+.modal{
+  width: 300px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  border: 1px solid black;
+  margin-top: 40%;
+}
+
+.passwordBox {
+  width: 90%;
+  height: 40%;
+}
+
+.pwform {
+  margin-bottom: 5vh;
+  height: 15%;
+  width: 100%;
+}
+
+.pwtitle {
+  margin-top: 3vh;
+}
+
+
+
+.pwinput {
+  border: none;
+  font-size: 20px;
+  border-bottom: 2px solid #ccc;
+  width: 80%;
+}
+
+.colorred{
+  width: 80%;
+  font-family: "LINESeedKR-Br";
+  font-size: 14px;
+  color: red;
+}
+
+.colorblue{
+  width: 80%;
+  font-family: "LINESeedKR-Br";
+  font-size: 14px;
+  color: blue;
+}
+
+
+.inputs{
+  border-width: 0 0 1px;
+  border-color: lightgray;
+  width: 5;
+}
+
+.inputs:focus{
+  outline: none;
+}
+
+
+.keyboard{
+  background-color: silver;
+  width: 100vw;
+  position: fixed;
+  bottom: 0;
+  height: 33vh;
+  display: flex;
+  
+}
+
+.keyboardsetitem{
+  width: 8.8vw;
+  height: 6vh;
+  background-color: silver;
+  border: 0.1px solid silver;
+  padding: 0;
+  margin-left: 0.25vw;
+  /* margin: 0; */
+}
+
+.keyboardsetitem:active{
+  border: 1px solid green;
+  background-color: green;
+}
+
+.keyboardsetitem img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+
+.keyboardsetitemlast{
+  width: 24vw;
+  height: 7vh;
+  border: 0.1px solid silver;
+  padding: 0;
+  margin-left: 0.2vw;
+}
+
+.keyboardsetitemlast:active{
+  border: 1px solid black;
+}
+
+.keyboardsetitemlast img{
+  width: 100%;
+  height: 100%;
+}

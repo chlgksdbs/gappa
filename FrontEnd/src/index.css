@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'TheJamsil5Bold', 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: -apple-system, BlinkMacSystemFont, 'LINESeedKR-Bd', 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -13,13 +13,61 @@ code {
 }
 
 @font-face {
+  font-family: 'TheJamsil1Thin';
+  src: url(./fonts/The_Jamsil_TTF/The\ Jamsil\ 1\ Thin.ttf);
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'TheJamsil2Light';
+  src: url(./fonts/The_Jamsil_TTF/The\ Jamsil\ 2\ Light.ttf);
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'TheJamsil3Regular';
   src: url(./fonts/The_Jamsil_TTF/The\ Jamsil\ 3\ Regular.ttf);
   font-style: normal;
 }
 
 @font-face {
+  font-family: 'TheJamsil4Medium';
+  src: url(./fonts/The_Jamsil_TTF/The\ Jamsil\ 4\ Medium.ttf);
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'TheJamsil5Bold';
   src: url(./fonts/The_Jamsil_TTF/The\ Jamsil\ 5\ Bold.ttf);
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'TheJamsil6ExtraBold';
+  src: url(./fonts/The_Jamsil_TTF/The\ Jamsil\ 6\ ExtraBold.ttf);
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gwangyang-Touching';
+  src: url(./fonts/The_Jamsil_TTF/Gwangyang\ Touching\(TTF용\).ttf);
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LINESeedKR-Rg';
+  src: url(./fonts/The_Jamsil_TTF/LINESeedKR-Rg.ttf);
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LINESeedKR-Bd';
+  src: url(./fonts/The_Jamsil_TTF/LINESeedKR-Bd.ttf);
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LINESeedKR-Th';
+  src: url(./fonts/The_Jamsil_TTF/LINESeedKR-Th.ttf);
   font-style: normal;
 }

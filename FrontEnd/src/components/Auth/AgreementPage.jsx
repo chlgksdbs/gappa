@@ -10,7 +10,7 @@ const AgreementPage = () => {
   const [bankCheck, setBankCheck] = useState(false);
   const [phoneCheck, setPhoneCheck] = useState(false);
   const [checkPoint, setCheckPoint] = useState(false);
-  
+
   const navigate = useNavigate();
 
   const allCheckHandler = (() => {
@@ -86,7 +86,6 @@ const AgreementPage = () => {
   useEffect(() => {
     if (memberCheck && serviceCheck && bankCheck && phoneCheck === true) {
       setCheckPoint(true);
-      console.log(checkPoint)
     }
     else {
       setCheckPoint(false);
@@ -100,10 +99,12 @@ const AgreementPage = () => {
   return (
     <div className={style.agreement}>
       <Headers title={title} />
-      <img src="images/Gappalogo.png" alt="" className={style.gappalogo} />
+      <img src="images/gappalogo.png" alt="" className={style.gappalogo} />
       <br />
-      <span>GAPPA에 오신 것을 환영합니다.</span>
-      <span>아래 동의를 통해 GAPPA를 시작해보세요!</span>
+      <div className={style.welcome}>
+        <span>GAPPA에 오신 것을 환영합니다.</span>
+        <span>아래 동의를 통해 GAPPA를 시작해보세요!</span>
+      </div>
       <div className={style.agree}>
         <div className={style.agreeall}>
           <span>전체 동의</span>
@@ -167,7 +168,7 @@ const AgreementPage = () => {
           {
             checkPoint
               ?
-              <div className={style.goodbtn} onClick={()=>navigate("/signup")}>다음</div>
+              <div className={style.goodbtn} onClick={() => navigate("/signup")}>다음</div>
               :
               <div className={style.notbtn}>다음</div>
           }

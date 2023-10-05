@@ -1,13 +1,26 @@
 .footer {
-  background-color: #AFEBDF;
-  height: 12vh;
-  position: fixed;
+  background-color: #fff;
+  border-top: 1px solid lightgray;
+  /* height: calc(10% - 15px); */
+  /* height: 60px; */
   width: 100%;
-  bottom:0;
-  left: 0;
-  right: 0;
   justify-content: space-around;
-  align-items: center;
+  margin-top: auto;
+  padding-top: 15px;
+  padding-bottom: 13px;
   display: flex;
   flex-direction: row;
+}
+
+.footer img {
+  height: 47px;
+}
+
+.iconStyle {
+  font-size: 40px;
+}
+
+.activeIconStyle {
+  font-size: 40px;
+  color: #80CEBE;
 }

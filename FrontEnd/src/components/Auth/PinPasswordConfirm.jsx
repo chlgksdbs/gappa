@@ -1,12 +1,18 @@
-import React,{useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Headers from './Headers';
 import style from './PinPassword.module.css';
-
+import { useSelector } from 'react-redux/es/hooks/useSelector';
+import { useNavigate } from 'react-router-dom';
+import { customAxios } from '../api/customAxios';
 const PinPasswordConfirm = () => {
   const title = "간편 비밀번호 확인"
-  const right = "다음"
-
+  // const right = "다음"
+  const [alert, setAlert] = useState("");
+  const [isAlert, setIsAlert] = useState(false)
   const [pin, setPin] = useState('');
+
+  const navigate = useNavigate();
+  const userInfo = useSelector(state => state.auth);
 
   const handlePinClick = (number) => {
     if (pin.length < 6) {
@@ -21,18 +27,46 @@ const PinPasswordConfirm = () => {
   };
 
   const getMaskedPin = () => {
-    return pin.replace(/\d/g, '*'); // 숫자를 '*'로 대체
+    return pin.replace(/\d/g, ''); // 숫자를 '*'로 대체
   };
+
+  const getPinDigitClassName = (index) => {
+    return pin.length > index ? style.pindigitFilled : style.pindigit;
+  };
+
+  useEffect(() => {
+    if (pin.length > 5) {
+      const body = { 'pinPassword': pin }
+      customAxios.post("/users/pin/check", body)
+        .then((res) => {
+          setAlert("비밀번호 확인되었습니다.");
+          setTimeout(() => {
+            navigate("/pinpasswordcheck");
+          }, 700);
+        })
+        .catch((e) => {
+          setAlert("비밀번호가 일치하지 않습니다");
+          setPin("");
+          setIsAlert(false);
+        })
+    }
+  }, [pin, userInfo.pin_Password, isAlert, navigate])
   return (
     <div className={style.pinpassword}>
-      <Headers title={title} right={right}/>
+      <Headers title={title} />
       <span>다시 한번 입력하세요.</span>
       <span>숫자 6자리</span>
+      <div className={style.checkmessage}>
+        <span>{alert}</span>
+      </div>
       <div className={style.pininputcontainer}>
         <div className={style.pindisplay}>
           {Array.from({ length: 6 }, (_, index) => (
-            <div key={index} className={`pin-digit ${pin.length > index ? 'filled' : ''}`}>
-              {pin.length > index ? getMaskedPin()[index] : '_'}
+            <div
+              key={index}
+              className={getPinDigitClassName(index)}
+            >
+              {pin.length > index ? getMaskedPin()[index] : ''}
             </div>
           ))}
         </div>

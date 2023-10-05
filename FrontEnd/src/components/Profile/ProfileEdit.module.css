@@ -1,4 +1,5 @@
 .main {
+  font-family: 'LINESeedKR-Rg';
   /* background-color: #80CEBE; */
   height: 100vh;
   display: flex;
@@ -42,15 +43,27 @@
   width: 90%;
 }
 
+.detailtitle {
+  margin-bottom: 10px;
+}
+
 .input{
-  border-width: 0;
+  width: calc(100% - 15px);
+  height: 40px;
+  /* background-color: rgba(128, 206, 190, 0.3); */
+  background-color: #f2f2f2;
+  border-radius: 3px;
+  border: none;
+  outline: none;
   font-size: 17px;
   font-weight: bold;
-  width: 88%;
+  color: rgba(0, 0, 0, 0.6);
+  /* margin-left: 0; */
+  padding-left: 15px;
 }
 
 .line {
-  width: 90%;
+  width: 100%;
   text-align: center;
   border-bottom: 1px solid #aaa;
   line-height: 0.1em;
@@ -59,18 +72,36 @@
 }
 
 .editConfirm {
-  width: 70%;
-  height: 9%;
-  margin-top: 70px;
+  font-family: 'LINESeedKR-Rg';
+  width: 90%;
+  height: 50px;
+  /* margin-top: auto; */
+  margin-top: 40px;
   background-color: #80CEBE;
   border: 0;
-  border-radius: 15px;
+  border-radius: 3px;
   color: white;
-  font-size: 32px;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+  font-size: 25px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
 }
 
-.editConfirm:hover {
-  transform: scale(1.05);
-  /* 다른 원하는 스타일 변경도 여기에 추가 가능 */
+.modal{
+  width: 300px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  border: 1px solid black;
+  margin-top: 40%;
+}
+
+.formbtn{
+  /* background-color: #B3BAF5; */
+  border: 0;
+  background-color: rgba(128, 206, 190, 0.3);
+  border-radius: 2px;
+  /* height: 25px; */
+  font-size: 14px;
+  /* font-weight: bold; */
+  padding: 4px;
+  /* margin-right: 10px; */
 }
