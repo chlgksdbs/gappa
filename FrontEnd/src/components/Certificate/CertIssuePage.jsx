@@ -272,8 +272,7 @@ const Step2 = ( props ) => {
       </div>
 
       <div className={style.phoneform}>
-        <span>휴대폰 번호</span>
-        <br />
+        <div>휴대폰 번호</div>
         {phoneIsValid()}
         { timeAttack
         ?
@@ -286,7 +285,7 @@ const Step2 = ( props ) => {
         checkPhone
           ?
           <div className={style.phonecheckform}>
-            <span>{phoneMessage}</span>
+            <div>{phoneMessage}</div>
             {phoneMessage === "5분 안에 입력해주세요."
               ?
               <div className={style.phoneforms}>
