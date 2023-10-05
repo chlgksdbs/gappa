@@ -46,6 +46,7 @@ import FindPasswordChange from './components/Auth/FindPasswordChange';
 import MyCertificatePage from './components/Certificate/MyCertificatePage';
 import CertificatePage from './components/Certificate/CertificatePage';
 import CertIssuePage from './components/Certificate/CertIssuePage';
+import GuidePage from './components/Sidebar/GuidePage';
 
 // import LendRefusePage
 
@@ -143,6 +144,7 @@ function App() {
             <Route path="/notice" element={<NoticePage />}/>
             <Route path="/qna" element={<QnAPage />}/>
             <Route path="/customerservice" element={<CustomerServicePage />}/>
+            <Route path="/guide" element={<GuidePage />}/>
             <Route path="/reqagreement" element={<ReqAgreementPage />}/>
             <Route path="/reqchat" element={<ReqChatPage />}/>
             <Route path="/reqfriends" element={<ReqFriendsPage />}/>
