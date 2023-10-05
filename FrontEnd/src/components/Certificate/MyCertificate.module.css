@@ -9,9 +9,12 @@
 }
 
 .mycert {
-  height: 45%;
-  width: 85%;
-  background: linear-gradient(#5462f8, #2a2adf);
+  height: 50%;
+  width: 90%;
+  background-image: url('../../../public/images/CertBackground.JPG');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
   border-radius: 7%;
 }
 

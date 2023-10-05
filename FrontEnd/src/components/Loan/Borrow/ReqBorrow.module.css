@@ -182,7 +182,10 @@
   margin: 0 auto 0 auto;
   height: 45%;
   width: 75%;
-  background: linear-gradient(#5462f8, #2a2adf);
+  background-image: url('../../../../public/images/CertBackground.JPG');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
   border-radius: 7%;
 }
 

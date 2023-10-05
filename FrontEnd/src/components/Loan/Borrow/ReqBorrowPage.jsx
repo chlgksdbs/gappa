@@ -205,7 +205,7 @@ const ReqBorrowPage = () => {
               <img src="/images/GapPassCert.png" alt="" />
             </div>
             <div className={style.certlogoBox}>
-              <img src="/images/GAPPASS.png" alt="" />
+              <img src="/images/CertShield.gif" alt="" />
             </div>
             <div className={style.textBox}>
               <div className={style.name}>{certName}</div>
@@ -290,7 +290,7 @@ const ReqBorrowPage = () => {
               <img src="/images/GapPassCert.png" alt="" />
             </div>
             <div className={style.certlogoBox}>
-              <img src="/images/GAPPASS.png" alt="" />
+              <img src="/images/CertShield.gif" alt="" />
             </div>
             <div className={style.textBox}>
               <div className={style.name}>{certName}</div>
