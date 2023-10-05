@@ -50,7 +50,8 @@ public class LoanHistory {
     private LocalDateTime transactionDate;
 
     @Builder
-    public LoanHistory(Type type, Long amount, Long oldRedemptionMoney, Long newRedemptionMoney, LocalDateTime transactionDate ){
+    public LoanHistory(Loan loan, Type type, Long amount, Long oldRedemptionMoney, Long newRedemptionMoney, LocalDateTime transactionDate ){
+        this.loan = loan;
         this.type = type;
         this.amount = amount;
         this.oldRedemptionMoney = oldRedemptionMoney;
