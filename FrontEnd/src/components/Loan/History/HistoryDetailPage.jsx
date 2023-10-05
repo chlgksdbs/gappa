@@ -90,6 +90,7 @@ const HistoryDetailPage = (props) => {
 		    setRedemptionMoney(res.data.redemptionMoney);
         setLateDate(res.data.lateDate);
         setStatus(res.data.status);
+        console.log(res.data);
       })
       .catch((res)=>{
       })
@@ -113,6 +114,23 @@ const HistoryDetailPage = (props) => {
     };
     navigate("/certificate", { state: data });
   }
+
+  // 상환 내역 조회
+  const [loanHistoryList, setLoanHistoryList] = useState([]);
+
+  console.log(loanSeq);
+  useEffect(() => {
+    // const data = {
+    //   loanSeq: loanSeq
+    // }
+    customAxios.post("/loan/history/detail", loanSeq)
+    .then((res) => {
+      console.log(res);
+      setLoanHistoryList(res);
+    })
+    .catch((res) => {
+    })
+  })
 
   return (
     <div className={style.main}>
@@ -140,31 +158,6 @@ const HistoryDetailPage = (props) => {
               <p className={style.div1Balance}>{formatBalance(balance)}원</p>
             </div>
           </div>
-          {/* <div className={style.line} />
-          <div>
-            {isGappa ? 
-            <>
-              <div className={style.div2}>
-                <span>채권자</span>
-                <span>{myname}</span>
-              </div>
-              <div className={style.div2}>
-                <span>채무자</span>
-                <span>{username}</span>
-              </div>
-            </>
-            :
-            <>
-              <div className={style.div2}>
-                <span>채권자</span>
-                <span>{username}</span>
-              </div>
-              <div className={style.div2}>
-                <span>채무자</span>
-                <span>{myname}</span>
-              </div>
-            </> }
-          </div> */}
           <div className={style.line2} />
           <div>
             <div className={style.div2}>
@@ -200,12 +193,26 @@ const HistoryDetailPage = (props) => {
               <span>대출 잔액</span>
               <span>{formatBalance(balance)} 원</span>
             </div>
+            <div className={style.line2} />
+            <p></p>
+
+            {/* { loanHistoryList.map((loan) => (
+              "하하"
+            )) } */}
+
             <div style={{display: "flex"}}>
-              <button className={style.btnStyle1} onClick={goToCertificate}>차용증 생성</button>
-              {!isGappa ? (
-                <button className={style.btnStyle2} onClick={goToRepayment}>상환하기</button>
-              ) : (
-                null
+              {!isGappa ? ( status !== 'C' ? (
+                <div className={style.btnDiv}>
+                  <button className={style.btnStyle1} onClick={goToCertificate}>차용증 생성</button>
+                  <button className={style.btnStyle2} onClick={goToRepayment}>상환하기</button>
+                </div>
+              ) : 
+              <>
+                <button className={style.btnStyle1} onClick={goToCertificate}>차용증 생성</button>
+              </>) : (
+                <>
+                  <button className={style.btnStyle1} onClick={goToCertificate}>차용증 생성</button>
+                </>
               )}
             </div>
           </div>
