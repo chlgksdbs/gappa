@@ -88,6 +88,7 @@
   width: 90%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: .7rem 1.2rem;
   font-size: 20px;
 }
@@ -145,4 +146,28 @@
   margin: 2rem auto;
   border: none;
   margin-left: 10px;
+}
+
+.transactionBox {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  justify-content: center;
+  border-bottom: 1px solid #eaeaea;
+  margin-top: 10px;
+  background-color: #fff;
+}
+
+
+.date {
+  font-size: 15px;
+  margin-bottom: 1vh;
+  width: 40%;
+}
+
+.detailBox {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: row;
 }
