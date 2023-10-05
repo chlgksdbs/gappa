@@ -2,10 +2,7 @@ package com.sixheadword.gappa.accountHistory;
 
 import com.sixheadword.gappa.account.Account;
 import com.sixheadword.gappa.user.User;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -13,7 +10,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 // AccountHistory: 계좌 거래내역 테이블
-@Getter
+@Getter @Setter
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "ACCOUNT_HISTORY")

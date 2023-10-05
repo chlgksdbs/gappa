@@ -4,6 +4,8 @@ import com.sixheadword.gappa.loanHistory.entity.LoanHistory;
 import com.sixheadword.gappa.user.User;
 import lombok.Builder;
 import lombok.Getter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -25,15 +27,16 @@ public class Loan {
 
     // loanHistories: 대출 내역 정보
     @OneToMany(mappedBy = "loan", cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<LoanHistory> loanHistories = new ArrayList<>();
 
     // fromUser: 돈을 보낸 사용자 일련번호
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "from_user")
     private User fromUser;
     
     // toUser: 돈을 받는 사용자 일련번호
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "to_user")
     private User toUser;
 

@@ -4,13 +4,19 @@ spring:
     name: svc1-accounts
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://j9B206.p.ssafy.io:2231/gappa?serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://j9B206.p.ssafy.io:2231/gappa?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: gappa
     password: bqefip4o407wwgdn6-c4sc-zzhpf11-vvla
   redis:
     host: j9b206.p.ssafy.io
     port: 9707
     password: gappa
+
+  batch:
+    jdbc:
+      initialize-schema: never
+    job:
+      enabled: false
 
   jpa:
     database: mysql

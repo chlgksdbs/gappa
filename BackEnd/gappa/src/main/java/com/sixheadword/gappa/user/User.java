@@ -11,6 +11,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -32,44 +34,55 @@ public class User {
 
     // accounts: 사용자 계좌 정보
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Account> accounts = new ArrayList<>();
     
     // fromLoans: 사용자 대출 정보 (채무자)
     @OneToMany(mappedBy = "fromUser", cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Loan> fromLoans = new ArrayList<>();
 
     // toLoans: 사용자 대출 정보 (채권자)
     @OneToMany(mappedBy = "toUser", cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Loan> toLoans = new ArrayList<>();
 
     // fromFriendLists: 친구 요청을 보낸 사용자 정보 
     @OneToMany(mappedBy = "fromUser", cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<FriendList> fromFriendLists = new ArrayList<>();
 
     // toFriendLists: 친구 요청을 받은 사용자 정보
     @OneToMany(mappedBy = "toUser", cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<FriendList> toFriendLists = new ArrayList<>();
 
     @OneToMany(mappedBy = "fromUser", cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<FriendRequest> fromFriendRequests = new ArrayList<>();
 
     @OneToMany(mappedBy = "toUser", cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<FriendRequest> toFriendRequests = new ArrayList<>();
 
     // messageAlarms: 사용자 문자 로그 정보
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<MessageAlarm> messageAlarms = new ArrayList<>();
 
     // fromWebAlarms: 웹알림을 보낸 사용자의 웹알림 정보
     @OneToMany(mappedBy = "toUser", cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<WebAlarm> toWebAlarms = new ArrayList<>();
 
     // toWebAlarms: 웹알림을 받은 사용자의 웹알림 정보
     @OneToMany(mappedBy = "fromUser", cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<WebAlarm> fromWebAlarms = new ArrayList<>();
 
     // termsHistories: 약관 동의이력
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<TermsHistory> termsHistories = new ArrayList<>();
 
     // loginId: 아이디
@@ -120,6 +133,19 @@ public class User {
     @Column(name = "expired_at")
     private LocalDateTime expiredAt;
 
+    public User(String loginId, String loginPassword, String pinPassword, String phone, String name, String address, String addressDetail, String profileImg) {
+        this.loginId = loginId;
+        this.loginPassword = loginPassword;
+        this.pinPassword = pinPassword;
+        this.phone = phone;
+        this.name = name;
+        this.address = address;
+        this.addressDetail = addressDetail;
+        this.profileImg = profileImg;
+        this.state = true;
+        this.creditScore = 50;
+    }
+
     public User(String loginId, String loginPassword, String phone, String name, String address, String addressDetail, String profileImg) {
         this.loginId = loginId;
         this.loginPassword = loginPassword;
@@ -129,6 +155,6 @@ public class User {
         this.addressDetail = addressDetail;
         this.profileImg = profileImg;
         this.state = true;
-        this.creditScore = 0;
+        this.creditScore = 50;
     }
 }
