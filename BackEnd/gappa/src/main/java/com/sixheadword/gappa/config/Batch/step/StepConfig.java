@@ -84,15 +84,15 @@ public class StepConfig {
                     List<Loan> upcomingDeadlineLoans =
                             loanRepository.findByStatusEqualsAndRedemptionDateBetween(
                                     'O',
-                                    LocalDateTime.now().minusWeeks(1),
-                                    LocalDateTime.now()
+                                    LocalDateTime.now(),
+                                    LocalDateTime.now().plusWeeks(1)
                             );
 
                     upcomingDeadlineLoans.forEach(loan -> {
                         Long remainingAmount = loan.getPrincipal() - loan.getRedemptionMoney();
                         String message = loan.getToUser().getName()
                                 + "님과의 대출 기간이 "
-                                + ChronoUnit.DAYS.between(loan.getRedemptionDate(), LocalDateTime.now())
+                                + ChronoUnit.DAYS.between(LocalDateTime.now(), loan.getRedemptionDate())
                                 + "일 남았습니다. "
                                 + remainingAmount
                                 + "(원)에 대한 상환이 필요합니다!";
