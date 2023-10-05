@@ -143,7 +143,7 @@ public class User {
         this.addressDetail = addressDetail;
         this.profileImg = profileImg;
         this.state = true;
-        this.creditScore = 0;
+        this.creditScore = 50;
     }
 
     public User(String loginId, String loginPassword, String phone, String name, String address, String addressDetail, String profileImg) {
@@ -155,6 +155,6 @@ public class User {
         this.addressDetail = addressDetail;
         this.profileImg = profileImg;
         this.state = true;
-        this.creditScore = 0;
+        this.creditScore = 50;
     }
 }
