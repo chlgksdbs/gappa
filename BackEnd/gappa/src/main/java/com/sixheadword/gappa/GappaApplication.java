@@ -12,7 +12,6 @@ import java.util.TimeZone;
 @EnableBatchProcessing
 @EnableScheduling
 @SpringBootApplication
-@EnableJpaAuditing
 public class GappaApplication {
 
 	// Application 실행 시 TimeZone 한국 시간으로 변경

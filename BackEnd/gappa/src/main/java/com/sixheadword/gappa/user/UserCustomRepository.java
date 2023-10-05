@@ -27,4 +27,11 @@ public class UserCustomRepository {
                 .getResultStream()
                 .findFirst();
     }
+
+    // 전화번호 중복확인
+    public User findByPhone(String phone){
+        return em.createQuery("select U from User U where U.phone = :phone", User.class)
+                .setParameter("phone", phone)
+                .getSingleResult();
+    }
 }

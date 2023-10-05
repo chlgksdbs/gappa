@@ -24,6 +24,7 @@ import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @Service
 @Transactional
@@ -44,7 +45,7 @@ public class MoneyService {
         if(loan != null){
             // 대출 상태 및 실행일자 변경
             loan.setStatus('O');
-            loan.setStartDate(LocalDateTime.now());
+            loan.setStartDate(LocalDateTime.now().atZone(ZoneId.of("Asia/Seoul")).toLocalDateTime());
             // 대출금 이체 실행
             transfer(loan, 0L, 1);
             //알림 만드는 로직
@@ -92,19 +93,19 @@ public class MoneyService {
                 loanHistory.setAmount(redemptionRequestDto.getAmount());
                 loanHistory.setOldRedemptionMoney(loan.getRedemptionMoney());
                 loanHistory.setNewRedemptionMoney(loan.getRedemptionMoney() + redemptionRequestDto.getAmount());
-                loanHistory.setTransactionDate(LocalDateTime.now());
+                loanHistory.setTransactionDate(LocalDateTime.now().atZone(ZoneId.of("Asia/Seoul")).toLocalDateTime());
                 loanHistory.setLoan(loan);
                 loanHistoryRepository.save(loanHistory);
                 // 대출 내역의 상환금 업데이트
                 Long totalRedemptionMoney = loan.getRedemptionMoney() + redemptionRequestDto.getAmount();
                 // 현재까지의 총 상환금이 '(대출원금+이자)*연체일자' 를 넘어가면 상환 완료
-                int lateDate = LocalDateTime.now().compareTo(loan.getRedemptionDate());
+                int lateDate = LocalDateTime.now().atZone(ZoneId.of("Asia/Seoul")).toLocalDateTime().compareTo(loan.getRedemptionDate());
                 //알림 만드는 로직
                 String alarmContent = loan.getFromUser().getName() + "님이 " + formatWithCommas(redemptionRequestDto.getAmount()) + "원을 상환했어요!";
                 char alarmCategory = 'P';
                 if(totalRedemptionMoney >= (loan.getPrincipal() + loan.getInterest()) * lateDate) {
                     loan.setStatus('C');
-                    loan.setExpiredDate(LocalDateTime.now());
+                    loan.setExpiredDate(LocalDateTime.now().atZone(ZoneId.of("Asia/Seoul")).toLocalDateTime());
                     alarmContent = loan.getFromUser().getName() + "님이 " + formatWithCommas(loan.getPrincipal()) + "원 대출 상환을 완료했어요!";
                     alarmCategory = 'C';
                 }
@@ -123,7 +124,7 @@ public class MoneyService {
                 loanHistory.setAmount(redemptionRequestDto.getAmount());
                 loanHistory.setOldRedemptionMoney(loan.getRedemptionMoney());
                 loanHistory.setNewRedemptionMoney(loan.getRedemptionMoney() + redemptionRequestDto.getAmount());
-                loanHistory.setTransactionDate(LocalDateTime.now());
+                loanHistory.setTransactionDate(LocalDateTime.now().atZone(ZoneId.of("Asia/Seoul")).toLocalDateTime());
                 loanHistoryRepository.save(loanHistory);
                 // 대출 내역의 상환금 업데이트
                 Long totalRedemptionMoney = loan.getRedemptionMoney() + redemptionRequestDto.getAmount();
@@ -133,7 +134,7 @@ public class MoneyService {
                 // 현재까지의 총 상환금이 대출원금을 넘어가면 상환 완료
                 if(totalRedemptionMoney >= loan.getPrincipal()){
                     loan.setStatus('C');
-                    loan.setExpiredDate(LocalDateTime.now());
+                    loan.setExpiredDate(LocalDateTime.now().atZone(ZoneId.of("Asia/Seoul")).toLocalDateTime());
                     alarmContent = loan.getFromUser().getName() + "님이 " + formatWithCommas(loan.getPrincipal()) + "원 대출 상환을 완료했어요!";
                     alarmCategory = 'C';
                 }
