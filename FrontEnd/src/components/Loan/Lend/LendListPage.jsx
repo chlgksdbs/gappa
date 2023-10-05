@@ -20,13 +20,11 @@ const LendListPage = () => {
   const getApplyList = () => {
     customAxios.get('/loan/apply')
     .then((res)=>{
-      console.log(res);
       const sortedList = res.data.sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
       setApplyList(sortedList);
       setIsEmpty(false);
     })
     .catch((res)=>{
-      console.log(res);
       setIsEmpty(true);
     })
   }

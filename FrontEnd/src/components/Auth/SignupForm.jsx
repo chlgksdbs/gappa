@@ -86,7 +86,6 @@ const SignupForm = (props) => {
           .then((response) => {
             setIdMessage(response.data.message);
             setIsId(response.data.data.code);
-            console.log(response)
           })
       }, 500);
     }
@@ -158,10 +157,6 @@ const SignupForm = (props) => {
 
     // 주소 선택 이벤트
     selectAddress: (data) => {
-      console.log(`
-      주소: ${data.address},
-      우편번호: ${data.zonecode}
-      `)
       setAddress(data.address);
       setAddressNumber(data.zonecode);
       setOpenPostcode(false);
@@ -175,7 +170,6 @@ const SignupForm = (props) => {
     if (detailAddress && address && addressNumber) {
       setFinalAddress(`${address} ${addressNumber}`);
       setIsFinalAddress(true);
-      console.log(finalAddress);
     } else {
       setIsFinalAddress(false);
     }
@@ -184,7 +178,6 @@ const SignupForm = (props) => {
     if (detailAddress && address && addressNumber) {
       setFinalAddress(`${address} ${addressNumber}`);
       setIsFinalAddress(true);
-      console.log(finalAddress);
     } else {
       setIsFinalAddress(false);
     }

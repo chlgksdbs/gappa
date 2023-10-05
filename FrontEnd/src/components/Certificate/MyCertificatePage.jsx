@@ -52,7 +52,6 @@ const MyCertificatePage = () => {
         setCertName(res.data.data.name);
       })
       .catch((res)=>{
-        console.log(res);
       })
     } else {
       // 토큰이 없는 경우 처리

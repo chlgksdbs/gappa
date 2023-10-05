@@ -15,3 +15,12 @@
 .footer img {
   height: 47px;
 }
+
+.iconStyle {
+  font-size: 40px;
+}
+
+.activeIconStyle {
+  font-size: 40px;
+  color: #80CEBE;
+}

@@ -32,13 +32,11 @@ const SignupPage = () => {
     }, 100);
     authAxios.post('/users/signup', signupAPIData)
       .then((response) => {
-        console.log(response)
         window.localStorage.setItem('token', response.data.data.token )
         window.location.replace("/bankbook");
         // navigate("/bankbook");
       })
       .catch((response) => {
-        console.log(response)
       })
   }
   return (

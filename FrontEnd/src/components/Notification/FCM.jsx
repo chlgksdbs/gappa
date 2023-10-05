@@ -6,11 +6,8 @@ import { initializeApp } from "firebase/app";
 import toast from 'react-hot-toast';
 
 const FCM = () => {
-
   // 버튼 토글
   const [isPushEnabled, setPushEnabled] = useState(false);
-
-  
 
   useEffect(() => {
     const isFCM = localStorage.getItem("fcmToken");  
@@ -18,7 +15,6 @@ const FCM = () => {
       setPushEnabled(true);
     }
   }, []);
-
 
   const togglePushNotification = () => {
     if(isPushEnabled === false){
@@ -41,11 +37,8 @@ const FCM = () => {
     measurementId: "G-87Q4T0J8PG"
   };
 
-  const [fcmToken, setFcmToken] = useState("");
-
   const app = initializeApp(firebaseConfig);
   const messaging = getMessaging(app);
-
 
   const hideOnPush = async () => {
     // 1. 알림 설정 허용인지 체크
@@ -53,17 +46,14 @@ const FCM = () => {
 
     if (permission === "denied") {
       // 알림 권한이 거부된 경우의 동작
-      console.log("알림 권한이 허용되지 않음");
       setPushEnabled(false);
     } else {
       // 알림 권한이 허용된 경우의 동작
-      console.log("알림 권한이 허용됨");
       setTimeout(getFirebaseToken(), 1000);
     }
   }
 
   async function subs() {
-    console.log("권한 요청 중...");
 
     const permission = await Notification.requestPermission();
     return permission;
@@ -76,7 +66,6 @@ const FCM = () => {
       });
 
       if (token) {
-        console.log("token: ", token);
         localStorage.setItem("fcmToken", token);
         setting(token);
       } else {
@@ -96,8 +85,6 @@ const FCM = () => {
     };
     customAxios.post("/fcm", body)
     .then((res)=>{
-      console.log(res);
-      setFcmToken(token);
       toast.success("푸시 알림을 받습니다", {
         duration: 1000,
       });
@@ -105,30 +92,16 @@ const FCM = () => {
       }, 1000);
     })
     .catch((res)=>{
-      console.log(res);
       setPushEnabled(false);
     })
   }  
 
-  // 테스트 메시지 보내는 메서드
-  // const send = () => {
-  //   customAxios.post("/fcm/push")
-  //   .then((res)=>{
-  //     console.log(res);
-  //   })
-  //   .catch((res)=>{
-  //     console.log(res);
-  //   })
-  // };
-
   const hideOffPush = () => {
     customAxios.delete("/fcm")
     .then((res)=>{
-      console.log(res);
       window.localStorage.removeItem("fcmToken");
     })
     .catch((res)=>{
-      console.log(res);
     })
   }
 

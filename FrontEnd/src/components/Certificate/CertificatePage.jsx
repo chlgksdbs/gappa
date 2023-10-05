@@ -72,19 +72,7 @@ const CertificatePage = () => {
         setToUserDetailAddress(res.data.data.addressDetail);
       })
       .catch((res)=>{
-        console.log(res);
       })
-    
-    // 내가 채권자일때 대표계좌 조회 -> userSeq로 대표계좌 조회하는 api로 바꿔야함
-    // customAxios.get(`/accounts/primary`)
-    //   .then((res)=>{
-    //     console.log(res);
-    //     setToUserBank(res.data.bank);
-    //     setToUserAccountNumber(res.data.accountNumber);
-    //   })
-    //   .catch((res)=>{
-    //     console.log(res);
-    //   })
 
     // 채권자 대표계좌 조회
     const body = {
@@ -92,7 +80,6 @@ const CertificatePage = () => {
     }
     customAxios.post(`/accounts/others/primary`, body)
       .then((res) => {
-        console.log(res);
         setToUserBank(res.data.bank);
         setToUserAccountNumber(res.data.accountNumber);
       })
@@ -106,7 +93,6 @@ const CertificatePage = () => {
       setFromUserDetailAddress(res.data.data.addressDetail);
     })
     .catch((res)=>{
-      console.log(res);
     })
 
     // 채무자
@@ -117,7 +103,6 @@ const CertificatePage = () => {
       setPrincipal(res.data.principal);
     })
     .catch((res)=>{
-      console.log(res);
     })
   },[])
 

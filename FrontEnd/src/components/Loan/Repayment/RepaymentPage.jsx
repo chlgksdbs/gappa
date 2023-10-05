@@ -9,8 +9,6 @@ const RepaymentPage = () => {
   const location = useLocation();
   const data = location.state;
 
-  console.log(data);
-
   const [imgURL, setURL] = useState("");
   const [username, setUsername] = useState("");
   const [userphone, setUserphone] = useState("");
@@ -58,32 +56,26 @@ const RepaymentPage = () => {
   useEffect(() => {
     customAxios.get(`/users/${data.userSeq}`)
     .then((res)=>{
-      console.log(res);
       setURL(`/images/${res.data.data.profileImg}`);
       setUsername(res.data.data.name);
       setUserphone(formatPhoneNumber(res.data.data.phone));
     })
     .catch((res)=>{
-      console.log(res);
     })
 
     customAxios.get(`/loan/history/${data.loanSeq}`)
     .then((res)=>{
-      console.log(res);
       setBalance(res.data.balance);
     })
     .catch((res)=>{
-      console.log(res);
     })
 
     customAxios.get(`/accounts/primary`)
     .then((res)=>{
-      console.log(res);
       setBank(res.data.bank);
       setMoney(res.data.balance);
     })
     .catch((res)=>{
-      console.log(res);
     })
   })
 
@@ -94,7 +86,6 @@ const RepaymentPage = () => {
     }
     customAxios.post("/loan/money/redemption", repaymentData)
     .then((res)=>{
-      console.log(res);
       toast.success("상환 했습니다.", {
         duration: 1000,
       });
@@ -103,7 +94,6 @@ const RepaymentPage = () => {
       }, 1000);
     })
     .catch((res)=>{
-      console.log(res);
       toast.error("상환에 실패했습니다.", {
         duration: 1000,
       });

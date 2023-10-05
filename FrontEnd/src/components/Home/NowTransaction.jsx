@@ -29,10 +29,8 @@ const NowTransaction = () => {
   ]);
 
   useEffect(() => {
-    console.log(loaning)
     customAxios.get("/loan/on")
       .then((res) => {
-        // console.log(res)
         setCheck(true);
         setLoaning(res.data);
       })

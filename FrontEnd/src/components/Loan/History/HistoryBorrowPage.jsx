@@ -54,8 +54,6 @@ const HistoryBorrowPage = () => {
   useEffect(() => {    
     customAxios.get(`/loan`)
       .then((res)=>{
-        console.log(res);
-
         const updatedBorrows = res.data.map((borrow) => ({
           id: borrow.loanSeq,
           name: borrow.toUser,
@@ -69,7 +67,6 @@ const HistoryBorrowPage = () => {
         setBorrows(updatedBorrows);
       })
       .catch((res)=>{
-        console.log(res);
       })
   }, []);
 
