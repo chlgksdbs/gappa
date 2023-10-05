@@ -199,19 +199,25 @@ const HistoryDetailPage = (props) => {
               <span>대출 잔액</span>
               <span>{formatBalance(balance)} 원</span>
             </div>
-            <div className={style.line2} />
-            <p></p>
-            <div className={style.div2}>
-              <span>상환 내역</span>
-              {/* <span onClick={toggleIsOpen}>∨</span> */}
-              <img src="/images/FoldBtn.png" alt="" style={{height:"40px"}} onClick={toggleIsOpen}/>
-            </div>
-            { isOpen && loanHistoryList.map((loan) => (
-              <div className={style.transactionBox}>
-                <div className={style.date}>{formatStartdate(loan.transactionDate)}</div>
-                <div className={style.detailBox}>{loan.amount} 원</div>
+            <div className={style.haerin}>
+              <div className={style.div2}>
+                <span>상환 내역</span>
+                <img src="/images/FoldBtn.png" alt="" style={{height:"40px"}} onClick={toggleIsOpen}/>
               </div>
-            ))}
+              { isOpen ? 
+              <>
+                <div className={style.transactionBox}>
+                  <div className={style.date}>날짜</div>
+                  <div className={style.detailBox}>금액</div>
+                </div>
+                {loanHistoryList.map((loan) => (
+                  <div className={style.transactionBox}>
+                    <div className={style.date}>{formatStartdate(loan.transactionDate)}</div>
+                    <div className={style.detailBox}>{loan.amount} 원</div>
+                  </div>
+                ))}
+              </> : null}
+            </div>
             <div style={{display: "flex"}}>
               {!isGappa ? ( status !== 'C' ? (
                 <div className={style.btnDiv}>
