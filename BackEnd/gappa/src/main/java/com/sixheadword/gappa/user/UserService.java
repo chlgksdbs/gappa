@@ -5,6 +5,7 @@ import com.sixheadword.gappa.account.repository.AccountRepository;
 import com.sixheadword.gappa.loan.Loan;
 import com.sixheadword.gappa.loan.repository.LoanRepository;
 import com.sixheadword.gappa.loan.repository.LoanRepositoryImpl;
+import com.sixheadword.gappa.user.request.CheckPhoneRequestDto;
 import com.sixheadword.gappa.user.request.CheckPwRequestDto;
 import com.sixheadword.gappa.utils.JwtUtil;
 import com.sixheadword.gappa.utils.RedisUtil;
@@ -299,6 +300,16 @@ public class UserService {
         }
 
         return new ResponseEntity<>(resultMap, status);
+    }
+
+    // 전화번호 중복확인
+    public boolean checkIdDuplication(CheckPhoneRequestDto checkPhoneRequestDto){
+        User user = userCustomRepository.findByPhone(checkPhoneRequestDto.getPhone());
+        if(user != null){
+            return true;
+        }else{
+            throw new IllegalArgumentException("전화번호가 이미 존재합니다.");
+        }
     }
 
     // 간편 비밀번호 설정
