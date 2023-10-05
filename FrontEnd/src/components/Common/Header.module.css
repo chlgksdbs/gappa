@@ -78,6 +78,7 @@
 .menus {
   color: rgb(57, 57, 57);
   margin-bottom: 3vh;
+  font-size: 22px;
 }
 
 .push {
@@ -87,8 +88,11 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  font-size: 22px;
 }
 
 .iconQ {
-  height: 35px;
+  height: 29px;
+  padding-bottom: 5px;
+  margin-left: 3px;
 }

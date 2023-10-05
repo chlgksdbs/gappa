@@ -18,7 +18,7 @@
 
 .title {
   color: #a1d9ce;
-  margin: 5vh 0 2vh 0;
+  margin: 4vh 0 2vh 0;
 }
 
 .detail {
@@ -45,7 +45,7 @@
 }
 
 .btnBox {
-  height: 10%;
+  height: 30%;
   width: 100%;
   display: flex;
   justify-content: space-around;
