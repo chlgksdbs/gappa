@@ -272,7 +272,7 @@ const Step2 = ( props ) => {
       </div>
 
       <div className={style.phoneform}>
-        <span>휴대폰 번호</span>
+        {/* <span style={{fontSize:'20px'}}>휴대폰 번호</span> */}
         <br />
         {phoneIsValid()}
         { timeAttack
