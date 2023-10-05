@@ -1,4 +1,5 @@
 .masterbankbookpage{
+  font-family: 'LINESeedKR-Rg';
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -6,6 +7,7 @@
 }
 
 .masterbankbookpages{
+  font-family: 'LINESeedKR-Bd';
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -16,16 +18,17 @@
 .masterbankbook{
   display: grid;
   grid-template-columns: 2fr 5fr 2fr;
-  border: 1px solid black;
+  border: 1px solid #aeaeae;
   align-items: center;
   justify-content: center;
   width: 90%;
   padding: 20px 0px 20px 0px;
-  border-radius: 20px;
+  border-radius: 10px;
   margin-top: 10vh;
 }
 
 .master{
+  font-family: 'LINESeedKR-Bd';
   display: flex;
   justify-content: center;
   align-items: center;

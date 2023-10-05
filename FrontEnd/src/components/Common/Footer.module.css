@@ -7,7 +7,7 @@
   justify-content: space-around;
   margin-top: auto;
   padding-top: 15px;
-  padding-bottom: 13px;
+  padding-bottom: 15px;
   display: flex;
   flex-direction: row;
 }
@@ -17,10 +17,10 @@
 }
 
 .iconStyle {
-  font-size: 40px;
+  font-size: 35px;
 }
 
 .activeIconStyle {
-  font-size: 40px;
+  font-size: 35px;
   color: #80CEBE;
 }

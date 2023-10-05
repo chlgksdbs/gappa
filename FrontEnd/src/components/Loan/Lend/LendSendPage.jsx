@@ -183,7 +183,7 @@ const LendSendPage = () => {
               <img src="/images/GapPassCert.png" alt="" />
             </div>
             <div className={style.certlogoBox}>
-              <img src="/images/GAPPASS.png" alt="" />
+              <img src="/images/CertShield.gif" alt="" />
             </div>
             <div className={style.textBox}>
               <div className={style.name}>{certName}</div>
@@ -195,9 +195,9 @@ const LendSendPage = () => {
             인증서 비밀번호를 입력하세요
           </div>
           <div className={style.passwordBox}>
-            <div>
+            {/* <div>
               비밀번호
-            </div>
+            </div> */}
             <div>
               <input type="password" className={style.input} name="password" value={certPW} onClick={() => onClickPassword("Pw")} readOnly />
             </div>
@@ -265,7 +265,7 @@ const LendSendPage = () => {
               <img src="/images/GapPassCert.png" alt="" />
             </div>
             <div className={style.certlogoBox}>
-              <img src="/images/GAPPASS.png" alt="" />
+              <img src="/images/CertShield.gif" alt="" />
             </div>
             <div className={style.textBox}>
               <div className={style.name}>{certName}</div>

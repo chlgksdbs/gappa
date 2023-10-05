@@ -108,8 +108,8 @@ const LendPage = () => {
           
         </div>
         <div className={style.btnBox}>
-          <button onClick={refuseClick}>거절</button>
-          <button onClick={() => checkCert(loanSeq) }>승인</button>
+          <div onClick={refuseClick}>거절</div>
+          <div onClick={() => checkCert(loanSeq) }>승인</div>
         </div>
       </div>
       {isRefuseOpen && (

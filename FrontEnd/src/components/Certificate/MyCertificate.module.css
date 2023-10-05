@@ -1,4 +1,5 @@
 .body {
+  font-family: 'LINESeedKR-Rg';
   height: 100vh;
   justify-content: flex-start;
   align-items: center;
@@ -10,7 +11,10 @@
 .mycert {
   height: 50%;
   width: 90%;
-  background: linear-gradient(#5462f8, #2a2adf);
+  background-image: url('../../../public/images/CertBackground.JPG');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
   border-radius: 7%;
 }
 
@@ -54,7 +58,8 @@
 }
 
 .detail {
-  font-size: 22px;
+  color: #bcbcbc;
+  font-size: 20px;
 }
 
 

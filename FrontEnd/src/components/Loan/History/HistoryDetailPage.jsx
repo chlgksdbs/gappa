@@ -14,7 +14,6 @@ const HistoryDetailPage = (props) => {
   const [finishdate, setFinishdate] = useState("");
   const [imgURL, setURL] = useState("");
   const [myname, setMyname] = useState("");
-  console.log(myname);
   const [username, setUsername] = useState("");
   const [toUserSeq, setToUserSeq] = useState(0);
   const [fromUserSeq, setFromUserSeq] = useState(0);
@@ -29,6 +28,7 @@ const HistoryDetailPage = (props) => {
   const loanSeq = location.state.loanId;
 
   const [isGappa, setIsGappa] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const formatPrincipal = (principal) => {
     // principal를 1,000 단위로 포맷팅하여 반환합니다.
@@ -49,6 +49,10 @@ const HistoryDetailPage = (props) => {
     // redemptionMoney를 1,000 단위로 포맷팅하여 반환합니다.
     return redemptionMoney.toLocaleString();
   };
+
+  const toggleIsOpen = () => {
+    setIsOpen(!isOpen);
+  }
 
   const formatStartdate = (startdate) => {
     // 날짜 문자열을 Date 객체로 파싱
@@ -120,17 +124,19 @@ const HistoryDetailPage = (props) => {
 
   console.log(loanSeq);
   useEffect(() => {
-    // const data = {
-    //   loanSeq: loanSeq
-    // }
-    customAxios.post("/loan/history/detail", loanSeq)
+    const data = {
+      loanSeq: loanSeq
+    }
+    customAxios.post("/loan/history/detail", data)
     .then((res) => {
       console.log(res);
-      setLoanHistoryList(res);
+      setLoanHistoryList(res.data);
+      // setTimeout(1000);
+      // console.log(loanHistoryList);
     })
     .catch((res) => {
     })
-  })
+  }, [])
 
   return (
     <div className={style.main}>
@@ -193,14 +199,26 @@ const HistoryDetailPage = (props) => {
               <span>대출 잔액</span>
               <span>{formatBalance(balance)} 원</span>
             </div>
-            <div className={style.line2} />
-            <p></p>
-
-            {/* { loanHistoryList.map((loan) => (
-              "하하"
-            )) } */}
-
-            <div style={{display: "flex"}}>
+            <div className={style.haerin}>
+              <div className={style.div2} style={{marginTop:'2rem'}}>
+                <span>상환 내역</span>
+                <img src="/images/FoldBtn.png" alt="" style={{height:"40px"}} onClick={toggleIsOpen}/>
+              </div>
+              { isOpen ? 
+              <>
+                <div className={style.transactionBox}>
+                  <div className={style.date}>날짜</div>
+                  <div className={style.detailBox}>금액</div>
+                </div>
+                {loanHistoryList.map((loan) => (
+                  <div className={style.transactionBox}>
+                    <div className={style.date}>{formatStartdate(loan.transactionDate)}</div>
+                    <div className={style.detailBox}>{loan.amount} 원</div>
+                  </div>
+                ))}
+              </> : null}
+            </div>
+            <div style={{display: "flex", justifyContent:'space-around'}}>
               {!isGappa ? ( status !== 'C' ? (
                 <div className={style.btnDiv}>
                   <button className={style.btnStyle1} onClick={goToCertificate}>차용증 생성</button>

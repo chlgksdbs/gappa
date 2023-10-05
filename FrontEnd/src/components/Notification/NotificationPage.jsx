@@ -68,13 +68,13 @@ const NotificationPage = () => {
       } else if(category === "R") {
         window.location.reload();
       } else if(category === "C") {
-        navigate('/historyborrow');
+        navigate('/historylend');
       } else if(category === "P") {
-        navigate('/historyborrow');
+        navigate('/historylend');
       } else if(category === "F") {
         navigate('/friends');
       } else if(category === "Q") {
-        navigate('/friends/req');
+        navigate('/friends');
       }
     })
     .catch((res) => {

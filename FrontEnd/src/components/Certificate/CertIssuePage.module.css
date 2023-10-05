@@ -1,4 +1,5 @@
 .body {
+  font-family: 'LINESeedKR-Rg';
   height: 100vh;
   justify-content: flex-start;
   align-items: center;
@@ -17,6 +18,7 @@
 }
 
 .title {
+  font-family: 'LINESeedKR-Bd';
   width: 90%;
   font-size: 28px;
 }
@@ -28,30 +30,49 @@
 
 .phoneform {
   height: 10%;
-  margin-top: 5vh;
+  margin-top: 3vh;
   width: 90%;
 }
 
+.phoneNum {
+  display: flex;
+  width : 100%;
+  flex-direction: row;
+}
 
+.phoneNumInput{
+  width: 60%;
+  border-bottom: 2px solid #ccc;
+}
 
 .forminput{
-  width: 60%;
+  width: 100%;
   border:none;
-  border-bottom: 2px solid #ccc;
-  font-size: 20px;
+
+  font-size: 22px;
+}
+
+.forminput:focus {
+  border: none;
 }
 
 .formbtn {
-  font-family: "LINESeedKR-Br";
-  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  font-size: 17px;
   border-radius: 5px;
-  border: 2px solid #ccc;
+  /* border: 2px solid #ccc; */
   background-color: #AFEBDF;
+  padding: .3rem;
+  margin-left: 1rem;
 }
 
 .phonecheckform {
+  font-size: 18px;
   height: 10%;
-  margin: 5vh 0 5vh 0;
+  margin: 2vh 0;
   width: 90%;
 }
 
@@ -63,6 +84,7 @@
   font-family: "LINESeedKR-Bd";
   width: 90%;
   margin-top: 3vh;
+  padding: .7rem;
   border-radius: 10px;
   border: 2px solid #ccc;
   justify-content: center;
@@ -141,36 +163,28 @@
 
 .goodbtn {
   background-color: #AFEBDF;
-  font-size: 28px;
+  font-size: 23px;
   display: flex;
   justify-content: center;
   align-items: center;
   border: none;
-  border-radius: 5px;
-  width: 30%;
-  height: 80%;
+  border-radius: 3px;
+  width: 25%;
+  height: 70%;
+  margin-top: .5rem;
 }
 
 .notbtn {
   background-color: #ccc;
-  font-size: 28px;
+  font-size: 23px;
   display: flex;
   justify-content: center;
   align-items: center;
   border: none;
-  border-radius: 5px;
-  width: 30%;
-  height: 80%;
-}
-
-.input{
-  border-width: 0 0 1px;
-  border-color: lightgray;
-  width: 10;
-}
-
-.input:focus{
-  outline: none;
+  border-radius: 3px;
+  width: 25%;
+  height: 70%;
+  margin-top: .5rem;
 }
 
 
@@ -185,7 +199,7 @@
 
 .passwordBox {
   width: 90%;
-  height: 40%;
+  height: 35%;
 }
 
 .pwform {
@@ -195,10 +209,9 @@
 }
 
 .pwtitle {
+  font-size: 20px;
   margin-top: 3vh;
 }
-
-
 
 .pwinput {
   border: none;
@@ -209,14 +222,12 @@
 
 .colorred{
   width: 80%;
-  font-family: "LINESeedKR-Br";
   font-size: 14px;
   color: red;
 }
 
 .colorblue{
   width: 80%;
-  font-family: "LINESeedKR-Br";
   font-size: 14px;
   color: blue;
 }
@@ -280,4 +291,14 @@
 .keyboardsetitemlast img{
   width: 100%;
   height: 100%;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input:focus{
+  outline: none;
 }
