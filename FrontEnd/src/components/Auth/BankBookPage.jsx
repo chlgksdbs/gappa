@@ -24,14 +24,12 @@ const BankBookPage = () => {
             <img src={bank_Img} alt="" />
           </div>
           <div>
-            <span>{account_Number}</span>
-            <br />
-            <br />
             <span className={style.bankcolor}>{bankname}</span>
+            <div style={{marginBottom:'10px'}}></div>
+            <span>{account_Number}</span>
           </div>
           <div>
-            <br />
-            <br />
+            <div style={{marginBottom:'30px'}}></div>
             <span>{balance} 원</span>
           </div>
         </div>

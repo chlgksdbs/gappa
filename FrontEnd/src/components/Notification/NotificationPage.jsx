@@ -74,7 +74,7 @@ const NotificationPage = () => {
       } else if(category === "F") {
         navigate('/friends');
       } else if(category === "Q") {
-        navigate('/friends/req');
+        navigate('/friends');
       }
     })
     .catch((res) => {
