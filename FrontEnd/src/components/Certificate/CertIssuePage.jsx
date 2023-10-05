@@ -273,13 +273,10 @@ const Step2 = ( props ) => {
 
       <div className={style.phoneform}>
         <div>휴대폰 번호</div>
-        {phoneIsValid()}
-        { timeAttack
-        ?
-          <input type="button" value="인증번호 발송" className={style.formbtn} onClick={phoneCheck} />
-          :
-          <input type="button" value="인증번호 발송" className={style.formbtn}/>
-        }
+        <div className={style.phoneNum}>
+          <div className={style.phoneNumInput}>{phoneIsValid()}</div>
+          <button onClick={phoneCheck} className={style.formbtn}>인증번호 발송</button>
+        </div>
       </div>
       {
         checkPhone
@@ -288,9 +285,9 @@ const Step2 = ( props ) => {
             <div>{phoneMessage}</div>
             {phoneMessage === "5분 안에 입력해주세요."
               ?
-              <div className={style.phoneforms}>
-                <input type="number" value={phoneCheckNumber} onChange={onChangePhoneCheckNumber} className={style.forminput} />
-                <input type="button" value="인증번호 확인" onClick={phoneCheckNumberConfirm} className={style.formbtn} />
+              <div className={style.phoneNum}>
+                <div className={style.phoneNumInput}><input type="number" value={phoneCheckNumber} onChange={onChangePhoneCheckNumber} className={style.forminput} /></div>
+                <button onClick={phoneCheckNumberConfirm} className={style.formbtn}>인증번호 확인</button>
               </div>
               :
               null

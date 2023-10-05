@@ -32,16 +32,25 @@
   width: 90%;
 }
 
+.phoneNum {
+  display: flex;
+  width : 100%;
+  flex-direction: row;
+}
 
+.phoneNumInput{
+  width: 60%;
+}
 
 .forminput{
-  width: 60%;
+  width: 100%;
   border:none;
   border-bottom: 2px solid #ccc;
   font-size: 20px;
 }
 
 .formbtn {
+  width: 40%;
   font-family: "LINESeedKR-Br";
   font-size: 16px;
   border-radius: 5px;
