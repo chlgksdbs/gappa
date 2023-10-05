@@ -23,14 +23,14 @@
   font-size: 18px;
   border: none;
   border-bottom: 1px solid #ccc;
-  font-family: 'TheJamsil3Regular';
+  font-family: 'LINESeedKR-Bd';
 }
 
 .underText {
   display: flex;
   align-items: flex-start;
   flex-direction: row;
-  font-family: 'TheJamsil2Light';
+  font-family: 'LINESeedKR-Rg';
   font-size: 12px;
   width: 90%;
 }
@@ -46,7 +46,7 @@
 
 .inputBtn button{
   background-color: #AFEBDF;
-  font-family: 'TheJamsil5Bold';
+  font-family: 'LINESeedKR-Bd';
   font-size: 18px;
   padding: 10px 20px;
   border: none;
@@ -102,7 +102,7 @@
 }
 
 .infoNumber {
-  font-family: 'TheJamsil3Regular';
+  font-family: 'LINESeedKR-Bd';
   font-size: 16px;
 }
 
@@ -117,7 +117,7 @@
 
 .resultBtn button{
   background-color: #AFEBDF;
-  font-family: 'TheJamsil5Bold';
+  font-family: 'LINESeedKR-Bd';
   font-size: 18px;
   padding: 10px 20px;
   border: none;
