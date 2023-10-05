@@ -88,6 +88,7 @@
   width: 90%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: .7rem 1.2rem;
   font-size: 20px;
 }
@@ -109,12 +110,14 @@
 }
 
 .btnDiv {
+  font-family: 'LINESeedKR-Rg';
   display: flex;
-  justify-content: space-around;
-  width: 99%;
+  justify-content: center;
+  width: 95%;
 }
 
 .btnDiv .btnStyle1 {
+  font-family: 'LINESeedKR-Rg';
   display: flex;
   justify-content: center;
   align-items: center;
@@ -122,8 +125,8 @@
   height: 45px;
   background-color: rgba(128, 206, 190, 0.3);
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
-  font-size: 18px;
+  border-radius: 3px;
+  font-size: 20px;
   font-weight: bold;
   color: rgb(0, 0, 0);
   margin: 2rem auto;
@@ -131,6 +134,7 @@
 }
 
 .btnDiv .btnStyle2 {
+  font-family: 'LINESeedKR-Rg';
   display: flex;
   justify-content: center;
   align-items: center;
@@ -138,11 +142,41 @@
   height: 45px;
   background-color: rgba(128, 206, 190, 0.3);
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
-  font-size: 18px;
+  border-radius: 3px;
+  font-size: 20px;
   font-weight: bold;
   color: rgb(0, 0, 0);
   margin: 2rem auto;
   border: none;
   margin-left: 10px;
+}
+
+.haerin {
+  background-color: rgba(128, 206, 190, 0.1);
+}
+
+.transactionBox {
+  background-color: fff;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  border-bottom: 1px solid #eaeaea;
+  margin-top: 10px;
+}
+
+
+.date {
+  font-size: 16px;
+  margin-bottom: 1vh;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+.detailBox {
+  font-size: 16px;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
 }

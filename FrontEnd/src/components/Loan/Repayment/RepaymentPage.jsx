@@ -40,6 +40,10 @@ const RepaymentPage = () => {
     setRedemption(newRedemption > balance ? balance : newRedemption);
   };
 
+  const resetHandler = () => {
+    setRedemption(0);
+  };
+
   const VerifyHandler = (status) => {
     if(status === true){
       setShowPin(false);
@@ -144,11 +148,11 @@ const RepaymentPage = () => {
         </div>
         <div className={style.repayment}>
           <div className={style.mainAccount}>
-            <div>내 대표계좌</div>
+            <div style={{fontFamily: 'LINESeedKR-Bd'}}>내 대표계좌</div>
             <p className={style.mainAccountDiv}>{bank} | 잔액 {formatBalance(money)} 원</p>
           </div>
           <div className={style.repaymentDiv}>
-            <div>
+            <div style={{fontFamily: 'LINESeedKR-Bd'}}>
               상환 금액
             </div>
             <div className={style.repaymentBtnDiv}>
@@ -156,6 +160,7 @@ const RepaymentPage = () => {
               <div className={style.plusBtn} onClick={plus2Handler}>10만</div>
               <div className={style.plusBtn} onClick={plus3Handler}>5만</div>
               <div className={style.plusBtn} onClick={plus4Handler}>1만</div>
+              <div className={style.plusBtn} onClick={resetHandler}>초기화</div>
             </div>
             <div className={style.repaymentSpan}>
               <span>금액</span>

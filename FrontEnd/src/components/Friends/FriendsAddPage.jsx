@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import HeaderSub from '../Common/HeaderSub';
 import style from './FriendsAddPage.module.css';
 import { customAxios } from '../api/customAxios';
+import toast, { Toaster } from 'react-hot-toast';
 
 const FriendsAdd = () => {
   const [name, setName] = useState('');
@@ -66,8 +67,16 @@ const FriendsAdd = () => {
       setResUser({});
       setName("");
       setPhoneNumber("");
+      toast.success("친구 신청 성공!", {
+        duration: 1000,
+      });
+      setTimeout(1000);
     })
     .catch((res)=>{
+      toast.error("친구 신청 실패", {
+        duration: 1000,
+      });
+      setTimeout(1000);
     })
   }
 
@@ -84,6 +93,7 @@ const FriendsAdd = () => {
   return (
     <div className={style.body}>
       <HeaderSub title={"친구 추가"} />
+      <div><Toaster /></div>
       <div className={style.inputBox}>
         <input type="text" placeholder="이름" value={name} onChange={handleNameChange}/>
       </div>

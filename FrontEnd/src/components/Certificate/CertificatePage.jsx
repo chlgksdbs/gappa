@@ -2,12 +2,13 @@ import React, { useState, useRef, useEffect } from 'react';
 import html2pdf from 'html2pdf.js';
 import style from './Certificate.module.css';
 import { customAxios } from '../api/customAxios';
+import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { numberToKorean, numberToKoreanChunk } from './koreanConverter';
 
-
-
 const CertificatePage = () => {
+  const navigate = useNavigate();
+
   const location = useLocation();
   const data = location.state; // {loanSeq: 15, toUserSeq: 4, fromUserSeq: 6}
   
@@ -187,7 +188,10 @@ const CertificatePage = () => {
         <div className={style.line} />
         <img src="" alt="" className={style.waterMark}></img>
       </div>
-      <button className={style.btnStyle} onClick={handleGeneratePdf}>PDF로 저장하기</button>
+      <div style={{display:'flex', justifyContent:'space-between'}}>
+        <button className={style.btnStyle} onClick={handleGeneratePdf}>PDF로 저장하기</button>
+        <div style={{height:'35px', fontSize:'18px', fontFamily: 'LINESeedKR-Rg', color:'red'}} onClick={() => {navigate(-1)}}>뒤로가기</div>
+      </div>
     </div>
   );
 };

@@ -18,7 +18,7 @@
 
 .title {
   color: #a1d9ce;
-  margin: 5vh 0 2vh 0;
+  margin: 4vh 0 2vh 0;
 }
 
 .detail {
@@ -34,18 +34,18 @@
 }
 
 .detailKeyThin {
-  font-family: 'TheJamsil3Regular';
+  font-family: 'LINESeedKR-Rg';
   font-size: 20px;
 }
 
 .detailValue {
   font-size: 20px;
-  font-family: 'TheJamsil3Regular';
+  font-family: 'LINESeedKR-Rg';
   line-height: 1.4;
 }
 
 .btnBox {
-  height: 10%;
+  height: 30%;
   width: 100%;
   display: flex;
   justify-content: space-around;
@@ -61,7 +61,7 @@
   right: 0;
 
   background-color: #AFEBDF;
-  font-family: 'TheJamsil5Bold';
+  font-family: 'LINESeedKR-Bd';
   font-size: 24px;
   padding: 20px 40px;
   border: none;
