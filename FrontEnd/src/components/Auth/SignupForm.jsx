@@ -898,7 +898,7 @@ const SignupForm = (props) => {
               ?
               <div className={style.phoneforms}>
                 <input type="number" value={phoneCheckNumber} onChange={onCHnagePhoneCheckNumber} className={style.input} />
-                <input type="button" value="인증번호 확인" onClick={phoneCheckNumberConfirm} className={style.formbtn} />
+                <input type="button" value="인증번호 확인" onClick={phoneCheckNumberConfirm} className={style.formbtn} style={{padding:'.5rem'}} />
               </div>
               :
               null

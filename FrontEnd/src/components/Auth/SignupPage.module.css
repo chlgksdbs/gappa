@@ -4,7 +4,6 @@
   flex-direction: column;
   align-items: center;
   height: 100vh;
-
 }
 
 .ex{
@@ -26,11 +25,18 @@
   width: 90%;
   font-size: 13px;
   height: 60vh;
+  overflow-y: scroll; /* 스크롤이 필요한 경우에만 스크롤 바 표시 */
+  scrollbar-width: none; /* Firefox에서 스크롤 바 숨기기 */
+  -ms-overflow-style: none; /* Internet Explorer에서 스크롤 바 숨기기 */
+}
+.form::-webkit-scrollbar {
+  width: 0; /* Webkit 기반 브라우저(Chrome, Safari)에서 스크롤 바 숨기기 */
+  display: none; /* Safari에서 스크롤 바 숨기기 */
 }
 
 .form span{
   font-size: 16px;
-  margin-top: 2vh;
+  margin-top: 1vh;
 }
 
 .adresstop{
@@ -40,6 +46,7 @@
   border-width: 0 0 1px;
   border-color: lightgray;
   width: 10;
+  font-size: 15px;
 }
 
 .input:focus{
@@ -81,7 +88,8 @@
 .frombtnx{
   background-color: lightgray;
   border: 0;
-  border-radius: 4px;
+  padding: .5rem 0;
+  border-radius: 2px;
   font-size: 12px;
 }
 
@@ -92,7 +100,7 @@
   border-radius: 2px;
   background-color: #80CEBE;
   color:white;
-  margin-top: 10vh;
+  margin-top: 8vh;
   /* margin-bottom: 10vh; */
 }
 
@@ -104,7 +112,7 @@
   background-color: lightgray;
   color:white;
   font-size: 20px;
-  margin-top: 10vh;
+  margin-top: 8vh;
   /* margin-bottom: 7vh; */
 }
 
@@ -146,7 +154,7 @@
 }
 
 .phonecheckform span{
-  margin-bottom: 1vh;
+  /* margin-bottom: 1vh; */
 }
 
 .phoneforms{
