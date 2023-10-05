@@ -78,15 +78,17 @@
 }
 
 .explanation {
-  margin: 3vh 0 3vh 0;
-  width: 80%;
+  margin: 3vh auto;
+  margin-top: 5vh;
+  width: 100%;
   font-size: 20px;
+  text-align: center;
 }
 
 .passwordBox {
   height: 10%;
-  width: 80%;
-  margin-bottom: 3vh;
+  width: 70%;
+  margin: 3vh auto 1vh;
 }
 
 
@@ -102,7 +104,7 @@
 
 .btnBoxCert {
   height: 10%;
-  width: 90%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -167,7 +169,7 @@
   border: 2px solid #AFEBDF;
   border-radius: 5px;
   padding: 10px;
-  margin: 2vh 0 2vh 0;
+  margin: 2vh 0 5vh 0;
 }
 
 .btnBox {
@@ -212,7 +214,7 @@
   justify-content: center;
   align-items: center;
   font-size: 25px;
-  background: #988dde;
+  background: #80CEBE;
   margin-bottom: 20px;
 }
 
