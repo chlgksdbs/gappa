@@ -46,13 +46,16 @@
   width: 100%;
   border:none;
   border-bottom: 2px solid #ccc;
-  font-size: 20px;
+  font-size: 22px;
 }
 
 .formbtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 40%;
   font-family: "LINESeedKR-Br";
-  font-size: 14px;
+  font-size: 17px;
   border-radius: 5px;
   border: 2px solid #ccc;
   background-color: #AFEBDF;
