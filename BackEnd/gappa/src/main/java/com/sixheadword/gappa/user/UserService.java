@@ -437,7 +437,7 @@ public class UserService {
                 }
                 data.put("isMyProfile", true);
             } else {                            // 다른 사람의 유저 정보 조회
-                Long overdueCnt = loanRepository.countLoanByRedemptionDateGreaterThanAndFromUser(LocalDateTime.now(), user);
+                Long overdueCnt = loanRepository.countLoanByRedemptionDateBeforeAndAndFromUser(LocalDateTime.now(), user);
                 Long repaymentCnt = loanRepository.countLoanByUserSeq(userSeq);
                 List<Loan> loans = loanRepository.findByFromUser(user);
                 char loanStatus = 0;
