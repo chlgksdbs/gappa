@@ -1,4 +1,4 @@
-# New Document# SSAFY 공통프로젝트 1주차
+# SSAFY 공통프로젝트 1주차
 
 ### 🖥️ 프로젝트 소개
 
