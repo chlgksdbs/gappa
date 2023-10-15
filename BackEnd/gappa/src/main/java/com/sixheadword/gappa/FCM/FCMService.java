@@ -31,7 +31,7 @@ public class FCMService {
         HttpStatus status = null;
         try {
             User user = userRepository.findById(member_id).orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
-            redisUtil.save(user.getPhone(), fcmTokenDto.getToken());
+            redisUtil.save(user.getPhone()+"FCM", fcmTokenDto.getToken());
             pushNotification(member_id, "Gappa 푸시알림을 허용했어요!");
             resultMap.put("message", "요청 성공");
             status = HttpStatus.OK;
@@ -49,12 +49,12 @@ public class FCMService {
         HttpStatus status = null;
         try {
             User user = userRepository.findById(member_id).orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
-            if (!redisUtil.hasKey(user.getPhone())) {
+            if (!redisUtil.hasKey(user.getPhone()+"FCM")) {
                 resultMap.put("message", "유저의 FireBase 토큰이 없습니다.");
                 status = HttpStatus.BAD_REQUEST;
             }
             else {
-                String token = redisUtil.getData(user.getPhone());
+                String token = redisUtil.getData(user.getPhone()+"FCM");
                 Message message = Message.builder()
                         .setToken(token)
                         .setWebpushConfig(WebpushConfig.builder()
