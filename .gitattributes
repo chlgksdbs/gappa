@@ -1,0 +1,11 @@
+BackEnd/** linguist-documentation=false
+BackEnd/** linguist-vendored=false
+
+FrontEnd/** linguist-documentation=false
+FrontEnd/** linguist-vendored=false
+
+assets/** linguist-documentation=false
+assets/** linguist-vendored=false
+
+exec/** linguist-documentation=false
+exec/** linguist-vendored=false
